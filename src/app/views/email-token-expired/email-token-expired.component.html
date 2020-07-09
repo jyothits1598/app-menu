@@ -1,0 +1,24 @@
+<nav style="position: fixed;top:0;left:0;right:0;z-index: 1;">
+    <div class="navbar btn-pd justify-content-between">
+        <a class="navbar-brand" style="font-size:24px;"> menuzapp </a>
+    </div>
+</nav>
+<div class="container h-100">
+    <div class="row m-class">
+        <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">          
+            <div class="row">
+                <div class="col-md-12">
+                    <table>
+                        <tr>
+                            <td valign="top" width="60"> <i class="fa fa-times fa-3x" style="color:#dd0000;font-weight: 100;"></i></td>
+                            <td>
+                                <h3 class="sign-header"> Link is expired. </h3> 
+                                <p> Please  <a [routerLink]="['/']" >login</a> to continue. </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>           
+        </div>
+    </div>
+</div>

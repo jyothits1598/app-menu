@@ -1,0 +1,36 @@
+<nav style="position: fixed;top:0;left:0;right:0;z-index: 1;">
+    <div class="navbar btn-pd justify-content-between">
+        <a class="navbar-brand" style="font-size:24px;"> menuzapp </a>
+    </div>
+</nav>
+<div class="container h-100">
+    <div class="row m-class">
+        <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">
+            <form [formGroup]="resendSignupEmail" (ngSubmit)="resendEmail()" >
+                <h2 class="sign-header"> Please confirm your email address </h2>
+                <p style="margin-top: 15px;"> We have sent an email to <b> {{ emailAddress }} </b> with a link to confirm the address.</p>
+                <p> If you don't receive the email, check your spam folder, try again using a different email address, or contact our <a [routerLink]="['/page-under-progress']" title="Support team"> support team.</a>  </p>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="label-inputs"> Email </label>
+                            <input type="email" class="form-control form-input" placeholder="e.g. name@domain.com" formControlName="resendemail" [ngClass]="{ 'is-invalid': resendemailSubmit && f.resendemail.errors }">
+                            <div *ngIf="resendemailSubmit && f.resendemail.errors" class="error-mez">
+                                <div *ngIf="f.resendemail.errors.required"> Email field is required </div>
+                                <div *ngIf="f.resendemail.errors.email"> Please enter a valid email address </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="submit" class="btn re-send" value="Resend email" title="Resend email">
+                            <a [routerLink]="['/']" ><input type="button" class="btn btn-custom-login" value="Login" style="margin-left:10px;"></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

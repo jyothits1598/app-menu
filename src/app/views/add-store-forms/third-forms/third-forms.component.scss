@@ -1,0 +1,43 @@
+
+.form-header {
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 48px;
+  }
+  .re-send {
+    color:#353FA8;
+    background: #FAFAFA;
+    font-weight:600;
+    border-radius: 0;
+  }
+  .btn-custom-login {
+    color:#fff;
+    background: #353FA8;
+    border-radius: 0;
+  }
+  .upload-file-btn {
+    color:#353FA8;
+    background: #FAFAFA;
+    font-weight:600;
+    border-radius: 0;
+    border: 2px solid #F2F2F2;
+  }
+  .select-file {
+    // padding:10px;
+    border: 2px solid #F2F2F2;
+    color:#353FA8;
+    width:160px;
+    text-align: center;
+    float:left;
+    cursor: pointer;
+    font-size:16px;
+    background: #fff;
+  }
+  .fnt-14 {
+    font-size:14px;
+  }
+  .select-file.is-invalid {
+    border-color:none !important;
+  }

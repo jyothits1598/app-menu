@@ -1,0 +1,31 @@
+.add-plus {
+    padding: 5px 10px;
+    color: #1A1A1A;
+    cursor: pointer;
+    // box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+    background: #FAFAFA;
+}
+.add-group {
+    height:100%;
+    color:#353FA8;
+    overflow-y: auto;
+}
+.menu-list .sidebar{
+    height:100%;
+    padding: 10px;
+}
+.nav-item .nav-link i {
+    width:20px;
+}
+.menu-custom a:hover {background-color: #F2F2F2;cursor: pointer;}
+.nav-link {
+    padding: 8px;
+}
+.add-plus:focus{
+    outline: 0;
+}
+.pd-tb {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+}

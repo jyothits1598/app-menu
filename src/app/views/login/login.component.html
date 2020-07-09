@@ -1,0 +1,53 @@
+<nav>
+    <div class="navbar btn-pd justify-content-between">
+        <a class="navbar-brand" style="font-size:24px;"> menuzapp </a>
+        <div class="btn-names">
+            <a style="text-decoration: none;color:#fff" [routerLink]="['/signup']" title="Signup" >Don't have an account? Register now </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="signin-card">
+        <div class="login-header mb-4"> 
+            Menuzapp Restaurant login
+        </div>
+        <form class="user" id="Login" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input class="form-control form-input" [(ngModel)]="email" email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"  placeholder="Email" type="email" required id="email" name="email" #useremail="ngModel">
+                        <div class="error-mez"  *ngIf="useremail.touched && useremail.invalid || email_error">
+                            <div *ngIf="useremail?.errors?.required">
+                              Email is required
+                            </div>
+                            <div *ngIf="useremail?.errors?.pattern">
+                              Email is invalid
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input class="form-control form-input custom-password-eye" required [(ngModel)]="password" placeholder="Password" type="password" id="password" name="password" #userpassword="ngModel">
+                    <span toggle="#password" class="fa fa-eye-slash field-icon toggle-password"></span>
+                    <p *ngIf="userpassword.touched && userpassword.invalid || password_error" class="error-mez"> Password is required </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-custom" value="Login" >
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="text-center mt-4">
+                        <a class="default-text" [routerLink]="['/forgot-password']" title="Forgot password" >Forgot password</a>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a class="default-text" [routerLink]="['/signup']" title="signup" >Register an account</a>
+                    </div>
+                </div>
+            </div> 
+        </form>   
+    </div>
+</div>

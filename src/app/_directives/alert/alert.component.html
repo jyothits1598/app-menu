@@ -1,0 +1,16 @@
+<div class="alert-message-popup" *ngIf="showNotificationStatus">
+  <div class="alert-info"><span [ngStyle]="{'color': notification_color}" style="font-weight: 700" [innerHTML]="showNotificationMessage"></span></div>
+</div>
+
+<!-- Alert info in bottom left -->
+<div class="alert-bottom" id="alert_bottom" *ngIf="showAlertBottomNotificationStatus" style="display:block">
+  <strong [innerHTML]="showAlertBottomNotificationMessage"></strong>&nbsp; &nbsp;&nbsp;<i class="fa fa-times" (click)="closeAlertbottomNotifcation()" style="cursor:pointer;"></i>
+</div>
+
+
+  <div class="text-center loading" *ngIf="showLoader">
+    <div class="loader"></div>
+  </div>
+  
+  
+  

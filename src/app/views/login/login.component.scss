@@ -1,0 +1,36 @@
+.login-header {
+    text-align: center;
+    font-size:22px;
+    color:#000;
+    font-style: normal;
+    font-weight: 600;
+}
+.btn-custom {
+    background: #353FA8;
+    color:#fff;
+    border-radius: 0 !important;
+    width: 100%;
+    text-align: center;
+}
+.default-text {
+    color:#353FA8;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: none;
+}
+.signin-card {
+    margin: 0 auto 25px;     
+    max-width: 300px;
+    padding-top: 100px;
+}
+input.custom-password-eye {
+    padding-right:30px;
+}
+.field-icon {
+  position: absolute;
+  cursor: pointer;
+  top:10px;
+  right:25px;
+  z-index: 1;
+  color:#B3B3B3;
+}
