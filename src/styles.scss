@@ -1,12 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-body {
-    font-family: DM Sans !important;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background: #fff;
-}
+@import "./style/colors";
+@import "./style/typography";
+@import "./style/base";
+@import "./style/utilities";
+@import "./style/components";
+
 nav {
   background:#353FA8;
   color:#fff;

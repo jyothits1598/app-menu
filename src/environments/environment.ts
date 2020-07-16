@@ -15,6 +15,6 @@ export const environment = {
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
-export const API_URL_LINK = 'http://localhost/Menuzapp/ApiGateway/public/';
+export const API_URL_LINK = 'http://3.7.155.134:81/';
 
 export const REQUEST_A_ACTIVE = 'http://localhost:4200/email-verify';

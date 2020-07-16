@@ -1,0 +1,26 @@
+.resnt-menu-top-tabs{
+    list-style: none;
+    padding: 0px;
+    border-bottom: 1px solid var(--color-elements-tertiary);
+    width: max-content;
+
+    &__item{
+        display: inline-block;
+
+        
+    }
+
+    &__button{
+        background-color: transparent;
+        padding: 0.6rem 1.1rem;
+        border: none;
+
+        &__active{
+            border-bottom: 4px solid var(--color-primary);
+        }
+    }
+}
+
+.resnt-menu-tabs-content{
+    max-width: 60rem;
+}

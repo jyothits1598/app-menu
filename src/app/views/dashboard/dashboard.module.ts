@@ -8,6 +8,10 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent
   },
+  {
+    path: 'restaurant-menu',
+    loadChildren: () => import('./restaurant-menu/restaurant-menu.module').then(m => m.RestaurantMenuModule)
+  }
 ]
 const dashboardRouting = RouterModule.forChild(routes);
 

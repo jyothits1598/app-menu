@@ -1,0 +1,23 @@
+
+
+.resnt-menu-overview-list{
+    list-style: none;
+
+    &__item{
+        margin-bottom: 1rem;
+    }
+
+    &__icon{
+        width: 2rem;
+        height: 2rem;
+        display: inline-block;
+    }
+
+    &__cont{
+        display: inline-block;
+    }
+
+    &__smry{
+        margin: 0px;
+    }
+}

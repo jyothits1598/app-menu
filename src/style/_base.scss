@@ -1,0 +1,22 @@
+*,
+*::after,
+*::before {
+  margin: 0px;
+  margin-bottom: 0px;
+  padding: 0px;
+  box-sizing: inherit;
+}
+
+body {
+  box-sizing: border-box;
+  color: var(--color-elements-primary);
+  font-family: DM Sans !important;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #fff;
+}
+
+// html {
+//   font-size: 62.5%;
+// }
