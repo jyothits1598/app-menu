@@ -37,15 +37,21 @@
                 </div>
             </div>
 
-            <!-- <div class="form-group">
+            <div class="form-group">
                 <label class="label-inputs"> Google business URL <b class="m-star">*</b> </label>
-                <input type="text" class="form-control form-input" placeholder="e.g. Buzz" >
+                <input type="text" class="form-control form-input" placeholder="e.g. Buzz" formControlName="google_business_url">
+                <div *ngIf="f.google_business_url.touched && f.google_business_url.errors" class="error-mez">
+                    <div *ngIf="f.google_business_url.errors.required"> Please enter Google url </div>
+                </div>
             </div>
             <div class="form-group">
                 <label class="label-inputs"> Facebook URL <b class="m-star">*</b> </label>
-                <input type="text" class="form-control form-input" placeholder="e.g. Buzz" >
+                <input type="text" class="form-control form-input" placeholder="e.g. Buzz" formControlName="facebook_url">
+                <div *ngIf="f.facebook_url.touched && f.facebook_url.errors" class="error-mez">
+                    <div *ngIf="f.facebook_url.errors.required"> Please enter Facebook url</div>
+                </div>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label class="label-inputs"> Opening hours <b class="m-star">*</b> </label>
                 <input type="text" class="form-control form-input" placeholder="e.g. Buzz" >
             </div> -->

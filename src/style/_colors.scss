@@ -1,7 +1,13 @@
 :root{
     --color-background: white;
     --color-primary: #353FA8;
-    --color-typography-primary: red;
+    --color-typography-primary: rgb(54, 54, 54)(54, 53, 53);
     --color-typography-secondary: #6b6b6b;
     --color-typography-tertiary: #dfdfdf;
+    --color-lines-primary : #dddddd;
+    --color-success : #72CC00;
+    --color-success-light : #E2FFBC;
 }
+
+$color-typography-primary : var(--color-typography-primary);
+$color-lines-primary : var(--color-lines-primary);

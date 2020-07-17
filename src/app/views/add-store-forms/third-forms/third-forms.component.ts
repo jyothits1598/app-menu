@@ -84,7 +84,7 @@ export class ThirdFormsComponent implements OnInit {
           'certificate_of_registration':certificate
           }; 
           this.alertservice.showLoader();
-          this.restApiservice.postAPI('store/update/'+this.store_id+'/ownership-proof',data,(response)=>{
+          this.restApiservice.putAPI('store/update/'+this.store_id+'/ownership-proof',data,(response)=>{
             if(response && response['success'] && response['data']) {
               this.alertservice.hideLoader();
               // console.log('success');

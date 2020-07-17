@@ -74,7 +74,7 @@ export class FourthFormsComponent implements OnInit {
           'bank_account_number':this.bankForm.value.accountNumber
         }; 
         this.alertservice.showLoader();
-        this.restApiservice.postAPI('store/update/'+this.store_id+'/bank-account',data,(response)=>{
+        this.restApiservice.putAPI('store/update/'+this.store_id+'/bank-account',data,(response)=>{
           if(response && response['success'] && response['data']) {
             console.log('success');
             this.alertservice.hideLoader();

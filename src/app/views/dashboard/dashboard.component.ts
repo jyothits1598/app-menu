@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
     var obj = this;
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
-      obj.authenticateService.checkExpiryStatus();
+      // obj.authenticateService.checkExpiryStatus();
     }
     obj.authenticateService.getUserObject().subscribe((response)=>{
       if(response && response['user_details'] && response['user_details']['store_partner_id']){

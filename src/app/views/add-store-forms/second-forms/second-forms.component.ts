@@ -57,6 +57,8 @@ export class SecondFormsComponent implements OnInit {
       storeAddress: ['', Validators.required],
       typeCuisine: ['', Validators.required],
       descriptionItem: ['', Validators.required],
+      google_business_url: ['', Validators.required],
+      facebook_url: ['', Validators.required],
     });
   }
 
@@ -77,7 +79,9 @@ export class SecondFormsComponent implements OnInit {
         'store_name':this.storeDetailform.value.storeName,
         'store_address':this.storeDetailform.value.storeAddress,
         'type_of_cuisine':this.storeDetailform.value.typeCuisine,
-        'description':this.storeDetailform.value.descriptionItem
+        'description':this.storeDetailform.value.descriptionItem,
+        'google_business_url': this.storeDetailform.value.google_business_url,
+        'facebook_url': this.storeDetailform.value.facebook_url
       }; 
       if(this.add_edit_type=='add') { 
       this.alertservice.showLoader();
