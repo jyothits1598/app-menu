@@ -1,0 +1,60 @@
+<div class="menu-creator__actn-btns">
+    <button class="std-button mr-sm-3">Delete</button>
+    <button class="std-button">Save</button>
+</div>
+<div class="menu-creator__name pb-2 mb-5">
+    <button class="menu-creator__name__bk-icon u-btn-reset">Back</button>
+    <input class="menu-creator__name__input" type="text" placeholder="Enter a name for this menu">
+</div>
+
+<div>
+    <h3 class="std-heading-3 mb-4">Availability</h3>
+    <h4 class="std-heading-4">Days</h4>
+    <div class="menu-creator__days">
+        <label class="custom_checkbox">
+            <span class="custom_checkbox__label">Mon</span>
+            <input type="checkbox" [(ngModel)]="days.mon">
+            <span class="custom_checkbox__checkmark"></span>
+            <span class="custom_checkbox__background"></span>
+        </label>
+        <label class="custom_checkbox">
+            <span class="custom_checkbox__label">Tue</span>
+            <input type="checkbox" [(ngModel)]="days.tue">
+            <span class="custom_checkbox__checkmark"></span>
+            <span class="custom_checkbox__background"></span>
+        </label>
+        <label class="custom_checkbox">
+            <span class="custom_checkbox__label">Wed</span>
+            <input type="checkbox" [(ngModel)]="days.wed">
+            <span class="custom_checkbox__checkmark"></span>
+            <span class="custom_checkbox__background"></span>
+        </label>
+        <label class="custom_checkbox">
+            <span class="custom_checkbox__label">Thu</span>
+            <input type="checkbox" [(ngModel)]="days.thu">
+            <span class="custom_checkbox__checkmark"></span>
+            <span class="custom_checkbox__background"></span>
+        </label>
+        <label class="custom_checkbox">
+            <span class="custom_checkbox__label">Fri</span>
+            <input type="checkbox" [(ngModel)]="days.fri">
+            <span class="custom_checkbox__checkmark"></span>
+            <span class="custom_checkbox__background"></span>
+        </label>
+        <label class="custom_checkbox">
+            <span class="custom_checkbox__label">Sat</span>
+            <input type="checkbox" [(ngModel)]="days.sat">
+            <span class="custom_checkbox__checkmark"></span>
+            <span class="custom_checkbox__background"></span>
+        </label>
+        <label class="custom_checkbox">
+            <span class="custom_checkbox__label">Sun</span>
+            <input type="checkbox" [(ngModel)]="days.sun">
+            <span class="custom_checkbox__checkmark"></span>
+            <span class="custom_checkbox__background"></span>
+        </label>
+    </div>
+</div>
+
+
+<button (click)="debug()">debug</button>

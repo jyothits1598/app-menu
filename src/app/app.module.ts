@@ -33,6 +33,7 @@ import { AuthGuard } from './_guards';
     FormsModule
   ],
   providers: [AlertService,RestApiService,AuthGuard,AuthenticationService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [FormsModule]
 })
 export class AppModule { }
