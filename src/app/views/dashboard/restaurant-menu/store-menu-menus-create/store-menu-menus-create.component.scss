@@ -1,0 +1,18 @@
+.menu-creator {
+    &__actn-btns {
+        text-align: right;
+    }
+
+    &__name {
+        border-bottom: 1px solid var(--color-lines-primary);
+        
+        &__input {
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            width: 90%;
+        }
+    }
+
+
+}
