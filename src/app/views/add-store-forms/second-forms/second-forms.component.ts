@@ -21,6 +21,8 @@ export class SecondFormsComponent implements OnInit {
   storeAddressSubmit = false;
   typeCuisineSubmit = false;
   descriptionItemSubmit = false;
+  facebookBussinessSubmit = false;
+  googleBussinessSubmit = false;
   returnUrl: string;
   store_id:string;
   storename:string;
@@ -29,6 +31,9 @@ export class SecondFormsComponent implements OnInit {
   getDescription :string;
   store_add_or_edit_action_type:string;
   add_edit_type:string = 'add';
+  getgoogleBussiness: string;
+  getfacebookBussiness: string;
+  
 
   constructor(
     private router: Router,
@@ -43,20 +48,37 @@ export class SecondFormsComponent implements OnInit {
     this.add_edit_type = this.route.snapshot.queryParams['type'] || 'add';
   }
 
+  options={ 
+    componentRestrictions:{ 
+      country:["AU"] 
+    } 
+  } 
+  public AddressChange(address: any) { 
+    //setting address from API to local variable 
+    //  this.storeAddress=address.formatted_address;
+     if (address) {
+        this.storeAddress = address.name + "," + address.formatted_address; 
+     }
+  } 
+
+
   Cuisines: any = ['African: Ethiopian', 'African: other', 'Alcohol', 'American', 'New York', 'Asian fusion', 'Asian: other', 'BBQ', 'Bakery']
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     var obj = this;
     if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
-      obj.authenticateService.checkExpiryStatus();
+      // obj.authenticateService.checkExpiryStatus();
       obj.getstoreDetails();
     }
+   
     this.storeDetailform = this.formBuilder.group({
       storeName: ['', Validators.required],
       storeAddress: ['', Validators.required],
       typeCuisine: ['', Validators.required],
       descriptionItem: ['', Validators.required],
+      googleBussiness: ['', Validators.required],
+      facebookBussiness: ['', Validators.required]
     });
   }
 
@@ -67,6 +89,8 @@ export class SecondFormsComponent implements OnInit {
     this.storeAddressSubmit = true;
     this.typeCuisineSubmit = true;
     this.descriptionItemSubmit = true;
+    this.facebookBussinessSubmit = true;
+    this.googleBussinessSubmit = true;
 
     if (this.storeDetailform.invalid) {
       return;
@@ -75,10 +99,13 @@ export class SecondFormsComponent implements OnInit {
     if(this.storeDetailform.valid){
       let data={
         'store_name':this.storeDetailform.value.storeName,
-        'store_address':this.storeDetailform.value.storeAddress,
+        'store_address':this.storeAddress,
         'type_of_cuisine':this.storeDetailform.value.typeCuisine,
-        'description':this.storeDetailform.value.descriptionItem
+        'description':this.storeDetailform.value.descriptionItem,
+        'google_business_url':this.storeDetailform.value.googleBussiness,
+        'facebook_url':this.storeDetailform.value.facebookBussiness
       }; 
+      console.log(data);
       if(this.add_edit_type=='add') { 
       this.alertservice.showLoader();
       this.restApiservice.postAPI('store/add',data,(response)=>{
@@ -96,11 +123,10 @@ export class SecondFormsComponent implements OnInit {
     } 
     else if(this.add_edit_type=='edit'){
       this.alertservice.showLoader();
-        this.restApiservice.postAPI('store/update/'+this.store_id+'',data,(response)=>{
+        this.restApiservice.putAPI('store/update/'+this.store_id+'',data,(response)=>{
           if(response && response['success'] && response['data']) {
-            console.log(response);
             this.alertservice.hideLoader();
-            console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
+            // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
            return this.router.navigateByUrl('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step']);
           }
       });
@@ -121,10 +147,14 @@ export class SecondFormsComponent implements OnInit {
             this.storeAddress = element.store_address;
             this.cuisine = element.type_of_cuisine;
             this.getDescription = element.description;
+            this.getgoogleBussiness = element.google_business_url;
+            this.getfacebookBussiness = element.facebook_url;
             this.storeDetailform.get('storeName').setValue(this.storename);
             this.storeDetailform.get('storeAddress').setValue(this.storeAddress);
             this.storeDetailform.get('typeCuisine').setValue(this.cuisine);
             this.storeDetailform.get('descriptionItem').setValue(this.getDescription);
+            this.storeDetailform.get('googleBussiness').setValue(this.getgoogleBussiness);
+            this.storeDetailform.get('facebookBussiness').setValue(this.getfacebookBussiness);
             this.alertservice.hideLoader();
           })
         }
@@ -132,8 +162,6 @@ export class SecondFormsComponent implements OnInit {
       });
   }
   
-
-
   changeCuisine() {
     let typeCuisine = this.storeDetailform.value.typeCuisine;
   }

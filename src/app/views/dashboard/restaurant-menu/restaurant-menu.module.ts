@@ -4,6 +4,7 @@ import { RestaurantMenuComponent } from './restaurant-menu.component';
 import { Routes, RouterModule } from '@angular/router';
 import { RestaurantMenuOverviewComponent } from './restaurant-menu-overview/restaurant-menu-overview.component';
 import { RestaurantMenuMenusComponent } from './restaurant-menu-menus/restaurant-menu-menus.component';
+import { RestaurantMenuCategoriesComponent } from './restaurant-menu-categories/restaurant-menu-categories.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
         component: RestaurantMenuMenusComponent
       },
       {
+        path: 'categories',
+        component: RestaurantMenuCategoriesComponent
+      },
+      {
         path: '**',
         redirectTo: 'overview',
         pathMatch: 'full'
@@ -29,7 +34,7 @@ const routes: Routes = [
 const restaurantMenuRouting = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent],
+  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, RestaurantMenuCategoriesComponent],
   imports: [
     CommonModule,
     restaurantMenuRouting

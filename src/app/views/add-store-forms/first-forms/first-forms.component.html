@@ -1,18 +1,15 @@
 <br><br>
-<div class="row">
-    <div class="col-md-6 col-sm-12">
-        <h1 class="form-header pb-5"> 
-            Search for a match in our database 
-        </h1>
-        <p class="pb-2"> Menuzapp has collected the menus of many stores already. To find and claim your store simply search here. </p>
-        <p class="pb-2"> No matches? Simply add your store manually. </p>
-        <div class="form-group">
-            <label class="label-inputs"> Search for your store </label>
-            <input type="text" class="form-control form-input" placeholder="Start typing name, location, keyword or cuisine" >
-        </div>
-        <div class="form-group">
-            <a [routerLink]="['/dashboard']"> <input type="button" class="btn re-send" value="Cancel" > </a>
-            <a [routerLink]="['/store/step1/create']"> <input type="button" class="btn btn-custom-login" value="Add a new store" style="margin-left:10px;"></a>
-        </div>
-    </div>
+<h1 class="form-header pb-5"> 
+    Search for a match in our database 
+</h1>
+<p class="pb-2"> Menuzapp has collected the menus of many stores already. To find and claim your store simply search here. </p>
+<p class="pb-2"> No matches? Simply add your store manually. </p>
+<div class="form-group">
+    <label class="label-inputs"> Search for your store </label>
+    <input type="text" class="form-control form-input" placeholder="Start typing name, location, keyword or cuisine" >
 </div>
+<div class="form-group">
+    <a [routerLink]="['/dashboard']"> <input type="button" class="btn re-send" value="Cancel" > </a>
+    <a [routerLink]="['/store/step1/create']"> <input type="button" class="btn btn-custom-login" value="Add a new store" style="margin-left:10px;"></a>
+</div>
+  

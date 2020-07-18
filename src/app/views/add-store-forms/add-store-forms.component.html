@@ -1,10 +1,27 @@
 <nav style="position: fixed;top:0;left:0;right:0;z-index: 1;">
     <div class="navbar btn-pd justify-content-between">
-        <a class="navbar-brand" style="font-size:24px;"> menuzapp </a>
+        <a class="navbar-brand" style="font-size:24px;"><img src="../../../assets/images/Vector.png"> menuzapp </a>
     </div>
 </nav>
 <div class="container" style="padding: 60px 50px;">
-    <router-outlet></router-outlet>
+    <div class="row">
+        <div class="col-md-5 col-sm-12">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <br><br>
+            <ul style="margin-top:130px;margin-left:120px;">
+                <li> Find your store </li>
+                <li> Store details </li>
+                <li> Proof of ownership </li>
+                <li> Add a bank account </li>
+                <li> Complete setup </li>
+            </ul>
+        </div>
+    </div>
+    
+
+
     <div class="row" style="display: none;">
         <div class="col-md-6 col-sm-12">
             <h1 class="form-header pb-5"> 
