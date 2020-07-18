@@ -8,53 +8,94 @@
 </div>
 
 <div>
-    <h3 class="std-heading-3 mb-4">Availability</h3>
+    <h3 class="std-heading-3 mb-4">Add availability</h3>
     <h4 class="std-heading-4">Days</h4>
-    <div class="menu-creator__days">
-        <label class="custom_checkbox">
-            <span class="custom_checkbox__label">Mon</span>
-            <input type="checkbox" [(ngModel)]="days.mon">
-            <span class="custom_checkbox__checkmark"></span>
-            <span class="custom_checkbox__background"></span>
+    <div class="menu-creator__days mb-4">
+        <label class="custom-checkbox">
+            <span class="custom-checkbox__label">Mon</span>
+            <input type="checkbox" [(ngModel)]="days.monday">
+            <span class="custom-checkbox__checkmark"></span>
+            <span class="custom-checkbox__background"></span>
         </label>
-        <label class="custom_checkbox">
-            <span class="custom_checkbox__label">Tue</span>
-            <input type="checkbox" [(ngModel)]="days.tue">
-            <span class="custom_checkbox__checkmark"></span>
-            <span class="custom_checkbox__background"></span>
+        <label class="custom-checkbox">
+            <span class="custom-checkbox__label">Tue</span>
+            <input type="checkbox" [(ngModel)]="days.tuesday">
+            <span class="custom-checkbox__checkmark"></span>
+            <span class="custom-checkbox__background"></span>
         </label>
-        <label class="custom_checkbox">
-            <span class="custom_checkbox__label">Wed</span>
-            <input type="checkbox" [(ngModel)]="days.wed">
-            <span class="custom_checkbox__checkmark"></span>
-            <span class="custom_checkbox__background"></span>
+        <label class="custom-checkbox">
+            <span class="custom-checkbox__label">Wed</span>
+            <input type="checkbox" [(ngModel)]="days.wednesday">
+            <span class="custom-checkbox__checkmark"></span>
+            <span class="custom-checkbox__background"></span>
         </label>
-        <label class="custom_checkbox">
-            <span class="custom_checkbox__label">Thu</span>
-            <input type="checkbox" [(ngModel)]="days.thu">
-            <span class="custom_checkbox__checkmark"></span>
-            <span class="custom_checkbox__background"></span>
+        <label class="custom-checkbox">
+            <span class="custom-checkbox__label">Thu</span>
+            <input type="checkbox" [(ngModel)]="days.thursday">
+            <span class="custom-checkbox__checkmark"></span>
+            <span class="custom-checkbox__background"></span>
         </label>
-        <label class="custom_checkbox">
-            <span class="custom_checkbox__label">Fri</span>
-            <input type="checkbox" [(ngModel)]="days.fri">
-            <span class="custom_checkbox__checkmark"></span>
-            <span class="custom_checkbox__background"></span>
+        <label class="custom-checkbox">
+            <span class="custom-checkbox__label">Fri</span>
+            <input type="checkbox" [(ngModel)]="days.friday">
+            <span class="custom-checkbox__checkmark"></span>
+            <span class="custom-checkbox__background"></span>
         </label>
-        <label class="custom_checkbox">
-            <span class="custom_checkbox__label">Sat</span>
-            <input type="checkbox" [(ngModel)]="days.sat">
-            <span class="custom_checkbox__checkmark"></span>
-            <span class="custom_checkbox__background"></span>
+        <label class="custom-checkbox">
+            <span class="custom-checkbox__label">Sat</span>
+            <input type="checkbox" [(ngModel)]="days.saturday">
+            <span class="custom-checkbox__checkmark"></span>
+            <span class="custom-checkbox__background"></span>
         </label>
-        <label class="custom_checkbox">
-            <span class="custom_checkbox__label">Sun</span>
-            <input type="checkbox" [(ngModel)]="days.sun">
-            <span class="custom_checkbox__checkmark"></span>
-            <span class="custom_checkbox__background"></span>
+        <label class="custom-checkbox">
+            <span class="custom-checkbox__label">Sun</span>
+            <input type="checkbox" name="startTime" [(ngModel)]="days.sunday">
+            <span class="custom-checkbox__checkmark"></span>
+            <span class="custom-checkbox__background"></span>
         </label>
+    </div>
+    <div class="menu-creator__time">
+        <div class="mr-3">
+            <h4 class="std-heading-4">Start time</h4>
+            <div style="position: relative;">
+                <div class="menu-creator__time__selector" (click)="showStartTime = !showStartTime">
+                    <h4 *ngIf="startTime" class="std-heading-4">{{startTime}}</h4>
+                    <h4 *ngIf="!startTime" class="std-heading-4">Select</h4>
+                    <div class="arrow-down"></div>
+                </div>
+                <div *ngIf="showStartTime" class="menu-creator__time__plugin">
+                    <ngb-timepicker name="endTime" [(ngModel)]="startTime"></ngb-timepicker>
+                </div>
+            </div>
+        </div>
+        <div class="mr-3">
+            <h4 class="std-heading-4">End time</h4>
+            <div style="position: relative;">
+                <div class="menu-creator__time__selector" (click)="showEndTime = !showEndTime">
+                    <h4 class="std-heading-4">Select</h4>
+                    <div class="arrow-down"></div>
+                </div>
+                <div *ngIf="showEndTime" class="menu-creator__time__plugin">
+                    <ngb-timepicker [(ngModel)]="endTime"></ngb-timepicker>
+                </div>
+            </div>
+        </div>
+        <button class="std-button std-button--primary">+&nbsp;&nbsp;Add Time</button>
     </div>
 </div>
 
+<h3 class="std-heading-3 mb-4">Add availability</h3>
+
+<p>Select <strong>days</strong> and <strong>times</strong> above and press <strong>add time</strong> to add
+    availability.</p>
+
+<ul class="menu-creator__availability">
+    <li class="menu-creator__availability__li">
+        <h4 class="std-heading-4">Tuesday</h4>
+        <span>9:00AM - 5:OOPM</span>
+        <span>Mark as closed</span>
+        <span>Delete</span>
+    </li>
+</ul>
 
 <button (click)="debug()">debug</button>

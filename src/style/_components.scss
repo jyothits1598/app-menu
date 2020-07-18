@@ -9,7 +9,7 @@
     }
 }
 
-.custom_checkbox {
+.custom-checkbox {
     display: inline-block;
     position: relative;
     cursor: pointer;
@@ -51,16 +51,16 @@
     }
 
     /* On mouse-over, add a grey background color */
-    &:hover input ~ .custom_checkbox__checkmark {
+    &:hover input ~ .custom-checkbox__checkmark {
         background-color: #ccc;
     }
 
     /* When the checkbox is checked, add a blue background */
-    & input:checked ~ .custom_checkbox__checkmark {
+    & input:checked ~ .custom-checkbox__checkmark {
         background-color: var(--color-success);
     }
 
-    & input:checked ~ .custom_checkbox__background {
+    & input:checked ~ .custom-checkbox__background {
         display: block;
     }
 
@@ -72,12 +72,12 @@
     }
 
     /* Show the checkmark when checked */
-    & input:checked ~ .custom_checkbox__checkmark:after {
+    & input:checked ~ .custom-checkbox__checkmark:after {
         display: block;
     }
 
     /* Style the checkmark/indicator */
-    & .custom_checkbox__checkmark:after {
+    & .custom-checkbox__checkmark:after {
         left: 4px;
         top: 1px;
         width: 6px;
@@ -91,7 +91,7 @@
 }
 
 /* Hide the browser's default checkbox */
-.custom_checkbox input {
+.custom-checkbox input {
     position: absolute;
     opacity: 0;
     cursor: pointer;

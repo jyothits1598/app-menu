@@ -6,6 +6,7 @@ import { RestaurantMenuOverviewComponent } from './restaurant-menu-overview/rest
 import { RestaurantMenuMenusComponent } from './restaurant-menu-menus/restaurant-menu-menus.component';
 import { StoreMenuMenusCreateComponent } from './store-menu-menus-create/store-menu-menus-create.component';
 import { FormsModule } from '@angular/forms';
+import  { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap'
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const restaurantMenuRouting = RouterModule.forChild(routes);
     FormsModule,
     CommonModule,
     restaurantMenuRouting,
+    NgbTimepickerModule
   ]
 })
 export class RestaurantMenuModule { }
