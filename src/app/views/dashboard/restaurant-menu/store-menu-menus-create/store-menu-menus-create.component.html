@@ -1,16 +1,16 @@
-<div class="menu-creator__actn-btns">
+<div class="menu-creator__actn-btns mb-2">
     <button class="std-button mr-sm-3">Delete</button>
     <button class="std-button">Save</button>
 </div>
-<div class="menu-creator__name pb-2 mb-5">
+<div class="menu-creator__name pb-2 mb-4">
     <button class="menu-creator__name__bk-icon u-btn-reset">Back</button>
     <input class="menu-creator__name__input" type="text" placeholder="Enter a name for this menu">
 </div>
 
 <div>
-    <h3 class="std-heading-3 mb-4">Add availability</h3>
-    <h4 class="std-heading-4">Days</h4>
-    <div class="menu-creator__days mb-4">
+    <h3 class="std-heading-3 mb-3">Add availability</h3>
+    <h4 class="std-heading-4 mb-1">Days</h4>
+    <div class="menu-creator__days mb-3">
         <label class="custom-checkbox">
             <span class="custom-checkbox__label">Mon</span>
             <input type="checkbox" [(ngModel)]="days.monday">
@@ -54,37 +54,26 @@
             <span class="custom-checkbox__background"></span>
         </label>
     </div>
-    <div class="menu-creator__time">
+    <div class="menu-creator__time mb-4">
         <div class="mr-3">
-            <h4 class="std-heading-4">Start time</h4>
-            <div style="position: relative;">
-                <div class="menu-creator__time__selector" (click)="showStartTime = !showStartTime">
-                    <h4 *ngIf="startTime" class="std-heading-4">{{startTime}}</h4>
-                    <h4 *ngIf="!startTime" class="std-heading-4">Select</h4>
-                    <div class="arrow-down"></div>
-                </div>
-                <div *ngIf="showStartTime" class="menu-creator__time__plugin">
-                    <ngb-timepicker name="endTime" [(ngModel)]="startTime"></ngb-timepicker>
-                </div>
-            </div>
+            <h4 class="std-heading-4 mb-1">Start time</h4>
+            <select class="custom-select" [(ngModel)]="startTime">
+                <option> Select </option>
+                <option *ngFor="let t of time" [value]="t">{{ t }}</option>
+            </select>
         </div>
         <div class="mr-3">
-            <h4 class="std-heading-4">End time</h4>
-            <div style="position: relative;">
-                <div class="menu-creator__time__selector" (click)="showEndTime = !showEndTime">
-                    <h4 class="std-heading-4">Select</h4>
-                    <div class="arrow-down"></div>
-                </div>
-                <div *ngIf="showEndTime" class="menu-creator__time__plugin">
-                    <ngb-timepicker [(ngModel)]="endTime"></ngb-timepicker>
-                </div>
-            </div>
+            <h4 class="std-heading-4 mb-1">End time</h4>
+            <select #input class="custom-select" [(ngModel)]="endTime">
+                <option> Select </option>
+                <option *ngFor="let t of time" [value]="t">{{ t }}</option>
+            </select>
         </div>
-        <button class="std-button std-button--primary">+&nbsp;&nbsp;Add Time</button>
+        <button class="std-button std-button--primary" [disabled]="!stateCheck()" (click)="debug()">+&nbsp;&nbsp;Add Time</button>
     </div>
 </div>
 
-<h3 class="std-heading-3 mb-4">Add availability</h3>
+<h3 class="std-heading-3 mb-3">Availability</h3>
 
 <p>Select <strong>days</strong> and <strong>times</strong> above and press <strong>add time</strong> to add
     availability.</p>
