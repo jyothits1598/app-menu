@@ -1,10 +1,14 @@
 :root{
-    --color-background: white;
     --color-primary: #353FA8;
-    --color-typography-primary: rgb(54, 54, 54)(54, 53, 53);
+    --color-background: white;
+    --color-background-secondary : #F2F2F2;
+   
+    --color-typography-primary: rgb(54, 54, 54);
     --color-typography-secondary: #6b6b6b;
     --color-typography-tertiary: #dfdfdf;
+    
     --color-lines-primary : #dddddd;
+    
     --color-success : #72CC00;
     --color-success-light : #E2FFBC;
 }
