@@ -22,10 +22,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 12.5rem;
+            min-width: 12.5rem;
             padding: 0.8rem 1rem;
             background-color: var(--color-background-secondary);
             position: relative;
+            border: none;
 
         }
 

@@ -4,9 +4,23 @@ export class StoreMenu {
 }
 
 export class StoreMenuTime {
-    days: string;
-    startTime : Date;
-    endTime : Date;
-    MarkedAsClose : boolean;
+    day: string;
+    startTime : string;
+    endTime : string;
+    markedAsClose : boolean;
     active: boolean;
+
+    constructor(
+        day: string,
+        startTime: string,
+        endTime: string,
+        markedAsClose : boolean,
+        active: boolean
+    ){
+        this.day = day;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.markedAsClose = markedAsClose;
+        this.active = active;
+    }
 }
