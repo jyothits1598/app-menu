@@ -11,48 +11,34 @@
     <h3 class="std-heading-3 mb-3">Add availability</h3>
     <h4 class="std-heading-4 mb-1">Days</h4>
     <div class="menu-creator__days mb-3">
-        <label class="custom-checkbox">
-            <span class="custom-checkbox__label">Mon</span>
-            <input type="checkbox" [(ngModel)]="days.monday">
-            <span class="custom-checkbox__checkmark"></span>
-            <span class="custom-checkbox__background"></span>
-        </label>
-        <label class="custom-checkbox">
-            <span class="custom-checkbox__label">Tue</span>
-            <input type="checkbox" [(ngModel)]="days.tuesday">
-            <span class="custom-checkbox__checkmark"></span>
-            <span class="custom-checkbox__background"></span>
-        </label>
-        <label class="custom-checkbox">
-            <span class="custom-checkbox__label">Wed</span>
-            <input type="checkbox" [(ngModel)]="days.wednesday">
-            <span class="custom-checkbox__checkmark"></span>
-            <span class="custom-checkbox__background"></span>
-        </label>
-        <label class="custom-checkbox">
-            <span class="custom-checkbox__label">Thu</span>
-            <input type="checkbox" [(ngModel)]="days.thursday">
-            <span class="custom-checkbox__checkmark"></span>
-            <span class="custom-checkbox__background"></span>
-        </label>
-        <label class="custom-checkbox">
-            <span class="custom-checkbox__label">Fri</span>
-            <input type="checkbox" [(ngModel)]="days.friday">
-            <span class="custom-checkbox__checkmark"></span>
-            <span class="custom-checkbox__background"></span>
-        </label>
-        <label class="custom-checkbox">
-            <span class="custom-checkbox__label">Sat</span>
-            <input type="checkbox" [(ngModel)]="days.saturday">
-            <span class="custom-checkbox__checkmark"></span>
-            <span class="custom-checkbox__background"></span>
-        </label>
-        <label class="custom-checkbox">
-            <span class="custom-checkbox__label">Sun</span>
-            <input type="checkbox" name="startTime" [(ngModel)]="days.sunday">
-            <span class="custom-checkbox__checkmark"></span>
-            <span class="custom-checkbox__background"></span>
-        </label>
+        <div class="custom-checkbox" style="margin-right: 7rem;">
+            <input type="checkbox" id="day_mon" [(ngModel)]="days.monday">
+            <label class="custom-checkbox__label std-heading-4" for="day_mon">Mon</label>
+        </div>
+        <div class="custom-checkbox" style="margin-right: 7rem;">
+            <input type="checkbox" id="day_tue" [(ngModel)]="days.tuesday">
+            <label class="custom-checkbox__label std-heading-4" for="day_tue">Tue</label>
+        </div>
+        <div class="custom-checkbox" style="margin-right: 7rem;">
+            <input type="checkbox" id="day_wed" [(ngModel)]="days.wednesday">
+            <label class="custom-checkbox__label std-heading-4" for="day_wed">Wed</label>
+        </div>
+        <div class="custom-checkbox" style="margin-right: 7rem;">
+            <input type="checkbox" id="day_thu" [(ngModel)]="days.thursday">
+            <label class="custom-checkbox__label std-heading-4" for="day_thu">Thu</label>
+        </div>
+        <div class="custom-checkbox" style="margin-right: 7rem;">
+            <input type="checkbox" id="day_fri" [(ngModel)]="days.friday">
+            <label class="custom-checkbox__label std-heading-4" for="day_fri">Fri</label>
+        </div>
+        <div class="custom-checkbox" style="margin-right: 7rem;">
+            <input type="checkbox" id="day_sat" [(ngModel)]="days.saturday">
+            <label class="custom-checkbox__label std-heading-4" for="day_sat">Sat</label>
+        </div>
+        <div class="custom-checkbox" style="margin-right: 7rem;">
+            <input type="checkbox" id="day_sun" [(ngModel)]="days.sunday">
+            <label class="custom-checkbox__label std-heading-4" for="day_sun">Sun</label>
+        </div>
     </div>
     <div class="menu-creator__time mb-4">
         <div class="mr-3">
