@@ -1,8 +1,8 @@
 <nav style="position: fixed;top:0;left:0;right:0;z-index: 1;">
     <div class="navbar btn-pd justify-content-between">
-        <a class="navbar-brand" style="font-size:24px;"> menuzapp </a>
+        <a class="navbar-brand" style="font-size:24px;"><img src="../../../assets/images/Vector.png"> menuzapp </a>
         <div class="btn-names">
-            <a style="text-decoration: none;color:#fff" [routerLink]="['/login']" title="Login" >Already have an account? Login </a>
+            <a style="text-decoration: none;color:#fff" [routerLink]="['/login']" title="login" >Already have an account? Login </a>
         </div>
     </div>
 </nav>
@@ -19,7 +19,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="label-inputs"> First name <b class="m-star">*</b> </label>
-                            <input type="text" class="form-control form-input" placeholder="e.g. Buzz" formControlName="fname" [ngClass]="{ 'is-invalid': fnameSubmit && f.fname.errors }">
+                            <input type="text" class="form-control form-input" placeholder="e.g. Rhiannon" formControlName="fname" [ngClass]="{ 'is-invalid': fnameSubmit && f.fname.errors }">
                             <div *ngIf="fnameSubmit && f.fname.errors" class="error-mez">
                                 <div *ngIf="f.fname.errors.required"> First name field is required </div>
                             </div>
@@ -28,7 +28,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="label-inputs"> Last name <b class="m-star">*</b> </label>
-                            <input type="text" class="form-control form-input" placeholder="e.g. Lightyear" formControlName="lname" [ngClass]="{ 'is-invalid': lnameSubmit && f.lname.errors }">
+                            <input type="text" class="form-control form-input" placeholder="e.g. Sara" formControlName="lname" [ngClass]="{ 'is-invalid': lnameSubmit && f.lname.errors }">
                             <div *ngIf="lnameSubmit && f.lname.errors" class="error-mez">
                                 <div *ngIf="f.lname.errors.required"> Last name field is required</div>
                             </div>

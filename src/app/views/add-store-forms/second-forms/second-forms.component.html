@@ -47,7 +47,7 @@
             <div *ngIf="f.googleBussiness.errors.required"> Please enter Google business URL </div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group pb-1">
         <label class="label-inputs"> Facebook URL <b class="m-star">*</b> </label>
         <input type="text" class="form-control form-input" placeholder="e.g. http://www.facebook.com/xxxxxxxx" formControlName="facebookBussiness" [ngClass]="{ 'is-invalid': facebookBussinessSubmit && f.facebookBussiness.errors }" >
         <div *ngIf="facebookBussinessSubmit && f.facebookBussiness.errors" class="error-mez">

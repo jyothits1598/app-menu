@@ -10,7 +10,7 @@ export class AddStoreFormsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("add store")
+    
   }
 
 }
