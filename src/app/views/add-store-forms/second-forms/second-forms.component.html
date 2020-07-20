@@ -1,67 +1,37 @@
 <br><br>
-<div class="row">
-    <div class="col-md-6 col-sm-12">
-        <form [formGroup]="storeDetailform" (ngSubmit)="storeDetails()" >
-            <h1 class="form-header pb-4"> 
-                Tell us a little about your store 
-            </h1>
-            <div class="form-group">
-                <label class="label-inputs"> Store name <b class="m-star">*</b> </label>
-                <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers" formControlName="storeName" [ngClass]="{ 'is-invalid': storeNameSubmit && f.storeName.errors }" >
-                <div *ngIf="storeNameSubmit && f.storeName.errors" class="error-mez">
-                    <div *ngIf="f.storeName.errors.required"> Please enter store name </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="label-inputs"> Store address <b class="m-star">*</b> </label>
-                <input type="text" class="form-control form-input" placeholder="e.g. 100 Main street, Sampletown, Qld 4000" formControlName="storeAddress" [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }" >
-                <div *ngIf="storeAddressSubmit && f.storeAddress.errors" class="error-mez">
-                    <div *ngIf="f.storeAddress.errors.required"> Please enter store address </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
-                <select formControlName="typeCuisine" class="form-control form-input" (ngModelChange)="changeCuisine()" [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
-                    <option> Select </option>
-                    <option *ngFor="let cuisine of Cuisines" [ngValue]="cuisine"> {{ cuisine }} </option>
-                </select>
-                <div *ngIf="typeCuisineSubmit && f.typeCuisine.errors" class="error-mez">
-                    <div *ngIf="f.typeCuisine.errors.required"> Please select type of cuisine </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="label-inputs"> Description <b class="m-star">*</b> </label>
-                <textarea class="form-control form-input" placeholder="Description" formControlName="descriptionItem" [ngClass]="{ 'is-invalid': descriptionItemSubmit && f.descriptionItem.errors }" ></textarea>
-                <div *ngIf="descriptionItemSubmit && f.descriptionItem.errors" class="error-mez">
-                    <div *ngIf="f.descriptionItem.errors.required"> Please enter description </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="label-inputs"> Google business URL <b class="m-star">*</b> </label>
-                <input type="text" class="form-control form-input" placeholder="e.g. Buzz" formControlName="google_business_url">
-                <div *ngIf="f.google_business_url.touched && f.google_business_url.errors" class="error-mez">
-                    <div *ngIf="f.google_business_url.errors.required"> Please enter Google url </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="label-inputs"> Facebook URL <b class="m-star">*</b> </label>
-                <input type="text" class="form-control form-input" placeholder="e.g. Buzz" formControlName="facebook_url">
-                <div *ngIf="f.facebook_url.touched && f.facebook_url.errors" class="error-mez">
-                    <div *ngIf="f.facebook_url.errors.required"> Please enter Facebook url</div>
-                </div>
-            </div>
-            <!-- <div class="form-group">
-                <label class="label-inputs"> Opening hours <b class="m-star">*</b> </label>
-                <input type="text" class="form-control form-input" placeholder="e.g. Buzz" >
-            </div> -->
-
-            <div class="form-group">
-                <a [routerLink]="['/store/first-form']"> <input type="button" class="btn re-send" value="Cancel" ></a>
-                <input type="submit" class="btn btn-custom-login" value="{{add_edit_type == 'add' ? 'Add a new store' : 'Edit a store'}}" style="margin-left:10px;">
-            </div>
-
-        </form>
+<form [formGroup]="storeDetailform" (ngSubmit)="storeDetails()" >
+    <h1 class="form-header pb-4"> 
+        Tell us a little about your store 
+    </h1>
+    <div class="form-group">
+        <label class="label-inputs"> Store name <b class="m-star">*</b> </label>
+        <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers" formControlName="storeName" [ngClass]="{ 'is-invalid': storeNameSubmit && f.storeName.errors }" >
+        <div *ngIf="storeNameSubmit && f.storeName.errors" class="error-mez">
+            <div *ngIf="f.storeName.errors.required"> Please enter store name </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="label-inputs"> Store address <b class="m-star">*</b> </label>
+        <!-- <input type="text" class="form-control form-input" placeholder="e.g. 100 Main street, Sampletown, Qld 4000" formControlName="storeAddress" #storeAddress [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }" >
+        <ngx-google-places-autocomplete formControlName="place"></ngx-google-places-autocomplete>
+        <div *ngIf="storeAddressSubmit && f.storeAddress.errors" class="error-mez">
+            <div *ngIf="f.storeAddress.errors.required"> Please enter store address </div>
+        </div> -->
+        <input ngx-google-places-autocomplete [options]= 
+        'options'  (onAddressChange)="AddressChange($event)" class="form-control form-input" formControlName="storeAddress" [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }"/> 
+        <div *ngIf="storeAddressSubmit && f.storeAddress.errors" class="error-mez">
+            <div *ngIf="f.storeAddress.errors.required"> Please enter store address </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
+        <select formControlName="typeCuisine" class="form-control form-input" (ngModelChange)="changeCuisine()" [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
+            <option [ngValue]="null" selected> Select </option>
+            <option *ngFor="let cuisine of Cuisines" [ngValue]="cuisine"> {{ cuisine }} </option>
+        </select>
+        <div *ngIf="typeCuisineSubmit && f.typeCuisine.errors" class="error-mez">
+            <div *ngIf="f.typeCuisine.errors.required"> Please select type of cuisine </div>
+        </div>
     </div>
     <div class="form-group">
         <label class="label-inputs"> Description <b class="m-star">*</b> </label>
@@ -94,4 +64,3 @@
     </div>
 
 </form>
-    
