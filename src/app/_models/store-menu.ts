@@ -1,6 +1,11 @@
 export class StoreMenu {
-    menuName: string;
-    openingTime : [StoreMenuTime]
+    id: number;
+    name: string;
+    availability : Array<StoreMenuTime>;
+
+    constructor(){
+        this.availability = new Array<StoreMenuTime>();
+    }
 }
 
 export class StoreMenuTime {

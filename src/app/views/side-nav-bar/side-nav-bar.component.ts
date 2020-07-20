@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-side-nav-bar',
@@ -20,7 +21,8 @@ export class SideNavBarComponent implements OnInit {
     private dataService: DataService,
     private restapiService: RestApiService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private storeService: StoreService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +42,7 @@ export class SideNavBarComponent implements OnInit {
       this.restapiService.getData('store/get',(response)=>{
         if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length > 0){
           this.storeNames = response['data'];
+          this.storeService.stores = response['data'];
           this.alertService.hideLoader();
         }
       });

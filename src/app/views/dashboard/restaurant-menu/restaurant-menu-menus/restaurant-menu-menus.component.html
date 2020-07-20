@@ -1,11 +1,35 @@
-<h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;">Menus</h3>
-<div style="text-align: right;">
-    <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./', {editor: 'true'}]">+&nbsp;&nbsp;New menu</button>
+<ng-container *ngIf="route.children.length == 0">
+    <h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;">Menus</h3>
+    <div style="text-align: right;">
+        <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./', {editor: 'true'}]">+&nbsp;&nbsp;New menu</button>
+    </div>
+    
+        <h3 class="u-margin-bottom-medium std-heading-3">Add your first menu.</h3>
+        
+        <p class="u-margin-bottom-medium">
+            Here you can decide to create one menu for you entire store, or break it down into multiple menus such as breakfast, lunch and dinner. You can also specify the days and times each menu is available. Press new menu to begin.
+        </p>
+    
+</ng-container>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-border">
+            <thead>
+                <tr>
+                    <th scope="col"> Name </th>
+                    <th scope="col"> Menus </th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let menu of menus">
+                  <td>{{menu.name}}</td>
+                  <td>{{menu.availability.length}}</td>
+                  <td>@mdo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<h3 class="u-margin-bottom-medium std-heading-3">Add your first menu.</h3>
 
-<p class="u-margin-bottom-medium">
-    Here you can decide to create one menu for you entire store, or break it down into multiple menus such as breakfast, lunch and dinner. You can also specify the days and times each menu is available. Press new menu to begin.
-</p>
-
-<app-store-menu-menus-create></app-store-menu-menus-create>
+<router-outlet></router-outlet>
