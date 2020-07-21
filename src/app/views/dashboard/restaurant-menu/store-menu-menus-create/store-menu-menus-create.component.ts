@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { StoreMenuTime } from 'src/app/_models/menu-time';
+import { StoreMenuTime } from 'src/app/_models/store-menu';
 
 @Component({
   selector: 'app-store-menu-menus-create',

@@ -9,6 +9,7 @@ import { StoreMenuMenusCreateComponent } from './store-menu-menus-create/store-m
 import { FormsModule } from '@angular/forms';
 import { StoreMenuCategoriesCreateComponent } from './store-menu-categories-create/store-menu-categories-create.component';
 import { RestaurantMenuItemsComponent } from './restaurant-menu-items/restaurant-menu-items.component';
+import { pathToFileURL } from 'url';
 
 const routes: Routes = [
   {
@@ -21,7 +22,17 @@ const routes: Routes = [
       },
       {
         path: 'menus',
-        component: RestaurantMenuMenusComponent
+        component: RestaurantMenuMenusComponent,
+        children: [
+          {
+            path: 'create/:id',
+            component: StoreMenuMenusCreateComponent
+          },
+          {
+            path: 'create',
+            component: StoreMenuMenusCreateComponent
+          }
+        ]
       },
       {
         path: 'categories',
