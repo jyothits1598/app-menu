@@ -7,6 +7,8 @@ import { RestaurantMenuMenusComponent } from './restaurant-menu-menus/restaurant
 import { RestaurantMenuCategoriesComponent } from './restaurant-menu-categories/restaurant-menu-categories.component';
 import { StoreMenuMenusCreateComponent } from './store-menu-menus-create/store-menu-menus-create.component';
 import { FormsModule } from '@angular/forms';
+import { StoreMenuCategoriesCreateComponent } from './store-menu-categories-create/store-menu-categories-create.component';
+import { RestaurantMenuItemsComponent } from './restaurant-menu-items/restaurant-menu-items.component';
 
 const routes: Routes = [
   {
@@ -26,6 +28,10 @@ const routes: Routes = [
         component: RestaurantMenuCategoriesComponent
       },
       {
+        path: 'items',
+        component: RestaurantMenuItemsComponent
+      },
+      {
         path: '**',
         redirectTo: 'overview',
         pathMatch: 'full'
@@ -36,7 +42,7 @@ const routes: Routes = [
 const restaurantMenuRouting = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent],
+  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent],
   imports: [
     FormsModule,
     CommonModule,

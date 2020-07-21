@@ -6,16 +6,12 @@
         <span><i class="fa fa-caret-down"></i></span>
     </div>
 </div> -->
-<div class="add-plus" *ngIf="storeNames?.length >= 1" >
+<!-- <div class="add-plus" *ngIf="storeNames?.length >= 1" >
     <div class="d-flex justify-content-between pd-tb" (click)="toggleMenu()" id="drop_drown" *ngFor="let storename of storeNames">
         <span> {{ storename.store_name }}  </span>
         <span><i class="fa fa-caret-down"></i> </span>
     </div>
     <div *ngIf="show">
-        <!-- <div class="pd-tb">
-            <span> New Stores </span>
-           
-        </div> -->
         <div class="d-flex flex-row pd-tb">       
             <span><i class="fa fa-pencil-square-o" style="color:#353FA8;padding-top: 5px;"></i></span>&nbsp;&nbsp;
             <span>New Stores 1 <br> <small style="color: #353FA8;"> Finish setup </small></span>
@@ -26,11 +22,15 @@
             
         </div>
     </div>
-</div>
-<div class="add-plus d-flex justify-content-between" [routerLink]="['/store/first-form']" title="Add store" *ngIf="storeNames?.length == 0">
+</div> -->
+<!-- <div class="add-plus d-flex justify-content-between" [routerLink]="['/store/first-form']" title="Add store" *ngIf="storeNames?.length == 0">
     <span> Add a store </span>
     <span><i class="fa fa-plus"></i></span>
-</div> 
+</div>  -->
+<div class="add-plus d-flex justify-content-between" [routerLink]="['/store/first-form']" title="Add store">
+    <span> Add a store </span>
+    <span><i class="fa fa-plus"></i></span>
+</div>
 <div class="add-group">
     <div class="menu-list">
         <ul class="navbar-nav menu-custom">

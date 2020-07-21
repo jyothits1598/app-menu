@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: 'step4/:store-id', loadChildren: () => import('../add-store-forms/fifth-forms/fifth-forms.module').then(m => m.FifthFormsModule )},
       {
         path: '**',
-        redirectTo: 'step1',
+        redirectTo: 'first-form',
         pathMatch: 'full'
       }
     ],canActivate: [AuthGuard],

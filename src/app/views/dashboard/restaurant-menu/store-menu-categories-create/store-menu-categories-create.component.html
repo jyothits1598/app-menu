@@ -1,0 +1,64 @@
+<!-- create category -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="float-right">
+            <button class="btn std-button--transparency"> Delete </button>
+            <button class="btn std-button--blue" style="margin-left:10px"><img src="../../../../../assets/images/tick.png"> Save </button>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="input-container">
+            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="pagebackPopup(back)">
+            <input type="text" class="input-border" >
+        </div>  
+    </div>
+    <div class="col-md-12">
+        <div class="row pt-5">
+            <div class="col-md-12">
+                <h3 class="std-heading-3 mb-3"> Menus <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openVerticallyCentered(content)"></h3>
+            </div>
+        </div>
+        <label style="font-weight: 600;"> Menus this category will appear in: </label>
+        <div class="menu-creator__days mb-3">
+            <div class="custom-checkbox" style="margin-right: 7rem;">
+                <input type="checkbox" id="lunch" [(ngModel)]="menu.lunch">
+                <label class="custom-checkbox__label std-heading-4" for="lunch">Lunch</label>
+            </div>
+            <div class="custom-checkbox" style="margin-right: 7rem;">
+                <input type="checkbox" id="dinner" [(ngModel)]="menu.dinner ">
+                <label class="custom-checkbox__label std-heading-4" for="dinner">Dinner</label>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end create category -->
+
+<!-- Info modal -->
+<ng-template #content let-modal>
+    <div class="modal-header header-info">
+      <h4 class="std-heading-3"> Menus </h4>
+      <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p> Categories may appear in multiple menus. To arrange the order that categories appear in the app, 
+        visit the <b>Overview</b> tab.
+      </p>
+    </div>
+</ng-template>
+<!-- Info modal end-->
+
+<!-- back save continue -->
+<ng-template #back let-modal>
+    <div class="modal-body text-center">
+        <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
+      <p class="mb-2"> 
+          If you continue you will lose any unsaved progress
+      </p>
+      <button class="std-button--plane"> Continue </button>
+      <hr>
+      <button class="std-button--plane"> Cancel </button>
+    </div>
+</ng-template>
+<!-- back save continue end-->

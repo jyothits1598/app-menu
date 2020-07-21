@@ -1,6 +1,6 @@
 <h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;"> Categories </h3>
 <div style="text-align: right;">
-    <button class="std-button std-button--primary u-margin-bottom-small"> +&nbsp;&nbsp;New category </button>
+    <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./', {editor: 'true'}]"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New category </button>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -15,18 +15,14 @@
             </thead>
             <tbody>
                 <tr>
-                  <td>1</td>
+                  <td class="menu-clr" [routerLink]="['./', {editor: 'true'}]"> Avalakki </td>
                   <td>Mark</td>
                   <td>Otto</td>
-                  <td>@mdo</td>
+                  <td style="text-align: right;cursor:pointer;" ><img src="../../../../../assets/images/ico_overflow.png"></td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<app-store-menu-categories-create></app-store-menu-categories-create>

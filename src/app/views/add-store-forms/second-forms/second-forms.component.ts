@@ -153,8 +153,8 @@ export class SecondFormsComponent implements OnInit {
             this.storeDetailform.get('storeAddress').setValue(this.storeAddress);
             this.storeDetailform.get('typeCuisine').setValue(this.cuisine);
             this.storeDetailform.get('descriptionItem').setValue(this.getDescription);
-            this.storeDetailform.get('googleBussiness').setValue(this.getgoogleBussiness);
-            this.storeDetailform.get('facebookBussiness').setValue(this.getfacebookBussiness);
+            this.storeDetailform.get('google_business_url').setValue(this.getgoogleBussiness);
+            this.storeDetailform.get('facebook_url').setValue(this.getfacebookBussiness);
             this.alertservice.hideLoader();
           })
         }
