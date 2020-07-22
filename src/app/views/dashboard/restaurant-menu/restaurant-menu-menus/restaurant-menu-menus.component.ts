@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
 import { StoreService } from 'src/app/services/store.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreMenu, StoreMenuTime } from 'src/app/_models/store-menu';

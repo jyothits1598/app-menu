@@ -17,4 +17,4 @@ export const environment = {
 
 export const API_URL_LINK = 'http://3.7.155.134:81/';
 
-export const REQUEST_A_ACTIVE = 'http://localhost:4200/email-verify';
+export const REQUEST_A_ACTIVE = 'http://3.7.155.134/#/email-verify';

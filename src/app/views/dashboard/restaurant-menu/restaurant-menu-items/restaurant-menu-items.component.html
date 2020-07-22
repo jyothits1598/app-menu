@@ -1,0 +1,43 @@
+<h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;"> Items </h3>
+<div class="row">
+    <div class="col-md-3 mb-1">
+        <input type="search" placeholder="Search" class="form-control form-input search" />
+    </div>
+    <div class="col-md-3 mb-1 pd-mq">
+        <select class="custom-select">
+            <option> All </option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <div style="text-align: right;">
+            <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./', {editor: 'true'}]"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New items </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-border">
+            <thead>
+                <tr>
+                    <th scope="col"> Name </th>
+                    <th scope="col"> Price </th>
+                    <th scope="col"> Menus </th>
+                    <th scope="col"> Categories</th>
+                    <th scope="col"> Modifier groups </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td class="menu-clr" [routerLink]="['./', {editor: 'true'}]"> Avalakki </td>
+                  <td> $11.11 </td>
+                  <td> Lunch,Dinner </td>
+                  <td> Avalakki </td>
+                  <td> Size,Sauce,+1</td>
+                  <td style="text-align: right;cursor:pointer;" ><img src="../../../../../assets/images/ico_overflow.png"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

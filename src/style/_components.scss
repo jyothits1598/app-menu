@@ -1,12 +1,35 @@
 .std-button {
     border-radius: 0;
-    padding: 0.75rem 1rem;
+    padding: 0.50rem;
     border: none;
     outline: none !important;
-
     &--primary {
         color: var(--color-background);
         background: var(--color-primary);
+    }
+    &--transparency {
+        color:#353FA8;
+        background: #FAFAFA;
+        font-weight:600;
+        border-radius: 0;
+    }
+    &--transparency:hover {
+        color:#353FA8;
+    }
+    &--blue {
+        color:#fff;
+        background: #353FA8;
+        border-radius: 0;
+    }
+    &--blue:hover {
+        color:#fff;
+    }
+    &--plane{
+        color:#353FA8;
+        background: #fff;
+        border: 0 !important;
+        outline: none !important;
+        font-weight: 600;
     }
 }
 
@@ -14,6 +37,12 @@
 .table-border > tbody > tr > td {
     border-bottom: 1px solid #dddddd;
     border-top: 0px;
+}
+
+.menu-clr {
+    color:#353FA8;
+    outline: 0;
+    cursor: pointer;
 }
 
 .custom-checkbox {
@@ -36,10 +65,10 @@
         position: absolute;
         top: 0;
         left: 0;
-        padding-left: 3rem;
-        padding-bottom: 1rem;
-        padding-top: 1rem;
-        padding-right: 1rem;
+        padding-left: 2.5rem;
+        padding-bottom: 0.75rem;
+        padding-top: 0.75rem;
+        padding-right: 0.75rem;
     }
 
     input:checked ~ .custom-checkbox__label {
@@ -49,7 +78,7 @@
     &__label::before {
         content: "";
         position: absolute;
-        top: 1.18rem;
+        top: 1rem;
         left: 1rem;
         height: 1rem;
         width: 1rem;
@@ -64,8 +93,8 @@
     & input:checked ~ .custom-checkbox__label::after {
         content: "";
         position: absolute;
-        left: 1.31rem;
-        top: 1.31rem;
+        left: 1.30rem;
+        top: 1.20rem;
         width: .375rem;
         height: 0.56rem;
         border: solid white;
@@ -80,9 +109,9 @@
 
 .custom-select {
     min-width: 12.5rem;
-    padding: 0.75rem 1rem;
+    padding: 0.50rem;
     background-color: var(--color-background-secondary);
-    font-size: 1rem;
+    // font-size: 1rem;
     height: auto;
     border: none;
     border-radius: 0;
@@ -94,4 +123,34 @@
     background-repeat: no-repeat, repeat;
     background-position: right 0.8rem top 50%, 0 0;
     background-size: 0.65em auto, 100%;
+}
+.input-border {
+    border: 0;
+    outline: 0;
+    box-shadow: inset 0px -1px 0px #1A237E;
+    border-radius: 8px 8px 0px 0px;
+    width: 100%;
+    font-size: 24px;
+    // font-weight: bold;
+    color: #1A1A1A;
+    padding-left: 30px;
+}
+.input-container {
+    position:relative;
+    width: 100%;
+}
+.input-img {
+    position:absolute;
+    left:0;
+    top: 6px;
+}
+.info-q{
+    outline: none !important;
+    color:#ffffff;
+}
+.header-info {
+    background: #353FA8;
+    border:0;
+    color:#fff;
+    padding:10px !important;
 }

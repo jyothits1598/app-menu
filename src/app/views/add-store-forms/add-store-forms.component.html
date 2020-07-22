@@ -10,13 +10,67 @@
         </div>
         <div class="col-md-6 col-sm-12">
             <br><br>
-            <ul style="margin-top:130px;margin-left:120px;">
-                <li> Find your store </li>
-                <li> Store details </li>
-                <li> Proof of ownership </li>
-                <li> Add a bank account </li>
-                <li> Complete setup </li>
-            </ul>
+            <table style="margin-top:130px;margin-left:120px;">
+                <!-- first form -->
+                <tr >
+                    <td width="28px" align="center" valign="middle">
+                        <img [src]="first_step_status ? active_image : inactive_image" width="16px" height="16px" >
+                    </td>
+                    <td style="padding-top: 1px;"> Find your store </td>
+                </tr>
+                <tr>
+                    <td align="center" width="28px" valign="middle">
+                        <img src="../../../assets/svg/line.svg" style="text-align: center;">                   
+                    </td>
+                </tr>
+                <!-- second form -->
+                <tr>
+                    <td align="center" width="28px" valign="middle">
+                        <img [src]="second_step_status ? active_image : inactive_image" width="16px" height="16px" >
+
+                    </td>
+                    <td style="padding-top: 1px;"> Store details </td>
+                </tr>
+                <tr>
+                    <td align="center" width="28px" valign="middle">
+                        <img src="../../../assets/svg/line.svg" style="text-align: center;">                   
+                    </td>
+                </tr>
+                <!-- third form -->
+                <tr>
+                    <td align="center" width="28px" valign="middle">
+                        <img [src]="third_step_status ? active_image : inactive_image" width="16px" height="16px" >
+                    
+                    </td>
+                    <td style="padding-top: 1px;"> Proof of ownership </td>
+                </tr>
+                <tr>
+                    <td align="center" width="28px" valign="middle">
+                        <img src="../../../assets/svg/line.svg" style="text-align: center;">                  
+                    </td>
+                </tr>
+                <!-- fourth form -->
+                <tr>
+                    <td align="center" width="28px" valign="middle">
+                        <img [src]="fourth_step_status ? active_image : inactive_image" width="16px" height="16px" >
+                    
+                    </td>
+                    <td style="padding-top: 1px;"> Add a bank account </td>
+                </tr>
+                <tr>
+                    <td align="center" width="28px" valign="middle">
+                        <img src="../../../assets/svg/line.svg" style="text-align: center;">                   
+                    </td>
+                </tr>
+                <!-- fifth form -->
+                <tr>
+                    <td align="center" width="28px" valign="middle">
+                        <img [src]="fifth_step_status ? complete_image : inactive_image" width="16px" height="16px" >
+                    
+                    </td>
+                    <td style="padding-top: 1px;"> Complete setup </td>
+                </tr>
+            </table>
         </div>
     </div>
     
