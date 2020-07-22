@@ -6,10 +6,12 @@ import { RestaurantMenuOverviewComponent } from './restaurant-menu-overview/rest
 import { RestaurantMenuMenusComponent } from './restaurant-menu-menus/restaurant-menu-menus.component';
 import { RestaurantMenuCategoriesComponent } from './restaurant-menu-categories/restaurant-menu-categories.component';
 import { StoreMenuMenusCreateComponent } from './store-menu-menus-create/store-menu-menus-create.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StoreMenuCategoriesCreateComponent } from './store-menu-categories-create/store-menu-categories-create.component';
 import { RestaurantMenuItemsComponent } from './restaurant-menu-items/restaurant-menu-items.component';
 import { pathToFileURL } from 'url';
+import { NotFoundComponent } from '../../shared/not-found/not-found.component';
+import { SharedModule } from '../../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -25,12 +27,16 @@ const routes: Routes = [
         component: RestaurantMenuMenusComponent,
         children: [
           {
-            path: 'create/:id',
+            path: 'editor/:id',
             component: StoreMenuMenusCreateComponent
           },
           {
-            path: 'create',
+            path: 'editor',
             component: StoreMenuMenusCreateComponent
+          },
+          {
+            path: 'editor/:id/notfound',
+            component: NotFoundComponent
           }
         ]
       },
@@ -56,7 +62,9 @@ const restaurantMenuRouting = RouterModule.forChild(routes);
   declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
+    SharedModule,
     restaurantMenuRouting,
   ]
 })
