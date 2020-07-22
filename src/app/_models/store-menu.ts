@@ -9,23 +9,23 @@ export class StoreMenu {
 }
 
 export class StoreMenuTime {
+    id: number;
     day: string;
     startTime : string;
     endTime : string;
     markedAsClose : boolean;
-    active: boolean;
 
     constructor(
+        id: number,
         day: string,
         startTime: string,
         endTime: string,
         markedAsClose : boolean,
-        active: boolean
     ){
+        this.id = id;
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
         this.markedAsClose = markedAsClose;
-        this.active = active;
     }
 }

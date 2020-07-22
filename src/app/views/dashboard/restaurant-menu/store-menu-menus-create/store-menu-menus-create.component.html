@@ -1,10 +1,12 @@
 <div class="menu-creator__actn-btns mb-2">
     <button class="std-button mr-sm-3">Delete</button>
-    <button class="std-button">Save</button>
+    <button class="std-button" (click)="saveMenu()" [ngClass]="{'std-button--primary' : readyToSave()}">Save</button>
 </div>
 <div class="menu-creator__name pb-2 mb-4">
     <button class="menu-creator__name__bk-icon u-btn-reset">Back</button>
-    <input class="menu-creator__name__input" type="text" placeholder="Enter a name for this menu">
+    <input class="menu-creator__name__input" name="menu-name" type="text" [formControl]="menuName"
+        placeholder="Enter a name for this menu">
+    <span *ngIf="menuName.invalid && menuName.touched" class="menu-creator__name__error">Menu name is required</span>
 </div>
 
 <div>
@@ -12,31 +14,31 @@
     <h4 class="std-heading-4 mb-1">Days</h4>
     <div class="menu-creator__days mb-3">
         <div class="custom-checkbox" style="margin-right: 7rem;">
-            <input type="checkbox" id="day_mon" [(ngModel)]="days.monday">
+            <input type="checkbox" id="day_mon" value="monday" (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_mon">Mon</label>
         </div>
         <div class="custom-checkbox" style="margin-right: 7rem;">
-            <input type="checkbox" id="day_tue" [(ngModel)]="days.tuesday">
+            <input type="checkbox" id="day_tue" value="tuesday" (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_tue">Tue</label>
         </div>
         <div class="custom-checkbox" style="margin-right: 7rem;">
-            <input type="checkbox" id="day_wed" [(ngModel)]="days.wednesday">
+            <input type="checkbox" id="day_wed" value="wednesday" (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_wed">Wed</label>
         </div>
         <div class="custom-checkbox" style="margin-right: 7rem;">
-            <input type="checkbox" id="day_thu" [(ngModel)]="days.thursday">
+            <input type="checkbox" id="day_thu" value="thursday" (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_thu">Thu</label>
         </div>
         <div class="custom-checkbox" style="margin-right: 7rem;">
-            <input type="checkbox" id="day_fri" [(ngModel)]="days.friday">
+            <input type="checkbox" id="day_fri" value="friday" (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_fri">Fri</label>
         </div>
         <div class="custom-checkbox" style="margin-right: 7rem;">
-            <input type="checkbox" id="day_sat" [(ngModel)]="days.saturday">
+            <input type="checkbox" id="day_sat" value="saturday" (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_sat">Sat</label>
         </div>
         <div class="custom-checkbox" style="margin-right: 7rem;">
-            <input type="checkbox" id="day_sun" [(ngModel)]="days.sunday">
+            <input type="checkbox" id="day_sun" value="sunday" (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_sun">Sun</label>
         </div>
     </div>
@@ -55,7 +57,8 @@
                 <option *ngFor="let t of time" [value]="t">{{ t }}</option>
             </select>
         </div>
-        <button class="std-button std-button--primary" [disabled]="!stateCheck()" (click)="debug()">+&nbsp;&nbsp;Add Time</button>
+        <button class="std-button std-button--primary" [disabled]="!stateCheck()" (click)="addAvailability()">+&nbsp;&nbsp;Add
+            Time</button>
     </div>
 </div>
 
@@ -64,13 +67,27 @@
 <p>Select <strong>days</strong> and <strong>times</strong> above and press <strong>add time</strong> to add
     availability.</p>
 
-<ul class="menu-creator__availability">
-    <li class="menu-creator__availability__li">
-        <h4 class="std-heading-4">Tuesday</h4>
-        <span>9:00AM - 5:OOPM</span>
-        <span>Mark as closed</span>
-        <span>Delete</span>
-    </li>
-</ul>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-border">
+            <tbody>
+                <tr *ngFor="let a of availability; let i = index">
+                    <td>{{a.day}}</td>
+                    <td class="text-uppercase">
+                        {{a.startTime}}&nbsp;-&nbsp;{{a.endTime}}
+                    </td>
+                    <td>
+                        <input [(ngModel)]="a.markedAsClose" type="checkbox">
+                        Mark as closed
+                    </td>
+                    <td (click)="a.id? deletedAvailability.push(availability.splice(i, 1)[0]) : availability.splice(i, 1)[0]">
+                        Delete
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <button (click)="debug()">debug</button>
