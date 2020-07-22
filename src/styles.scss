@@ -104,13 +104,13 @@ nav {
   top: 48%;
   left: 48%;
 }
-.search {
+// .search {
   // background: url('./assets/images/search.png'); /* Your background image */
   // padding-left: 35px;
   // background-repeat: no-repeat;
   // background-attachment: fixed;
   // background-position: center;
-}
+// }
 
 @-webkit-keyframes spin {
 0% { -webkit-transform: rotate(0deg); }
@@ -133,6 +133,14 @@ nav {
   .main-panel {
     width: 100%;
   }
+  .upload-text {
+    display: none;
+  }
+  .upload-image {
+    line-height:100px;
+    height:100px;
+    width:100px;
+  }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
@@ -144,6 +152,11 @@ nav {
   }
   .main-panel {
     width: calc(100% - 200px);
+  }
+  .upload-image {
+    line-height:150px;
+    height:150px;
+    width:150px;
   }
 }
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
@@ -169,6 +182,11 @@ nav {
   .main-panel {
     width: calc(100% - 240px);
   }
+  .upload-image {
+    line-height:150px;
+    height:150px;
+    width:150px;
+  }
 }
  
 /* Large devices (desktops, 992px and up) */
@@ -185,6 +203,14 @@ nav {
   .pd-mq {
     padding-left: 0;
   }
+  .upload-image {
+    line-height:200px;
+    height:200px;
+    width:200px;
+  }
+  .response-padding {
+    padding-top: 105px;
+  }
 }
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {  
@@ -200,5 +226,13 @@ nav {
     }
     .pd-mq {
       padding-left: 0;
+    }
+    .upload-image {
+      line-height:200px;
+      height:200px;
+      width:200px;
+    }
+    .response-padding {
+      padding-top: 105px;
     }
 }
