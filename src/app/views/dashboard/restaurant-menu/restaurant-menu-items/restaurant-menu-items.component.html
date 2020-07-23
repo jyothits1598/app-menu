@@ -41,3 +41,131 @@
         </table>
     </div>
 </div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="float-right">
+            <button class="btn std-button--transparency"> Delete </button>
+            <button class="btn std-button--transparency" style="margin-left:10px;" > Duplicate </button>
+            <button class="btn std-button--blue" style="margin-left:10px;"><img src="../../../../../assets/images/tick.png">&nbsp; Save </button>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="input-container">
+            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="pagebackPopup(back)">
+            <input type="text" class="input-border" >
+        </div>  
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h4 class="std-heading-3"> Item details </h4>
+        <label class="std-heading-4 mt-4"> Photo </label>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex flex-row">
+                    <div class="upload-image">
+                        <div><img src="../../../../../assets/images/ico_add_blue.png"> <span class="upload-text"> Upload an image</span>  </div>
+                    </div>
+                    <div class="response-padding" style="margin-left:20px;">
+                        <span style="font-size:14px"> JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
+                        <div class="mt-2">
+                            <button class="btn std-button--blue" > Browse </button> 
+                            <button class="btn std-button--transparency" style="margin-left:10px;"> Remove </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="form-group mb-2">
+                    <label class="std-heading-4 "> Description </label>
+                    <textarea class="form-control form-input" placeholder="Enter description" ></textarea>
+                </div>
+                <div class="form-group mb-2">
+                    <label class="std-heading-4"> Keywords </label>
+                    <textarea class="form-control form-input" placeholder="Enter search keywords separated by comma e. g. italian, pasta" ></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-2">
+                <div class="form-group mb-2">
+                    <label class="std-heading-4"> Base price </label>
+                    <input class="form-control form-input" placeholder="$09.11" >
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="std-heading-4"> Is item in stock </label>
+                <div class="menu-creator__days">
+                    <div class="custom-checkbox" style="margin-right: 7rem;">
+                        <input type="checkbox" id="yes" [(ngModel)]="stock_item.yes">
+                        <label class="custom-checkbox__label std-heading-4" for="yes">Yes</label>
+                    </div>
+                    <div class="custom-checkbox" style="margin-right: 7rem;">
+                        <input type="checkbox" id="no" [(ngModel)]="stock_item.no ">
+                        <label class="custom-checkbox__label std-heading-4" for="no">No</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <label class="std-heading-4"> Sell item on it's own? <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;width:14px;height:14px;" title="info" (click)="openVerticallyCentered(content)"> </label>
+                <div class="menu-creator__days">
+                    <div class="custom-checkbox" style="margin-right: 7rem;">
+                        <input type="checkbox" id="sellYes" [(ngModel)]="sell_item.sellYes">
+                        <label class="custom-checkbox__label std-heading-4" for="sellYes">Yes</label>
+                    </div>
+                    <div class="custom-checkbox" style="margin-right: 7rem;">
+                        <input type="checkbox" id="sellNo" [(ngModel)]="sell_item.sellNo ">
+                        <label class="custom-checkbox__label std-heading-4" for="sellNo">No</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Info modal -->
+<ng-template #content let-modal>
+    <div class="modal-header header-info">
+      <h4 class="std-heading-3"> Sell item on it's own? </h4>
+      <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p> 
+          Select 'Yes' to allow customers to purchase this item from the menu.
+      </p>
+      <p> 
+          If this item is a modifier, such as a <b>side, size</b> or <b> sauce </b>for example, you may select 'No' to exclude it from individual sale. 
+      </p>
+    </div>
+</ng-template>
+<!-- Info modal end-->
+
+<!-- back save continue -->
+<ng-template #back let-modal>
+    <div class="modal-body text-center">
+        <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
+      <p class="mb-2"> 
+          If you continue you will lose any unsaved progress
+      </p>
+      <button class="std-button--plane"> Continue </button>
+      <hr>
+      <button class="std-button--plane"> Cancel </button>
+    </div>
+</ng-template>
+<!-- back save continue end-->
