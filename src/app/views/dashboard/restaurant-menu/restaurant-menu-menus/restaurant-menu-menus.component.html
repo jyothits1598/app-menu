@@ -13,7 +13,7 @@
             to begin.
         </p>
     </ng-container>
-    <div class="row">
+    <div class="row" *ngIf="menus.length > 0">
         <div class="col-md-12">
             <table class="table table-border">
                 <thead>
@@ -27,7 +27,7 @@
                     <tr *ngFor="let menu of menus">
                         <td [routerLink]="['./editor', menu.id]">{{menu.name}}</td>
                         <td class="text-uppercase">
-                            {{menu.availability[0].startTime}}&nbsp;-&nbsp;{{menu.availability[0].endTime}}{{menu.availability.length > 1 ? menu.availability.length-1 : ""}}
+                            {{menu.availability[0].startTime}}&nbsp;-&nbsp;{{menu.availability[0].endTime}}{{menu.availability.length > 1 ? '+'+(menu.availability.length-1).toString() : ""}}
                         </td>
                         <td></td>
                     </tr>

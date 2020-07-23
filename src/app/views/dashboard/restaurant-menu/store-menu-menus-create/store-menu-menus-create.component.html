@@ -1,9 +1,9 @@
 <div class="menu-creator__actn-btns mb-2">
-    <button class="std-button mr-sm-3">Delete</button>
+    <button class="std-button mr-sm-3" [disabled]="!menuId" (click)="deleteMenu()">Delete</button>
     <button class="std-button" (click)="saveMenu()" [ngClass]="{'std-button--primary' : readyToSave()}">Save</button>
 </div>
 <div class="menu-creator__name pb-2 mb-4">
-    <button class="menu-creator__name__bk-icon u-btn-reset">Back</button>
+    <button class="menu-creator__name__bk-icon u-btn-reset" [routerLink]="menuId ? '../../' : '../'">Back</button>
     <input class="menu-creator__name__input" name="menu-name" type="text" [formControl]="menuName"
         placeholder="Enter a name for this menu">
     <span *ngIf="menuName.invalid && menuName.touched" class="menu-creator__name__error">Menu name is required</span>
