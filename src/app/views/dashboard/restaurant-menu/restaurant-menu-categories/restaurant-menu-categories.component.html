@@ -1,6 +1,6 @@
 <h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;"> Categories </h3>
 <div style="text-align: right;">
-    <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./', {editor: 'true'}]"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New category </button>
+    <button class="std-button std-button--primary u-margin-bottom-small" routerLink="./new"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New category </button>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -14,9 +14,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                  <td class="menu-clr" [routerLink]="['./', {editor: 'true'}]"> Avalakki </td>
-                  <td>Mark</td>
+                <tr *ngFor="let category of categories">
+                  <td class="menu-clr" [routerLink]="'./'+category.id"> {{category.name}} </td>
+                  <td style="text-transform: capitalize;">{{category.menus[0]?.name}},&nbsp;{{category.menus[1]?.name}}</td>
                   <td>Otto</td>
                   <td style="text-align: right;cursor:pointer;" ><img src="../../../../../assets/images/ico_overflow.png"></td>
                 </tr>
@@ -24,5 +24,3 @@
         </table>
     </div>
 </div>
-
-<app-store-menu-categories-create></app-store-menu-categories-create>

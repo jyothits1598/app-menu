@@ -2,9 +2,10 @@ export class StoreMenu {
     id: number;
     name: string;
     availability : Array<StoreMenuTime>;
-
-    constructor(){
-        this.availability = new Array<StoreMenuTime>();
+    constructor(id: number, name: string, availability){
+        this.id = id;
+        this.name = name;
+        this.availability = availability;
     }
 }
 
