@@ -20,7 +20,6 @@ export class StoreMenuCategoriesCreateComponent implements OnInit {
     "dinner" : false,
   };
 
-
   openVerticallyCentered(content) {
     this.modalService.open(content, { centered: true });
   }

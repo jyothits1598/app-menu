@@ -114,7 +114,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   }
 
   fetchMenu(id: number) {
-    this.restApiService.getData(`store/menus/availability/get/${this.storeService._activeStore}/${id}`, (response) => {
+    this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/${id}`, (response) => {
       console.log("resp from get availability", response);
       if(response.success){
         this.menuName.setValue(response.data[0].menu_details.menu_name);
@@ -198,10 +198,6 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   }
 
   saveMenu(){
-    if(this.menuId){
-      
-    }
-
     if(!this.readyToSave()){
       this.alertService.showNotification('Please complete the form below');
       return;
@@ -209,23 +205,54 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
 
     let data: any = {}
     data.opening_time = [];
+
     data.menu_name = this.menuName.value;
+    if(this.menuId) data.menu_id = this.menuId;
+
+
     this.availability.forEach((a)=>{
       let menuTime : any = {};
       menuTime.days = a.day;
       menuTime.start_time = a.startTime;
       menuTime.end_time = a.endTime;
       menuTime.marked_as_closed = a.markedAsClose;
+      menuTime.active_flag = 1;
+      data.opening_time.push(menuTime);
+    })
+
+    this.deletedAvailability.forEach((a)=>{
+      let menuTime : any = {};
+      menuTime.days = a.day;
+      menuTime.start_time = a.startTime;
+      menuTime.end_time = a.endTime;
+      menuTime.marked_as_closed = a.markedAsClose;
+      menuTime.active_flag = 0;
       data.opening_time.push(menuTime);
     })
 
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp)=>{
       if(resp.success){
-        this.alertService.showNotification('Menu successfully created');
-        this.router.navigate(['../', {relativeTo: this.route}]);
-      }
+        this.alertService.showNotification(`Menu successfully ${this.menuId? 'updated' : 'created'}`);
+        this.router.navigate(['.'], {relativeTo: this.route.parent});
+      }else this.alertService.showNotification(`There was an error ${this.menuId? 'updating' : 'creating'} the menu. Please try again.`);
     })
-    
+
+    console.log(data);
+  }
+
+  deleteMenu(){
+
+    let data: any = {}
+    data.menu_name = this.menuName.value;
+    data.menu_id = this.menuId;
+    data.active_flag = 0;
+
+    this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp)=>{
+      if(resp.success){
+        this.alertService.showNotification('Menu successfully deleted');
+        this.router.navigate(['.'], {relativeTo: this.route.parent});
+      }else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
+    })
   }
 
   // debug() {
