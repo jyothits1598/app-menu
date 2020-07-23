@@ -11,6 +11,7 @@ import { Store } from 'src/app/_models/store';
 import { callbackify } from 'util';
 import { assertNotNull } from '@angular/compiler/src/output/output_ast';
 import { AlertService } from 'src/app/services/alert.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-store-menu-menus-create',
@@ -96,11 +97,13 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     "sunday": false,
   };
 
-  constructor(private route: ActivatedRoute
-    , private router: Router
-    , private restApiService: RestApiService
-    , private storeService: StoreService
-    , private alertService: AlertService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router, 
+    private restApiService: RestApiService, 
+    private storeService: StoreService, 
+    private alertService: AlertService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.route.params.pipe(takeUntil(this.notifier)).subscribe(params => {
@@ -252,10 +255,13 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     })
   }
 
-  debug() {
-    // console.log(this.selectedDays);
-    this.alertService.showNotification("this is the alert component");
-    this.router.navigate(['notfound'],  { relativeTo: this.route });
+  // debug() {
+  //   console.log(this.selectedDays);
+  //   this.alertService.showNotification("this is the alert component");
+  //   this.router.navigate(['notfound'],  { relativeTo: this.route });
+  // }
+  openVerticallyCentered(content) {
+    this.modalService.open(content, { centered: true });
   }
 
 }
