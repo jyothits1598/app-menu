@@ -23,7 +23,6 @@ export class RestaurantMenuComponent implements OnInit, OnDestroy {
           this.router.navigate(['./notfound'], {relativeTo: this.route});
         }
       })
-      
     }
 
   ngOnInit(): void {

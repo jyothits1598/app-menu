@@ -111,7 +111,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   }
 
   fetchMenu(id: number) {
-    this.restApiService.getData(`store/menus/availability/get/${this.storeService._activeStore}/${id}`, (response) => {
+    this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/${id}`, (response) => {
       console.log("resp from get availability", response);
       if(response.success){
         this.menuName.setValue(response.data[0].menu_details.menu_name);
@@ -242,7 +242,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     let data: any = {}
     data.menu_name = this.menuName.value;
     data.menu_id = this.menuId;
-    data.active_flag = false;
+    data.active_flag = 0;
 
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp)=>{
       if(resp.success){

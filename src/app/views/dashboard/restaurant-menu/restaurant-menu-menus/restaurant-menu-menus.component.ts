@@ -36,7 +36,7 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
   fetchMenus() {
     this.menus = [];
     
-    if(!this.storeService.activeStore) return this.router.navigate(['../notfound'], {relativeTo: this.route});
+    if(!this.storeService.activeStore) { return this.router.navigate(['../notfound'], {relativeTo: this.route});}
 
     this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/all`, (response) => {
       if (response['data'] && response['data'].length > 0) {
