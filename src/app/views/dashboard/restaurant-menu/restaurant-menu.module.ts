@@ -13,6 +13,7 @@ import { pathToFileURL } from 'url';
 import { NotFoundComponent } from '../../shared/not-found/not-found.component';
 import { SharedModule } from '../../shared/shared.module';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreMenuItemsCreateComponent } from './store-menu-items-create/store-menu-items-create.component';
 
 const routes: Routes = [
   {
@@ -55,7 +56,13 @@ const routes: Routes = [
       },
       {
         path: 'items',
-        component: RestaurantMenuItemsComponent
+        component: RestaurantMenuItemsComponent,
+        children: [
+          {
+            path: 'editor',
+            component: StoreMenuItemsCreateComponent
+          },
+        ]
       },
       {
         path: '**',
@@ -69,7 +76,7 @@ const routes: Routes = [
 const restaurantMenuRouting = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent],
+  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent, StoreMenuItemsCreateComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
