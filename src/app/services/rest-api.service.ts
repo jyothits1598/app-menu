@@ -31,13 +31,14 @@ export class RestApiService {
   /*
     * Rest API Function to post some data
     */
-   async postAPI(url,data,callback){
+   async postAPI(url,data,callback, errorCallback = null){
     url = this.hostURL+url;
     let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
     const headers = new HttpHeaders(cred);
     await this.http.post(url, data,{headers : headers}).subscribe(response => {
         return callback && callback(response);
     },error => {
+        if(errorCallback) errorCallback();
         this.alertservice.hideLoader();
         if(error.error){
             return callback && callback(error);
@@ -65,13 +66,14 @@ export class RestApiService {
   /*
     * Rest API Function to get data based on url
     */
-   async getData(url,callback) {
+   async getData(url,callback, errorCallback=null) {
     url = this.hostURL+url;
     let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
     const headers = new HttpHeaders(cred);
     await this.http.get(url,{headers : headers}).subscribe((response) => {
         return callback && callback(response);
     },error => {
+        if(errorCallback)errorCallback();
         this.alertservice.hideLoader();
         if(error && error.status && (error.status==404)){
             // return this.router.navigateByUrl('/page-not-found');

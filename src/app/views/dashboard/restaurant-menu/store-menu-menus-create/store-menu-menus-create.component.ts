@@ -216,7 +216,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       menuTime.start_time = a.startTime;
       menuTime.end_time = a.endTime;
       menuTime.marked_as_closed = a.markedAsClose;
-      menuTime.active_flag = 1;
+      menuTime.active_flag = 0;
       data.opening_time.push(menuTime);
     })
 
@@ -226,7 +226,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       menuTime.start_time = a.startTime;
       menuTime.end_time = a.endTime;
       menuTime.marked_as_closed = a.markedAsClose;
-      menuTime.active_flag = 0;
+      menuTime.active_flag = 1;
       data.opening_time.push(menuTime);
     })
 
@@ -245,7 +245,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     let data: any = {}
     data.menu_name = this.menuName.value;
     data.menu_id = this.menuId;
-    data.active_flag = 0;
+    data.active_flag = 1;
 
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp)=>{
       if(resp.success){

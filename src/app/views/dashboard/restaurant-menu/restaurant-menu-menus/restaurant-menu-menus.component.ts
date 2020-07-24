@@ -44,10 +44,7 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
       if (response['data'] && response['data'].length > 0) {
         let data = response['data'];
         data.forEach(menu => {
-          let newMenu = new StoreMenu();
-          newMenu.id = menu.menu_details.menu_id;
-          newMenu.name = menu.menu_details.menu_name;
-          newMenu.availability = this.storeService.readAvailability(menu.availability);
+          let newMenu = new StoreMenu(menu.menu_details.menu_id, menu.menu_details.menu_name, this.storeService.readAvailability(menu.availability));
           this.menus.push(newMenu);
         });
       }

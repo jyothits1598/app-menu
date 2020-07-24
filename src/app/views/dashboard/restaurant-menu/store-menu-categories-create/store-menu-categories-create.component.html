@@ -1,15 +1,17 @@
 <!-- create category -->
-<div class="row">
+<span style="color: red;" *ngIf="isLoading">loading...</span>
+<div class="row" [formGroup]="createCatForm">
     <div class="col-md-12">
         <div class="float-right">
             <button class="btn std-button--transparency"> Delete </button>
-            <button class="btn std-button--blue" style="margin-left:10px"><img src="../../../../../assets/images/tick.png"> Save </button>
+            <button class="btn std-button--blue" style="margin-left:10px" (click)="saveData()"><img src="../../../../../assets/images/tick.png"> {{ saveBtnLoading ? "Loading" : "Save" }} </button>
         </div>
     </div>
     <div class="col-md-12">
         <div class="input-container">
-            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="pagebackPopup(back)">
-            <input type="text" class="input-border" >
+            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="createCatForm.controls.categoryName.valid || createCatForm.controls.menus.valid ? pagebackPopup(back) : navigateBack()">
+            <input type="text" class="input-border"  formControlName="categoryName" >
+            <span style="color: red;" *ngIf="createCatForm.controls.categoryName.invalid && createCatForm.controls.categoryName.touched">Category name is required.</span>
         </div>  
     </div>
     <div class="col-md-12">
@@ -19,18 +21,17 @@
             </div>
         </div>
         <label style="font-weight: 600;"> Menus this category will appear in: </label>
-        <div class="menu-creator__days mb-3">
-            <div class="custom-checkbox" style="margin-right: 7rem;">
-                <input type="checkbox" id="lunch" [(ngModel)]="menu.lunch">
-                <label class="custom-checkbox__label std-heading-4" for="lunch">Lunch</label>
+        <div formArrayName="menus" class="menu-creator__days mb-3" (click)="createCatForm.controls.menus.markAsTouched({onlySelf: true});">
+            <div class="custom-checkbox mr-2" *ngFor="let control of menusForm(); let i = index;">
+                <input type="checkbox" [id]="i" [formControlName]="i">
+                <label class="custom-checkbox__label std-heading-4" [for]="i">{{menuIdMap[i].name}}</label>
             </div>
-            <div class="custom-checkbox" style="margin-right: 7rem;">
-                <input type="checkbox" id="dinner" [(ngModel)]="menu.dinner ">
-                <label class="custom-checkbox__label std-heading-4" for="dinner">Dinner</label>
-            </div>
+            <span style="color: red;" *ngIf="createCatForm.controls.menus.invalid && createCatForm.controls.menus.touched">Altleast one menu should be selected</span>
         </div>
     </div>
 </div>
+
+<button (click)="debug()">debug</button>
 <!-- end create category -->
 
 <!-- Info modal -->
@@ -50,15 +51,15 @@
 <!-- Info modal end-->
 
 <!-- back save continue -->
-<ng-template #back let-modal>
+<ng-template #back let-modal2>
     <div class="modal-body text-center">
         <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
       <p class="mb-2"> 
           If you continue you will lose any unsaved progress
       </p>
-      <button class="std-button--plane"> Continue </button>
+      <button class="std-button--plane" (click)="navigateBack()"> Continue </button>
       <hr>
-      <button class="std-button--plane"> Cancel </button>
+      <button class="std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 <!-- back save continue end-->
