@@ -3,6 +3,7 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreMenuCategory } from 'src/app/_models/store-menu-category';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreMenu } from 'src/app/_models/store-menu';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-restaurant-menu-categories',
@@ -12,29 +13,30 @@ import { StoreMenu } from 'src/app/_models/store-menu';
 export class RestaurantMenuCategoriesComponent implements OnInit {
 
   categories: Array<StoreMenuCategory> = [];
+  isLoading: boolean = false;
 
-  constructor(private restApiService: RestApiService,
-    private storeService: StoreService) { }
+  constructor(private restApiService: RestApiService
+    , private storeService: StoreService
+    , private alertService: AlertService) { }
 
   ngOnInit(): void {
-    this.restApiService.getData(`store/category/get/${this.storeService.activeStore}/all`, (response)=>{
-      // console.log("response category", response);
-      if(response.success && response.data){
-        response.data.forEach(data => {
-          let newStrCat = new StoreMenuCategory(data.category_details.category_id, data.category_details.category_name, null);
-          newStrCat.menus = [];
-          Object.keys(data.menu_details).forEach(function(key,index) {
-            newStrCat.menus.push(new StoreMenu(data.menu_details[key].menu_id, data.menu_details[key].menu_name, null))
-        });
-        this.categories.push(newStrCat);
-        });
-        console.log(this.categories);
+    this.isLoading = true;
+    this.restApiService.getData(`store/category/get/${this.storeService.activeStore}/all`
+      , (response) => {
+        if (response.success && response.data) {
+          response.data.forEach((cat) => {
+            let menuCat = this.storeService.ReadStoreMenuCategory(cat);
+            this.categories.push(menuCat);
+          });
+          this.isLoading = false;
+        }
       }
-    })
+      , (err)=>{
+        this.isLoading = false;
+        this.alertService.showNotification('There was an error fetching your data. Please try again')
+      })
   }
 
-  readStoreMenuCategory(){
-
-  }
 
 }
+
