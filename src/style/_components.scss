@@ -142,6 +142,8 @@
     position:absolute;
     left:0;
     top: 6px;
+    outline: none;
+    cursor: pointer;
 }
 .info-q{
     outline: none !important;
@@ -152,4 +154,27 @@
     border:0;
     color:#fff;
     padding:10px !important;
+}
+.dropdown-edit {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.08);
+}
+.dropdown-edit li {
+    padding:5px 10px;
+}
+.herf-class {
+    text-decoration: none;
+    color:#1A1A1A;
+    outline: none;
+}
+.dropdown-edit li:hover {
+    text-decoration: none;
+    color:#1A1A1A;
+    background: #FAFAFA;
+}
+.upload-image {
+    cursor:pointer;
+    border: 2px dashed #B3B3B3;  
+    text-align: center;
+    background: #FAFAFA;
+    color: #353FA8;
 }
