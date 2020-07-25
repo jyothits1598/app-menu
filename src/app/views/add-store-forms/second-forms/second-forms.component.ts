@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { DataService } from 'src/app/services/data.service';
+import { API_URL_LINK } from 'src/environments/environment.prod';
 
 declare let $: any;
 
@@ -33,7 +35,8 @@ export class SecondFormsComponent implements OnInit {
   add_edit_type:string = 'add';
   getgoogleBussiness: string;
   getfacebookBussiness: string;
-  
+  imageUrl:string = 'assets/images/ico_add_blue.png';
+  fileUptoLoad:File;
 
   constructor(
     private router: Router,
@@ -42,7 +45,8 @@ export class SecondFormsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private restApiservice: RestApiService,
     private alertservice: AlertService,
-    private authenticateService: AuthenticationService
+    private authenticateService: AuthenticationService,
+    private dataService: DataService
   ) { 
     this.store_id = this.route.snapshot.paramMap.get('store-id');
     this.add_edit_type = this.route.snapshot.queryParams['type'] || 'add';
@@ -141,6 +145,7 @@ export class SecondFormsComponent implements OnInit {
   getstoreDetails() {
     // this.alertservice.showLoader();
       this.restApiservice.getData('store/details/step1/'+this.store_id+'',(response)=> {
+        console.log(response);
         if(response && response['success'] && response['data']) {
           response['data'].forEach(element => { 
             this.storename = element.store_name;
@@ -166,6 +171,47 @@ export class SecondFormsComponent implements OnInit {
     let typeCuisine = this.storeDetailform.value.typeCuisine;
   }
 
-  
+  onFileChanged(event) {
+    /* File upload Required function */
+    this.fileUptoLoad = event.target.files[0];
+    if(this.fileUptoLoad){
+      if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
+        this.alertservice.showNotification('Selected file format is not supported', 'error')
+        return false;
+      }
+      if (!this.dataService.validateFileSize(this.fileUptoLoad.size)) {
+        this.alertservice.showNotification('Selected file size is more', 'error')
+        return false;
+      }
+      var reader = new FileReader();
+      reader.readAsDataURL(this.fileUptoLoad);
+          reader.onload = (event:any) =>{
+          this.imageUrl = event.target.result;
+        }              
+      let form_data = new FormData();
+      form_data.append('store_image',this.fileUptoLoad);
+      this.alertservice.showLoader();
+      this.restApiservice.pushSaveFileToStorageWithFormdata(form_data,'store/logo',(response)=>{
+        console.log(response);
+        if(response && response['success']) {
+          this.alertservice.hideLoader();
+          this.imageUrl = API_URL_LINK + response['data'];
+          console.log(this.imageUrl);
+        }else if(response && !response['success']){
+          this.alertservice.hideLoader();
+          this.alertservice.showNotification(response['message'],'error');
+        }else{
+          this.alertservice.hideLoader();
+          this.alertservice.showNotification('Something went wrong, Please try again', 'error');
+        }
+      });
+    } else{
+      this.alertservice.showNotification('No file selected','error');
+    }
+
+  }
    
+  click() {
+    console.log('hihiih');
+  }
 }

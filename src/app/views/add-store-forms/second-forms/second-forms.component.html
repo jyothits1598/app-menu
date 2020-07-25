@@ -58,9 +58,28 @@
         <label class="label-inputs"> Opening hours <b class="m-star">*</b> </label>
         <input type="text" class="form-control form-input" placeholder="e.g. Buzz" >
     </div> -->
+    <div class="form-group pb-1">
+        <label class="label-inputs"> Photo </label>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex flex-row">
+                    <div class="upload-image">
+                        <img [src]="imageUrl">     
+                    </div>
+                    <div class="response-padding" style="margin-left:20px;">
+                        <span style="font-size:12px">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
+                        <div class="mt-2">
+                            <button class="btn std-button--blue" (click)="fileInput.click()" > Browse </button> 
+                            <button class="btn std-button--transparency" style="margin-left:10px;"> Remove </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <a [routerLink]="['/store/first-form']"> <input type="button" class="btn re-send" value="Cancel" ></a>
         <input type="submit" class="btn btn-custom-login" value="{{add_edit_type == 'add' ? 'Add a new store' : 'Edit a store'}}" style="margin-left:10px;">
     </div>
-
 </form>
+<input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput accept=".jpg,.png,.jpeg,.gif">

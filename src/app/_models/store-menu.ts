@@ -30,3 +30,15 @@ export class StoreMenuTime {
         this.markedAsClose = markedAsClose;
     }
 }
+
+export class Storedetails {
+    id: number;
+    storeName: string;
+    constructor(
+        id: number,
+        storeName: string
+    ){
+        this.id = id;
+        this.storeName = storeName;
+    }
+}
