@@ -2,6 +2,9 @@
     <button class="std-button mr-sm-3" [disabled]="!menuId" (click)="deleteMenu()">Delete</button>
     <button class="std-button" (click)="saveMenu()" [ngClass]="{'std-button--primary' : readyToSave()}">Save</button>
 </div>
+<ng-container *ngIf="isLoading">
+    <span style="color: red;">Loading...</span>
+</ng-container>
 <!-- <div class="menu-creator__name pb-2 mb-4">
     <button class="menu-creator__name__bk-icon u-btn-reset" [routerLink]="menuId ? '../../' : '../'">Back</button>
     <input class="menu-creator__name__input" name="menu-name" type="text" [formControl]="menuName"
@@ -11,7 +14,7 @@
 <div class="input-container mb-4">
     <img src="../../../../../assets/images/ico_back.png" class="input-img" [routerLink]="menuId ? '../../' : '../'">
     <input type="text" class="input-border" name="menu-name" [formControl]="menuName" placeholder="Enter a name for this menu">
-    <!-- <span *ngIf="menuName.invalid && menuName.touched" class="menu-creator__name__error">Menu name is required</span> -->
+    <span *ngIf="menuName.invalid && menuName.touched" class="menu-creator__name__error">Menu name is required</span>
 </div>
 <div>
     <h3 class="std-heading-3 mb-2">Add availability <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openVerticallyCentered(content)"></h3>

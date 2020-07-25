@@ -1,17 +1,56 @@
-<div class="row">
+<div class="row" *ngIf="dasboard_empty">
     <div class="col-12">
         <h2 class="wl-header"> Welcome to menuzapp </h2>
         <h3 class="wl-sub-header"> I am an owner </h3>
         <br>
-        <p> If you are a restaurant owner, please add or claim one more stores. You will need proof of ownership documents and relevant details on hand. </p>
-        <a style="text-decoration: none;" [routerLink]="['/store/first-form']" ><input type="button" class="btn btn-custom-db mt-3" value="Add store" ></a>
+        <p> 
+            If you are a restaurant owner, please add your store. <br>
+           You will need to supply proof of ownership. 
+         </p>
+        <!-- <a style="text-decoration: none;" [routerLink]="['/store/first-form']" ><input type="button" class="btn btn-custom-db mt-3" value="Add store" ></a>
         <br>
         <h3 class="wl-sub-header"> I am staff member </h3>
         <br>
-        <p> If you are a staff member please request an invitation from the account owner and check your email. </p>
+        <p> If you are a staff member please request an invitation from the account owner and check your email. </p> -->
+        <div class="upload-image image-dashboard" [routerLink]="['/store/first-form']" style="outline: none;text-decoration: none;">
+            <div><img src="../../../../../assets/images/ico_add_blue.png"><span class="upload-text"> Add store </span>  </div>
+        </div>
     </div>
 </div>
-
+<div class="row" *ngIf="!dasboard_empty">
+    <div class="col-12">
+        <h2 class="std-heading-2 mb-3" style="font-weight: 600;"> Stores </h2>
+        <h4 class="std-heading-4 mb-2"> Owned </h4>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xs-12" *ngFor="let stores of mutiple_stores_array">
+                <div class="well main-form draft-card-pending" [routerLink]="'/dashboard/stores/'+stores.id" style="outline: none;" title="{{ stores.storeName }}"> 
+                    <div class="img-container-draft">
+                        <img src="../../../../assets/images/bck.jpg">
+                    </div>
+                    <div class="form-padding">
+                        <h4>
+                            <span class="story-header" style="word-break: break-all;"> {{ stores.storeName}} </span>
+                        </h4>
+                        <div class="mb-1">
+                            <span class="google-rating">
+                                4.5 Google (4.5)
+                            </span>
+                            <span class="google-rating google-rating--pad">
+                                4.5 Google (4.5)
+                            </span>
+                        </div>
+                        <span class="google-rating google-rating--pending-color" *ngIf="store_status">
+                            Pending approval
+                        </span>
+                        <span class="google-rating google-rating--approve-color" *ngIf="!store_status">
+                            Trading
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- <div class="row" *ngIf="active_status">
     <div class="col-12">
         <h2 class="wl-header"> {{ storename }} </h2>

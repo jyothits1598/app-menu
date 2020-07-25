@@ -12,7 +12,7 @@ const routes: Routes = [
     component: ContainersComponent ,children:[
       { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)},  
       { path: 'pending-approval', loadChildren: () => import('../pending-approval/pending-approval.module').then(m => m.PendingApprovalModule)},
-     
+      { path: 'stores-details', loadChildren: () => import('../dashboard/stores-dashboard/stores-dashboard.module').then(m => m.StoresDashboardModule)},
       {
         path: '**',
         redirectTo: 'dashboard',

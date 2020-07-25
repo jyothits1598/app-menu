@@ -49,6 +49,8 @@ export class AuthenticationService {
     this.alertservice.showLoader();
     this.http.post(API_URL_LINK+'signin-partner',login_details).subscribe(token_response => {
       if(token_response && token_response['access_token'] && token_response['user_details']){
+        console.log(token_response);
+        console.log('response id details');
         let headers = JSON.stringify({
           'X-Requested-With':'XMLHttpRequest',
           'Access-Control-Allow-Origin': '*',

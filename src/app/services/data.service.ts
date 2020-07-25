@@ -65,4 +65,27 @@ hasRoleId() {
   }
 }
 
+/*
+  * Function to validate File size
+  */
+ validateFileSize(size : number){
+  if(size<5242880)
+      return true;
+
+      return false;
+}
+
+/*
+* Function to validate File type
+*/
+validateFileExtension(name: String) {
+  name = name.toLowerCase();
+  var ext = name.substring(name.lastIndexOf('.') + 1);
+  if(ext.toLowerCase() == 'jpg' || ext.toLowerCase() == 'png' || ext.toLowerCase() == 'jpeg' || ext.toLowerCase() == 'gif') {
+    return true;
+  }else {
+    return false;
+  }
+}
+
 }

@@ -3,9 +3,9 @@
     <button class="std-button std-button--primary u-margin-bottom-small" routerLink="./new"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New category </button>
 </div>
 <span style="color: red;" *ngIf="isLoading">loading...</span>
-<div class="row">
+<div class="row" *ngIf="!isLoading">
     <div class="col-md-12">
-        <table class="table table-border">
+        <table *ngIf="categories.length > 0; else noCategories" class="table table-border">
             <thead>
                 <tr>
                     <th scope="col"> Name </th>
@@ -23,5 +23,8 @@
                 </tr>
             </tbody>
         </table>
+        <ng-template #noCategories>
+            <h3 class="std-heading-4">No categories have been added yet.</h3>
+        </ng-template>
     </div>
 </div>

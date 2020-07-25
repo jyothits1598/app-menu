@@ -24,3 +24,24 @@
     border-radius: 0;
     border: 2px solid #F2F2F2;
   }
+  .upload-image {
+      cursor:pointer;
+      border: 2px dashed #B3B3B3;  
+      background: #FAFAFA;
+      color: #353FA8;
+      width:200px;
+      height:200px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .upload-image img {
+    max-width:200px;
+    max-height:200px;
+  }
+  img {
+  image-orientation: 90deg; /* Rotate 90deg */
+  image-orientation: 90deg flip; /* Rotate 90deg, and flip it horizontally */ 
+  image-orientation: flip; 
+  }
