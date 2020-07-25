@@ -15,6 +15,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreMenuCategoriesContainerComponent } from './store-menu-categories-container/store-menu-categories-container.component';
 import { StoreMenuItemsCreateComponent } from './store-menu-items-create/store-menu-items-create.component';
+import { StoreMenuItemContainerComponent } from './store-menu-item-container/store-menu-item-container.component';
 
 const routes: Routes = [
   {
@@ -68,12 +69,24 @@ const routes: Routes = [
 
       {
         path: 'items',
-        component: RestaurantMenuItemsComponent,
+        component: StoreMenuItemContainerComponent,
         children: [
           {
-            path: 'editor',
+            path: '',
+            component: RestaurantMenuItemsComponent
+          },
+          {
+            path: 'new',
             component: StoreMenuItemsCreateComponent
           },
+          {
+            path: ':id',
+            component: StoreMenuItemsCreateComponent
+          },
+          {
+            path: ':id/not-found',
+            component: NotFoundComponent
+          }
         ]
       },
       {
@@ -88,7 +101,7 @@ const routes: Routes = [
 const restaurantMenuRouting = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent, StoreMenuCategoriesContainerComponent, StoreMenuItemsCreateComponent],
+  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent, StoreMenuCategoriesContainerComponent, StoreMenuItemsCreateComponent, StoreMenuItemContainerComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
