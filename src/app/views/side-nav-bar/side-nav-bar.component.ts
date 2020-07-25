@@ -38,14 +38,14 @@ export class SideNavBarComponent implements OnInit {
   }
 
     storeDetails() {
-      // this.alertService.showLoader();
-      // this.restapiService.getData('store/get',(response)=>{
-      //   if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length > 0){
-      //     this.storeNames = response['data'];
-      //     this.storeService.stores = response['data'];
-      //     this.alertService.hideLoader();
-      //   }
-      // });
+      this.alertService.showLoader();
+      this.restapiService.getData('store/get',(response)=>{
+        if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length > 0){
+          this.storeNames = response['data'];
+          this.storeService.stores = response['data'];
+          this.alertService.hideLoader();
+        }
+      });
     }
    /*
     * Logout function 

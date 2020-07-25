@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RestApiService } from './rest-api.service';
 import { Store } from '../_models/store';
-import { StoreMenuTime } from '../_models/store-menu';
+import { StoreMenuTime, StoreMenu } from '../_models/store-menu';
+import { StoreMenuCategory } from '../_models/store-menu-category';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,15 @@ export class StoreService {
         , availability[a].marked_as_closed ? true : false))
     }
     return result;
+  }
+
+  ReadStoreMenuCategory(data: any) : StoreMenuCategory {
+    let newStrCat = new StoreMenuCategory(data.category_details.category_id, data.category_details.category_name, null);
+    newStrCat.menus = [];
+    Object.keys(data.menu_details).forEach(function (key, index) {
+      newStrCat.menus.push(new StoreMenu(data.menu_details[key].menu_id, data.menu_details[key].menu_name, null))
+    });
+    return newStrCat;
   }
 
 }

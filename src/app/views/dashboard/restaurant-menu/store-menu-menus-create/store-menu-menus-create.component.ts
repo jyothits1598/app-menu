@@ -21,7 +21,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   menuId: number = null;
   menuName: FormControl = new FormControl('', Validators.required);
-  
+
   startTime: string = "Select";
   endTime: string = "Select";
 
@@ -99,9 +99,9 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router, 
-    private restApiService: RestApiService, 
-    private storeService: StoreService, 
+    private router: Router,
+    private restApiService: RestApiService,
+    private storeService: StoreService,
     private alertService: AlertService,
     private modalService: NgbModal) { }
 
@@ -116,12 +116,12 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   fetchMenu(id: number) {
     this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/${id}`, (response) => {
       console.log("resp from get availability", response);
-      if(response.success){
+      if (response.success) {
         this.menuName.setValue(response.data[0].menu_details.menu_name);
         this.menuId = response.data[0].menu_details.menu_id;
         this.availability = this.storeService.readAvailability(response.data[0].availability);
-      }else{
-        this.router.navigate(['notfound'],  { relativeTo: this.route });
+      } else {
+        this.router.navigate(['notfound'], { relativeTo: this.route });
       }
     })
   }
@@ -142,7 +142,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     if (this.startTime == "Select") return false;
     if (this.endTime == "Select") return false;
 
-    if(this.selectedDays.length == 0) return false;
+    if (this.selectedDays.length == 0) return false;
 
     return true;
   }
@@ -155,9 +155,9 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  insertIntoAvailability(availability: Array<StoreMenuTime>, menuTime: StoreMenuTime){
+  insertIntoAvailability(availability: Array<StoreMenuTime>, menuTime: StoreMenuTime) {
     for (let i = 0; i <= availability.length; i++) {
-      if(i == availability.length) {
+      if (i == availability.length) {
         availability.push(menuTime);
         break;
       }
@@ -185,20 +185,20 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     return dayValue[first.day] - dayValue[second.day];
   }
 
-  readyToSave(): boolean{
-    if(this.menuName.invalid) {
+  readyToSave(): boolean {
+    if (this.menuName.invalid) {
       this.menuName.markAsTouched();
       return false;
     }
-    if(this.availability.length == 0){
+    if (this.availability.length == 0) {
       return false;
     }
 
     return true;
   }
 
-  saveMenu(){
-    if(!this.readyToSave()){
+  saveMenu() {
+    if (!this.readyToSave()) {
       this.alertService.showNotification('Please complete the form below');
       return;
     }
@@ -207,51 +207,53 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     data.opening_time = [];
 
     data.menu_name = this.menuName.value;
-    if(this.menuId) data.menu_id = this.menuId;
+    if (this.menuId) data.menu_id = this.menuId;
 
 
-    this.availability.forEach((a)=>{
-      let menuTime : any = {};
+    this.availability.forEach((a) => {
+      let menuTime: any = {};
       menuTime.days = a.day;
       menuTime.start_time = a.startTime;
       menuTime.end_time = a.endTime;
       menuTime.marked_as_closed = a.markedAsClose;
-      menuTime.active_flag = 0;
+      // menuTime.active_flag = 0;
       data.opening_time.push(menuTime);
     })
 
-    this.deletedAvailability.forEach((a)=>{
-      let menuTime : any = {};
-      menuTime.days = a.day;
-      menuTime.start_time = a.startTime;
-      menuTime.end_time = a.endTime;
-      menuTime.marked_as_closed = a.markedAsClose;
-      menuTime.active_flag = 1;
-      data.opening_time.push(menuTime);
-    })
+    // this.deletedAvailability.forEach((a) => {
+    //   let menuTime: any = {};
+    //   menuTime.days = a.day;
+    //   menuTime.start_time = a.startTime;
+    //   menuTime.end_time = a.endTime;
+    //   menuTime.marked_as_closed = a.markedAsClose;
+    //   menuTime.active_flag = 1;
+    //   data.opening_time.push(menuTime);
+    // })
 
-    this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp)=>{
-      if(resp.success){
-        this.alertService.showNotification(`Menu successfully ${this.menuId? 'updated' : 'created'}`);
-        this.router.navigate(['.'], {relativeTo: this.route.parent});
-      }else this.alertService.showNotification(`There was an error ${this.menuId? 'updating' : 'creating'} the menu. Please try again.`);
-    })
+    this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`
+      , data
+      , (resp) => {
+        if (resp.success) {
+          this.alertService.showNotification(`Menu successfully ${this.menuId ? 'updated' : 'created'}`);
+          this.router.navigate(['.'], { relativeTo: this.route.parent });
+        } else this.alertService.showNotification(`There was an error ${this.menuId ? 'updating' : 'creating'} the menu. Please try again.`);
+      })
 
     console.log(data);
   }
 
-  deleteMenu(){
+  deleteMenu() {
 
     let data: any = {}
     data.menu_name = this.menuName.value;
     data.menu_id = this.menuId;
     data.active_flag = 1;
 
-    this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp)=>{
-      if(resp.success){
+    this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp) => {
+      if (resp.success) {
         this.alertService.showNotification('Menu successfully deleted');
-        this.router.navigate(['.'], {relativeTo: this.route.parent});
-      }else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
+        this.router.navigate(['.'], { relativeTo: this.route.parent });
+      } else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
     })
   }
 

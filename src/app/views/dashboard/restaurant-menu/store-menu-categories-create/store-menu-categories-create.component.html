@@ -3,13 +3,13 @@
 <div class="row" [formGroup]="createCatForm">
     <div class="col-md-12">
         <div class="float-right">
-            <button class="btn std-button--transparency"> Delete </button>
+            <button class="btn std-button--transparency" [disabled]="!categoryId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
             <button class="btn std-button--blue" style="margin-left:10px" (click)="saveData()"><img src="../../../../../assets/images/tick.png"> {{ saveBtnLoading ? "Loading" : "Save" }} </button>
         </div>
     </div>
     <div class="col-md-12">
         <div class="input-container">
-            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="createCatForm.controls.categoryName.valid || createCatForm.controls.menus.valid ? pagebackPopup(back) : navigateBack()">
+            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="(createCatForm.controls.categoryName.valid || createCatForm.controls.menus.valid) && createCatForm.touched ? pagebackPopup(back) : navigateBack()">
             <input type="text" class="input-border"  formControlName="categoryName" >
             <span style="color: red;" *ngIf="createCatForm.controls.categoryName.invalid && createCatForm.controls.categoryName.touched">Category name is required.</span>
         </div>  
@@ -57,9 +57,21 @@
       <p class="mb-2"> 
           If you continue you will lose any unsaved progress
       </p>
-      <button class="std-button--plane" (click)="navigateBack()"> Continue </button>
+      <button class="std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue </button>
       <hr>
       <button class="std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 <!-- back save continue end-->
+
+<ng-template #deleteComform let-modal3>
+    <div class="modal-body text-center">
+        <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
+      <p class="mb-2"> 
+          Are you sure? 
+      </p>
+      <button class="std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
+      <hr>
+      <button class="std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>

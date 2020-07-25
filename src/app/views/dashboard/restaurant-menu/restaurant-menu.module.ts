@@ -13,6 +13,7 @@ import { pathToFileURL } from 'url';
 import { NotFoundComponent } from '../../shared/not-found/not-found.component';
 import { SharedModule } from '../../shared/shared.module';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreMenuCategoriesContainerComponent } from './store-menu-categories-container/store-menu-categories-container.component';
 import { StoreMenuItemsCreateComponent } from './store-menu-items-create/store-menu-items-create.component';
 
 const routes: Routes = [
@@ -44,16 +45,27 @@ const routes: Routes = [
       },
       {
         path: 'categories',
-        component: RestaurantMenuCategoriesComponent
+        component: StoreMenuCategoriesContainerComponent,
+        children: [
+          {
+            path: '',
+            component: RestaurantMenuCategoriesComponent
+          },
+          {
+            path: 'new',
+            component: StoreMenuCategoriesCreateComponent
+          },
+          {
+            path: ':id',
+            component: StoreMenuCategoriesCreateComponent
+          },
+          {
+            path: ':id/not-found',
+            component: NotFoundComponent
+          }
+        ]
       },
-      {
-        path: 'categories/:id',
-        component: StoreMenuCategoriesCreateComponent
-      },
-      {
-        path: 'categories/new',
-        component: StoreMenuCategoriesCreateComponent
-      },
+
       {
         path: 'items',
         component: RestaurantMenuItemsComponent,
@@ -71,12 +83,12 @@ const routes: Routes = [
       }
     ]
   }
-  
+
 ]
 const restaurantMenuRouting = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent, StoreMenuItemsCreateComponent],
+  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent, StoreMenuCategoriesContainerComponent, StoreMenuItemsCreateComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
