@@ -64,13 +64,13 @@
             <div class="col-md-12">
                 <div class="d-flex flex-row">
                     <div class="upload-image">
-                        <img [src]="imageUrl">     
+                        <img [src]="imageUrl ? imageUrl : 'assets/images/ico_add_blue.png'">     
                     </div>
                     <div class="response-padding" style="margin-left:20px;">
                         <span style="font-size:12px">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
                         <div class="mt-2">
-                            <button class="btn std-button--blue" (click)="fileInput.click()" > Browse </button> 
-                            <button class="btn std-button--transparency" style="margin-left:10px;"> Remove </button>
+                            <button class="btn std-button--blue" type="button" (click)="fileInput.click()" > Browse </button> 
+                            <button class="btn std-button--transparency"  type="button" style="margin-left:10px;"> Remove </button>
                         </div>
                     </div>
                 </div>

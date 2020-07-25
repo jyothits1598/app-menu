@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
       if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length > 0){
         let data = response['data'];
         data.forEach(storelist => {
-          let newstoreDetails = new Storedetails(storelist.store_id, storelist.store_name);
+          let newstoreDetails = new Storedetails(storelist.store_id, storelist.store_name, storelist.logo_url ? storelist.logo_url : null);
           this.mutiple_stores_array.push(newstoreDetails);
           if(storelist['active_flag'] == 0) {
             this.store_status = true;

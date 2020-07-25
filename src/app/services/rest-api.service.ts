@@ -154,7 +154,7 @@ export class RestApiService {
     /*
     * Rest API Function to save file to storage using get form data object
     */
-    async pushSaveFileToStorageWithFormdata(formdata, url, callback) {
+    async pushSaveFileToStorageWithFormdata(formdata, url, callback, errorCallback=null) {
         url = this.hostURL + url;
         let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
         // x-www-form-urlencoded
@@ -165,6 +165,7 @@ export class RestApiService {
             (data) => {
                 return callback && callback(data);
             }, error => {
+                if(errorCallback) errorCallback();
                 this.alertservice.hideLoader();
                 if (error.error.data) {
                     this.alertservice.showNotification(error.error.data, 'error');
