@@ -24,6 +24,7 @@ export class FifthFormsComponent implements OnInit {
     private authenticateService: AuthenticationService
   ) { 
     this.store_id = this.route.snapshot.paramMap.get('store-id');
+    
   }
 
   ngOnInit(): void {
