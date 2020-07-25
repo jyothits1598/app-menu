@@ -13,8 +13,8 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
   menus: Array<StoreMenu> = [];
-  routerSub$ : Subscription;
-  
+  routerSub$: Subscription;
+  isLoading: boolean = false;
 
   constructor(
     public route: ActivatedRoute
@@ -22,7 +22,7 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
     , private storeService: StoreService
     , private restApiService: RestApiService
   ) {
-    
+
     this.routerSub$ = this.router.events.pipe(
       filter(e => e instanceof NavigationEnd && this.route.children.length == 0)
     ).subscribe((event) => {
@@ -37,18 +37,23 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
 
   fetchMenus() {
     this.menus = [];
-    
-    if(!this.storeService.activeStore) { return this.router.navigate(['../notfound'], {relativeTo: this.route});}
 
-    this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/all`, (response) => {
-      if (response['data'] && response['data'].length > 0) {
-        let data = response['data'];
-        data.forEach(menu => {
-          let newMenu = new StoreMenu(menu.menu_details.menu_id, menu.menu_details.menu_name, this.storeService.readAvailability(menu.availability));
-          this.menus.push(newMenu);
-        });
+    if (!this.storeService.activeStore) { return this.router.navigate(['../notfound'], { relativeTo: this.route }); }
+    this.isLoading = true;
+    this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/all`
+      , (response) => {
+        if (response['data'] && response['data'].length > 0) {
+          let data = response['data'];
+          data.forEach(menu => {
+            let newMenu = new StoreMenu(menu.menu_details.menu_id, menu.menu_details.menu_name, this.storeService.readAvailability(menu.availability));
+            this.menus.push(newMenu);
+          });
+        }
+        this.isLoading = false;
       }
-    });
+      , (error)=>{
+        this.isLoading = false;
+      });
   }
 
   ngOnInit(): void {

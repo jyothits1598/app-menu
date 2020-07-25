@@ -21,6 +21,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   menuId: number = null;
   menuName: FormControl = new FormControl('', Validators.required);
+  isLoading: boolean = false;
 
   startTime: string = "Select";
   endTime: string = "Select";
@@ -114,16 +115,19 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   }
 
   fetchMenu(id: number) {
-    this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/${id}`, (response) => {
-      console.log("resp from get availability", response);
-      if (response.success) {
-        this.menuName.setValue(response.data[0].menu_details.menu_name);
-        this.menuId = response.data[0].menu_details.menu_id;
-        this.availability = this.storeService.readAvailability(response.data[0].availability);
-      } else {
-        this.router.navigate(['notfound'], { relativeTo: this.route });
+    this.isLoading = true;
+    this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/${id}`
+      , (response) => {
+        this.isLoading = false;
+        if (response.success) {
+          this.menuName.setValue(response.data[0].menu_details.menu_name);
+          this.menuId = response.data[0].menu_details.menu_id;
+          this.availability = this.storeService.readAvailability(response.data[0].availability);
+        } else {
+          this.router.navigate(['notfound'], { relativeTo: this.route });
+        }
       }
-    })
+      , error => this.isLoading = false)
   }
 
   addRemvDay(day: string, add: boolean) {
