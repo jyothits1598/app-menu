@@ -100,11 +100,12 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
                     if (index != -1) (<FormArray>this.createCatForm.controls.menus).controls[index].setValue(true);
                   });
                 }
-              })
+              }
+              , err => this.isLoading = false)
           }
-
         }
-      })
+      },
+      error=> this.isLoading = false)
   }
 
   saveData() {
