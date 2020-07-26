@@ -64,11 +64,11 @@
             <div class="col-md-6">
                 <label class="std-heading-4"> Is item in stock </label>
                 <div class="menu-creator__days">
-                    <div class="custom-checkbox" style="margin-right: 7rem;">
+                    <div class="custom-checkbox">
                         <input type="radio" id="yes" name="itemStock" formControlName="itemStock"  value="1">
                         <label class="custom-checkbox__label std-heading-4" for="yes">Yes</label>
                     </div>
-                    <div class="custom-checkbox" style="margin-right: 7rem;">
+                    <div class="custom-checkbox pd-left">
                         <input type="radio" id="no" name="itemStock" formControlName="itemStock" value="0" >
                         <label class="custom-checkbox__label std-heading-4" for="no">No</label>
                     </div>
@@ -79,11 +79,11 @@
             <div class="col-md-6">
                 <label class="std-heading-4"> Sell item on it's own? <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;width:14px;height:14px;" title="info" (click)="openVerticallyCentered(content)"> </label>
                 <div class="menu-creator__days">
-                    <div class="custom-checkbox" style="margin-right: 7rem;">
+                    <div class="custom-checkbox" >
                         <input type="radio" id="sellYes" name="sellitem" formControlName="sellitem" value="1" >
                         <label class="custom-checkbox__label std-heading-4" for="sellYes">Yes</label>
                     </div>
-                    <div class="custom-checkbox" style="margin-right: 7rem;">
+                    <div class="custom-checkbox pd-left">
                         <input type="radio" id="sellNo" name="sellitem" formControlName="sellitem" value="0" >
                         <label class="custom-checkbox__label std-heading-4" for="sellNo">No</label>
                     </div>
@@ -96,7 +96,7 @@
                 <p class="mb-2"> Items may appear in one or more categories. </p>
                 <label class="std-heading-4"> This item will be appear in: </label>
                 <div  formArrayName="categories" class="menu-creator__days"  (click)="createItemForm.controls.categories.markAsTouched({onlySelf: true});">
-                    <div class="custom-checkbox" style="margin-right: 7rem;" *ngFor="let control of categoryForm(); let i = index;">
+                    <div class="custom-checkbox" *ngFor="let control of categoryForm(); let i = index;">
                         <input type="checkbox" id="category_id_{{i}}" name="category_id_{{i}}" [formControlName]="i">
                         <label class="custom-checkbox__label std-heading-4" for="category_id_{{i}}">{{categoryIdMap[i].name}}</label>
                     </div>
@@ -109,7 +109,7 @@
                 <p class="mb-2"> Modifiers allow you to add sides, sizes and more to your menu items. </p>
                 <label class="std-heading-4"> This item will be available with:</label>
                <div  formArrayName="modifier" class="menu-creator__days"  (click)="createItemForm.controls.modifier.markAsTouched({onlySelf: true});">
-                    <div class="custom-checkbox" style="margin-right: 7rem;" *ngFor="let control of modifierForm(); let i = index;">
+                    <div class="custom-checkbox pd-left" *ngFor="let control of modifierForm(); let i = index;">
                         <input type="checkbox" id="modifer_id_{{i}}"  name="modifier_id_{{i}}" [formControlName]="i">
                         <label class="custom-checkbox__label std-heading-4" for="modifer_id_{{i}}">{{modifierIdMap[i].name}}</label>
                     </div>

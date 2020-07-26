@@ -72,14 +72,17 @@
     &--pending-color {
         background: #FFBF42;
         margin-top: 5px;
+        font-weight: 600;
     }
     &--approve-color {
         background: #72CC00;
         margin-top: 5px;
+        font-weight: 600;
     }
     &--incomplete-color {
-        background: red;
+        background: #ff4c4c;
         margin-top: 5px;
+        font-weight: 600;
     }
 
 }
