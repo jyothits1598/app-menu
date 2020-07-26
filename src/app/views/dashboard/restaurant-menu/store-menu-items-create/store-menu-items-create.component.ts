@@ -40,6 +40,6 @@ export class StoreMenuItemsCreateComponent implements OnInit {
   }
 
   pagebackPopup(back) {
-    this.modalService.open(back, { centered: true });
+    this.modalService.open(back, { centered: true, size: 'sm' });
   }
 }

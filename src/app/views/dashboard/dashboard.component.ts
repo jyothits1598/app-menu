@@ -20,6 +20,10 @@ export class DashboardComponent implements OnInit {
   dasboard_empty:boolean = false;
   mutiple_stores_array: Array<Storedetails> = [];
   store_status:boolean = false;
+  store_status_approve:boolean = false;
+  store_status_setup:boolean = false;
+  logoUrl:string = 'assets/images/null.png';
+
   constructor(
     private authenticateService: AuthenticationService,
     private dataService: DataService,
@@ -56,18 +60,24 @@ export class DashboardComponent implements OnInit {
   storeDetail() {
     this.mutiple_stores_array = [];
     this.alertService.showLoader();
-    this.restapiService.getData('store/get',(response)=>{
+    this.restapiService.getData('store/all',(response)=>{
       console.log(response);
       if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length > 0){
         let data = response['data'];
         data.forEach(storelist => {
-          let newstoreDetails = new Storedetails(storelist.store_id, storelist.store_name, storelist.logo_url ? storelist.logo_url : null);
+          let newstoreDetails = new Storedetails(storelist.store_id
+            , storelist.store_name
+            , storelist.store_logo
+            , storelist.active_flag ? true: false
+            , storelist.next_step);
+          if(!newstoreDetails.logoUrl) {
+            newstoreDetails.logoUrl = this.logoUrl;
+          } 
           this.mutiple_stores_array.push(newstoreDetails);
-          if(storelist['active_flag'] == 0) {
-            this.store_status = true;
-          }
+
           this.alertService.hideLoader();
         });
+
         // response['data'].forEach(element => {
         //   if(element.store_id) {
         //     this.storename = element.store_name;
@@ -75,10 +85,24 @@ export class DashboardComponent implements OnInit {
         //   }  
         //   this.alertService.hideLoader();
         // });
-      } else if(response && response['error']['error_msg']){
+      } else if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length === 0){
         this.dasboard_empty = true;
       }
+
       this.alertService.hideLoader();
     });
   }
+
+  navigate(storeDetail : Storedetails){
+    console.log("navigate called", storeDetail);
+    if(!storeDetail.activeFlag) {
+      // if(storeDetail.activeFlag)  return this.router.navigate(['./stores', storeDetail.id], {relativeTo: this.route});
+      if(storeDetail.nextStep == '')  return this.router.navigate(['./stores', storeDetail.id], {relativeTo: this.route});
+      if(storeDetail.nextStep = 'ownership-proof') return this.router.navigate([`../store/step2/${storeDetail.id}/ownership-proof`])
+      if(storeDetail.nextStep = 'bank-account') return this.router.navigate([`../store/step3/${storeDetail.id}/bank-account`])
+    } if (storeDetail.activeFlag) {
+      return this.router.navigate(['./stores', storeDetail.id], {relativeTo: this.route});
+    }    
+  }
+
 }
