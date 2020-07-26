@@ -1,5 +1,5 @@
 <div class="menu-creator__actn-btns mb-2">
-    <button class="std-button mr-sm-3" [disabled]="!menuId" (click)="deleteMenu()">Delete</button>
+    <button class="std-button mr-sm-3" *ngIf="menuId" (click)="deleteMenu()">Delete</button>
     <button class="std-button" (click)="saveMenu()" [ngClass]="{'std-button--primary' : readyToSave()}">Save</button>
 </div>
 <ng-container *ngIf="isLoading">
@@ -13,66 +13,82 @@
 </div>  -->
 <div class="input-container mb-4">
     <img src="../../../../../assets/images/ico_back.png" class="input-img" [routerLink]="menuId ? '../../' : '../'">
-    <input type="text" class="input-border" name="menu-name" [formControl]="menuName" placeholder="Enter a name for this menu">
-    <span *ngIf="menuName.invalid && menuName.touched" class="menu-creator__name__error">Menu name is required</span>
+    <input type="text" class="input-border" name="menu-name" [formControl]="menuName"
+        placeholder="Enter a name for this menu">
+    <span style="color: red;" *ngIf="menuName.invalid && menuName.touched" class="menu-creator__name__error">Name of the menu is required</span>
 </div>
-<div>
-    <h3 class="std-heading-3 mb-2">Add availability <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openVerticallyCentered(content)"></h3>
+<div class="mb-4">
+    <h3 class="std-heading-3 mb-2">Add availability <img src="../../../../../assets/images/ico_help.png"
+            style="cursor:pointer" title="info" (click)="openVerticallyCentered(content)"></h3>
     <h4 class="std-heading-4 mb-1">Days <b class="m-star">*</b></h4>
     <div class="menu-creator__days mb-2">
-        <div class="custom-checkbox">
-            <input type="checkbox" id="day_mon" value="monday" (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <div class="custom-checkbox mr-3">
+            <input type="checkbox" id="day_mon" value="monday"
+                (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_mon">Mon</label>
         </div>
-        <div class="custom-checkbox pd-left">
-            <input type="checkbox" id="day_tue" value="tuesday" (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <div class="custom-checkbox mr-3">
+            <input type="checkbox" id="day_tue" value="tuesday"
+                (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_tue">Tue</label>
         </div>
-        <div class="custom-checkbox pd-left">
-            <input type="checkbox" id="day_wed" value="wednesday" (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <div class="custom-checkbox mr-3">
+            <input type="checkbox" id="day_wed" value="wednesday"
+                (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_wed">Wed</label>
         </div>
-        <div class="custom-checkbox pd-left">
-            <input type="checkbox" id="day_thu" value="thursday" (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <div class="custom-checkbox mr-3">
+            <input type="checkbox" id="day_thu" value="thursday"
+                (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_thu">Thu</label>
         </div>
-        <div class="custom-checkbox pd-left">
-            <input type="checkbox" id="day_fri" value="friday" (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <div class="custom-checkbox mr-3">
+            <input type="checkbox" id="day_fri" value="friday"
+                (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_fri">Fri</label>
         </div>
-        <div class="custom-checkbox pd-left">
-            <input type="checkbox" id="day_sat" value="saturday" (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <div class="custom-checkbox mr-3">
+            <input type="checkbox" id="day_sat" value="saturday"
+                (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_sat">Sat</label>
         </div>
-        <div class="custom-checkbox pd-left">
-            <input type="checkbox" id="day_sun" value="sunday" (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <div class="custom-checkbox mr-3">
+            <input type="checkbox" id="day_sun" value="sunday"
+                (change)="addRemvDay($event.target.value, $event.target.checked)">
             <label class="custom-checkbox__label std-heading-4" for="day_sun">Sun</label>
         </div>
+        <div style="color: red;" *ngIf="selectedDays.length == 0 && daysTouched">Please select at least one day.</div>
     </div>
-    <div class="menu-creator__time mb-4">
+
+    <div class="menu-creator__time" [formGroup]="timing">
         <div class="mr-3">
             <h4 class="std-heading-4 mb-1">Start time <b class="m-star">*</b></h4>
-            <select class="custom-select" [(ngModel)]="startTime">
+            <select class="custom-select" formControlName="startTime">
                 <option> Select </option>
                 <option *ngFor="let t of time" [value]="t">{{ t }}</option>
             </select>
         </div>
         <div class="mr-3">
             <h4 class="std-heading-4 mb-1">End time <b class="m-star">*</b></h4>
-            <select #input class="custom-select" [(ngModel)]="endTime">
+            <select class="custom-select" formControlName="endTime">
                 <option> Select </option>
                 <option *ngFor="let t of time" [value]="t">{{ t }}</option>
             </select>
         </div>
-        <button class="std-button std-button--primary" style="cursor: pointer;" [disabled]="!stateCheck()" (click)="addAvailability()"><img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;Add
+        <button class="std-button std-button--primary" style="cursor: pointer;"
+            (click)="addAvailability()"><img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;Add
             time</button>
-    </div>
+        </div>
+            <div *ngIf="timing.controls.startTime.touched && timing.controls.endTime.touched">
+                <div style="color: red;" *ngIf="timing.errors?.sameSelection">{{timing.errors.sameSelection}}</div>
+                <div style="color: red;" *ngIf="timing.errors?.noSelection">{{timing.errors.noSelection}}</div>
+            </div>
 </div>
 
 <h3 class="std-heading-3 mb-2">Availability</h3>
 
 <p>Select <strong>days</strong> and <strong>times</strong> above and press <strong>add time</strong> to add
-    availability.</p>
+<p *ngIf="availability.length == 0 && availabilityTouched" style="color: red;">Please provide atleast one availability</p>
 
 <div class="row">
     <div class="col-md-12">
@@ -87,7 +103,8 @@
                         <input [(ngModel)]="a.markedAsClose" type="checkbox">
                         Mark as closed
                     </td>
-                    <td valign="middle" style="color:#353FA8;cursor: pointer;" (click)="a.id? deletedAvailability.push(availability.splice(i, 1)[0]) : availability.splice(i, 1)[0]">
+                    <td valign="middle" style="color:#353FA8;cursor: pointer;"
+                        (click)="a.id? deletedAvailability.push(availability.splice(i, 1)[0]) : availability.splice(i, 1)[0]">
                         <img src="../../../../../assets/images/ico_delete.png">&nbsp;&nbsp;Delete
                     </td>
                     <td></td>
@@ -99,19 +116,20 @@
 <!-- Info modal -->
 <ng-template #content let-modal>
     <div class="modal-header header-info">
-      <h4 class="std-heading-3"> Availability </h4>
-      <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
-      </button>
+        <h4 class="std-heading-3"> Availability </h4>
+        <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+        </button>
     </div>
     <div class="modal-body">
-      <p> 
-          To specify the days and times this item is available,simply select 1 or more <b>days</b>, a <b>start time</b> and an <b>end time</b>, and then press the <b>add time</b> button.
-      </p>
-      <p>
-          Outside of the time periods entered here, customers will be able to browse but not purchase from the menu.
-          Select <b>mark as closed</b> to temporarily close a specific time period.
-      </p>
+        <p>
+            To specify the days and times this item is available,simply select 1 or more <b>days</b>, a <b>start
+                time</b> and an <b>end time</b>, and then press the <b>add time</b> button.
+        </p>
+        <p>
+            Outside of the time periods entered here, customers will be able to browse but not purchase from the menu.
+            Select <b>mark as closed</b> to temporarily close a specific time period.
+        </p>
     </div>
 </ng-template>
 <!-- Info modal end-->
