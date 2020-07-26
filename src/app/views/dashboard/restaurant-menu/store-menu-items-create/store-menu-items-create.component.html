@@ -65,11 +65,11 @@
                 <label class="std-heading-4"> Is item in stock </label>
                 <div class="menu-creator__days">
                     <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="radio" id="yes" name="itemStock" formControlName="itemStock" [checked]="true"  value="1" [(ngModel)]="stock_item">
+                        <input type="radio" id="yes" name="itemStock" formControlName="itemStock"  value="1">
                         <label class="custom-checkbox__label std-heading-4" for="yes">Yes</label>
                     </div>
                     <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="radio" id="no" name="itemStock" formControlName="itemStock" value="0" [(ngModel)]="stock_item ">
+                        <input type="radio" id="no" name="itemStock" formControlName="itemStock" value="0" >
                         <label class="custom-checkbox__label std-heading-4" for="no">No</label>
                     </div>
                 </div>
@@ -80,11 +80,11 @@
                 <label class="std-heading-4"> Sell item on it's own? <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;width:14px;height:14px;" title="info" (click)="openVerticallyCentered(content)"> </label>
                 <div class="menu-creator__days">
                     <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="radio" id="sellYes" name="sellitem" formControlName="sellitem" value="1" [(ngModel)]="sell_item.sellYes">
+                        <input type="radio" id="sellYes" name="sellitem" formControlName="sellitem" value="1" >
                         <label class="custom-checkbox__label std-heading-4" for="sellYes">Yes</label>
                     </div>
                     <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="radio" id="sellNo" name="sellitem" formControlName="sellitem" value="0" [(ngModel)]="sell_item.sellNo ">
+                        <input type="radio" id="sellNo" name="sellitem" formControlName="sellitem" value="0" >
                         <label class="custom-checkbox__label std-heading-4" for="sellNo">No</label>
                     </div>
                 </div>

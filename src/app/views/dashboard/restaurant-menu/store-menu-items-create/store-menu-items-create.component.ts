@@ -67,17 +67,18 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.alertService.hideLoader();
   }
 
-  stock_item : {[key: string]: boolean} = {
-    "yes" : false,
-    "no" : false,
-  };
+  // stock_item : {[key: string]: boolean} = {
+  //   "yes" : false,
+  //   "no" : false,
+  // };
 
-  sell_item : {[key: string]: boolean} = {
-    "sellYes" : false,
-    "sellNo" : false
-  };
+  // sell_item : {[key: string]: boolean} = {
+  //   "sellYes" : false,
+  //   "sellNo" : false
+  // };
 
   
 
@@ -134,8 +135,8 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
                   this.createItemForm.controls.itemDescription.setValue(menuItem.item_description);
                   this.createItemForm.controls.itemKeyword.setValue(menuItem.item_keyword);
                   this.createItemForm.controls.itemBasePrice.setValue(menuItem.item_base_price);
-                  this.createItemForm.controls.itemStock.setValue(menuItem.item_in_stock);
-                  this.createItemForm.controls.sellitem.setValue(menuItem.item_individual);
+                  this.createItemForm.controls.itemStock.setValue(menuItem.item_in_stock.toString());
+                  this.createItemForm.controls.sellitem.setValue(menuItem.item_individual.toString());
                   this.uploadedImagePath = menuItem.item_image;
                   menuItem.category_details.forEach(activeCategory => {
                     let index: number = this.categoryIdMap.findIndex(category => activeCategory.category_id == category.id);
