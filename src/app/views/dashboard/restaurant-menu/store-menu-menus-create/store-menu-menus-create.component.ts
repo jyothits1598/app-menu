@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { StoreMenuTime } from 'src/app/_models/store-menu';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroupDirective, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,7 +22,12 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   menuId: number = null;
   menuName: FormControl = new FormControl('', Validators.required);
   isLoading: boolean = false;
-
+  
+  timing: FormGroup = new FormGroup({
+    startTime: new FormControl('Select'),
+    endTime: new FormControl('Select')
+  })
+  
   startTime: string = "Select";
   endTime: string = "Select";
 
@@ -152,6 +157,10 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   }
 
   addAvailability() {
+    if(this.startTime == this.endTime) {
+      this.alertService.showNotification("Start-time and end-time cannot be the same", 'error');
+      return;
+    }
     let menuTime = null;
     this.selectedDays.forEach(day => {
       menuTime = new StoreMenuTime(null, day, this.startTime, this.endTime, false);
@@ -161,14 +170,22 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
 
   insertIntoAvailability(availability: Array<StoreMenuTime>, menuTime: StoreMenuTime) {
     for (let i = 0; i <= availability.length; i++) {
+      
+      //case: menuTime is the largest in the array
       if (i == availability.length) {
         availability.push(menuTime);
         break;
       }
-      if (this.menuTimeComp(menuTime, availability[i]) <= 0) {
+
+      let compVal = this.menuTimeComp(menuTime, availability[i]);
+
+      if (compVal < 0) {
         availability.splice(i, 0, menuTime);
         break;
       }
+
+      //donot insert if there is an identical StoreMenuTime
+      if(compVal == 0) break;
     }
   }
 
@@ -186,7 +203,20 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       , saturday: 6
       , sunday: 7
     }
-    return dayValue[first.day] - dayValue[second.day];
+    //is first and second are different days
+    if(dayValue[first.day] - dayValue[second.day]) return dayValue[first.day] - dayValue[second.day];
+
+    // compare start-times
+    let firstSTime = new Date('1/1/0001 ' + first.startTime.substr(0,5) + ':00 ' + first.startTime.substr(5, 2)).getTime();
+    let secondSTime = new Date('1/1/0001 ' + second.startTime.substr(0,5) + ':00 ' + second.startTime.substr(5, 2)).getTime();
+
+    if(firstSTime !== secondSTime) return firstSTime - secondSTime;
+
+    //compare end-times
+    let firstETime = new Date('1/1/0001 ' + first.endTime.substr(0,5) + ':00 ' + first.endTime.substr(5, 2)).getTime();
+    let secondETime = new Date('1/1/0001 ' + second.endTime.substr(0,5) + ':00 ' + second.endTime.substr(5, 2)).getTime();
+
+    return firstETime - secondETime;
   }
 
   readyToSave(): boolean {
