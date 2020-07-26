@@ -1,15 +1,18 @@
+<div [formGroup]="createItemForm">
+<span style="color: red;" *ngIf="isLoading">loading...</span>
 <div class="row">
     <div class="col-md-12">
         <div class="float-right">
-            <button class="btn std-button--transparency"> Delete </button>
+            <button class="btn std-button--transparency" [disabled]="!itemId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
             <button class="btn std-button--transparency" style="margin-left:10px;" > Duplicate </button>
-            <button class="btn std-button--blue" style="margin-left:10px;"><img src="../../../../../assets/images/tick.png">&nbsp; Save </button>
+            <button class="btn std-button--blue" style="margin-left:10px;"  (click)="saveData()"><img src="../../../../../assets/images/tick.png">&nbsp; {{ saveBtnLoading ? "Loading" : "Save" }} </button>
         </div>
     </div>
     <div class="col-md-12">
         <div class="input-container">
-            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="pagebackPopup(back)">
-            <input type="text" class="input-border" >
+            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="(createItemForm.controls.itemName.valid || createItemForm.controls.category.valid) && createItemForm.touched ? pagebackPopup(back) : navigateBack()">
+            <input type="text" class="input-border" formControlName="itemName">
+            <span style="color: red;" *ngIf="createItemForm.controls.itemName.invalid && createItemForm.controls.itemName.touched">Category name is required.</span>
         </div>  
     </div>
 </div>
@@ -20,14 +23,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex flex-row">
-                    <div class="upload-image">
-                        <div><img src="../../../../../assets/images/ico_add_blue.png"> <span class="upload-text"> Upload an image</span>  </div>
+                    <div class="upload-image" (click)="fileInput.click()">
+                        <div>
+                            <img *ngIf="uploadedImagePath" style="width:190px;height:184px" src="{{uploadedImagePath}}">
+                            <img *ngIf="!uploadedImagePath" src="../../../../../assets/images/ico_add_blue.png"> <span *ngIf="!uploadedImagePath" class="upload-text"> Upload an image</span>
+                        </div>
                     </div>
                     <div class="response-padding" style="margin-left:20px;">
                         <span style="font-size:14px"> JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
                         <div class="mt-2">
-                            <button class="btn std-button--blue" > Browse </button> 
+                            <button class="btn std-button--blue" (click)="fileInput.click()" > Browse </button> 
                             <button class="btn std-button--transparency" style="margin-left:10px;"> Remove </button>
+                            <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput accept=".jpg,.jpeg,.png,.gif">
                         </div>
                     </div>
                 </div>
@@ -37,11 +44,11 @@
             <div class="col-md-6">
                 <div class="form-group mb-2">
                     <label class="std-heading-4 "> Description </label>
-                    <textarea class="form-control form-input" placeholder="Enter description" ></textarea>
+                    <textarea class="form-control form-input" formControlName="itemDescription" placeholder="Enter description" ></textarea>
                 </div>
                 <div class="form-group mb-2">
                     <label class="std-heading-4"> Keywords </label>
-                    <textarea class="form-control form-input" placeholder="Enter search keywords separated by comma e. g. italian, pasta" ></textarea>
+                    <textarea class="form-control form-input" formControlName="itemKeyword" placeholder="Enter search keywords separated by comma e. g. italian, pasta" ></textarea>
                 </div>
             </div>
         </div>
@@ -49,7 +56,7 @@
             <div class="col-md-2">
                 <div class="form-group mb-2">
                     <label class="std-heading-4"> Base price </label>
-                    <input class="form-control form-input" placeholder="$09.11" >
+                    <input class="form-control form-input" formControlName="itemBasePrice" placeholder="$09.11" >
                 </div>
             </div>
         </div>
@@ -58,11 +65,11 @@
                 <label class="std-heading-4"> Is item in stock </label>
                 <div class="menu-creator__days">
                     <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="checkbox" id="yes" [(ngModel)]="stock_item.yes">
+                        <input type="radio" id="yes" name="itemStock" formControlName="itemStock"  value="1">
                         <label class="custom-checkbox__label std-heading-4" for="yes">Yes</label>
                     </div>
                     <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="checkbox" id="no" [(ngModel)]="stock_item.no ">
+                        <input type="radio" id="no" name="itemStock" formControlName="itemStock" value="0" >
                         <label class="custom-checkbox__label std-heading-4" for="no">No</label>
                     </div>
                 </div>
@@ -73,11 +80,11 @@
                 <label class="std-heading-4"> Sell item on it's own? <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;width:14px;height:14px;" title="info" (click)="openVerticallyCentered(content)"> </label>
                 <div class="menu-creator__days">
                     <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="checkbox" id="sellYes" [(ngModel)]="sell_item.sellYes">
+                        <input type="radio" id="sellYes" name="sellitem" formControlName="sellitem" value="1" >
                         <label class="custom-checkbox__label std-heading-4" for="sellYes">Yes</label>
                     </div>
                     <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="checkbox" id="sellNo" [(ngModel)]="sell_item.sellNo ">
+                        <input type="radio" id="sellNo" name="sellitem" formControlName="sellitem" value="0" >
                         <label class="custom-checkbox__label std-heading-4" for="sellNo">No</label>
                     </div>
                 </div>
@@ -88,14 +95,10 @@
                 <h4 class="std-heading-3 mb-2"> Categories <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="opencategoryCentered(category)"></h4>
                 <p class="mb-2"> Items may appear in one or more categories. </p>
                 <label class="std-heading-4"> This item will be appear in: </label>
-                <div class="menu-creator__days">
-                    <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="checkbox" id="Drinks" [(ngModel)]="items.Drinks">
-                        <label class="custom-checkbox__label std-heading-4" for="Drinks">Drinks</label>
-                    </div>
-                    <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="checkbox" id="Sweets" [(ngModel)]="items.Sweets ">
-                        <label class="custom-checkbox__label std-heading-4" for="Sweets">Sweets</label>
+                <div  formArrayName="categories" class="menu-creator__days"  (click)="createItemForm.controls.categories.markAsTouched({onlySelf: true});">
+                    <div class="custom-checkbox" style="margin-right: 7rem;" *ngFor="let control of categoryForm(); let i = index;">
+                        <input type="checkbox" id="category_id_{{i}}" name="category_id_{{i}}" [formControlName]="i">
+                        <label class="custom-checkbox__label std-heading-4" for="category_id_{{i}}">{{categoryIdMap[i].name}}</label>
                     </div>
                 </div>
             </div>
@@ -105,21 +108,18 @@
                 <h4 class="std-heading-3 mb-2"> Modifier groups <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="openmodifierCentered(modifier)"></h4>
                 <p class="mb-2"> Modifiers allow you to add sides, sizes and more to your menu items. </p>
                 <label class="std-heading-4"> This item will be available with:</label>
-                <!-- <div class="menu-creator__days">
-                    <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="checkbox" id="Drinks" [(ngModel)]="items.Drinks">
-                        <label class="custom-checkbox__label std-heading-4" for="Drinks">Drinks</label>
+               <div  formArrayName="modifier" class="menu-creator__days"  (click)="createItemForm.controls.modifier.markAsTouched({onlySelf: true});">
+                    <div class="custom-checkbox" style="margin-right: 7rem;" *ngFor="let control of modifierForm(); let i = index;">
+                        <input type="checkbox" id="modifer_id_{{i}}"  name="modifier_id_{{i}}" [formControlName]="i">
+                        <label class="custom-checkbox__label std-heading-4" for="modifer_id_{{i}}">{{modifierIdMap[i].name}}</label>
                     </div>
-                    <div class="custom-checkbox" style="margin-right: 7rem;">
-                        <input type="checkbox" id="Sweets" [(ngModel)]="items.Sweets ">
-                        <label class="custom-checkbox__label std-heading-4" for="Sweets">Sweets</label>
-                    </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+</div>
 
 
 
@@ -181,15 +181,27 @@
 <!-- Info modal end-->
 
 <!-- back save continue -->
-<ng-template #back let-modal>
+<ng-template #back let-modal2>
     <div class="modal-body text-center">
         <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
       <p class="mb-2"> 
           If you continue you will lose any unsaved progress
       </p>
-      <button class="std-button--plane"> Continue </button>
+      <button class="std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue </button>
       <hr>
-      <button class="std-button--plane"> Cancel </button>
+      <button class="std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 <!-- back save continue end-->
+
+<ng-template #deleteComform let-modal3>
+    <div class="modal-body text-center">
+        <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
+      <p class="mb-2"> 
+          Are you sure? 
+      </p>
+      <button class="std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
+      <hr>
+      <button class="std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
