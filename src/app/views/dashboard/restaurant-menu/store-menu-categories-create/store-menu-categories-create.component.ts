@@ -175,15 +175,15 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
   }
 
   pagebackPopup(back) {
-    this.modalService.open(back, { centered: true });
+    this.modalService.open(back, { centered: true, size: 'sm' });
   }
 
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();
   }
 
-  debug() {
-    // .setValue(true);
-  }
+  // debug() {
+  //   // .setValue(true);
+  // }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { ReactiveFormsModule,FormsModule,FormGroup,FormControl,Validators,FormBuilder } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -26,18 +26,18 @@ export class SecondFormsComponent implements OnInit {
   facebookBussinessSubmit = false;
   googleBussinessSubmit = false;
   returnUrl: string;
-  store_id:number;
-  storename:string;
-  storeAddress :string;
-  cuisine:string;
-  getDescription :string;
-  store_add_or_edit_action_type:string;
-  add_edit_type:string = 'add';
+  store_id: number;
+  storename: string;
+  storeAddress: string;
+  cuisine: string;
+  getDescription: string;
+  store_add_or_edit_action_type: string;
+  add_edit_type: string = 'add';
   getgoogleBussiness: string;
   getfacebookBussiness: string;
-  imageUrl:string = null;
-  fileUptoLoad:File;
-  logoUploadSucceeded : boolean = false;
+  imageUrl: string = null;
+  fileUptoLoad: File;
+  logoUploadSucceeded: boolean = false;
 
   constructor(
     private router: Router,
@@ -49,23 +49,23 @@ export class SecondFormsComponent implements OnInit {
     private authenticateService: AuthenticationService,
     private dataService: DataService,
   ) {
-    if(+localStorage.getItem('storeCreationId')) this.store_id = +localStorage.getItem('storeCreationId');
-    // this.store_id = +this.route.snapshot.paramMap.get('store-id');
+    this.store_id = +this.route.snapshot.paramMap.get('store-id');
+    if (!this.store_id) if (+localStorage.getItem('storeCreationId')) this.store_id = +localStorage.getItem('storeCreationId');
     this.add_edit_type = this.route.snapshot.queryParams['type'] || 'add';
   }
 
-  options={ 
-    componentRestrictions:{ 
-      country:["AU"] 
-    } 
-  } 
-  public AddressChange(address: any) { 
+  options = {
+    componentRestrictions: {
+      country: ["AU"]
+    }
+  }
+  public AddressChange(address: any) {
     //setting address from API to local variable 
     //  this.storeAddress=address.formatted_address;
-     if (address) {
-        this.storeAddress = address.name + "," + address.formatted_address; 
-     }
-  } 
+    if (address) {
+      this.storeAddress = address.name + "," + address.formatted_address;
+    }
+  }
 
 
   Cuisines: any = ['African: Ethiopian', 'African: other', 'Alcohol', 'American', 'New York', 'Asian fusion', 'Asian: other', 'BBQ', 'Bakery']
@@ -73,11 +73,11 @@ export class SecondFormsComponent implements OnInit {
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     var obj = this;
-    if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
+    if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
       // obj.authenticateService.checkExpiryStatus();
       obj.getstoreDetails();
     }
-   
+
     this.storeDetailform = this.formBuilder.group({
       storeName: ['', Validators.required],
       storeAddress: ['', Validators.required],
@@ -88,7 +88,7 @@ export class SecondFormsComponent implements OnInit {
     });
   }
 
-  get f() { return this.storeDetailform.controls;}
+  get f() { return this.storeDetailform.controls; }
 
   storeDetails() {
     this.storeNameSubmit = true;
@@ -102,56 +102,58 @@ export class SecondFormsComponent implements OnInit {
       return;
     }
 
-    if(this.storeDetailform.valid){
-      let data : any={
-        'store_name':this.storeDetailform.value.storeName,
-        'store_address':this.storeAddress,
-        'type_of_cuisine':this.storeDetailform.value.typeCuisine,
-        'description':this.storeDetailform.value.descriptionItem,
+    if (this.storeDetailform.valid) {
+      let data: any = {
+        'store_name': this.storeDetailform.value.storeName,
+        'store_address': this.storeAddress,
+        'type_of_cuisine': this.storeDetailform.value.typeCuisine,
+        'description': this.storeDetailform.value.descriptionItem,
         'google_business_url': this.storeDetailform.value.google_business_url,
         'facebook_url': this.storeDetailform.value.facebook_url,
-      }; 
-      if(this.imageUrl) data.store_logo = this.imageUrl;
+        'store_logo': this.imageUrl
+      };
+      if (this.imageUrl) data.store_logo = this.imageUrl;
       console.log(data);
-      if(this.add_edit_type=='add') { 
-      this.alertservice.showLoader();
-      this.restApiservice.postAPI('store/add',data,(response)=>{
-        if(response && response['success'] && response['data']) {
+      if (this.add_edit_type == 'add') {
+        this.alertservice.showLoader();
+        this.restApiservice.postAPI('store/add', data, (response) => {
+          if (response && response['success'] && response['data']) {
+            this.alertservice.hideLoader();
+            localStorage.setItem('storeCreationId', response['data']['store_id']);
+            // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
+            return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
+          } else if (response && !response['success'] && response['message']) {
+            this.alertservice.showNotification(response['message'], 'error');
+          } else {
+            this.alertservice.showNotification('Something went wrong', 'error');
+          }
           this.alertservice.hideLoader();
-          localStorage.setItem('storeCreationId', response['data']['store_id']);
-          // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
-         return this.router.navigateByUrl('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step']);
-        } else if(response && !response['success'] && response['message']){
-          this.alertservice.showNotification(response['message'],'error');
-        }else{
-          this.alertservice.showNotification('Something went wrong','error');
-        }
-        this.alertservice.hideLoader();
-      });
-    } 
-    else if(this.add_edit_type=='edit'){
-      this.alertservice.showLoader();
-        this.restApiservice.putAPI('store/update/'+this.store_id+'',data,(response)=>{
-          if(response && response['success'] && response['data']) {
+        });
+      }
+      else if (this.add_edit_type == 'edit') {
+        this.alertservice.showLoader();
+        this.restApiservice.putAPI('store/update/' + this.store_id + '', data, (response) => {
+          if (response && response['success'] && response['data']) {
             this.alertservice.hideLoader();
             // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
-           return this.router.navigateByUrl('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step']);
+            return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
           }
-      });
+        });
+      }
+    } else {
+      this.alertservice.showNotification('Something went wrong', 'error');
+      this.alertservice.hideLoader();
     }
-  } else {
-    this.alertservice.showNotification('Something went wrong','error');
-    this.alertservice.hideLoader();
-  }
 
   }
 
   getstoreDetails() {
     // this.alertservice.showLoader();
-      this.restApiservice.getData('store/details/step1/'+this.store_id+'',(response)=> {
+    if (this.store_id) {
+      this.restApiservice.getData('store/details/step1/' + this.store_id + '', (response) => {
         console.log(response);
-        if(response && response['success'] && response['data']) {
-          response['data'].forEach(element => { 
+        if (response && response['success'] && response['data']) {
+          response['data'].forEach(element => {
             this.imageUrl = element.store_logo;
             this.storename = element.store_name;
             this.storeAddress = element.store_address;
@@ -169,8 +171,9 @@ export class SecondFormsComponent implements OnInit {
           })
         }
       });
+    }
   }
-  
+
   changeCuisine() {
     let typeCuisine = this.storeDetailform.value.typeCuisine;
   }
@@ -178,7 +181,7 @@ export class SecondFormsComponent implements OnInit {
   onFileChanged(event) {
     /* File upload Required function */
     this.fileUptoLoad = event.target.files[0];
-    if(this.fileUptoLoad){
+    if (this.fileUptoLoad) {
       if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
         this.alertservice.showNotification('Selected file format is not supported', 'error')
         return false;
@@ -189,35 +192,35 @@ export class SecondFormsComponent implements OnInit {
       }
       var reader = new FileReader();
       reader.readAsDataURL(this.fileUptoLoad);
-          reader.onload = (event:any) =>{
-          this.imageUrl = event.target.result;
-          console.log(this.imageUrl);
-        }              
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+        console.log(this.imageUrl);
+      }
       let form_data = new FormData();
-      form_data.append('store_image',this.fileUptoLoad);
+      form_data.append('store_image', this.fileUptoLoad);
       this.alertservice.showLoader();
-      this.restApiservice.pushSaveFileToStorageWithFormdata(form_data,'store/logo',(response)=>{
-        if(response && response['success']) {
+      this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/logo', (response) => {
+        if (response && response['success']) {
           this.alertservice.hideLoader();
           this.imageUrl = API_URL_LINK + response['data'];
           console.log(this.imageUrl);
-        }else if(response && !response['success']){
+        } else if (response && !response['success']) {
           this.imageUrl = null;
           this.alertservice.hideLoader();
-          this.alertservice.showNotification(response['message'],'error');
-        }else{
+          this.alertservice.showNotification(response['message'], 'error');
+        } else {
           this.imageUrl = null;
           this.alertservice.hideLoader();
           this.alertservice.showNotification('Something went wrong, Please try again', 'error');
         }
       }
-      , err => this.imageUrl = null);
-    } else{
-      this.alertservice.showNotification('No file selected','error');
+        , err => this.imageUrl = null);
+    } else {
+      this.alertservice.showNotification('No file selected', 'error');
     }
 
   }
-   
+
   click() {
     console.log('hihiih');
   }

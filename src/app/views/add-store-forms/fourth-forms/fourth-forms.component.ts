@@ -79,7 +79,7 @@ export class FourthFormsComponent implements OnInit {
             console.log('success');
             this.alertservice.hideLoader();
             console.log('/store/step4/'+response['data']['store_id'])
-            localStorage.removeItem('storeCreationId');
+            localStorage.removeItem("storeCreationId");
            return this.router.navigateByUrl('/store/step4/'+response['data']['store_id']);
           } else if(response && !response['success'] && response['message']){
             this.alertservice.showNotification(response['message'],'error');

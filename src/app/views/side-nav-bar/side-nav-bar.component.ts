@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DataService } from 'src/app/services/data.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { StoreService } from 'src/app/services/store.service';
 
@@ -16,14 +16,39 @@ export class SideNavBarComponent implements OnInit {
   public show:boolean = false;
   public buttonName:any = 'Show';
 
+  dashboard_url:string = "/dashboard";
+  menu_url:string = "/dashboard/stores/";
+  dashboard_status:boolean = false;
+  menu_status:boolean = false;
+
   constructor(
     private authenticateService: AuthenticationService,
     private dataService: DataService,
     private restapiService: RestApiService,
     private router: Router,
     private alertService: AlertService,
-    private storeService: StoreService
-  ) { }
+    private storeService: StoreService,
+    private route: ActivatedRoute,
+  ) { 
+    this.router.events.subscribe(
+      (event: any) => {
+        if (event instanceof NavigationEnd) {
+          this.dashboard_status = false;
+          this.menu_status = false;
+          if(this.router.url && this.router.url == this.dashboard_url){
+            this.dashboard_status = true;
+          }else if(this.router.url && this.router.url.indexOf(this.menu_url) > -1){
+              this.menu_status = true;
+          }
+        }
+      }
+    );
+    
+  }
+
+  get storeSer(){
+    return this.storeService;
+  }
 
   ngOnInit(): void {
     var obj = this;
@@ -39,7 +64,7 @@ export class SideNavBarComponent implements OnInit {
 
     storeDetails() {
       this.alertService.showLoader();
-      this.restapiService.getData('store/get/all',(response)=>{
+      this.restapiService.getData('store/all',(response)=>{
         if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length > 0){
           this.storeNames = response['data'];
           this.storeService.stores = response['data'];

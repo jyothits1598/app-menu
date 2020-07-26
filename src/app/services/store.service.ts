@@ -10,7 +10,8 @@ import { StoreMenuCategory } from '../_models/store-menu-category';
 export class StoreService {
   _stores: Array<any> = [];
   _activeStore: number;
-
+  activeStoreName: string;
+  
   constructor(private restApiService: RestApiService) { }
 
   set stores(stores: Array<any>) {

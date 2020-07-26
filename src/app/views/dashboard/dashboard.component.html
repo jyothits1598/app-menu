@@ -12,20 +12,20 @@
         <h3 class="wl-sub-header"> I am staff member </h3>
         <br>
         <p> If you are a staff member please request an invitation from the account owner and check your email. </p> -->
-        <div class="upload-image image-dashboard" [routerLink]="['/store/first-form']" style="outline: none;text-decoration: none;">
+        <div class="image-dashboard" [routerLink]="['/store/first-form']" style="outline: none;text-decoration: none;cursor: pointer;">
             <div><img src="../../../../../assets/images/ico_add_blue.png"><span class="upload-text"> Add store </span>  </div>
         </div>
     </div>
 </div>
 <div class="row" *ngIf="!dasboard_empty">
     <div class="col-12">
-        <h2 class="std-heading-2 mb-3" style="font-weight: 600;"> Stores </h2>
+        <h2 class="std-heading-2 mb-3" style="font-weight: 600;"> Stores </h2> 
         <h4 class="std-heading-4 mb-2"> Owned </h4>
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-4 col-xs-12" *ngFor="let stores of mutiple_stores_array">
-                <div class="well main-form draft-card-pending" [routerLink]="'/dashboard/stores/'+stores.id" style="outline: none;" title="{{ stores.storeName }}"> 
+                <div class="well main-form draft-card-pending"  (click)="navigate(stores)"  style="outline: none;" title="{{ stores.storeName }}"> 
                     <div class="img-container-draft">
-                        <img src="../../../../assets/images/bck.jpg">
+                        <img [src]="stores.logoUrl">
                     </div>
                     <div class="form-padding">
                         <h4>
@@ -39,11 +39,14 @@
                                 4.5 Google (4.5)
                             </span>
                         </div>
-                        <span class="google-rating google-rating--pending-color" *ngIf="store_status">
+                        <span class="google-rating google-rating--pending-color" *ngIf="!stores.activeFlag && stores.nextStep == ''">
                             Pending approval
                         </span>
-                        <span class="google-rating google-rating--approve-color" *ngIf="!store_status">
+                        <span class="google-rating google-rating--approve-color" *ngIf="stores.activeFlag">
                             Trading
+                        </span>
+                        <span class="google-rating google-rating--incomplete-color" *ngIf="!stores.activeFlag && stores.nextStep" >
+                            Setup
                         </span>
                     </div>
                 </div>
@@ -51,10 +54,10 @@
         </div>
     </div>
 </div>
-<!-- <div class="row" *ngIf="active_status">
+<!-- <div class="row" *ngIf="active_status">[routerLink]="'/dashboard/stores/'+stores.id"
     <div class="col-12">
         <h2 class="wl-header"> {{ storename }} </h2>
         <h3 class="wl-sub-header pb-4"> pending approvals </h3>
         <p> Before you start trading we need to confirm this is a real store. We are reviewing your proof of ownership documents and will be in touch shortly. If you have any questions please contact our <a href="#"> support team</a></p>
-    </div>
+    </div>[routerLink]="'/dashboard/stores/'+stores.id"
 </div> -->
