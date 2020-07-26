@@ -3,7 +3,7 @@
 <div class="row" [formGroup]="createCatForm">
     <div class="col-md-12">
         <div class="float-right">
-            <button class="btn std-button--transparency" [disabled]="!categoryId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
+            <button class="btn std-button--transparency" *ngIf="categoryId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
             <button class="btn std-button--blue" style="margin-left:10px" (click)="saveData()"><img src="../../../../../assets/images/tick.png"> {{ saveBtnLoading ? "Loading" : "Save" }} </button>
         </div>
     </div>

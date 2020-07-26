@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { StoreMenuTime } from 'src/app/_models/store-menu';
-import { FormControl, Validators, FormGroupDirective, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroupDirective, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,12 +22,14 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   menuId: number = null;
   menuName: FormControl = new FormControl('', Validators.required);
   isLoading: boolean = false;
-  
+  daysTouched: boolean = false;
+  availabilityTouched = false;
+
   timing: FormGroup = new FormGroup({
     startTime: new FormControl('Select'),
     endTime: new FormControl('Select')
-  })
-  
+  }, this.timingValidator())
+
   startTime: string = "Select";
   endTime: string = "Select";
 
@@ -136,6 +138,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   }
 
   addRemvDay(day: string, add: boolean) {
+    this.daysTouched = true;
     if (add) {
       this.selectedDays.push(day);
     } else {
@@ -144,23 +147,14 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     }
   }
 
-  //Checks time and day selection.
-  stateCheck(): boolean {
-    if (this.menuName.invalid) return false;
-
-    if (this.startTime == "Select") return false;
-    if (this.endTime == "Select") return false;
-
-    if (this.selectedDays.length == 0) return false;
-
-    return true;
-  }
-
   addAvailability() {
-    if(this.startTime == this.endTime) {
-      this.alertService.showNotification("Start-time and end-time cannot be the same", 'error');
+    if(this.timing.invalid || this.selectedDays.length == 0){
+      this.timing.markAllAsTouched();
+      this.daysTouched = true;
       return;
     }
+    this.availabilityTouched = true;
+
     let menuTime = null;
     this.selectedDays.forEach(day => {
       menuTime = new StoreMenuTime(null, day, this.startTime, this.endTime, false);
@@ -170,7 +164,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
 
   insertIntoAvailability(availability: Array<StoreMenuTime>, menuTime: StoreMenuTime) {
     for (let i = 0; i <= availability.length; i++) {
-      
+
       //case: menuTime is the largest in the array
       if (i == availability.length) {
         availability.push(menuTime);
@@ -185,7 +179,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       }
 
       //donot insert if there is an identical StoreMenuTime
-      if(compVal == 0) break;
+      if (compVal == 0) break;
     }
   }
 
@@ -204,26 +198,26 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       , sunday: 7
     }
     //is first and second are different days
-    if(dayValue[first.day] - dayValue[second.day]) return dayValue[first.day] - dayValue[second.day];
+    if (dayValue[first.day] - dayValue[second.day]) return dayValue[first.day] - dayValue[second.day];
 
     // compare start-times
-    let firstSTime = new Date('1/1/0001 ' + first.startTime.substr(0,5) + ':00 ' + first.startTime.substr(5, 2)).getTime();
-    let secondSTime = new Date('1/1/0001 ' + second.startTime.substr(0,5) + ':00 ' + second.startTime.substr(5, 2)).getTime();
+    let firstSTime = new Date('1/1/0001 ' + first.startTime.substr(0, 5) + ':00 ' + first.startTime.substr(5, 2)).getTime();
+    let secondSTime = new Date('1/1/0001 ' + second.startTime.substr(0, 5) + ':00 ' + second.startTime.substr(5, 2)).getTime();
 
-    if(firstSTime !== secondSTime) return firstSTime - secondSTime;
+    if (firstSTime !== secondSTime) return firstSTime - secondSTime;
 
     //compare end-times
-    let firstETime = new Date('1/1/0001 ' + first.endTime.substr(0,5) + ':00 ' + first.endTime.substr(5, 2)).getTime();
-    let secondETime = new Date('1/1/0001 ' + second.endTime.substr(0,5) + ':00 ' + second.endTime.substr(5, 2)).getTime();
+    let firstETime = new Date('1/1/0001 ' + first.endTime.substr(0, 5) + ':00 ' + first.endTime.substr(5, 2)).getTime();
+    let secondETime = new Date('1/1/0001 ' + second.endTime.substr(0, 5) + ':00 ' + second.endTime.substr(5, 2)).getTime();
 
     return firstETime - secondETime;
   }
 
   readyToSave(): boolean {
     if (this.menuName.invalid) {
-      this.menuName.markAsTouched();
       return false;
     }
+
     if (this.availability.length == 0) {
       return false;
     }
@@ -233,6 +227,8 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
 
   saveMenu() {
     if (!this.readyToSave()) {
+      this.menuName.markAllAsTouched();
+      this.availabilityTouched = true;
       this.alertService.showNotification('Please complete the form below');
       return;
     }
@@ -274,6 +270,18 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       })
 
     console.log(data);
+  }
+
+  timingValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+
+      if ((<FormGroup>control).controls.startTime.value == 'Select'
+        || (<FormGroup>control).controls.endTime.value == 'Select') return { 'noSelection': 'Start and end time are required' };
+
+      if ((<FormGroup>control).controls.startTime.value == (<FormGroup>control).controls.endTime.value) return { 'sameSelection': 'Start and end time connot be the same' };
+
+      return null;
+    };
   }
 
   deleteMenu() {
