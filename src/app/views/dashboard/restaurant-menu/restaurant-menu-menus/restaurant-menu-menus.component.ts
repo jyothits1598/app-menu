@@ -5,6 +5,9 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreMenu, StoreMenuTime } from 'src/app/_models/store-menu';
 import { filter } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
+import { AlertService } from 'src/app/services/alert.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-restaurant-menu-menus',
@@ -16,11 +19,16 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
   routerSub$: Subscription;
   isLoading: boolean = false;
 
+  deleteIndex : number = null; 
+
   constructor(
     public route: ActivatedRoute
     , private router: Router
     , private storeService: StoreService
     , private restApiService: RestApiService
+    , private alertService: AlertService
+    , private _modalService: NgbModal
+     
   ) {
 
     this.routerSub$ = this.router.events.pipe(
@@ -29,6 +37,10 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
       this.fetchMenus();
     });
 
+  }
+
+  get modalService(): NgbModal{
+    return this._modalService;
   }
 
   ngOnDestroy(): void {
@@ -54,6 +66,21 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
       , (error)=>{
         this.isLoading = false;
       });
+  }
+
+  deleteMenu() {
+    let menu: StoreMenu = this.menus[this.deleteIndex];
+    let data: any = {}
+    data.menu_name = menu.name;
+    data.menu_id = menu.id;
+    data.active_flag = 1;
+
+    this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp) => {
+      if (resp.success) {
+        this.alertService.showNotification('Menu successfully deleted');
+        this.menus.splice(this.deleteIndex, 1);
+      } else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
+    })
   }
 
   ngOnInit(): void {

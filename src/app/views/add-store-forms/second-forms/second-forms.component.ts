@@ -194,7 +194,6 @@ export class SecondFormsComponent implements OnInit {
       reader.readAsDataURL(this.fileUptoLoad);
       reader.onload = (event: any) => {
         this.imageUrl = event.target.result;
-        console.log(this.imageUrl);
       }
       let form_data = new FormData();
       form_data.append('store_image', this.fileUptoLoad);
@@ -203,7 +202,6 @@ export class SecondFormsComponent implements OnInit {
         if (response && response['success']) {
           this.alertservice.hideLoader();
           this.imageUrl = API_URL_LINK + response['data'];
-          console.log(this.imageUrl);
         } else if (response && !response['success']) {
           this.imageUrl = null;
           this.alertservice.hideLoader();

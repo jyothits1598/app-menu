@@ -108,7 +108,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     private restApiService: RestApiService,
     private storeService: StoreService,
     private alertService: AlertService,
-    private modalService: NgbModal) { }
+    private _modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.route.params.pipe(takeUntil(this.notifier)).subscribe(params => {
@@ -116,6 +116,10 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
         this.fetchMenu(+params['id']);
       }
     })
+  }
+
+  get modalService(): NgbModal{
+    return this._modalService;
   }
 
   fetchMenu(id: number) {
@@ -294,15 +298,6 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
         this.router.navigate(['.'], { relativeTo: this.route.parent });
       } else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
     })
-  }
-
-  // debug() {
-  //   console.log(this.selectedDays);
-  //   this.alertService.showNotification("this is the alert component");
-  //   this.router.navigate(['notfound'],  { relativeTo: this.route });
-  // }
-  openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true });
   }
 
 }
