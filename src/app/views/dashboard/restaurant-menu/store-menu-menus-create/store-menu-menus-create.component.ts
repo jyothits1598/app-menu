@@ -30,9 +30,6 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     endTime: new FormControl('Select')
   }, this.timingValidator())
 
-  startTime: string = "Select";
-  endTime: string = "Select";
-
   availability: Array<StoreMenuTime> = [];
   deletedAvailability: Array<StoreMenuTime> = [];
 
@@ -157,7 +154,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
 
     let menuTime = null;
     this.selectedDays.forEach(day => {
-      menuTime = new StoreMenuTime(null, day, this.startTime, this.endTime, false);
+      menuTime = new StoreMenuTime(null, day, this.timing.controls.startTime.value, this.timing.controls.endTime.value, false);
       this.insertIntoAvailability(this.availability, menuTime);
     });
   }
