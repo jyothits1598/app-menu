@@ -74,6 +74,7 @@ export class ThirdFormsComponent implements OnInit {
     }  
       let form_data = new FormData();
       form_data.append('document',this.selectedFile,this.selectedFile.name);
+      this.alertservice.showLoader();
       this.restApiservice.pushSaveFileToStorageWithFormdata(form_data,'store/update/10/file/upload',(response)=>{
         if(response && response['success'] && response['data']) {  
          let certificate = response['data'];

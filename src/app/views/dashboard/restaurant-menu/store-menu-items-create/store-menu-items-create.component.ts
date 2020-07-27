@@ -269,7 +269,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     if(event.target.files[0]){
       let form_data = new FormData();
       form_data.append('item_image',event.target.files[0],event.target.files[0].name);
-      this.restApiService.pushSaveFileToStorageWithFormdata(form_data,'/store/items/upload/image',(response)=>{
+      this.restApiService.pushSaveFileToStorageWithFormdata(form_data,'store/items/upload/image',(response)=>{
         if(response && response['success'] && response['data']) { 
           this.uploadedImagePath=response['data'];
         }
