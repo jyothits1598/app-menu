@@ -1,5 +1,5 @@
 <div class="menu-creator__actn-btns mb-2">
-    <button class="std-button mr-sm-3" *ngIf="menuId" (click)="deleteMenu()">Delete</button>
+    <button class="std-button mr-sm-3" *ngIf="menuId" (click)="modalService.open(deleteComform, { centered: true });">Delete</button>
     <button class="std-button" (click)="saveMenu()" [ngClass]="{'std-button--primary' : readyToSave()}">Save</button>
 </div>
 <ng-container *ngIf="isLoading">
@@ -19,7 +19,7 @@
 </div>
 <div class="mb-4">
     <h3 class="std-heading-3 mb-2">Add availability <img src="../../../../../assets/images/ico_help.png"
-            style="cursor:pointer" title="info" (click)="openVerticallyCentered(content)"></h3>
+            style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });"></h3>
     <h4 class="std-heading-4 mb-1">Days <b class="m-star">*</b></h4>
     <div class="menu-creator__days mb-2">
         <div class="custom-checkbox mr-3">
@@ -133,4 +133,15 @@
     </div>
 </ng-template>
 <!-- Info modal end-->
-<!-- <button (click)="debug()">debug</button> -->
+
+<ng-template #deleteComform let-modal>
+    <div class="modal-body text-center">
+        <h4 class="std-heading-4 mb-2"> Delete menu </h4>
+      <p class="mb-2"> 
+          Are you sure? 
+      </p>
+      <button class="std-button--plane" (click)="deleteMenu(); modal.dismiss('Cross click')"> Delete </button>
+      <hr>
+      <button class="std-button--plane" (click)="modal.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>

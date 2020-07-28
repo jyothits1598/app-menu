@@ -30,9 +30,6 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     endTime: new FormControl('Select')
   }, this.timingValidator())
 
-  startTime: string = "Select";
-  endTime: string = "Select";
-
   availability: Array<StoreMenuTime> = [];
   deletedAvailability: Array<StoreMenuTime> = [];
 
@@ -111,7 +108,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     private restApiService: RestApiService,
     private storeService: StoreService,
     private alertService: AlertService,
-    private modalService: NgbModal) { }
+    private _modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.route.params.pipe(takeUntil(this.notifier)).subscribe(params => {
@@ -119,6 +116,10 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
         this.fetchMenu(+params['id']);
       }
     })
+  }
+
+  get modalService(): NgbModal{
+    return this._modalService;
   }
 
   fetchMenu(id: number) {
@@ -157,7 +158,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
 
     let menuTime = null;
     this.selectedDays.forEach(day => {
-      menuTime = new StoreMenuTime(null, day, this.startTime, this.endTime, false);
+      menuTime = new StoreMenuTime(null, day, this.timing.controls.startTime.value, this.timing.controls.endTime.value, false);
       this.insertIntoAvailability(this.availability, menuTime);
     });
   }
@@ -297,15 +298,6 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
         this.router.navigate(['.'], { relativeTo: this.route.parent });
       } else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
     })
-  }
-
-  // debug() {
-  //   console.log(this.selectedDays);
-  //   this.alertService.showNotification("this is the alert component");
-  //   this.router.navigate(['notfound'],  { relativeTo: this.route });
-  // }
-  openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true });
   }
 
 }

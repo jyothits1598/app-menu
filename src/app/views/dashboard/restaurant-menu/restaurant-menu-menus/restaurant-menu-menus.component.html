@@ -1,8 +1,8 @@
 <ng-container *ngIf="route.children.length == 0">
     <h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;">Menus</h3>
     <div style="text-align: right;">
-        <button class="std-button std-button--primary u-margin-bottom-small"
-            [routerLink]="['./editor']"><img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New menu</button>
+        <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./editor']"><img
+                src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New menu</button>
     </div>
     <ng-container *ngIf="isLoading">
         <span style="color: red;">Loading...</span>
@@ -27,20 +27,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let menu of menus">
-                        <td [routerLink]="['./editor', menu.id]" title="Edit" style="outline: none;color: #353FA8;font-weight:600;cursor: pointer;" > {{menu.name}} </td>
+                    <tr *ngFor="let menu of menus; let i = index">
+                        <td [routerLink]="['./editor', menu.id]" title="Edit"
+                            style="outline: none;color: #353FA8;font-weight:600;cursor: pointer;"> {{menu.name}} </td>
                         <td class="text-uppercase">
                             {{menu.availability[0].startTime}}&nbsp;-&nbsp;{{menu.availability[0].endTime}}{{menu.availability.length > 1 ? '+'+(menu.availability.length-1).toString() : ""}}
                         </td>
                         <td style="text-align: right;cursor:pointer;outline: none;">
                             <div class="dropdown">
-                                <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="Options">
+                                <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
+                                    data-toggle="dropdown" title="Options">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                     <li class="herf-class" [routerLink]="['./editor', menu.id]" title="Edit">
                                         <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
-                                      Edit
+                                        Edit
                                     </li>
-                                    <li title="Delete" class="herf-class">
+                                    <li title="Delete" class="herf-class" (click)="modalService.open(deleteComform, { centered: true }); deleteIndex = i">
                                         <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                         Delete
                                     </li>
@@ -50,10 +52,22 @@
                     </tr>
                 </tbody>
             </table>
-            
+
         </div>
     </div>
 </ng-container>
+
+<ng-template #deleteComform let-modal3>
+    <div class="modal-body text-center">
+        <h4 class="std-heading-4 mb-2"> Delete menu </h4>
+      <p class="mb-2"> 
+          Are you sure? 
+      </p>
+      <button class="std-button--plane" (click)="deleteMenu(); modal3.dismiss('Cross click')"> Delete </button>
+      <hr>
+      <button class="std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
 
 
 <router-outlet></router-outlet>
