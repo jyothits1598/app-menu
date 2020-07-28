@@ -59,11 +59,11 @@
         <input type="text" class="form-control form-input" placeholder="e.g. Buzz" >
     </div> -->
     <div class="form-group pb-1">
-        <label class="label-inputs"> Photo </label>
+        <label class="label-inputs"> Store logo or photo </label>
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex flex-row">
-                    <div class="upload-image" (click)="imageUrl? '' : fileInput.click()">
+                    <div class="upload-image" (click)="imageUrl? '' : fileInput.click()" >
                         <img [src]="imageUrl ? imageUrl : 'assets/images/ico_add_blue.png'">     
                     </div>
                     <div class="response-padding" style="margin-left:20px;">
@@ -79,7 +79,7 @@
     </div>
     <div class="form-group">
         <a [routerLink]="['/store/first-form']"> <input type="button" class="btn re-send" value="Cancel" ></a>
-        <input type="submit" class="btn btn-custom-login" value="{{add_edit_type == 'add' ? 'Add a new store' : 'Edit a store'}}" style="margin-left:10px;">
+        <input type="submit" class="btn btn-custom-login" value="{{add_edit_type == 'add' ? 'Save and Continue' : 'Edit a store'}}" style="margin-left:10px;">
     </div>
 </form>
 <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput accept=".jpg,.png,.jpeg,.gif">

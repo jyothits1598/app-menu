@@ -41,8 +41,8 @@
 <div class="add-group">
     <div class="menu-list">
         <ul class="navbar-nav menu-custom" *ngIf="!dashboard_status && menu_status" >
-            <li class="nav-item" [routerLink]="['/dasboard']" style="outline: none;" title="Stores">
-                <a class="nav-link"><img src="../../../assets/images/arrow-left.png"><span style="padding-top: 10px;margin-left: 10px;"> {{storeSer.activeStoreName}} </span> </a>
+            <li class="nav-item">
+                <a class="nav-link"><img src="../../../assets/images/arrow-left.png" [routerLink]="['/dasboard']" style="outline: none;cursor: pointer;" title="Stores" ><span style="padding-top: 10px;margin-left: 10px;cursor: progress !important;"> {{storeSer.activeStoreName}} </span> </a>
            </li>
             <li class="nav-item">
                  <a class="nav-link"><img src="../../../assets/images/ico_book.png"><span style="padding-top: 10px;margin-left: 10px;"> Menu </span> </a>

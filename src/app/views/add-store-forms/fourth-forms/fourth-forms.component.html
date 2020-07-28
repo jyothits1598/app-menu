@@ -39,10 +39,10 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="checkbox">
-            <label>
+        <div class="checkbox" style="cursor: pointer;">
+            <label style="margin-bottom:0;">
                 <input type="checkbox" formControlName="checkbankdetails" [ngClass]="{ 'is-invalid': checkbankdetailsSubmit && f.checkbankdetails.errors }">
-                I Understand and agree to the <a href="#"> menuzapp terms </a>
+                &nbsp; I Understand and agree to the <a href=""> menuzapp terms </a>
             </label>
         </div>
         <div *ngIf="checkbankdetailsSubmit && f.checkbankdetails.errors" class="error-mez">
