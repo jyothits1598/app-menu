@@ -16,11 +16,13 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreMenuCategoriesContainerComponent } from './store-menu-categories-container/store-menu-categories-container.component';
 import { StoreMenuItemsCreateComponent } from './store-menu-items-create/store-menu-items-create.component';
 import { StoreMenuItemContainerComponent } from './store-menu-item-container/store-menu-item-container.component';
+import { StoreMenuResolver } from 'src/app/_guards/store-menu-resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: RestaurantMenuComponent,
+    resolve: {store: StoreMenuResolver},
     children: [
       {
         path: 'overview',
@@ -109,6 +111,7 @@ const restaurantMenuRouting = RouterModule.forChild(routes);
     SharedModule,
     NgbModalModule,
     restaurantMenuRouting
-  ]
+  ],
+  providers: [StoreMenuResolver]
 })
 export class RestaurantMenuModule { }

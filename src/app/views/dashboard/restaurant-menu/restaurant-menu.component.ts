@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from 'src/app/services/store.service';
 import { Observable, Subject, } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, map } from 'rxjs/operators';
+import { RestApiService } from 'src/app/services/rest-api.service';
+import { Store } from 'src/app/_models/store';
 
 @Component({
   selector: 'app-restaurant-menu',
@@ -11,22 +13,15 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class RestaurantMenuComponent implements OnInit, OnDestroy {
   notifier = new Subject();
-  
+
   constructor(private route: ActivatedRoute
     , private router: Router
-    , private storeService: StoreService) { 
-
-      this.route.params.pipe(takeUntil(this.notifier)).subscribe(params => {
-        if(+params['id']) this.storeService.activeStore = +params['id'];
-        else {
-          console.log("navigating in main component");
-          this.router.navigate(['./notfound'], {relativeTo: this.route});
-        }
-      })
-    }
+    , private storeService: StoreService
+    , private restApiService: RestApiService) {
+  }
 
   ngOnInit(): void {
-    
+
   }
 
   ngOnDestroy(): void {

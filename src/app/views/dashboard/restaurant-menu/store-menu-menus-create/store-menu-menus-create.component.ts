@@ -7,9 +7,6 @@ import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
-import { Store } from 'src/app/_models/store';
-import { callbackify } from 'util';
-import { assertNotNull } from '@angular/compiler/src/output/output_ast';
 import { AlertService } from 'src/app/services/alert.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
 import { API_URL_LINK } from '../../environments/environment';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { AlertService } from './alert.service';
 
 @Injectable({
@@ -87,8 +87,14 @@ export class RestApiService {
                 console.log("got an error in getdata")
                 this.alertservice.showNotification(error.error.error.error_msg[0], 'error');
             }
-
         });
+    }
+
+    getDataObs(url) : Observable<any>{
+        url = this.hostURL + url;
+        let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+        const headers = new HttpHeaders(cred);
+        return this.http.get(url, { headers: headers })
     }
 
     /*
