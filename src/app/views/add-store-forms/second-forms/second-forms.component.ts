@@ -221,7 +221,4 @@ export class SecondFormsComponent implements OnInit {
 
   }
 
-  click() {
-    console.log('hihiih');
-  }
 }
