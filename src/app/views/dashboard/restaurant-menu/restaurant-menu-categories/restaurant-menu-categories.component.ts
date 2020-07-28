@@ -4,6 +4,7 @@ import { StoreMenuCategory } from 'src/app/_models/store-menu-category';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreMenu } from 'src/app/_models/store-menu';
 import { AlertService } from 'src/app/services/alert.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-restaurant-menu-categories',
@@ -11,11 +12,12 @@ import { AlertService } from 'src/app/services/alert.service';
   styleUrls: ['./restaurant-menu-categories.component.scss']
 })
 export class RestaurantMenuCategoriesComponent implements OnInit {
-
+  deleteIndex: number;
   categories: Array<StoreMenuCategory> = [];
   isLoading: boolean = false;
 
   constructor(private restApiService: RestApiService
+    , private _modalService: NgbModal
     , private storeService: StoreService
     , private alertService: AlertService) { }
 
@@ -35,6 +37,31 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
         this.isLoading = false;
         this.alertService.showNotification('There was an error fetching your data. Please try again')
       })
+  }
+
+  deleteCategory() {
+    let category = this.categories[this.deleteIndex];
+
+    let data: any = {};
+    data.category_id = category.id;
+    data.category_name = category.name;
+    data.active_flag = 0;
+
+    this.restApiService.postAPI(`store/category/add/${this.storeService.activeStore}`
+      , data
+      , (resp) => {
+        if (resp.success) {
+          this.alertService.showNotification('Category successfully deleted.');
+          this.categories.splice(this.deleteIndex, 1);
+        }
+      }
+      , (err) => {
+        this.alertService.showNotification('There was an error while deleting the category, please try again.');
+      })
+  }
+
+  get modalService(): NgbModal{
+    return this._modalService;
   }
 
 
