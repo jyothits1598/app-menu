@@ -3,6 +3,7 @@ import { RestApiService } from './rest-api.service';
 import { Store } from '../_models/store';
 import { StoreMenuTime, StoreMenu } from '../_models/store-menu';
 import { StoreMenuCategory } from '../_models/store-menu-category';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { StoreMenuCategory } from '../_models/store-menu-category';
 export class StoreService {
   _stores: Array<any> = [];
   _activeStore: number;
+  activeStore$: BehaviorSubject<Store> = new BehaviorSubject<Store>(null);
   activeStoreName: string;
   
   constructor(private restApiService: RestApiService) { }
