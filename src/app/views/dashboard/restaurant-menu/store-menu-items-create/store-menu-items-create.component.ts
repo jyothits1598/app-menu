@@ -15,10 +15,10 @@ import { Subscription } from 'rxjs';
 })
 export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   itemId: number = null;
-  uploadedImagePath:string;
-
+  // uploadedImagePath:string;
+  imageUrl: string = null;
   routerSubs: Subscription;
-
+  errors: string;
   isLoading: boolean = false;
   saveBtnLoading: boolean = false;
 
@@ -137,7 +137,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
                   this.createItemForm.controls.itemBasePrice.setValue(menuItem.item_base_price);
                   this.createItemForm.controls.itemStock.setValue(menuItem.item_in_stock.toString());
                   this.createItemForm.controls.sellitem.setValue(menuItem.item_individual.toString());
-                  this.uploadedImagePath = menuItem.item_image;
+                  this.imageUrl = menuItem.item_image;
                   menuItem.category_details.forEach(activeCategory => {
                     let index: number = this.categoryIdMap.findIndex(category => activeCategory.category_id == category.id);
                     if (index != -1) (<FormArray>this.createItemForm.controls.categories).controls[index].setValue(true);
@@ -193,7 +193,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     data.item_base_price = this.createItemForm.value.itemBasePrice;
     data.item_in_stock = this.createItemForm.value.itemStock;
     data.item_individual = this.createItemForm.value.sellitem;
-    data.item_image =  this.uploadedImagePath;
+    data.item_image =  this.imageUrl;
     if (this.itemId) data.item_id = this.itemId;
     let checkCategoryValues: Array<boolean> = this.createItemForm.controls.categories.value;
     let selectedCategory: Array<{ "category_id": number }> = [];
@@ -225,12 +225,29 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
           this.saveBtnLoading = false;
           this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
           this.navigateBack();
-        }
+        } else if (!resp.success) {
+          this.saveBtnLoading = false;        
+          let i=0;
+          for(let key in resp['error']['error']['error_msg']) {       
+            this.errors=resp['error']['error']['error_msg'][0];
+            this.alertService.showNotification(this.errors,'error');
+          }
+        } 
+        else this.alertService.showNotification("There was a problem, please try again.");
       }
-      , (errResp) => {
-        this.saveBtnLoading = false;
-        this.alertService.showNotification("There was a problem, please try again.")
-      }
+      // , (errResp) => {
+      //   this.saveBtnLoading = false;
+      //   // if(errResp){
+      //     // let i=0;
+      //     // for(let key in errResp['error']['error_msg']) {       
+      //     //   this.errors[key]=errResp['error']['error_msg'][key][0];
+      //     //   this.alertService.showNotification(this.errors[key],'error');
+      //     // }
+      //     console.log(errResp);
+      //   // } 
+      //   // else      
+      //   // this.alertService.showNotification("There was a problem, please try again.")
+      // }
     )
   }
 
@@ -271,7 +288,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       form_data.append('item_image',event.target.files[0],event.target.files[0].name);
       this.restApiService.pushSaveFileToStorageWithFormdata(form_data,'store/items/upload/image',(response)=>{
         if(response && response['success'] && response['data']) { 
-          this.uploadedImagePath=response['data'];
+          this.imageUrl=response['data'];
         }
       })
     }

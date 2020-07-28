@@ -59,7 +59,7 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
   }
   
   openVerticallyCentered(content,item_id,item_name) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { centered: true, size: 'sm' });
     this.item_id = item_id;
     this.item_name = item_name;
   }
