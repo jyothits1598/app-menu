@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let category of categories">
+                <tr *ngFor="let category of categories; let i = index">
                   <td class="menu-clr"> {{category.name}} </td>
                   <td style="text-transform: capitalize;">{{category.menus[0]?.name}},&nbsp;{{category.menus[1]?.name}}</td>
                   <td>Dummy value</td>
@@ -27,7 +27,7 @@
                                     <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                   Edit
                                 </li>
-                                <li title="Delete" class="herf-class">
+                                <li (click)="deleteIndex = i; modalService.open(deleteComform, { centered: true })" title="Delete" class="herf-class">
                                     <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                     Delete
                                 </li>
@@ -42,3 +42,15 @@
         </ng-template>
     </div>
 </div>
+
+<ng-template #deleteComform let-modal3>
+    <div class="modal-body text-center">
+        <h4 class="std-heading-4 mb-2"> Delete category </h4>
+      <p class="mb-2"> 
+          Are you sure? 
+      </p>
+      <button class="std-button--plane" (click)="deleteCategory(); modal3.dismiss('Cross click')"> Continue </button>
+      <hr>
+      <button class="std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
