@@ -36,7 +36,8 @@ export class RestaurantMenuOverviewComponent implements OnInit {
           // this.modifireGroupAvailable = resp.data.
           this.nextStep = this.determinNextStep();
         }
-      }
+      },
+      (error)=>{this.nextStep = {stepName: 'menu', route: '../menus'}}
     )
   }
 

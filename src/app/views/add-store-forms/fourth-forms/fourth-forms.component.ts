@@ -25,7 +25,9 @@ export class FourthFormsComponent implements OnInit {
   bankForm: FormGroup;
   fourthformError = false;
   errors = new Array();
-  
+  bsb_number:string;
+  bank_account:string;
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -48,8 +50,8 @@ export class FourthFormsComponent implements OnInit {
     this.bankForm = this.formBuilder.group({
       bankName: ['', Validators.required],
       accountName: ['', Validators.required],
-      BSBnumber: ['', Validators.required],
-      accountNumber: ['', Validators.required],
+     BSBnumber: ['', [Validators.required,Validators.pattern("^[0-9]*$")]],
+      accountNumber: ['', [Validators.required,Validators.pattern("^[0-9]*$")]],
       checkbankdetails: [false, Validators.requiredTrue],
     });
   }
@@ -81,8 +83,14 @@ export class FourthFormsComponent implements OnInit {
             console.log('/store/step4/'+response['data']['store_id'])
             localStorage.removeItem("storeCreationId");
            return this.router.navigateByUrl('/store/step4/'+response['data']['store_id']);
-          } else if(response && !response['success'] && response['message']){
-            this.alertservice.showNotification(response['message'],'error');
+          }else if(response && !response['success'] && response['error']['error']){
+            if(response['error']['error']['bsb_number'][0]) {
+              this.bsb_number = response['error']['error']['bsb_number'][0];
+              this.alertservice.showNotification(this.bsb_number,'error');
+            } if(response['error']['error']['bank_account_number'][0]) {
+              this.bank_account = response['error']['error']['bank_account_number'][0];
+              this.alertservice.showNotification(this.bank_account,'error');
+            }
           }else{
             this.alertservice.showNotification('Something went wrong','error');
           }

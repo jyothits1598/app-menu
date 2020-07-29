@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-12">
         <div class="input-container">
-            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="(createItemForm.controls.itemName.valid || createItemForm.controls.category.valid) && createItemForm.touched ? pagebackPopup(back) : navigateBack()">
+            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="(createItemForm.controls.itemName || createItemForm.controls.category) && createItemForm.touched ? pagebackPopup(back) : navigateBack()">
             <input type="text" class="input-border" formControlName="itemName">
             <span style="color: red;" *ngIf="createItemForm.controls.itemName.invalid && createItemForm.controls.itemName.touched">Item name is required.</span>
         </div>  
