@@ -72,6 +72,7 @@ export class ThirdFormsComponent implements OnInit {
     if (this.ownershipform.invalid) {
       return;
     }
+    if(!this.legalFile && !this.selectedFile) return;
     this.alertservice.showLoader();
     if (this.legalFile) {
       let data = {
@@ -86,7 +87,6 @@ export class ThirdFormsComponent implements OnInit {
       form_data.append('document', this.selectedFile, this.selectedFile.name);
       this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/update/' + this.store_id + '/file/upload', (response) => {
         if (response && response['success'] && response['data']) {
-          this.legalFile = null;
           let certificate = response['data'];
           let data = {
             'legal_owner_name': this.ownershipform.value.ownerName,

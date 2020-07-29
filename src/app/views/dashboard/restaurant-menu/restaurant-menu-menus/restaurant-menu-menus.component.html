@@ -29,7 +29,7 @@
                 <tbody>
                     <tr *ngFor="let menu of menus; let i = index">
                         <td [routerLink]="['./editor', menu.id]" title="Edit"
-                            style="outline: none;color: #353FA8;font-weight:600;cursor: pointer;"> {{menu.name}} </td>
+                            style="outline: none;color: #353FA8;font-weight:600;cursor: pointer; text-transform: capitalize;"> {{menu.name}} </td>
                         <td class="text-uppercase">
                             {{menu.availability[0].startTime}}&nbsp;-&nbsp;{{menu.availability[0].endTime}}{{menu.availability.length > 1 ? '+'+(menu.availability.length-1).toString() : ""}}
                         </td>

@@ -5,6 +5,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { StoreMenu } from 'src/app/_models/store-menu';
 import { AlertService } from 'src/app/services/alert.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { StoreItem } from 'src/app/services/store-item';
 
 @Component({
   selector: 'app-restaurant-menu-categories',
@@ -30,6 +31,7 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
             let menuCat = this.storeService.ReadStoreMenuCategory(cat);
             this.categories.push(menuCat);
           });
+          console.log(this.categories);
           this.isLoading = false;
         }
       }
@@ -58,6 +60,15 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
       , (err) => {
         this.alertService.showNotification('There was an error while deleting the category, please try again.');
       })
+  }
+
+  menuListToString(menus: Array<StoreMenu | StoreItem>){
+    let result = "";
+    if(!menus[0]) return result;
+    result += menus[0].name;
+    if(menus[1]) result += ', ' + menus[1].name;
+    if(menus.length > 2) result += ` +${menus.length-2}`;
+    return result;
   }
 
   get modalService(): NgbModal{

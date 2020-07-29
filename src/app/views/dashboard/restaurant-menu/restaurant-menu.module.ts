@@ -17,6 +17,7 @@ import { StoreMenuCategoriesContainerComponent } from './store-menu-categories-c
 import { StoreMenuItemsCreateComponent } from './store-menu-items-create/store-menu-items-create.component';
 import { StoreMenuItemContainerComponent } from './store-menu-item-container/store-menu-item-container.component';
 import { StoreMenuResolver } from 'src/app/_guards/store-menu-resolver';
+import { StoreMenuModifierGroupsComponent } from './store-menu-modifier-groups/store-menu-modifier-groups.component';
 
 const routes: Routes = [
   {
@@ -68,7 +69,6 @@ const routes: Routes = [
           }
         ]
       },
-
       {
         path: 'items',
         component: StoreMenuItemContainerComponent,
@@ -90,6 +90,10 @@ const routes: Routes = [
             component: NotFoundComponent
           }
         ]
+      },
+      {
+        path: 'modifier-groups',
+        component: StoreMenuModifierGroupsComponent,
       },
       {
         path: '**',

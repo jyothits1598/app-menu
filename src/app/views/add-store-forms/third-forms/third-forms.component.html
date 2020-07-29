@@ -49,7 +49,7 @@
         <!-- <div *ngIf="(fileSubmit && f.file.errors) && (!selectedFile && !selectedFileName)" class="error-mez">
             <div *ngIf="f.file.errors.required"> Please upload file </div>
         </div> -->
-        <div *ngIf="checkownershipSubmit && !legalFile" class="error-mez">
+        <div *ngIf="checkownershipSubmit && (!legalFile && !selectedFile)" class="error-mez">
             Please upload a Certification of registration
         </div>
     </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/services/store.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-restaurant-menu-overview',
@@ -8,19 +9,43 @@ import { RestApiService } from 'src/app/services/rest-api.service';
   styleUrls: ['./restaurant-menu-overview.component.scss']
 })
 export class RestaurantMenuOverviewComponent implements OnInit {
+  menuAvailable: boolean;
+  categoryAvailable: boolean;
+  itemAvailable: boolean;
+  modifireGroupAvailable: boolean;
+
+  isLoading: boolean = false;
+
+  nextStep: {stepName: string, route: string} = null;
 
   constructor(private storeService: StoreService
     , private restApiService: RestApiService) { }
 
+
+
   ngOnInit(): void {
-    this.restApiService.getData(`store/${this.storeService.activeStore}`
-    , (resp)=>{
-      if(resp.data && resp.data.length > 0){
-        this.storeService.activeStoreName = resp.data[0].store_name;
+    this.isLoading = true;
+    this.restApiService.getDataObs('store/overview/status/' + this.storeService.activeStore$.value.id).pipe(
+      finalize(()=>{this.isLoading = false;})
+    ).subscribe(
+      (resp) => {
+        if (resp && resp.success && resp.data) {
+          this.menuAvailable = resp.data.menu_status;
+          this.categoryAvailable = resp.data.category_status;
+          this.itemAvailable = resp.data.item_status;
+          // this.modifireGroupAvailable = resp.data.
+          this.nextStep = this.determinNextStep();
+        }
       }
-    })
+    )
   }
 
-
+  determinNextStep() : {stepName: string, route: string}{
+    if(!this.menuAvailable) return {stepName: 'menu', route: '../menus'};
+    if(!this.categoryAvailable) return {stepName: 'category', route: '../categories'};
+    if(!this.itemAvailable) return {stepName: 'item', route: '../items'};
+    if(!this.modifireGroupAvailable) return {stepName: 'modifer group', route: '../modifierGroup'};
+    return null;
+  }
 
 }

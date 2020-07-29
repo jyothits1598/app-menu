@@ -8,13 +8,14 @@
     }
 
     &__icon{
-        width: 2rem;
-        height: 2rem;
+        width: 1rem;
         display: inline-block;
+        vertical-align: super;
     }
 
     &__cont{
         display: inline-block;
+        margin-left: .5rem;
     }
 
     &__smry{

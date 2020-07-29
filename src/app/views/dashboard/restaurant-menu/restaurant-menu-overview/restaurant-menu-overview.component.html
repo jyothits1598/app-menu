@@ -4,30 +4,32 @@
     Explore the tabs above to set up your menu. You can start building in any order, however before your menu appears here (or in the app) you must link a menu to a category and that category to some items.
 </p>
 
+<p style="color: red;" *ngIf="isLoading">Loading...</p>
+
 <ul class="resnt-menu-overview-list u-margin-bottom-medium">
     <li class="resnt-menu-overview-list__item">
-        <span class="resnt-menu-overview-list__icon">&#10003;</span>
+        <img [src]="menuAvailable? '/assets/images/tick-success.png' : '/assets/images/tick-grey.png'" class="resnt-menu-overview-list__icon">
         <div class="resnt-menu-overview-list__cont">
             <h3 class="std-heading-4">Menu</h3>
             <p class="resnt-menu-overview-list__smry">Add new menus (e.g. breakfast, lunch and dinner).</p>
         </div>
     </li>
     <li class="resnt-menu-overview-list__item">
-        <span class="resnt-menu-overview-list__icon">&#10003;</span>
+        <img [src]="categoryAvailable? '/assets/images/tick-success.png' : '/assets/images/tick-grey.png'" class="resnt-menu-overview-list__icon">
         <div class="resnt-menu-overview-list__cont">
             <h3 class="std-heading-4">Categories</h3>
             <p class="resnt-menu-overview-list__smry">Add categories and select which menus they appear in.</p>
         </div>
     </li>
     <li class="resnt-menu-overview-list__item">
-        <span class="resnt-menu-overview-list__icon">&#10003;</span>
+        <img [src]="itemAvailable? '/assets/images/tick-success.png' : '/assets/images/tick-grey.png'" class="resnt-menu-overview-list__icon">
         <div class="resnt-menu-overview-list__cont">
             <h3 class="std-heading-4">Items</h3>
             <p class="resnt-menu-overview-list__smry">Add items and select which categories they appear in.</p>
         </div>
     </li>
     <li class="resnt-menu-overview-list__item">
-        <span class="resnt-menu-overview-list__icon">&#10003;</span>
+        <img [src]="modifireGroupAvailable? '/assets/images/tick-success.png' : '/assets/images/tick-grey.png'" class="resnt-menu-overview-list__icon">
         <div class="resnt-menu-overview-list__cont">
             <h3 class="std-heading-4">Modifier groups</h3>
             <p class="resnt-menu-overview-list__smry">Add options for your items(e.g. extras, sause and size).</p>
@@ -35,5 +37,5 @@
     </li>
 </ul>
 
-<button type="button" class="std-button std-button--primary" >Add your first menu</button>
+<button *ngIf="nextStep" type="button" class="std-button std-button--primary" [routerLink]="nextStep.route">Add your first {{nextStep.stepName}}</button>
 

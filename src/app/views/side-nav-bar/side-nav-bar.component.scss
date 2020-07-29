@@ -21,6 +21,10 @@
 .nav-link {
     padding: 8px;
 }
+
+.nav-link__active{
+    background-color: #F2F2F2;
+}
 .add-plus:focus{
     outline: 0;
 }
