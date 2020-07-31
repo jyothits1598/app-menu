@@ -7,6 +7,8 @@ import { ThirdFormsComponent } from 'src/app/views/add-store-forms/third-forms/t
 import { AlertService } from 'src/app/services/alert.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
+import { API_URL_LINK } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-store-menu-items-create',
@@ -21,6 +23,9 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   errors: string;
   isLoading: boolean = false;
   saveBtnLoading: boolean = false;
+  fileUptoLoad: File;
+  width:number;
+  height:number;
 
   categoryIdMap: Array<{ name: string, id: number }> = [];
   modifierIdMap: Array<{ name: string, id: number }> = [];
@@ -43,7 +48,8 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     private storeService: StoreService,
     private alertService: AlertService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataService: DataService
     ) {
       this.routerSubs = this.route.params.subscribe(params => {
         //creating a new category
@@ -283,9 +289,30 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   }
 
   onFileChanged(event) {
-    if(event.target.files[0]){
+    this.fileUptoLoad = event.target.files[0];
+    if(this.fileUptoLoad){
+      if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
+        this.alertService.showNotification('Selected file format is not supported', 'error')
+        return false;
+      }
+      if (!this.dataService.validateFileSize(this.fileUptoLoad.size)) {
+        this.alertService.showNotification('Selected file size is more', 'error')
+        return false;
+      }
+      let reader = new FileReader();
+      var img = new Image();
+      reader.onload = (e: any) => {
+        img.src = e.target.result;
+        img.onload = () => {
+          if(img.width > 500 || img.height > 500){
+            this.alertService.showNotification('minimum size 500*500 pixel', 'error')
+            return false;
+          }
+        };
+      }
+      reader.readAsDataURL(this.fileUptoLoad);
       let form_data = new FormData();
-      form_data.append('item_image',event.target.files[0],event.target.files[0].name);
+      form_data.append('item_image',this.fileUptoLoad);
       this.restApiService.pushSaveFileToStorageWithFormdata(form_data,'store/items/upload/image',(response)=>{
         if(response && response['success'] && response['data']) { 
           this.imageUrl=response['data'];

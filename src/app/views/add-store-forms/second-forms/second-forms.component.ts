@@ -38,7 +38,8 @@ export class SecondFormsComponent implements OnInit {
   imageUrl: string = null;
   fileUptoLoad: File;
   logoUploadSucceeded: boolean = false;
-
+  width:number;
+  height:number;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -190,11 +191,18 @@ export class SecondFormsComponent implements OnInit {
         this.alertservice.showNotification('Selected file size is more', 'error')
         return false;
       }
-      var reader = new FileReader();
-      reader.readAsDataURL(this.fileUptoLoad);
-      reader.onload = (event: any) => {
-        this.imageUrl = event.target.result;
+      let reader = new FileReader();
+      var img = new Image();
+      reader.onload = (e: any) => {
+        img.src = e.target.result;
+        img.onload = () => {
+          if(img.width > 500 || img.height > 500){
+            this.alertservice.showNotification('minimum size 500*500 pixel', 'error')
+            return false;
+          }
+        };
       }
+      reader.readAsDataURL(this.fileUptoLoad);
       let form_data = new FormData();
       form_data.append('store_image', this.fileUptoLoad);
       this.alertservice.showLoader();
