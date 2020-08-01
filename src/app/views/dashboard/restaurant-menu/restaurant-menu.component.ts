@@ -13,7 +13,7 @@ import { Store } from 'src/app/_models/store';
 })
 export class RestaurantMenuComponent implements OnInit, OnDestroy {
   notifier = new Subject();
-
+  isActive: boolean;
   constructor(private route: ActivatedRoute
     , private router: Router
     , private storeService: StoreService
@@ -21,7 +21,7 @@ export class RestaurantMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
+    this.isActive = this.storeService.activeStore$.value.isActive;
   }
 
   ngOnDestroy(): void {
