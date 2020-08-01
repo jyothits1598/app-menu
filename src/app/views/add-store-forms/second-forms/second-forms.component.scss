@@ -1,34 +1,9 @@
 
-.form-header {
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 48px;
-  }
-  .re-send {
-    color:#353FA8;
-    background: #FAFAFA;
-    font-weight:600;
-    border-radius: 0;
-  }
-  .btn-custom-login {
-    color:#fff;
-    background: #353FA8;
-    border-radius: 0;
-  }
-  .upload-file-btn {
-    color:#353FA8;
-    background: #FAFAFA;
-    font-weight:600;
-    border-radius: 0;
-    border: 2px solid #F2F2F2;
-  }
   .upload-image {
       border: 2px dashed #B3B3B3;  
       background: #FAFAFA;
       color: #353FA8;
-      width:200px;
+      width:180px;
       height:200px;
       position: relative;
       display: flex;
@@ -37,7 +12,7 @@
       cursor: pointer;
   }
   .upload-image img {
-    max-width:200px;
+    max-width:180px;
     max-height:200px;
   }
   img {
