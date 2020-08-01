@@ -113,7 +113,6 @@ export class AuthenticationService {
   this.alertservice.showLoader();
   this.restapiService.postAPI('/signout-partner',{},(response) => {
     if(response && response['data'] && response['success']) { 
-      this.alertservice.showAlertBottomNotification('Successfully logged out');
       this.alertservice.hideLoader();
     }
   });

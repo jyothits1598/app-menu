@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ContainersComponent } from './containers.component';
 import { AuthGuard } from 'src/app/_guards';
-import { TopNavBarComponent } from '../top-nav-bar/top-nav-bar.component';
 import { SideNavBarComponent } from '../side-nav-bar/side-nav-bar.component'
 
 const routes: Routes = [
@@ -28,7 +27,7 @@ const routes: Routes = [
 const routingModule = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [ContainersComponent,TopNavBarComponent,SideNavBarComponent],
+  declarations: [ContainersComponent,SideNavBarComponent],
   imports: [
     CommonModule,
     routingModule

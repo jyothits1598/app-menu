@@ -276,7 +276,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       if ((<FormGroup>control).controls.startTime.value == 'Select'
         || (<FormGroup>control).controls.endTime.value == 'Select') return { 'noSelection': 'Start and end time are required' };
 
-      if ((<FormGroup>control).controls.startTime.value == (<FormGroup>control).controls.endTime.value) return { 'sameSelection': 'Start and end time connot be the same' };
+      if ((<FormGroup>control).controls.startTime.value == (<FormGroup>control).controls.endTime.value) return { 'sameSelection': 'Start and end time can not be the same' };
 
       return null;
     };

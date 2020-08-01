@@ -1,4 +1,4 @@
-<br><br>
+<div class="container h-100 m-class">
 <form [formGroup]="ownershipform" (ngSubmit)="ownerShip()">
     <h1 class="form-header pb-5"> 
         Add proof of ownership
@@ -74,3 +74,4 @@
     
 <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput >
 <!-- [ngClass]="{ 'is-invalid': fileSubmit && f.file.errors }" -->
+</div>
