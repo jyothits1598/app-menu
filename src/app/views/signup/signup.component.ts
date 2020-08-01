@@ -61,7 +61,8 @@ export class SignupComponent implements OnInit {
       lname: ['', Validators.required],
       signupemail: [null, [Validators.required, Validators.email]],
       signupmobile:['', [Validators.required, Validators.pattern("^[0-9]*$")] ],
-      password: ['', [Validators.required,Validators.minLength(6)]],
+      // password: ['', [Validators.required,Validators.minLength(8)]],
+      password: ['', Validators.compose([Validators.required, this.authenticateService.patternValidator()])],
       confirmPassword: ['', Validators.required]
     }, {
       validator: MustMatch('password', 'confirmPassword')

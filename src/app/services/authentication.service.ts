@@ -6,6 +6,7 @@ import { API_URL_LINK } from '../../environments/environment';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { RestApiService } from './rest-api.service';
 import { DataService } from './data.service';
+import { ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -157,6 +158,18 @@ getUserObject() : Observable<boolean> {
   }else{
     localStorage.clear();
   }
+}
+
+patternValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } => {
+    if (!control.value) {
+      return null;
+    }
+    // const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    const regex = new RegExp('^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()])');
+    const valid = regex.test(control.value);
+    return valid ? null : { invalidPassword: true };
+  };
 }
 
 }
