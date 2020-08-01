@@ -63,20 +63,15 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="label-inputs"> Password <b class="m-star">*</b> </label>
-                            <input type="password" id="password" class="form-control form-input custom-password-eye"  formControlName="password" placeholder="Must be at least 8 characters" [ngClass]="{ 'is-invalid': passwordSubmit && f.password.errors }">
+                            <input type="password" id="password" class="form-control form-input custom-password-eye"  formControlName="password" placeholder="Must be at least 8 letters, numbers or symbols" [ngClass]="{ 'is-invalid': passwordSubmit && f.password.errors }">
                             <span toggle="#password" class="fa fa-eye-slash field-icon toggle-password"></span>
                             <div *ngIf="passwordSubmit && f.password.errors" class="error-mez">
-<<<<<<< HEAD
                                 <div *ngIf="f.password.errors.required">Please enter password</div>
                                 <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
-=======
-                                <div *ngIf="f.password.errors.required"> Password field is required</div>
-                                <div *ngIf="f.password.errors?.invalidPassword">
+                                 <div *ngIf="f.password.errors?.invalidPassword">
                                     <!-- Password must be at least 8 characters -->
-                                    Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
-                                letter, 1 special character and number
+                                    Valid password must be 8 or more letters, numbers or symbols
                                 </div>
->>>>>>> f362a613168479a9f3bc4f43d764847998fab8c6
                             </div>
                         </div>
                     </div>
