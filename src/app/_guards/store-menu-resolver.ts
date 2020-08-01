@@ -18,12 +18,12 @@ export class StoreMenuResolver implements Resolve<Store> {
         console.log('inside resolver', route.paramMap.get('id'));
         return this.restApiService.getDataObs('store/' + route.paramMap.get('id')).pipe(
             map((resp) => {
-                if(resp.data && resp.data[0]){
-                    let store = new Store(resp.data[0].store_id, resp.data[0].store_name);
+                if (resp.data && resp.data[0]) {
+                    let store = new Store(resp.data[0].store_id, resp.data[0].store_name, resp.data[0].active_flag ? true : false);
                     this.storeService.activeStore = resp.data[0].store_id;
                     this.storeService.activeStore$.next(store);
                     return store
-                }else return null;
+                } else return null;
             })
         )
     }

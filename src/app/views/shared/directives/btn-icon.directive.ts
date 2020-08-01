@@ -37,9 +37,16 @@ export class BtnIconDirective implements OnInit, AfterViewInit, OnChanges {
     if (!this.icon) return;
 
     if (changes.valid) {
-
+      if(changes.valid.currentValue){
+        this.renderer.addClass(this.icon, 'btn-icon-check');
+        this.renderer.addClass(this.element.nativeElement, 'std-button--blue');
+      }
+      else {
+        this.renderer.removeClass(this.icon, 'btn-icon-check');
+        this.renderer.removeClass(this.element.nativeElement, 'std-button--blue');
+      }
       changes.valid.currentValue ? this.renderer.addClass(this.icon, 'btn-icon-check')
-        : this.renderer.removeClass(this.icon, 'btn-icon-check')
+        : this.renderer.removeClass(this.icon, 'btn-icon-check');
       this.renderer.removeClass(this.icon, 'btn-icon-loader')
     }
     if (changes.loading) {

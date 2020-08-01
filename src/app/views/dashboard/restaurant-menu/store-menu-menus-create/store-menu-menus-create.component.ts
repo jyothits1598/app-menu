@@ -19,6 +19,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   menuId: number = null;
   menuName: FormControl = new FormControl('', Validators.required);
   isLoading: boolean = false;
+  submitting: boolean = false;
   daysTouched: boolean = false;
   availabilityTouched = false;
 
@@ -115,7 +116,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     })
   }
 
-  get modalService(): NgbModal{
+  get modalService(): NgbModal {
     return this._modalService;
   }
 
@@ -146,7 +147,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   }
 
   addAvailability() {
-    if(this.timing.invalid || this.selectedDays.length == 0){
+    if (this.timing.invalid || this.selectedDays.length == 0) {
       this.timing.markAllAsTouched();
       this.daysTouched = true;
       return;
@@ -195,10 +196,10 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       , saturday: 6
       , sunday: 7
     }
-    //is first and second are different days
+    //are first and second different days
     if (dayValue[first.day] - dayValue[second.day]) return dayValue[first.day] - dayValue[second.day];
 
-    // compare start-times
+    //compare start-times
     let firstSTime = new Date('1/1/0001 ' + first.startTime.substr(0, 5) + ':00 ' + first.startTime.substr(5, 2)).getTime();
     let secondSTime = new Date('1/1/0001 ' + second.startTime.substr(0, 5) + ':00 ' + second.startTime.substr(5, 2)).getTime();
 
@@ -257,15 +258,17 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     //   menuTime.active_flag = 1;
     //   data.opening_time.push(menuTime);
     // })
-
-    this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`
-      , data
-      , (resp) => {
+    this.submitting = true;
+    this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`,
+      data,
+      (resp) => {
         if (resp.success) {
+          this.submitting = false;
           this.alertService.showNotification(`Menu successfully ${this.menuId ? 'updated' : 'created'}`);
           this.router.navigate(['.'], { relativeTo: this.route.parent });
         } else this.alertService.showNotification(`There was an error ${this.menuId ? 'updating' : 'creating'} the menu. Please try again.`);
-      })
+      },
+      (err) => { this.submitting = false; })
 
     console.log(data);
   }

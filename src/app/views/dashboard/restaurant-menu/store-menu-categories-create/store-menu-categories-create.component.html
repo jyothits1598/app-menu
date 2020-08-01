@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="float-right">
             <button class="btn std-button--transparency" *ngIf="categoryId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
-            <button appBtnIcon [valid]="createCatForm.valid" [loading]="saveBtnLoading" class="btn std-button--blue" style="margin-left:10px" (click)="saveData()"><span #span>Save</span> </button>
+            <button appBtnIcon [valid]="createCatForm.valid" [loading]="saveBtnLoading" class="std-button" style="margin-left:10px" (click)="saveData()"><span #span>Save</span> </button>
         </div>
     </div>
     <div class="col-md-12">

@@ -38,8 +38,8 @@ export class SecondFormsComponent implements OnInit {
   imageUrl: string = null;
   fileUptoLoad: File;
   logoUploadSucceeded: boolean = false;
-  width:number;
-  height:number;
+  width: number;
+  height: number;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -192,35 +192,38 @@ export class SecondFormsComponent implements OnInit {
         return false;
       }
       let reader = new FileReader();
-      var img = new Image();
+      reader.readAsDataURL(this.fileUptoLoad);
+
       reader.onload = (e: any) => {
+        var img = new Image();
         img.src = e.target.result;
         img.onload = () => {
-          if(img.width > 500 || img.height > 500){
+          if (img.width < 500 || img.height < 500) {
             this.alertservice.showNotification('minimum size 500*500 pixel', 'error')
             return false;
           }
+          let form_data = new FormData();
+          form_data.append('store_image', this.fileUptoLoad);
+          this.alertservice.showLoader();
+          this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/logo', (response) => {
+            if (response && response['success']) {
+              this.alertservice.hideLoader();
+              this.imageUrl = API_URL_LINK + response['data'];
+            } else if (response && !response['success']) {
+              this.imageUrl = null;
+              this.alertservice.hideLoader();
+              this.alertservice.showNotification(response['message'], 'error');
+            } else {
+              this.imageUrl = null;
+              this.alertservice.hideLoader();
+              this.alertservice.showNotification('Something went wrong, Please try again', 'error');
+            }
+          }
+            , err => this.imageUrl = null);
         };
       }
-      reader.readAsDataURL(this.fileUptoLoad);
-      let form_data = new FormData();
-      form_data.append('store_image', this.fileUptoLoad);
-      this.alertservice.showLoader();
-      this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/logo', (response) => {
-        if (response && response['success']) {
-          this.alertservice.hideLoader();
-          this.imageUrl = API_URL_LINK + response['data'];
-        } else if (response && !response['success']) {
-          this.imageUrl = null;
-          this.alertservice.hideLoader();
-          this.alertservice.showNotification(response['message'], 'error');
-        } else {
-          this.imageUrl = null;
-          this.alertservice.hideLoader();
-          this.alertservice.showNotification('Something went wrong, Please try again', 'error');
-        }
-      }
-        , err => this.imageUrl = null);
+
+
     } else {
       this.alertservice.showNotification('No file selected', 'error');
     }

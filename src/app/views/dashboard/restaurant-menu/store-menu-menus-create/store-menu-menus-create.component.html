@@ -1,6 +1,6 @@
 <div class="menu-creator__actn-btns mb-2">
     <button class="std-button mr-sm-3" *ngIf="menuId" (click)="modalService.open(deleteComform, { centered: true });">Delete</button>
-    <button class="std-button" (click)="saveMenu()" [ngClass]="{'std-button--primary' : readyToSave()}">Save</button>
+    <button class="std-button"  (click)="saveMenu()" appBtnIcon [valid]="readyToSave()" [loading]="submitting"><span #span>Save</span></button>
 </div>
 <ng-container *ngIf="isLoading">
     <span style="color: red;">Loading...</span>
