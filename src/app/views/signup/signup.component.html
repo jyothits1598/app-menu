@@ -67,7 +67,11 @@
                             <span toggle="#password" class="fa fa-eye-slash field-icon toggle-password"></span>
                             <div *ngIf="passwordSubmit && f.password.errors" class="error-mez">
                                 <div *ngIf="f.password.errors.required"> Password field is required</div>
-                                <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+                                <div *ngIf="f.password.errors?.invalidPassword">
+                                    <!-- Password must be at least 8 characters -->
+                                    Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                                letter, 1 special character and number
+                                </div>
                             </div>
                         </div>
                     </div>
