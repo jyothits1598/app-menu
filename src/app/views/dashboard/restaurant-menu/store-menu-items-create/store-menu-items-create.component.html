@@ -104,6 +104,7 @@
                         <label class="custom-checkbox__label std-heading-4" for="category_id_{{i}}">{{categoryIdMap[i].name}}</label>
                     </div>
                 </div>
+                <div *ngIf="modifierIdMap?.length==0">No categories found.</div>
             </div>
         </div>
         <div class="row mb-3">
@@ -117,6 +118,7 @@
                         <label class="custom-checkbox__label std-heading-4" for="modifer_id_{{i}}">{{modifierIdMap[i].name}}</label>
                     </div>
                 </div>
+               <div *ngIf="modifierIdMap?.length==0">No modifier found.</div>
             </div>
         </div>
     </div>

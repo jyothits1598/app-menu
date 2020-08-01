@@ -5,11 +5,16 @@
 @import "./style/utilities";
 @import "./style/components";
 
+*{font-family: 'DM Sans', sans-serif;}
+
 nav {
   background:#353FA8;
   color:#fff;
   padding-left: 10px;
   padding-right: 10px;
+}
+.container{
+  padding:0px 6%;
 }
 .btn-names {
   border-radius: 5px;
@@ -17,25 +22,54 @@ nav {
   padding: 10px;
   cursor: pointer;
 }
-.btn-names:hover {
-  background: #6868cc;
-}
+// .btn-names:hover {
+//   background: #6868cc;
+// }
 .btn-pd {
   padding: 0 !important;
 }
 .sign-header {
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 48px;
   color:#000;
 }
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #B3B3B3;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -0.165px;
   opacity: 1; /* Firefox */
 }
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+::-moz-placeholder { /* Firefox 19+ */
   color: #B3B3B3;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -0.165px;
+  opacity: 1; /* Firefox */
 }
-::-ms-input-placeholder { /* Microsoft Edge */
+:-ms-input-placeholder { /* IE 10+ */
   color: #B3B3B3;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -0.165px;
+  opacity: 1; /* Firefox */
 }
+:-moz-placeholder { /* Firefox 18- */
+  color: #B3B3B3;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -0.165px;
+  opacity: 1; /* Firefox */
+}
+
 .form-input {
   border:2px solid #F2F2F2 !important;
   border-radius: 0 !important;
@@ -50,9 +84,7 @@ nav {
 .m-star {
   color:#FF1212;
 }
-.sign-header {
-  font-size:40px;
-}
+
 /* side bar */
 #wrapper {
     overflow-x: hidden;
@@ -210,4 +242,46 @@ nav {
     .response-padding {
       padding-top: 105px;
     }
+}
+
+
+
+.form-header {
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 48px;
+  color:#000;
+}
+.re-send {
+  color:#353FA8;
+  background: #FAFAFA;
+  font-weight:600;
+  border-radius: 0;
+}
+.btn{
+  height: 48px;
+}
+input{
+  height:48px;
+}
+.btn-custom-login {
+  color:#fff;
+  background: #353FA8;
+  border-radius: 0;
+  height: 48px;
+}
+.upload-file-btn {
+  color:#353FA8;
+  background: #FAFAFA;
+  font-weight:600;
+  border-radius: 0;
+  border: 2px solid #F2F2F2;
+  height: 48px;
+}
+p{
+  font-weight:500;
+  font-size:16px;
+  font-family: DM Sans;
 }

@@ -1,4 +1,4 @@
-<br><br>
+<div class="container h-100 m-class">
 <form [formGroup]="storeDetailform" (ngSubmit)="storeDetails()" >
     <h1 class="form-header pb-4"> 
         Tell us a little about your store 
@@ -83,3 +83,4 @@
     </div>
 </form>
 <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput accept=".jpg,.png,.jpeg,.gif">
+</div>

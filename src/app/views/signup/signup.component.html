@@ -1,19 +1,19 @@
-<nav style="position: fixed;top:0;left:0;right:0;z-index: 1;">
+<nav>
     <div class="navbar btn-pd justify-content-between">
-        <a class="navbar-brand" style="font-size:24px;"><img src="../../../assets/images/Vector.png"> menuzapp </a>
+        <a class="navbar-brand" style="font-size:24px;"><img style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"></a>
         <div class="btn-names">
-            <a style="text-decoration: none;color:#fff" [routerLink]="['/login']" title="login" >Already have an account? Login </a>
+            <a style="text-decoration: none;color:#fff" [routerLink]="['/']" title="Login" >Already have an account? Login </a>
         </div>
     </div>
 </nav>
 <div class="container h-100">
     <div class="row m-class">
         <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-            <h2 class="sign-header"> Become a menuzapp restaurant partner </h2>
+            <h1 class="form-header">  Become a menuzapp restaurant partner </h1>
         </div>
     </div>
     <div class="row m-class mt-5 mb-2">
-        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+        <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">
             <form [formGroup]="signupMenuzappform" (ngSubmit)="menuzappSignup()">
                 <div class="row">
                     <div class="col-md-6">
@@ -21,7 +21,7 @@
                             <label class="label-inputs"> First name <b class="m-star">*</b> </label>
                             <input type="text" class="form-control form-input" placeholder="e.g. Rhiannon" formControlName="fname" [ngClass]="{ 'is-invalid': fnameSubmit && f.fname.errors }">
                             <div *ngIf="fnameSubmit && f.fname.errors" class="error-mez">
-                                <div *ngIf="f.fname.errors.required"> First name field is required </div>
+                                <div *ngIf="f.fname.errors.required"> Please enter first name </div>
                             </div>
                         </div>
                     </div>
@@ -30,60 +30,60 @@
                             <label class="label-inputs"> Last name <b class="m-star">*</b> </label>
                             <input type="text" class="form-control form-input" placeholder="e.g. Sara" formControlName="lname" [ngClass]="{ 'is-invalid': lnameSubmit && f.lname.errors }">
                             <div *ngIf="lnameSubmit && f.lname.errors" class="error-mez">
-                                <div *ngIf="f.lname.errors.required"> Last name field is required</div>
+                                <div *ngIf="f.lname.errors.required"> Please enter last name</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-2">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="label-inputs"> Email <b class="m-star">*</b> </label>
                             <input type="email" class="form-control form-input" placeholder="e.g. name@domain.com" formControlName="signupemail" [ngClass]="{ 'is-invalid': emailSubmit && f.signupemail.errors }">
                             <div *ngIf="emailSubmit && f.signupemail.errors" class="error-mez">
-                                <div *ngIf="f.signupemail.errors.required">Email field is required </div>
+                                <div *ngIf="f.signupemail.errors.required">Please enter email address </div>
                                 <div *ngIf="f.signupemail.errors.email"> Please enter a valid email address </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-2">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="label-inputs"> Mobile <b class="m-star">*</b> </label>
                             <input class="form-control form-input" placeholder="e.g. 0412345678" formControlName="signupmobile" [ngClass]="{ 'is-invalid': mobileSubmit && f.signupmobile.errors }" minlength="10" maxlength="10" (keypress)="keyPress($event)" >
                             <div *ngIf="mobileSubmit && f.signupmobile.errors" class="error-mez">
-                                <div *ngIf="f.signupmobile.errors.required"> Mobile field is required </div>
+                                <div *ngIf="f.signupmobile.errors.required"> Please enter mobile number </div>
                                 <div *ngIf="f.signupmobile.errors.pattern"> Please enter a valid mobile number</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-2">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="label-inputs"> Password <b class="m-star">*</b> </label>
-                            <input type="password" id="password" class="form-control form-input custom-password-eye"  formControlName="password" placeholder="Must be at least 8 characters" [ngClass]="{ 'is-invalid': passwordSubmit && f.password.errors }">
+                            <input type="password" id="password" class="form-control form-input custom-password-eye"  formControlName="password" placeholder="Must be at least 8 letters, numbers or symbols" [ngClass]="{ 'is-invalid': passwordSubmit && f.password.errors }">
                             <span toggle="#password" class="fa fa-eye-slash field-icon toggle-password"></span>
                             <div *ngIf="passwordSubmit && f.password.errors" class="error-mez">
-                                <div *ngIf="f.password.errors.required"> Password field is required</div>
-                                <div *ngIf="f.password.errors?.invalidPassword">
+                                <div *ngIf="f.password.errors.required">Please enter password</div>
+                                <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+                                 <div *ngIf="f.password.errors?.invalidPassword">
                                     <!-- Password must be at least 8 characters -->
-                                    Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
-                                letter, 1 special character and number
+                                    Valid password must be 8 or more letters, numbers or symbols
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-2">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="label-inputs"> Confirm password <b class="m-star">*</b> </label>
                             <input type="password" formControlName="confirmPassword" id="password1" class="form-control form-input custom-password-eye" [ngClass]="{ 'is-invalid': passwordSubmit && f.confirmPassword.errors }" placeholder="Confirm Password">
                             <span toggle="#password1" class="fa fa-eye-slash field-icon toggle-password"></span>
                             <div *ngIf="passwordSubmit && f.confirmPassword.errors" class="error-mez">
-                              <div *ngIf="f.confirmPassword.errors.required">Confirm password field is required</div>
+                              <div *ngIf="f.confirmPassword.errors.required">Please confirm password</div>
                               <div *ngIf="f.confirmPassword.errors.mustMatch">Password must match</div>
                             </div>
                           </div>
@@ -101,10 +101,11 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-            <div class="embed-responsive embed-responsive-16by9 mt-4">
+        <div class="col-md-1"></div>
+        <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">
+            <div class="embed-responsive embed-responsive-16by9 mt-4" style="height:220px;width:330px">
                 <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/0l9Agm9qRPs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-                <img src="../../../assets/images/Frame 98.png" class="embed-responsive-item"/>
+                <img src="../../../assets/images/Frame 98.png"  class="embed-responsive-item" />
             </div>
         </div>
     </div>

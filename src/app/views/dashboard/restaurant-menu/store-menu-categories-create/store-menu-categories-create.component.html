@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="float-right">
             <button class="btn std-button--transparency" *ngIf="categoryId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
-            <button class="btn std-button--blue" style="margin-left:10px" (click)="saveData()"><img src="../../../../../assets/images/tick.png"> {{ saveBtnLoading ? "Loading" : "Save" }} </button>
+            <button appBtnIcon [valid]="createCatForm.valid" [loading]="saveBtnLoading" class="std-button" style="margin-left:10px" (click)="saveData()"><span #span>Save</span> </button>
         </div>
     </div>
     <div class="col-md-12">
@@ -30,6 +30,7 @@
         </div>
     </div>
 </div>
+
 <ng-container *ngIf="menuIdMap.length == 0">
     <div class="std-heading-4">You do not have any menus created</div>
 </ng-container>
