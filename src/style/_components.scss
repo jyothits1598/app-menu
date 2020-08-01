@@ -1,6 +1,6 @@
 .std-button {
     border-radius: 0;
-    padding: 0.50rem;
+    padding: 0.5rem;
     border: none;
     outline: none !important;
     &--primary {
@@ -8,24 +8,24 @@
         background: var(--color-primary);
     }
     &--transparency {
-        color:#353FA8;
-        background: #FAFAFA;
-        font-weight:600;
+        color: #353fa8;
+        background: #fafafa;
+        font-weight: 600;
         border-radius: 0;
     }
     &--transparency:hover {
-        color:#353FA8;
+        color: #353fa8;
     }
     &--blue {
-        color:#fff;
-        background: #353FA8;
+        color: #fff;
+        background: #353fa8;
         border-radius: 0;
     }
     &--blue:hover {
-        color:#fff;
+        color: #fff;
     }
-    &--plane{
-        color:#353FA8;
+    &--plane {
+        color: #353fa8;
         background: #fff;
         border: 0 !important;
         outline: none !important;
@@ -39,8 +39,32 @@
     border-top: 0px;
 }
 
+.btn-icon-check {
+    width: 17px;
+    height: 8px;
+    border: 2px solid transparent;
+    border-bottom: 2px solid var(--color-background);
+    border-left: 2px solid var(--color-background);
+    transform: rotateZ(-45deg);
+    display: inline-block;
+    transition: all 0.2s;
+    position: relative;
+    margin-right: 0.6rem;
+    top: -4px;
+}
+
+.btn-icon-loader {
+    top: 3px;
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    border-radius: 50%;
+    animation: spin 0.5s linear infinite;
+    animation-delay: 0.2s;
+}
+
 .menu-clr {
-    color:#353FA8;
+    color: #353fa8;
     outline: 0;
     cursor: pointer;
 }
@@ -92,9 +116,9 @@
     & input:checked ~ .custom-checkbox__label::after {
         content: "";
         position: absolute;
-        left: 1.30rem;
-        top: 1.20rem;
-        width: .375rem;
+        left: 1.3rem;
+        top: 1.2rem;
+        width: 0.375rem;
         height: 0.56rem;
         border: solid white;
         border-width: 0 0.18rem 0.18rem 0;
@@ -102,13 +126,11 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
-
 }
- 
 
 .custom-select {
     min-width: 12.5rem;
-    padding: 0.50rem;
+    padding: 0.5rem;
     background-color: var(--color-background-secondary);
     // font-size: 1rem;
     height: auto;
@@ -126,50 +148,50 @@
 .input-border {
     border: 0;
     outline: 0;
-    box-shadow: inset 0px -1px 0px #1A237E;
+    box-shadow: inset 0px -1px 0px #1a237e;
     border-radius: 8px 8px 0px 0px;
     width: 100%;
     font-size: 24px;
     // font-weight: bold;
-    color: #1A1A1A;
+    color: #1a1a1a;
     padding-left: 30px;
 }
 .input-container {
-    position:relative;
+    position: relative;
     width: 100%;
 }
 .input-img {
-    position:absolute;
-    left:0;
+    position: absolute;
+    left: 0;
     top: 6px;
     outline: none;
     cursor: pointer;
 }
-.info-q{
+.info-q {
     outline: none !important;
-    color:#ffffff;
+    color: #ffffff;
 }
 .header-info {
-    background: #353FA8;
-    border:0;
-    color:#fff;
-    padding:10px !important;
+    background: #353fa8;
+    border: 0;
+    color: #fff;
+    padding: 10px !important;
 }
 .dropdown-edit {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 .dropdown-edit li {
-    padding:5px 10px;
+    padding: 5px 10px;
 }
 .herf-class {
     text-decoration: none;
-    color:#1A1A1A;
+    color: #1a1a1a;
     outline: none;
 }
 .dropdown-edit li:hover {
     text-decoration: none;
-    color:#1A1A1A;
-    background: #FAFAFA;
+    color: #1a1a1a;
+    background: #fafafa;
 }
 // .image-dashboard {
 //     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
@@ -184,14 +206,14 @@
 }
 .image-dashboard {
     text-align: center;
-    padding:10px;
+    padding: 10px;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-    width:200px;
-    height:200px;    
- }
- .image-dashboard .inside-bck {
-    background: #FAFAFA;
-    color:#353FA8; 
-    height:100%;
-    padding-top:70px;
- }
+    width: 200px;
+    height: 200px;
+}
+.image-dashboard .inside-bck {
+    background: #fafafa;
+    color: #353fa8;
+    height: 100%;
+    padding-top: 70px;
+}
