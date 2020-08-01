@@ -105,6 +105,70 @@
 
 }
  
+.custom-radio {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    height: 3.5rem;
+    display: inline-block;
+
+    & input {
+        display: none;
+    }
+
+    & .custom-radio__label {
+        top: 0;
+        left: 0;
+        padding-left: 2.5rem;
+        padding-bottom: 0.75rem;
+        padding-top: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    input:checked ~ .custom-radio__label {
+        background-color: var(--color-success-light);
+    }
+
+    &__label::before {
+        content: "";
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        height: 1rem;
+        width: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+    }
+
+    & input:checked ~ .custom-radio__label::before {
+        background-color: var(--color-background);
+    }
+
+    & input:checked ~ .custom-radio__label::after {
+        content: "";
+        position: absolute;
+        left: 1.25rem;
+        top: 1.25rem;
+        width: 0.480rem;
+        height: 0.480rem;
+        border-radius: 50%;
+        // border: solid white;
+        // border-width: 0 0.18rem 0.18rem 0;
+        // -webkit-transform: rotate(45deg);
+        // -ms-transform: rotate(45deg);
+        // transform: rotate(45deg);
+    }
+    & input:checked ~ .custom-radio__label::after {
+        background-color: var(--color-success);
+    }
+
+
+}
 
 .custom-select {
     min-width: 12.5rem;

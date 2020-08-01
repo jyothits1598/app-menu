@@ -35,8 +35,8 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     itemDescription :new FormControl(''),
     itemKeyword: new FormControl(''),
     itemBasePrice : new FormControl(''),
-    itemStock : new FormControl(''),
-    sellitem : new FormControl(''),
+    itemStock : new FormControl('1'),
+    sellitem : new FormControl('1'),
     categories : new FormArray([]),
     modifier : new FormArray([])
     // menus: new FormArray([], [this.minChecksValidator()])
