@@ -22,8 +22,13 @@ export class RestaurantMenuComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isActive = this.storeService.activeStore$.value.isActive;
+    console.log(this.isActive);
   }
 
+  get storeSer(){
+    return this.storeService;
+  }
+  
   ngOnDestroy(): void {
     this.notifier.next();
     this.notifier.complete();

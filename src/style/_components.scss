@@ -276,7 +276,19 @@
 }
 .image-dashboard .inside-bck {
     background: #fafafa;
-    color: #353fa8;
+    color: var(--color-primary);
     height: 100%;
     padding-top: 70px;
+}
+.pending-tab {
+    padding:14px;
+    background: var(--color-pending);
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: bold;
+    color:var(--color-boldlevelcolor);
 }
