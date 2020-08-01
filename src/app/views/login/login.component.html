@@ -6,7 +6,7 @@
         </div>
     </div>
 </nav>
-<div class="container">
+<div class="container mt-4">
     <div class="signin-card">
         <div class="login-header mb-3"> 
             menuzapp restaurant login
@@ -17,12 +17,12 @@
                     <div class="form-group">
                         <input class="form-control form-input" [(ngModel)]="email" email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"  placeholder="Email" type="email" required id="email" name="email" #useremail="ngModel">
                         <div class="error-mez"  *ngIf="useremail.touched && useremail.invalid || email_error">
-                            <div *ngIf="useremail?.errors?.required">
+                            <p *ngIf="useremail?.errors?.required" class="error-mez">
                               Email is required
-                            </div>
-                            <div *ngIf="useremail?.errors?.pattern">
+                            </p>
+                            <p *ngIf="useremail?.errors?.pattern" class="error-mez">
                               Email is invalid
-                            </div>
+                            </p>
                           </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@
 <span style="color: red;" *ngIf="isLoading">loading...</span>
 <div class="row" *ngIf="!isLoading">
     <div class="col-md-12">
-        <table *ngIf="categories.length > 0; else noCategories" class="table table-border">
+        <table  class="table table-border">
             <thead>
                 <tr>
                     <th scope="col"> Name </th>
@@ -34,12 +34,13 @@
                             </ul>
                         </div>
                     </td>
+               </tr>
+               <tr class="text-center">
+                    <td colspan="6" *ngIf="categories?.length==0">No categories have been added yet.</td>
                 </tr>
             </tbody>
         </table>
-        <ng-template #noCategories>
-            <h3 class="std-heading-4">No categories have been added yet.</h3>
-        </ng-template>
+       
     </div>
 </div>
 

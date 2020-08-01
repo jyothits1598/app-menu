@@ -12,8 +12,8 @@
     <span *ngIf="menuName.invalid && menuName.touched" class="menu-creator__name__error">Menu name is required</span>
 </div>  -->
 <div class="input-container mb-4">
-    <img src="../../../../../assets/images/ico_back.png" class="input-img" [routerLink]="menuId ? '../../' : '../'">
-    <input type="text" class="input-border" name="menu-name" [formControl]="menuName"
+    <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1" [routerLink]="menuId ? '../../' : '../'">
+    <input type="text" class="input-border input-palceholder" name="menu-name" [formControl]="menuName"
         placeholder="Enter a name for this menu">
     <span style="color: red;" *ngIf="menuName.invalid && menuName.touched" class="menu-creator__name__error">Name of the menu is required</span>
 </div>
@@ -100,8 +100,9 @@
                         {{a.startTime}}&nbsp;-&nbsp;{{a.endTime}}
                     </td>
                     <td>
-                        <input [(ngModel)]="a.markedAsClose" type="checkbox">
-                        Mark as closed
+                        <label><input [(ngModel)]="a.markedAsClose" type="checkbox" style="height:auto;">
+                            Mark as closed
+                        </label>
                     </td>
                     <td valign="middle" style="color:#353FA8;cursor: pointer;"
                         (click)="a.id? deletedAvailability.push(availability.splice(i, 1)[0]) : availability.splice(i, 1)[0]">
