@@ -9,8 +9,8 @@
     </div>
     <div class="col-md-12">
         <div class="input-container">
-            <img src="../../../../../assets/images/ico_back.png" class="input-img" (click)="(createCatForm.controls.categoryName.valid || createCatForm.controls.menus.valid) && createCatForm.touched ? pagebackPopup(back) : navigateBack()">
-            <input type="text" class="input-border"  formControlName="categoryName" >
+            <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1" (click)="(createCatForm.controls.categoryName.valid || createCatForm.controls.menus.valid) && createCatForm.touched ? pagebackPopup(back) : navigateBack()">
+            <input type="text" class="input-border input-palceholder"  formControlName="categoryName" placeholder="Enter a name for this category">
             <span style="color: red;" *ngIf="createCatForm.controls.categoryName.invalid && createCatForm.controls.categoryName.touched">Category name is required.</span>
         </div>  
     </div>
@@ -24,11 +24,11 @@
         <div formArrayName="menus" class="menu-creator__days mb-3" (click)="createCatForm.controls.menus.markAsTouched({onlySelf: true});">
             <div class="custom-checkbox mr-2" *ngFor="let control of menusForm(); let i = index;">
                 <input type="checkbox" [id]="i" [formControlName]="i">
-                <label class="custom-checkbox__label std-heading-4" [for]="i">{{menuIdMap[i].name}}</label>
+                <label class="custom-checkbox__label std-heading-4  text-capitalize" [for]="i">{{menuIdMap[i].name}}</label>
             </div>
-            <span style="color: red;" *ngIf="createCatForm.controls.menus.invalid && createCatForm.controls.menus.touched">Altleast one menu should be selected</span>
-        </div>
-    </div>
+            <br><span style="color: red;" *ngIf="createCatForm.controls.menus.invalid && createCatForm.controls.menus.touched">Atleast one menu should be selected</span>
+         </div>
+     </div>
 </div>
 
 <ng-container *ngIf="menuIdMap.length == 0">

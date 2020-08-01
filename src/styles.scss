@@ -37,7 +37,7 @@ nav {
   color:#000;
 }
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #B3B3B3;
   font-style: normal;
   font-weight: 400;
@@ -45,7 +45,7 @@ nav {
   letter-spacing: -0.165px;
   opacity: 1; /* Firefox */
 }
-::-moz-placeholder { /* Firefox 19+ */
+input::-moz-placeholder { /* Firefox 19+ */
   color: #B3B3B3;
   font-style: normal;
   font-weight: 400;
@@ -53,7 +53,7 @@ nav {
   letter-spacing: -0.165px;
   opacity: 1; /* Firefox */
 }
-:-ms-input-placeholder { /* IE 10+ */
+input::-ms-input-placeholder { /* IE 10+ */
   color: #B3B3B3;
   font-style: normal;
   font-weight: 400;
@@ -61,7 +61,7 @@ nav {
   letter-spacing: -0.165px;
   opacity: 1; /* Firefox */
 }
-:-moz-placeholder { /* Firefox 18- */
+input::-moz-placeholder { /* Firefox 18- */
   color: #B3B3B3;
   font-style: normal;
   font-weight: 400;
@@ -69,6 +69,47 @@ nav {
   letter-spacing: -0.165px;
   opacity: 1; /* Firefox */
 }
+.input-palceholder{
+  font-weight: 600;
+  font-size: 24px;
+}
+.input-palceholder:first-letter{
+  text-transform:capitalize;
+}
+
+.input-palceholder::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #B3B3B3;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.165px;
+  opacity: 1; /* Firefox */
+}
+.input-palceholder::-moz-placeholder { /* Firefox 19+ */
+  color: #B3B3B3;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.165px;
+  opacity: 1; /* Firefox */
+}
+.input-palceholder::-ms-input-placeholder { /* IE 10+ */
+  color: #B3B3B3;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.165px;
+  opacity: 1; /* Firefox */
+}
+.input-palceholder::-moz-placeholder { /* Firefox 18- */
+  color: #B3B3B3;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.165px;
+  opacity: 1; /* Firefox */
+}
+
 
 .form-input {
   border:2px solid #F2F2F2 !important;
@@ -221,7 +262,7 @@ nav {
     padding-left: 0;
   }
   .response-padding {
-    padding-top: 105px;
+    padding-top: 95px;
   }
 }
 /* Extra large devices (large desktops, 1200px and up) */
@@ -240,7 +281,7 @@ nav {
       padding-left: 0;
     }
     .response-padding {
-      padding-top: 105px;
+      padding-top: 95px;
     }
 }
 
@@ -279,9 +320,4 @@ input{
   border-radius: 0;
   border: 2px solid #F2F2F2;
   height: 48px;
-}
-p{
-  font-weight:500;
-  font-size:16px;
-  font-family: DM Sans;
 }

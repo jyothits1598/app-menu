@@ -92,10 +92,14 @@
         padding-bottom: 0.75rem;
         padding-top: 0.75rem;
         padding-right: 0.75rem;
+        color:#808080;
+        font-weight: normal;
+        font-size: 16px;
     }
 
     input:checked ~ .custom-checkbox__label {
         background-color: var(--color-success-light);
+        color:#1A1A1A;
     }
 
     &__label::before {
@@ -107,10 +111,12 @@
         width: 1rem;
         border: 1px solid #ccc;
         border-radius: 0.2rem;
+        color:#1A1A1A;
     }
 
     & input:checked ~ .custom-checkbox__label::before {
         background-color: var(--color-success);
+        color:#1A1A1A;
     }
 
     & input:checked ~ .custom-checkbox__label::after {
@@ -121,6 +127,9 @@
         width: 0.375rem;
         height: 0.56rem;
         border: solid white;
+        color:#1A1A1A;
+        font-weight: normal;
+        font-size: 16px;
         border-width: 0 0.18rem 0.18rem 0;
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);

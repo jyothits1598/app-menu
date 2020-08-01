@@ -23,7 +23,10 @@
 }
 
 .nav-link__active{
+    border-top:1px solid #ccc;
     background-color: #F2F2F2;
+    color:#353FA8;
+    font-weight: bold;
 }
 .add-plus:focus{
     outline: 0;
@@ -32,4 +35,8 @@
     padding-top: 8px;
     padding-bottom: 8px;
     box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+a{
+    text-decoration:none;
 }
