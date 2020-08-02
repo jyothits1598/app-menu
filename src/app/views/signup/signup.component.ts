@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ReactiveFormsModule,FormsModule,FormGroup,FormControl,Validators,FormBuilder } from '@angular/forms';
@@ -35,7 +36,8 @@ export class SignupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private restApiservice: RestApiService,
     private alertservice: AlertService,
-    private authenticateService: AuthenticationService
+    private authenticateService: AuthenticationService,
+    
   ) { }
     
   //only number will be add
@@ -101,7 +103,10 @@ export class SignupComponent implements OnInit {
         'mobile_number':this.signupMenuzappform.value.signupmobile,
         'password':this.signupMenuzappform.value.password,
         'confirm_password':this.signupMenuzappform.value.password,
-        'setPasswordURL':REQUEST_A_ACTIVE
+        'success_redirect':environment['mail_url_success'],
+        'failure_redirect':environment['mail_url_failure'],
+        'login_link':environment['mail_url_login'],
+        'contactus_link':environment['mail_url_contactus'],
       }; 
       this.alertservice.showLoader();
       this.restApiservice.postAPI('signup-partner',data,(response)=>{

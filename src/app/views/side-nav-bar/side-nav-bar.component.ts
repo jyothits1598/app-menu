@@ -53,6 +53,7 @@ export class SideNavBarComponent implements OnInit {
   ngOnInit(): void {
     var obj = this;
     obj.authenticateService.getUserObject().subscribe((response)=>{
+      console.log(response);
       if(response && response['user_details'] && response['user_details']['store_partner_id']){
         // console.log(response['user_details']['store_partner_id']);
         obj.storeDetails();
