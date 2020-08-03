@@ -180,9 +180,4 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();
   }
-
-  // debug() {
-  //   // .setValue(true);
-  // }
-
 }

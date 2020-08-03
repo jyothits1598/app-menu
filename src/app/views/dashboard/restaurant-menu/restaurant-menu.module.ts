@@ -94,8 +94,11 @@ const routes: Routes = [
       },
       {
         path: 'modifier-groups',
-        component: RestaurantMenuModifierGroupsComponent,
         children: [
+          {
+            path: '',
+            component: RestaurantMenuModifierGroupsComponent
+          },
           {
             path: 'new',
             component: StoreMenuModifierGroupCreateComponent

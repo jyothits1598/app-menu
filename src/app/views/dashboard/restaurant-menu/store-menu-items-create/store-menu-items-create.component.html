@@ -4,7 +4,8 @@
         <div class="float-right">
             <button class="btn std-button--transparency" [disabled]="!itemId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
             <button class="btn std-button--transparency" style="margin-left:10px;" > Duplicate </button>
-            <button class="btn std-button--blue" style="margin-left:10px;"  (click)="saveData()"><img src="../../../../../assets/images/tick.png">&nbsp; {{ saveBtnLoading ? "Loading" : "Save" }} </button>
+            <button appBtnIcon [valid]="createItemForm.valid" [loading]="saveBtnLoading" class="btn std-button--transparency" style="margin-left:10px;"  (click)="saveData()"><span #span>Save</span></button>
+            <!-- <button class="btn std-button--blue" style="margin-left:10px;"  (click)="saveData()"><img src="../../../../../assets/images/tick.png">&nbsp; {{ saveBtnLoading ? "Loading" : "Save" }} </button> -->
         </div>
     </div>
     <div class="col-md-12">
@@ -29,7 +30,11 @@
                         </div>
                     </div> -->
                     <div class="upload-image" (click)="imageUrl? '' : fileInput.click()" >
-                        <img [src]="imageUrl ? imageUrl : 'assets/images/ico_add_blue.png'">     
+                        <img *ngIf="imageUrl; else imageNotFound" [src]="imageUrl">     
+                        <ng-template #imageNotFound>
+                            <img src="assets/images/ico_add_blue.png">     
+                            <h4 class="std-heading-4">Upload an image</h4>
+                        </ng-template>
                     </div>
                     <div class="response-padding" style="margin-left:20px;">
                         <span style="font-size:14px"> JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
@@ -58,7 +63,10 @@
             <div class="col-md-2">
                 <div class="form-group mb-2">
                     <label class="std-heading-4"> Base price </label>
-                    <input class="form-control form-input" formControlName="itemBasePrice" placeholder="$09.11" >
+                    <div class="prefixed-input">
+                        <span class="prefixed-input__prefix">$</span>
+                        <input class="form-control form-input prefixed-input__input prefixed-input__input" type="number" formControlName="itemBasePrice" placeholder="09.11" >
+                      </div>
                 </div>
             </div>
         </div>
@@ -68,11 +76,11 @@
                 <div class="menu-creator__days">
                     <div class="custom-radio">
                         <input type="radio" id="yes" name="itemStock" formControlName="itemStock"  value="1" checked>
-                        <label class="custom-radio__label std-heading-4" for="yes">Yes</label>
+                        <label class="custom-radio__label" for="yes">Yes</label>
                     </div>
                     <div class="custom-radio pd-left">
                         <input type="radio" id="no" name="itemStock" formControlName="itemStock" value="0" >
-                        <label class="custom-radio__label std-heading-4" for="no">No</label>
+                        <label class="custom-radio__label" for="no">No</label>
                     </div>
                 </div>
             </div>
@@ -83,11 +91,11 @@
                 <div class="menu-creator__days">
                     <div class="custom-radio" >
                         <input type="radio" id="sellYes" name="sellitem" formControlName="sellitem" value="1" checked>
-                        <label class="custom-radio__label std-heading-4" for="sellYes">Yes</label>
+                        <label class="custom-radio__label" for="sellYes">Yes</label>
                     </div>
                     <div class="custom-radio pd-left">
                         <input type="radio" id="sellNo" name="sellitem" formControlName="sellitem" value="0" >
-                        <label class="custom-radio__label std-heading-4" for="sellNo">No</label>
+                        <label class="custom-radio__label" for="sellNo">No</label>
                     </div>
                 </div>
             </div>
@@ -98,7 +106,7 @@
                 <p class="mb-2"> Items may appear in one or more categories. </p>
                 <label class="std-heading-4"> This item will be appear in: </label>
                 <div  formArrayName="categories" class="menu-creator__days"  (click)="createItemForm.controls.categories.markAsTouched({onlySelf: true});">
-                    <div class="custom-checkbox" *ngFor="let control of categoryForm(); let i = index;">
+                    <div class="custom-checkbox mr-2" *ngFor="let control of categoryForm(); let i = index;">
                         <input type="checkbox" id="category_id_{{i}}" name="category_id_{{i}}" [formControlName]="i">
                         <label class="custom-checkbox__label std-heading-4" for="category_id_{{i}}">{{categoryIdMap[i].name}}</label>
                     </div>

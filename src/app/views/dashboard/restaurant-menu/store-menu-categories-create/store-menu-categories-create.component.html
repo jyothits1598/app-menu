@@ -20,20 +20,19 @@
             </div>
         </div>
         <label style="font-weight: 600;"> Menus this category will appear in: </label>
-        <div formArrayName="menus" class="menu-creator__days mb-3" (click)="createCatForm.controls.menus.markAsTouched({onlySelf: true});">
+        <div *ngIf="menuIdMap.length > 0; else noMenus" formArrayName="menus" class="menu-creator__days mb-3" (click)="createCatForm.controls.menus.markAsTouched({onlySelf: true});">
             <div class="custom-checkbox mr-2" *ngFor="let control of menusForm(); let i = index;">
                 <input type="checkbox" [id]="i" [formControlName]="i">
                 <label class="custom-checkbox__label std-heading-4  text-capitalize" [for]="i">{{menuIdMap[i].name}}</label>
             </div>
-            <br><span style="color: red;" *ngIf="createCatForm.controls.menus.invalid && createCatForm.controls.menus.touched">Atleast one menu should be selected</span>
-         </div>
+        </div>
+        <br><span style="color: red;" *ngIf="createCatForm.controls.menus.invalid && createCatForm.controls.menus.touched">Atleast one menu should be selected</span>
      </div>
 </div>
 
-<ng-container *ngIf="menuIdMap.length == 0">
-    <div class="std-heading-4">You do not have any menus created</div>
-</ng-container>
-<!-- <button (click)="debug()">debug</button> -->
+<ng-template #noMenus>
+    <p style="color: var(--color-failure);">You do not have any menus created</p>
+</ng-template>
 <!-- end create category -->
 
 <!-- Info modal -->

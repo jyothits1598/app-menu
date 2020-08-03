@@ -47,7 +47,7 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
     let data: any = {};
     data.category_id = category.id;
     data.category_name = category.name;
-    data.active_flag = 0;
+    data.active_flag = 1;
 
     this.restApiService.postAPI(`store/category/add/${this.storeService.activeStore}`
       , data
@@ -67,7 +67,7 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
     if(!menus[0]) return result;
     result += menus[0].name;
     if(menus[1]) result += ', ' + menus[1].name;
-    if(menus.length > 2) result += ` +${menus.length-2}`;
+    if(menus.length > 2) result += `, +${menus.length-2}`;
     return result;
   }
 

@@ -112,9 +112,13 @@ input::-moz-placeholder { /* Firefox 18- */
 
 
 .form-input {
-  border:2px solid #F2F2F2 !important;
+  border:2px solid var(--color-background-secondary) !important;
   border-radius: 0 !important;
   border-style: solid;
+
+  &::placeholder{
+    color: var(--color-typography-tertiary);
+  }
 }
 .label-inputs {
   color: #1A1A1A;

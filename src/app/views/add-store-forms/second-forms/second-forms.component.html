@@ -65,12 +65,13 @@
                 <div class="d-flex flex-row">
                     <div class="upload-image" (click)="imageUrl? '' : fileInput.click()" >
                         <img [src]="imageUrl ? imageUrl : 'assets/images/ico_add_blue.png'">     
+                        <p *ngIf="!imageUrl" class="std-heading-4">Upload an image</p>
                     </div>
                     <div class="response-padding" style="margin-left:20px;">
                         <span style="font-size:12px">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
                         <div class="mt-2">
-                            <button class="btn std-button--blue" type="button" (click)="fileInput.click()" > Browse </button> 
-                            <button class="btn std-button--transparency"  type="button" style="margin-left:10px;" *ngIf="imageUrl"  (click)="imageUrl = null"> Remove </button>
+                            <button class="btn std-button--blue" style="margin-right:.62rem;" type="button" (click)="fileInput.click()" > Browse </button> 
+                            <button class="btn std-button--transparency"  type="button" *ngIf="imageUrl"  (click)="imageUrl = null"> Remove </button>
                         </div>
                     </div>
                 </div>
@@ -79,7 +80,7 @@
     </div>
     <div class="form-group">
         <a [routerLink]="['/store/first-form']"> <input type="button" class="btn re-send" value="Cancel" ></a>
-        <input type="submit" class="btn btn-custom-login" value="{{add_edit_type == 'add' ? 'Save and Continue' : 'Edit a store'}}" style="margin-left:10px;">
+        <input type="submit" class="btn btn-custom-login" value="{{add_edit_type == 'add' ? 'Save and continue' : 'Edit store'}}" style="margin-left:10px;">
     </div>
 </form>
 <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput accept=".jpg,.png,.jpeg,.gif">

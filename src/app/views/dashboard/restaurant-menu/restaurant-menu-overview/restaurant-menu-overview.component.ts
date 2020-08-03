@@ -15,7 +15,6 @@ export class RestaurantMenuOverviewComponent implements OnInit {
   itemAvailable: boolean;
   modifireGroupAvailable: boolean;
 
- 
   nextStep: {stepName: string, route: string} = null;
 
   constructor(private storeService: StoreService
@@ -44,8 +43,8 @@ export class RestaurantMenuOverviewComponent implements OnInit {
   }
 
   determinNextStep() : {stepName: string, route: string}{
-    if(!this.menuAvailable) return {stepName: 'menu', route: '../menus'};
-    if(!this.categoryAvailable) return {stepName: 'category', route: '../categories'};
+    if(!this.menuAvailable) return {stepName: 'menu', route: '../menus/editor'};
+    if(!this.categoryAvailable) return {stepName: 'category', route: '../categories/new'};
     if(!this.itemAvailable) return {stepName: 'item', route: '../items'};
     if(!this.modifireGroupAvailable) return {stepName: 'modifer group', route: '../modifierGroup'};
     return null;

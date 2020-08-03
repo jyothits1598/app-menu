@@ -1,73 +1,97 @@
-<div class="row mb-2">
-    <div class="col-md-12">
-        <div class="float-right">
-            <button class="btn std-button--transparency"> Delete </button>
-            <button class="btn std-button--transparency" style="margin-left:10px;" > Duplicate </button>
-            <button class="btn std-button--blue" style="margin-left:10px;" ><img src="../../../../../assets/images/tick.png">&nbsp; Save </button>
+<form [formGroup]="modifierForm" (ngSubmit)="saveModifer(modifierForm.value)">
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <div class="float-right">
+                <button class="btn std-button--transparency" type="button"> Delete </button>
+                <button class="btn std-button--transparency" style="margin-left:10px;" type="button"> Duplicate
+                </button>
+                <button appBtnIcon [valid]="modifierForm.valid" [loading]="submitting"
+                    class="btn std-button--transparency" style="margin-left:10px;"> <span #span>Save</span> </button>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="input-container">
+                <img src="../../../../../assets/images/ico_back.png" class="input-img">
+                <input type="text" class="input-border" formControlName="name">
+                <span style="color: red;"
+                    *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
+                    required.</span>
+            </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <div class="input-container">
-            <img src="../../../../../assets/images/ico_back.png" class="input-img" >
-            <input type="text" class="input-border">
-            <span style="color: red;">Item name is required.</span>
-        </div>  
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="std-heading-3 mb-3"> Items <img src="../../../../../assets/images/ico_help.png"
+                    style="cursor:pointer" title="info"></h3>
+            <h3 class="std-heading-4" style="margin-bottom: 3px;"> Add Item </h3>
+        </div>
+        <div class="col-md-3 mb-1">
+            <input type="search" placeholder="Search" class="form-control form-input search" />
+        </div>
+        <div class="col-md-3">
+            <button class="btn std-button--blue" type="button" (click)="placeHolderForSearch()">Add </button>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <h3 class="std-heading-3 mb-3"> Items <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info"></h3>
-        <h3 class="std-heading-4" style="margin-bottom: 3px;"> Add Item </h3> 
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <table class="table table-border" formArrayName="selectedItems">
+                <thead>
+                    <tr>
+                        <th scope="col"> Name </th>
+                        <th scope="col"> Category </th>
+                        <th scope="col"> Standard price </th>
+                        <th scope="col"> Modifier price </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-capitalize" *ngFor="let item of selectedItems; let i = index">
+                        <td class="menu-clr" style="text-transform: capitalize; font-weight: bold;">{{item.name}}</td>
+                        <td>{{item.categories[0].name}}</td>
+                        <td>{{item.basePrice}}</td>
+                        <ng-template #priceInput><input type="text" [formControlName]="i"></ng-template>
+                        <td (click)="modalService.open(priceInput, { centered: true }); selectedItemName=item.name;"></td>
+                        <td style="text-align: right;cursor:pointer;outline: none;">
+                            <div class="dropdown">
+                                <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
+                                    data-toggle="dropdown" title="Options">
+                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <li class="herf-class" title="Edit">
+                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        Edit
+                                    </li>
+                                    <li title="Delete" class="herf-class">
+                                        <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                        Delete
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="col-md-3 mb-1">
-        <input type="search" placeholder="Search" class="form-control form-input search" />
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="std-heading-3 mb-3"> Rules <img src="../../../../../assets/images/ico_help.png"
+                    style="cursor:pointer" title="info"></h3>
+            <h3 class="std-heading-4" style="margin-bottom: 3px;"> Is this a required selection? </h3>
+            <input type="checkbox" formControlName="selectionRequired">
+            <h3 class="std-heading-4" style="margin-bottom: 3px;"> Maximum items selected </h3>
+            <input type="number" formControlName="maxItemsSelectable">
+        </div>
     </div>
-    <div class="col-md-3">
-        <button class="btn std-button--blue">Add </button>
-    </div>
-</div>
-<div class="row mb-3">
-    <div class="col-md-12">
-        <table class="table table-border">
-            <thead>
-                <tr>
-                    <th scope="col"> Name </th>
-                    <th scope="col"> Category </th>
-                    <th scope="col"> Standard price </th>
-                    <th scope="col"> Modifier price </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="text-capitalize">
-                  <td class="menu-clr" style="text-transform: capitalize; font-weight: bold;">  </td>
-                  <td></td>
-                  <td></td>
-                  <td> Size,Sauce,+1 </td>
-                  <td style="text-align: right;cursor:pointer;outline: none;">
-                    <div class="dropdown">
-                        <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="Options">
-                        <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                            <li class="herf-class" title="Edit">
-                                <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
-                              Edit
-                            </li>
-                            <li title="Delete" class="herf-class">
-                                <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
-                                Delete
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-                </tr>
-            </tbody>
-        </table>
-    </div> 
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <h3 class="std-heading-3 mb-3"> Rules <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info"></h3>
-        <h3 class="std-heading-4" style="margin-bottom: 3px;"> Is this a required selection? </h3> 
+</form>
+
+<div>
+    <h2>{{selectedItemName}}</h2>
+    <h4>Modifier group</h4>
+    <input type="text">
+    <div>
+        <button>Cancel</button>
+        <button>Save</button>
     </div>
 </div>
 
+<button (click)="debug()">debug</button>

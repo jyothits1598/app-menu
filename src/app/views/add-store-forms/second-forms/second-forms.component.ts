@@ -51,7 +51,7 @@ export class SecondFormsComponent implements OnInit {
     private dataService: DataService,
   ) {
     this.store_id = +this.route.snapshot.paramMap.get('store-id');
-    if (!this.store_id) if (+localStorage.getItem('storeCreationId')) this.store_id = +localStorage.getItem('storeCreationId');
+    // if (!this.store_id) if (+localStorage.getItem('storeCreationId')) this.store_id = +localStorage.getItem('storeCreationId');
     this.add_edit_type = this.route.snapshot.queryParams['type'] || 'add';
   }
 
@@ -114,13 +114,14 @@ export class SecondFormsComponent implements OnInit {
         'store_logo': this.imageUrl
       };
       if (this.imageUrl) data.store_logo = this.imageUrl;
+      if (this.store_id) data.store_id = this.store_id;
       console.log(data);
       if (this.add_edit_type == 'add') {
         this.alertservice.showLoader();
         this.restApiservice.postAPI('store/add', data, (response) => {
           if (response && response['success'] && response['data']) {
             this.alertservice.hideLoader();
-            localStorage.setItem('storeCreationId', response['data']['store_id']);
+            // localStorage.setItem('storeCreationId', response['data']['store_id']);
             // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
             return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
           } else if (response && !response['success'] && response['message']) {
@@ -188,7 +189,7 @@ export class SecondFormsComponent implements OnInit {
         return false;
       }
       if (!this.dataService.validateFileSize(this.fileUptoLoad.size)) {
-        this.alertservice.showNotification('Selected file size is more', 'error')
+        this.alertservice.showNotification('File to be uploaded should be less than 5MB', 'error');
         return false;
       }
       let reader = new FileReader();
@@ -199,7 +200,7 @@ export class SecondFormsComponent implements OnInit {
         img.src = e.target.result;
         img.onload = () => {
           if (img.width < 500 || img.height < 500) {
-            this.alertservice.showNotification('minimum size 500*500 pixel', 'error')
+            this.alertservice.showNotification('Minimum size 500*500 pixel', 'error')
             return false;
           }
           let form_data = new FormData();

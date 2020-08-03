@@ -73,7 +73,6 @@
     display: block;
     position: relative;
     cursor: pointer;
-    font-size: 22px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -85,21 +84,21 @@
         display: none;
     }
 
-    & .custom-checkbox__label {
+    &__label {
         top: 0;
         left: 0;
         padding-left: 2.5rem;
         padding-bottom: 0.75rem;
         padding-top: 0.75rem;
         padding-right: 0.75rem;
-        color:#808080;
+        color: #808080;
         font-weight: normal;
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     input:checked ~ .custom-checkbox__label {
         background-color: var(--color-success-light);
-        color:#1A1A1A;
+        color: #1a1a1a;
     }
 
     &__label::before {
@@ -111,12 +110,12 @@
         width: 1rem;
         border: 1px solid #ccc;
         border-radius: 0.2rem;
-        color:#1A1A1A;
+        color: #1a1a1a;
     }
 
     & input:checked ~ .custom-checkbox__label::before {
         background-color: var(--color-success);
-        color:#1A1A1A;
+        color: #1a1a1a;
     }
 
     & input:checked ~ .custom-checkbox__label::after {
@@ -127,7 +126,7 @@
         width: 0.375rem;
         height: 0.56rem;
         border: solid white;
-        color:#1A1A1A;
+        color: #1a1a1a;
         font-weight: normal;
         font-size: 16px;
         border-width: 0 0.18rem 0.18rem 0;
@@ -136,12 +135,11 @@
         transform: rotate(45deg);
     }
 }
- 
+
 .custom-radio {
     display: block;
     position: relative;
     cursor: pointer;
-    font-size: 22px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -153,17 +151,20 @@
         display: none;
     }
 
-    & .custom-radio__label {
+    &__label {
         top: 0;
         left: 0;
         padding-left: 2.5rem;
         padding-bottom: 0.75rem;
         padding-top: 0.75rem;
         padding-right: 0.75rem;
+        font-size: 1rem;
+        color: #808080;
     }
 
     input:checked ~ .custom-radio__label {
         background-color: var(--color-success-light);
+        color: #1a1a1a;
     }
 
     &__label::before {
@@ -186,8 +187,8 @@
         position: absolute;
         left: 1.25rem;
         top: 1.25rem;
-        width: 0.480rem;
-        height: 0.480rem;
+        width: 0.48rem;
+        height: 0.48rem;
         border-radius: 50%;
         // border: solid white;
         // border-width: 0 0.18rem 0.18rem 0;
@@ -217,6 +218,22 @@
     background-position: right 0.8rem top 50%, 0 0;
     background-size: 0.65em auto, 100%;
 }
+
+.prefixed-input {
+    position: relative;
+
+    &__prefix {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.875rem;
+        color: var(--color-typography-tertiary);
+    }
+
+    &__input {
+        padding-left: 1.5rem;
+    }
+}
+
 .input-border {
     border: 0;
     outline: 0;
@@ -290,14 +307,14 @@
     padding-top: 70px;
 }
 .pending-tab {
-    padding:14px;
+    padding: 14px;
     background: var(--color-pending);
     position: absolute;
-    top:0;
-    left:0;
-    right:0;
+    top: 0;
+    left: 0;
+    right: 0;
     font-size: 16px;
     font-style: normal;
     font-weight: bold;
-    color:var(--color-boldlevelcolor);
+    color: var(--color-boldlevelcolor);
 }

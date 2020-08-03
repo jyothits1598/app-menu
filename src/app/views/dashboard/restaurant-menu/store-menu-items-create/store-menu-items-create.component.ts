@@ -23,21 +23,21 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   errors: string;
   saveBtnLoading: boolean = false;
   fileUptoLoad: File;
-  width:number;
-  height:number;
+  width: number;
+  height: number;
 
   categoryIdMap: Array<{ name: string, id: number }> = [];
   modifierIdMap: Array<{ name: string, id: number }> = [];
 
   createItemForm: FormGroup = new FormGroup({
     itemName: new FormControl('', Validators.required),
-    itemDescription :new FormControl(''),
+    itemDescription: new FormControl(''),
     itemKeyword: new FormControl(''),
-    itemBasePrice : new FormControl(''),
-    itemStock : new FormControl('1'),
-    sellitem : new FormControl('1'),
-    categories : new FormArray([]),
-    modifier : new FormArray([])
+    itemBasePrice: new FormControl(''),
+    itemStock: new FormControl('1'),
+    sellitem: new FormControl('1'),
+    categories: new FormArray([]),
+    modifier: new FormArray([])
     // menus: new FormArray([], [this.minChecksValidator()])
   })
 
@@ -49,23 +49,23 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private dataService: DataService
-    ) {
-      this.routerSubs = this.route.params.subscribe(params => {
-        //creating a new category
-        if (params['id'] === undefined) {
-          this.fetchInitialData();
-          return;
-        };
-  
-        //update existing category
-        this.itemId = +params['id'];
-        // if category is not a number
-        if (!this.itemId) {
-          this.router.navigate(['./not-found'], { relativeTo: this.route });
-        }
+  ) {
+    this.routerSubs = this.route.params.subscribe(params => {
+      //creating a new category
+      if (params['id'] === undefined) {
         this.fetchInitialData();
-      })
-     }
+        return;
+      };
+
+      //update existing category
+      this.itemId = +params['id'];
+      // if category is not a number
+      if (!this.itemId) {
+        this.router.navigate(['./not-found'], { relativeTo: this.route });
+      }
+      this.fetchInitialData();
+    })
+  }
 
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();
@@ -85,7 +85,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   //   "sellNo" : false
   // };
 
-  
+
 
   navigateBack() {
     this.router.navigate(['../'], { relativeTo: this.route });
@@ -127,7 +127,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
             this.categoryIdMap.push({ id: category.category_id, name: category.category_name });
             (<FormArray>this.createItemForm.controls.categories).push(new FormControl(false));
           });
-      
+
           //if we have a valid categoryId fetch category data
           if (this.itemId) {
             this.alertService.showLoader();
@@ -154,7 +154,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
         }
       })
 
-      this.restApiService.getData('store/items/modifier/' + this.storeService.activeStore
+    this.restApiService.getData('store/items/modifier/' + this.storeService.activeStore
       , (resp) => {
         if (resp.success && resp.data) {
           this.alertService.hideLoader();
@@ -170,7 +170,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
               , (resp) => {
                 this.alertService.hideLoader();
                 if (resp.success && resp.data.length > 0) {
-                  let modifierItem =resp.data[0];
+                  let modifierItem = resp.data[0];
                   modifierItem.category_details.forEach(activeModifier => {
                     let index: number = this.modifierIdMap.findIndex(modifier => activeModifier.id == modifier.id);
                     if (index != -1) (<FormArray>this.createItemForm.controls.modifier).controls[index].setValue(true);
@@ -189,7 +189,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       this.createItemForm.markAllAsTouched();
       return;
     }
-  
+
     //construct data before sending to backend backend
     var data: any = {};
     data.item_name = this.createItemForm.value.itemName;
@@ -198,7 +198,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     data.item_base_price = this.createItemForm.value.itemBasePrice;
     data.item_in_stock = this.createItemForm.value.itemStock;
     data.item_individual = this.createItemForm.value.sellitem;
-    data.item_image =  this.imageUrl;
+    data.item_image = this.imageUrl;
     if (this.itemId) data.item_id = this.itemId;
     let checkCategoryValues: Array<boolean> = this.createItemForm.controls.categories.value;
     let selectedCategory: Array<{ "category_id": number }> = [];
@@ -231,13 +231,13 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
           this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
           this.navigateBack();
         } else if (!resp.success) {
-          this.saveBtnLoading = false;        
-          let i=0;
-          for(let key in resp['error']['error']['error_msg']) {       
-            this.errors=resp['error']['error']['error_msg'][0];
-            this.alertService.showNotification(this.errors,'error');
+          this.saveBtnLoading = false;
+          let i = 0;
+          for (let key in resp['error']['error']['error_msg']) {
+            this.errors = resp['error']['error']['error_msg'][0];
+            this.alertService.showNotification(this.errors, 'error');
           }
-        } 
+        }
         else this.alertService.showNotification("There was a problem, please try again.");
       }
       // , (errResp) => {
@@ -289,13 +289,13 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
 
   onFileChanged(event) {
     this.fileUptoLoad = event.target.files[0];
-    if(this.fileUptoLoad){
+    if (this.fileUptoLoad) {
       if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
         this.alertService.showNotification('Selected file format is not supported', 'error')
         return false;
       }
       if (!this.dataService.validateFileSize(this.fileUptoLoad.size)) {
-        this.alertService.showNotification('Selected file size is more', 'error')
+        this.alertService.showNotification('File to be uploaded should be less than 5MB', 'error')
         return false;
       }
       let reader = new FileReader();
@@ -303,20 +303,21 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       reader.onload = (e: any) => {
         img.src = e.target.result;
         img.onload = () => {
-          if(img.width > 500 || img.height > 500){
-            this.alertService.showNotification('minimum size 500*500 pixel', 'error')
+          if (img.width < 500 || img.height < 500) {
+            this.alertService.showNotification('Minimum size 500*500 pixel', 'error')
             return false;
           }
+          reader.readAsDataURL(this.fileUptoLoad);
+          let form_data = new FormData();
+          form_data.append('item_image', this.fileUptoLoad);
+          this.restApiService.pushSaveFileToStorageWithFormdata(form_data, 'store/items/upload/image', (response) => {
+            if (response && response['success'] && response['data']) {
+              this.imageUrl = response['data'];
+            }
+          })
         };
       }
-      reader.readAsDataURL(this.fileUptoLoad);
-      let form_data = new FormData();
-      form_data.append('item_image',this.fileUptoLoad);
-      this.restApiService.pushSaveFileToStorageWithFormdata(form_data,'store/items/upload/image',(response)=>{
-        if(response && response['success'] && response['data']) { 
-          this.imageUrl=response['data'];
-        }
-      })
+
     }
   }
 }
