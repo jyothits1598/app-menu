@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ReactiveFormsModule,FormsModule,FormGroup,FormControl,Validators,FormBuilder } from '@angular/forms';
@@ -55,6 +56,10 @@ export class ConfirmationSignupComponent implements OnInit {
     if(this.resendSignupEmail.valid){
       let data={
         'email':this.resendSignupEmail.value.resendemail,
+        'success_redirect':environment['mail_url_success'],
+        'failure_redirect':environment['mail_url_failure'],
+        'login_link':environment['mail_url_login'],
+        'contactus_link':environment['mail_url_contactus'],
       }; 
       this.alertservice.showLoader();
       this.restApiservice.postAPI('resend/partner/confirm-email',data,(response)=>{

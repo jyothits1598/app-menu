@@ -4,9 +4,6 @@
         <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./editor']"><img
                 src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New menu</button>
     </div>
-    <ng-container *ngIf="isLoading">
-        <span style="color: red;">Loading...</span>
-    </ng-container>
     <ng-container *ngIf="menus.length <= 0">
         <h3 class="u-margin-bottom-medium std-heading-3">Add your first menu.</h3>
 

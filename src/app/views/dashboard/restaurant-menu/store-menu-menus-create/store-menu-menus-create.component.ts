@@ -18,7 +18,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   menuId: number = null;
   menuName: FormControl = new FormControl('', Validators.required);
-  isLoading: boolean = false;
+
   submitting: boolean = false;
   daysTouched: boolean = false;
   availabilityTouched = false;
@@ -121,10 +121,10 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   }
 
   fetchMenu(id: number) {
-    this.isLoading = true;
+    this.alertService.showLoader();
     this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/${id}`
       , (response) => {
-        this.isLoading = false;
+        this.alertService.hideLoader();
         if (response.success) {
           this.menuName.setValue(response.data[0].menu_details.menu_name);
           this.menuId = response.data[0].menu_details.menu_id;
@@ -133,7 +133,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
           this.router.navigate(['notfound'], { relativeTo: this.route });
         }
       }
-      , error => this.isLoading = false)
+      , error => this.alertService.hideLoader())
   }
 
   addRemvDay(day: string, add: boolean) {

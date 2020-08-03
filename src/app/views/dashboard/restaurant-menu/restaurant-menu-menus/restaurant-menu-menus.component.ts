@@ -17,7 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
   menus: Array<StoreMenu> = [];
   routerSub$: Subscription;
-  isLoading: boolean = false;
+
 
   deleteIndex : number = null; 
 
@@ -51,9 +51,10 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
     this.menus = [];
 
     if (!this.storeService.activeStore) { return this.router.navigate(['../notfound'], { relativeTo: this.route }); }
-    this.isLoading = true;
+    this.alertService.showLoader();
     this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/all`
       , (response) => {
+        this.alertService.hideLoader();
         if (response['data'] && response['data'].length > 0) {
           let data = response['data'];
           data.forEach(menu => {
@@ -61,10 +62,10 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
             this.menus.push(newMenu);
           });
         }
-        this.isLoading = false;
+        this.alertService.hideLoader();
       }
       , (error)=>{
-        this.isLoading = false;
+        this.alertService.hideLoader();
       });
   }
 

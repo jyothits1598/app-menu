@@ -15,7 +15,7 @@ import { StoreItem } from 'src/app/services/store-item';
 export class RestaurantMenuCategoriesComponent implements OnInit {
   deleteIndex: number;
   categories: Array<StoreMenuCategory> = [];
-  isLoading: boolean = false;
+
 
   constructor(private restApiService: RestApiService
     , private _modalService: NgbModal
@@ -23,7 +23,7 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
     , private alertService: AlertService) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
+    this.alertService.showLoader();
     this.restApiService.getData(`store/category/get/${this.storeService.activeStore}/all`
       , (response) => {
         if (response.success && response.data) {
@@ -32,11 +32,11 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
             this.categories.push(menuCat);
           });
           console.log(this.categories);
-          this.isLoading = false;
+          this.alertService.hideLoader();
         }
       }
       , (err)=>{
-        this.isLoading = false;
+        this.alertService.hideLoader();
         this.alertService.showNotification('There was an error fetching your data. Please try again')
       })
   }

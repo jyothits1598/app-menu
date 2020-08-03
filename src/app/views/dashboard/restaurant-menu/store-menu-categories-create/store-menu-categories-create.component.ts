@@ -18,7 +18,6 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
 
   routerSubs: Subscription;
 
-  isLoading: boolean = false;
   saveBtnLoading: boolean = false;
 
   menuIdMap: Array<{ name: string, id: number }> = [];
@@ -76,11 +75,11 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
   }
 
   fetchInitialData() {
-    this.isLoading = true;
+    this.alertService.showLoader();
     this.restApiService.getData('store/category/menu/' + this.storeService.activeStore
       , (resp) => {
         if (resp.success && resp.data) {
-          this.isLoading = false;
+          this.alertService.hideLoader();
           resp.data.forEach(menu => {
             this.menuIdMap.push({ id: menu.menu_id, name: menu.menu_name });
             (<FormArray>this.createCatForm.controls.menus).push(new FormControl(false));
@@ -88,10 +87,10 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
 
           //if we have a valid categoryId fetch category data
           if (this.categoryId) {
-            this.isLoading = true;
+            this.alertService.showLoader();
             this.restApiService.getData(`store/category/get/${this.storeService.activeStore}/${this.categoryId}`
               , (resp) => {
-                this.isLoading = false;
+                this.alertService.hideLoader();
                 if (resp.success && resp.data.length > 0) {
                   let menuCat = this.storeService.ReadStoreMenuCategory(resp.data[0]);
                   this.createCatForm.controls.categoryName.setValue(menuCat.name);
@@ -101,11 +100,11 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
                   });
                 }
               }
-              , err => this.isLoading = false)
+              , err =>  this.alertService.hideLoader())
           }
         }
       },
-      error=> this.isLoading = false)
+      error=>  this.alertService.hideLoader())
   }
 
   saveData() {

@@ -21,7 +21,6 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   imageUrl: string = null;
   routerSubs: Subscription;
   errors: string;
-  isLoading: boolean = false;
   saveBtnLoading: boolean = false;
   fileUptoLoad: File;
   width:number;
@@ -119,11 +118,11 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   }
 
   fetchInitialData() {
-    this.isLoading = true;
+    this.alertService.showLoader();
     this.restApiService.getData('store/items/category/' + this.storeService.activeStore
       , (resp) => {
         if (resp.success && resp.data) {
-          this.isLoading = false;
+          this.alertService.showLoader();
           resp.data.forEach(category => {
             this.categoryIdMap.push({ id: category.category_id, name: category.category_name });
             (<FormArray>this.createItemForm.controls.categories).push(new FormControl(false));
@@ -131,10 +130,10 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       
           //if we have a valid categoryId fetch category data
           if (this.itemId) {
-            this.isLoading = true;
+            this.alertService.showLoader();
             this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/${this.itemId}`
               , (resp) => {
-                this.isLoading = false;
+                this.alertService.hideLoader();
                 if (resp.success && resp.data.length > 0) {
                   let menuItem = resp.data[0];
                   this.createItemForm.controls.itemName.setValue(menuItem.item_name);
@@ -158,7 +157,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       this.restApiService.getData('store/items/modifier/' + this.storeService.activeStore
       , (resp) => {
         if (resp.success && resp.data) {
-          this.isLoading = false;
+          this.alertService.hideLoader();
           resp.data.forEach(modifier => {
             this.modifierIdMap.push({ id: modifier.modifier_id, name: modifier.modifier_name });
             (<FormArray>this.createItemForm.controls.modifier).push(new FormControl(false));
@@ -166,10 +165,10 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
 
           //if we have a valid categoryId fetch category data
           if (this.itemId) {
-            this.isLoading = true;
+            this.alertService.showLoader();
             this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/${this.itemId}`
               , (resp) => {
-                this.isLoading = false;
+                this.alertService.hideLoader();
                 if (resp.success && resp.data.length > 0) {
                   let modifierItem =resp.data[0];
                   modifierItem.category_details.forEach(activeModifier => {

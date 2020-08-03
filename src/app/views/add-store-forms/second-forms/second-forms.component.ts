@@ -84,8 +84,8 @@ export class SecondFormsComponent implements OnInit {
       storeAddress: ['', Validators.required],
       typeCuisine: ['', Validators.required],
       descriptionItem: ['', Validators.required],
-      google_business_url: ['', Validators.required],
-      facebook_url: ['', Validators.required],
+      google_business_url: [''],
+      facebook_url: [''],
     });
   }
 

@@ -1,6 +1,6 @@
-<nav>
+<nav style="height:56px;">
     <div class="navbar btn-pd justify-content-between">
-        <a class="navbar-brand" style="font-size:24px;"><img style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"></a>
+        <a class="navbar-brand mt-1" style="font-size:24px;"><img style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"></a>
         <!-- <div class="btn-names">
             <a style="text-decoration: none;color:#fff" [routerLink]="['/signup']" title="signup" >Don't have an account? Register now </a>
         </div> -->
@@ -8,7 +8,7 @@
 </nav>
 <div class="container h-100">
     <div class="row m-class">
-        <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">
+        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
             <form [formGroup]="resendSignupEmail" (ngSubmit)="resendEmail()" >
                 <h2 class="sign-header"> Please confirm your email address </h2>
                 <p style="margin-top: 15px;"> We have sent an email to <b> {{ emailAddress }} </b> with a link to confirm the address.</p>
