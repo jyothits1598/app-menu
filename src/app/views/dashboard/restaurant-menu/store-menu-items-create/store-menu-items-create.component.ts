@@ -228,7 +228,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       , (resp) => {
         if (resp.success) {
           this.saveBtnLoading = false;
-          this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
+          // this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
           this.navigateBack();
         } else if (!resp.success) {
           this.saveBtnLoading = false;
@@ -270,7 +270,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       , data
       , (resp) => {
         if (resp.success) {
-          this.alertService.showNotification('Item successfully deleted.');
+          // this.alertService.showNotification('Item successfully deleted.');
           this.navigateBack();
         }
       }
@@ -290,35 +290,38 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   onFileChanged(event) {
     this.fileUptoLoad = event.target.files[0];
     if (this.fileUptoLoad) {
-      if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
-        this.alertService.showNotification('Selected file format is not supported', 'error')
-        return false;
-      }
       if (!this.dataService.validateFileSize(this.fileUptoLoad.size)) {
         this.alertService.showNotification('File to be uploaded should be less than 5MB', 'error')
         return false;
       }
+      if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
+        this.alertService.showNotification('Selected file format is not supported', 'error')
+        return false;
+      }
       let reader = new FileReader();
-      var img = new Image();
+      reader.readAsDataURL(this.fileUptoLoad);
+
       reader.onload = (e: any) => {
+        var img = new Image();
         img.src = e.target.result;
         img.onload = () => {
           if (img.width < 500 || img.height < 500) {
             this.alertService.showNotification('Minimum size 500*500 pixel', 'error')
             return false;
           }
-          reader.readAsDataURL(this.fileUptoLoad);
           let form_data = new FormData();
           form_data.append('item_image', this.fileUptoLoad);
+          this.alertService.showLoader();
           this.restApiService.pushSaveFileToStorageWithFormdata(form_data, 'store/items/upload/image', (response) => {
-            if (response && response['success'] && response['data']) {
-              this.imageUrl = response['data'];
+            if(response && response['success'] && response['data']) { 
+              this.imageUrl=response['data'];
+            this.alertService.hideLoader();
             }
-          })
-        };
+          });
+        }
       }
-
+    } else {
+        this.alertService.showNotification('No file selected', 'error');
     }
   }
 }
-

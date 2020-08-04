@@ -1,6 +1,6 @@
 <div [formGroup]="createItemForm">
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 mb-2">
         <div class="float-right">
             <button class="btn std-button--transparency" [disabled]="!itemId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
             <button class="btn std-button--transparency" style="margin-left:10px;" > Duplicate </button>
@@ -48,19 +48,19 @@
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="form-group mb-2">
                     <label class="std-heading-4 "> Description </label>
-                    <textarea class="form-control form-input" formControlName="itemDescription" placeholder="Enter description" ></textarea>
+                    <textarea class="form-control form-input" formControlName="itemDescription" placeholder="Enter description" style="height:96px;"></textarea>
                 </div>
                 <div class="form-group mb-2">
                     <label class="std-heading-4"> Keywords </label>
-                    <textarea class="form-control form-input" formControlName="itemKeyword" placeholder="Enter search keywords separated by comma e. g. italian, pasta" ></textarea>
+                    <textarea class="form-control form-input" formControlName="itemKeyword" placeholder="Enter search keywords separated by comma e. g. italian, pasta" style="height:96px;"></textarea>
                 </div>
             </div>
         </div>
         <div class="row mt-2">
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-4 col-lg-2">
                 <div class="form-group mb-2">
                     <label class="std-heading-4"> Base price </label>
                     <div class="prefixed-input">
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div class="row mt-2 mb-3">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <label class="std-heading-4"> Sell item on it's own? <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;width:14px;height:14px;" title="info" (click)="openVerticallyCentered(content)"> </label>
                 <div class="menu-creator__days">
                     <div class="custom-radio" >

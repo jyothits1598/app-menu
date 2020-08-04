@@ -1,11 +1,14 @@
 <ng-container *ngIf="route.children.length == 0">
-    <h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;">Menus</h3>
+    <h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;">Menus
+        <img src="../../../../../assets/images/ico_help.png"
+        style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });">
+    </h3>
     <div style="text-align: right;">
         <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./editor']"><img
                 src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New menu</button>
     </div>
     <ng-container *ngIf="menus.length <= 0">
-        <h3 class="u-margin-bottom-medium std-heading-3">Add your first menu.</h3>
+        <h3 class="u-margin-bottom-medium std-heading-3">Add your first menu</h3>
 
         <p class="u-margin-bottom-medium">
             Here you can decide to create one menu for you entire store, or break it down into multiple menus such as
@@ -65,6 +68,22 @@
       <button class="std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
-
+<!-- Info modal -->
+<ng-template #content let-modal>
+    <div class="modal-header header-info">
+        <h4 class="std-heading-3"> Menus </h4>
+        <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>
+           Here you can decide to create one menu for you entire store, or break it down into multiple menus such
+           as <b>breakfast, lunch</b> and <b>dinner.</b> You can also specify
+           the <b>days</b> and <b>times</b> each menu is available.
+        </p>
+    </div>
+</ng-template>
+<!-- Info modal end-->
 
 <router-outlet></router-outlet>

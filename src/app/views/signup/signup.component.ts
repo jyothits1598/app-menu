@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit {
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       signupemail: [null, [Validators.required, Validators.email]],
-      signupmobile:['', [Validators.required, Validators.pattern("^[0-9]*$")] ],
+      signupmobile:['', [Validators.required, Validators.pattern("^((\\+61-?)|0)?[0-9]{10}$")] ],
       // password: ['', [Validators.required,Validators.minLength(8)]],
       password: ['', Validators.compose([Validators.required, this.authenticateService.patternValidator()])],
       confirmPassword: ['', Validators.required]

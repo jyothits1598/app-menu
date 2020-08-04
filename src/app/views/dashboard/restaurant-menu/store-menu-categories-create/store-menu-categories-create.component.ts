@@ -135,7 +135,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
       , (resp) => {
         if (resp.success) {
           this.saveBtnLoading = false;
-          this.alertService.showNotification(`Category was successfully ${this.categoryId ? "Updated" : "Created"}`);
+          // this.alertService.showNotification(`Category was successfully ${this.categoryId ? "Updated" : "Created"}`);
           this.navigateBack();
         }
       }
@@ -160,7 +160,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
       , data
       , (resp) => {
         if (resp.success) {
-          this.alertService.showNotification('Category successfully deleted.');
+          // this.alertService.showNotification('Category successfully deleted.');
           this.navigateBack();
         }
       }
