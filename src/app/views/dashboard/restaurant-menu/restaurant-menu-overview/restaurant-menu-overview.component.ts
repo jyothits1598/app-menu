@@ -46,7 +46,7 @@ export class RestaurantMenuOverviewComponent implements OnInit {
     if(!this.menuAvailable) return {stepName: 'menu', route: '../menus/editor'};
     if(!this.categoryAvailable) return {stepName: 'category', route: '../categories/new'};
     if(!this.itemAvailable) return {stepName: 'item', route: '../items'};
-    if(!this.modifireGroupAvailable) return {stepName: 'modifer group', route: '../modifierGroup'};
+    if(!this.modifireGroupAvailable) return {stepName: 'modifier group', route: '../modifierGroup'};
     return null;
   }
 

@@ -8,7 +8,7 @@
         <label class="label-inputs"> Bank <b class="m-star">*</b></label>
         <input type="text" class="form-control form-input" formControlName="bankName" [ngClass]="{ 'is-invalid': bankNameSubmit && f.bankName.errors }">
         <div *ngIf="bankNameSubmit && f.bankName.errors" class="error-mez">
-            <div *ngIf="f.bankName.errors.required"> Please enter bank name </div>
+            <div *ngIf="f.bankName.errors.required"> Please enter bank </div>
         </div>
     </div>
     <div class="form-group">
