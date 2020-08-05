@@ -12,6 +12,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { AlertComponent } from './_directives/alert/alert.component';
 import { AuthGuard } from './_guards';
 import { DatePipe } from '@angular/common';
+// import { ResendEmailComponent } from './views/resend-email/resend-email.component';
 
 // import { PendingApprovalComponent } from './views/pending-approval/pending-approval.component';
 // import { SideNavBarComponent } from './views/side-nav-bar/side-nav-bar.component';
@@ -23,6 +24,7 @@ import { DatePipe } from '@angular/common';
     ForgotPasswordComponent,
     SignupEmailRedirectComponent,
     AlertComponent,
+    // ResendEmailComponent,
     // PendingApprovalComponent,
     // SideNavBarComponent,
     // AddStoreFormsComponent,

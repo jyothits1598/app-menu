@@ -20,7 +20,7 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
 
 
   deleteIndex : number = null; 
-
+  menuName:string;
   constructor(
     public route: ActivatedRoute
     , private router: Router
@@ -75,7 +75,7 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
     data.menu_name = menu.name;
     data.menu_id = menu.id;
     data.active_flag = 1;
-
+    
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp) => {
       if (resp.success) {
         this.alertService.showNotification('Menu successfully deleted');

@@ -1,18 +1,19 @@
 <nav style="height:56px;">
     <div class="navbar btn-pd justify-content-between">
         <a class="navbar-brand mt-1" style="font-size:24px;"><img style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"></a>
-        <!-- <div class="btn-names mt-2">
-            <a style="text-decoration: none;color:#fff" [routerLink]="['/']" title="Login" >Already have an account? Login </a>
-        </div> -->
+        <div class="btn-names mt-2">
+            <a style="text-decoration: none;color:#fff" [routerLink]="['/signup']" title="signup" >Don't have an account? Register now </a>
+        </div>
     </div>
 </nav>
 <div class="container h-100">
     <div class="row m-class">
         <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                <h2 class="sign-header"> Please confirm your email address </h2>
+            <form [formGroup]="resendSignupEmail" (ngSubmit)="resendEmail()" >
+                <h2 class="sign-header"> Resend email </h2>
                 <p style="margin-top: 15px;"> We have sent an email to <b> {{ emailAddress }} </b> with a link to confirm the address.</p>
-                <p> If you don't receive the email, check your spam folder, try again using a different email address, or contact our <a [routerLink]="['/page-under-progress']" title="Support team"> support team.</a>  </p>
-                <!-- <div class="row mb-2">
+                <p> If you don't receive the email, try resending it or enter a new email below if it was incorrect. </p>
+                <div class="row mb-2">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="label-inputs"> Email </label>
@@ -23,15 +24,15 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="row mb-2">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <a [routerLink]="['/resend-email']"><input type="button" class="btn re-send" value="Resend email" title="Resend email"></a>
-                            <a [routerLink]="['/']" ><input type="button" class="btn btn-custom-login" value="Back to menuzapp" style="margin-left:10px;"></a>
+                            <input type="submit" class="btn std-button--blue" value="Resend confirmation email" title="Resend email">
                         </div>
                     </div>
                 </div>
+            </form>
         </div>
     </div>
 </div>

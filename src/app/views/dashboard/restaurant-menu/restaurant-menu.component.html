@@ -1,4 +1,10 @@
-<div class="pending-tab" *ngIf="!isActive"><img src="../../../../assets/images/ico_alert.png">&nbsp;Pending approval - <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> <span class="norml-text-class"> &nbsp; Before you start trading we need to review your application. We will be in touch shortly. </span></div>
+<div class="pending-tab" *ngIf="!isActive" >
+    <img src="../../../../assets/images/ico_alert.png">&nbsp;Pending approval - <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> <span class="norml-text-class"> &nbsp; Before you start trading we need to review your application. We will be in touch shortly. 
+    </span>
+    <span style="float:right;color:#353FA8;">
+        Why am I seeing this? <span style="margin-left:40px;cursor: pointer;" (click)="hide()"> Hide </span>
+    </span>
+</div>
 
 <ul class="resnt-menu-top-tabs u-margin-bottom-medium" [ngClass]="!isActive ? 't-class' : '' ">
     <li class="resnt-menu-top-tabs__item">

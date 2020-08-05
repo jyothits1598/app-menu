@@ -264,7 +264,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       (resp) => {
         if (resp.success) {
           this.submitting = false;
-          this.alertService.showNotification(`Menu successfully ${this.menuId ? 'updated' : 'created'}`);
+          // this.alertService.showNotification(`Menu successfully ${this.menuId ? 'updated' : 'created'}`);
           this.router.navigate(['.'], { relativeTo: this.route.parent });
         } else this.alertService.showNotification(`There was an error ${this.menuId ? 'updating' : 'creating'} the menu. Please try again.`);
       },
@@ -294,7 +294,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
 
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp) => {
       if (resp.success) {
-        this.alertService.showNotification('Menu successfully deleted');
+        // this.alertService.showNotification('Menu successfully deleted');
         this.router.navigate(['.'], { relativeTo: this.route.parent });
       } else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
     })

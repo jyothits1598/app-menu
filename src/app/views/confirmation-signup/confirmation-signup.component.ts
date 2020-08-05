@@ -42,45 +42,45 @@ export class ConfirmationSignupComponent implements OnInit {
       this.router.navigateByUrl('/dashboard');
       //obj.authenticateService.checkExpiryStatus();
     }
-    this.resendSignupEmail = this.formBuilder.group({
-      resendemail: [null, [Validators.required, Validators.email]],
-    });
+    // this.resendSignupEmail = this.formBuilder.group({
+    //   resendemail: [null, [Validators.required, Validators.email]],
+    // });
   }
-  get f() { return this.resendSignupEmail.controls;}
+  // get f() { return this.resendSignupEmail.controls;}
 
-  resendEmail() {
-    this.resendemailSubmit = true;
-    if (this.resendSignupEmail.invalid) {
-      return;
-    }
-    if(this.resendSignupEmail.valid){
-      let data={
-        'email':this.resendSignupEmail.value.resendemail,
-        'success_redirect':environment['mail_url_success'],
-        'failure_redirect':environment['mail_url_failure'],
-        'login_link':environment['mail_url_login'],
-        'contactus_link':environment['mail_url_contactus'],
-      }; 
-      this.alertservice.showLoader();
-      this.restApiservice.postAPI('resend/partner/confirm-email',data,(response)=>{
-        if(response && response['success'] && response['data']){
-          this.alertservice.showAlertBottomNotification('Successfully sent mail. Please check your mailbox');
-          this.alertservice.hideLoader();
-        } else if(response && !response['success'] && response['error']['error']) { 
-          let i=0;
-            for(let key in response['error']['error']) {
-              this.ResendemailError = true;
-              this.errors[key]=response['error']['error'][key][0];
-              this.alertservice.showNotification(this.errors[key],'error');
-            }
-        } else {
-          this.alertservice.showNotification('Something went wrong','error');
-        }
-        this.alertservice.hideLoader();
-      });
-    } else {
-      this.alertservice.showNotification('Something went wrong','error');
-      this.alertservice.hideLoader();
-    }
-  }
+  // resendEmail() {
+  //   this.resendemailSubmit = true;
+  //   if (this.resendSignupEmail.invalid) {
+  //     return;
+  //   }
+  //   if(this.resendSignupEmail.valid){
+  //     let data={
+  //       'email':this.resendSignupEmail.value.resendemail,
+  //       'success_redirect':environment['mail_url_success'],
+  //       'failure_redirect':environment['mail_url_failure'],
+  //       'login_link':environment['mail_url_login'],
+  //       'contactus_link':environment['mail_url_contactus'],
+  //     }; 
+  //     this.alertservice.showLoader();
+  //     this.restApiservice.postAPI('resend/partner/confirm-email',data,(response)=>{
+  //       if(response && response['success'] && response['data']){
+  //         this.alertservice.showAlertBottomNotification('Successfully sent mail. Please check your mailbox');
+  //         this.alertservice.hideLoader();
+  //       } else if(response && !response['success'] && response['error']['error']) { 
+  //         let i=0;
+  //           for(let key in response['error']['error']) {
+  //             this.ResendemailError = true;
+  //             this.errors[key]=response['error']['error'][key][0];
+  //             this.alertservice.showNotification(this.errors[key],'error');
+  //           }
+  //       } else {
+  //         this.alertservice.showNotification('Something went wrong','error');
+  //       }
+  //       this.alertservice.hideLoader();
+  //     });
+  //   } else {
+  //     this.alertservice.showNotification('Something went wrong','error');
+  //     this.alertservice.hideLoader();
+  //   }
+  // }
 }
