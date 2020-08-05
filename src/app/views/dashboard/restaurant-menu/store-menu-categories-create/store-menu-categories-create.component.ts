@@ -24,7 +24,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
 
   createCatForm: FormGroup = new FormGroup({
     categoryName: new FormControl('', Validators.required),
-    menus: new FormArray([], [this.minChecksValidator()])
+    menus: new FormArray([], [this.MinNumberValidator()])
   })
 
   constructor(
@@ -57,7 +57,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  minChecksValidator(): ValidatorFn {
+  MinNumberValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       let sum = 0;
       (<FormArray>control).controls.forEach(ctrl => {
@@ -85,7 +85,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
             (<FormArray>this.createCatForm.controls.menus).push(new FormControl(false));
           });
 
-          //if we have a valid categoryId fetch category data
+          //if we have a valid categoryId, fetch category data
           if (this.categoryId) {
             this.alertService.showLoader();
             this.restApiService.getData(`store/category/get/${this.storeService.activeStore}/${this.categoryId}`
