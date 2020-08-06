@@ -48,6 +48,14 @@ export class RestApiService {
             }
         });
     }
+
+    postData(url, data) {
+        url = this.hostURL + url;
+        let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+        const headers = new HttpHeaders(cred);
+        return this.http.post(url, data, { headers: headers })
+    }
+
     async postAPIHandler(url, data, callback) {
         url = this.hostURL + url;
         let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
