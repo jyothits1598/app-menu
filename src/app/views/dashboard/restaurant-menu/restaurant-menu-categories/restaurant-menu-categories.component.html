@@ -26,7 +26,7 @@
                                     <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                   Edit
                                 </li>
-                                <li (click)="deleteIndex = i; modalService.open(deleteComform, { centered: true })" title="Delete" class="herf-class">
+                                <li (click)="deleteIndex = i; modalService.open(deleteComform, { centered: true, size: 'sm' })" title="Delete" class="herf-class">
                                     <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                     Delete
                                 </li>
@@ -49,8 +49,8 @@
       <p class="mb-2"> 
           Are you sure? 
       </p>
-      <button class="std-button--plane" (click)="deleteCategory(); modal3.dismiss('Cross click')"> Continue </button>
-      <hr>
-      <button class="std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+      <button class="std-button std-button--plane" (click)="deleteCategory(); modal3.dismiss('Cross click')"> Continue </button>
+      <hr style="margin:0;">
+      <button class="std-button std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>

@@ -170,7 +170,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
   }
 
   openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { centered: true, size: 'sm' });
   }
 
   pagebackPopup(back) {

@@ -6,6 +6,7 @@
         </div>
     </div>
 </nav>
+<!-- <app-top-nav-bar></app-top-nav-bar> -->
 <div class="container h-100">
     <div class="row m-class">
         <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
@@ -13,7 +14,7 @@
         </div>
     </div>
     <div class="row m-class mt-5 mb-2">
-        <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">
+        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
             <form [formGroup]="signupMenuzappform" (ngSubmit)="menuzappSignup()">
                 <div class="row">
                     <div class="col-md-6">
@@ -89,16 +90,16 @@
                           </div>
                     </div>
                 </div>
-                <small class="mt-5" style="color: #1A1A1A;">
-                    By clicking 'Sign up', you agree to menuzapp's <a [routerLink]="['/page-under-progress']" title="Terms and Conditions"> Terms of Use </a> and acknowledge you have read the <a [routerLink]="['/page-under-progress']" title="Privacy Policy"> Privacy Policy.</a>
-                </small>
                 <div class="row mt-3 mb-2">
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <input type="submit" class="btn btn-custom" value="Sign up" >
+                            <input type="submit" class="btn std-button std-button--blue" value="Sign up" >
                         </div>
                     </div>
                 </div>
+                <small class="mt-5" style="color: #1A1A1A;">
+                    By clicking 'Sign up', you agree to menuzapp's <a [routerLink]="['/page-under-progress']" title="Terms and Conditions"> Terms of Use </a> and acknowledge you have read the <a [routerLink]="['/page-under-progress']" title="Privacy Policy"> Privacy Policy.</a>
+                </small>
             </form>
         </div>
         <div class="col-md-1"></div>

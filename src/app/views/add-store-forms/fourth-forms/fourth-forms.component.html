@@ -1,6 +1,6 @@
 <div class="container h-100 m-class">
     <form [formGroup]="bankForm" (ngSubmit)="bankdetailForm()" >
-    <h1 class="form-header pb-5"> 
+    <h1 class="form-header mb-5"> 
         Add a bank account to receive payments
     </h1>
     <p> You may complete this step now or press <b>save and continue </b> to complete later  </p>
@@ -40,11 +40,11 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group mt-3 mb-3">
         <div class="checkbox" style="cursor: pointer;">
             <label style="margin-bottom:0;">
                 <input type="checkbox" style="height:auto" formControlName="checkbankdetails" [ngClass]="{ 'is-invalid': checkbankdetailsSubmit && f.checkbankdetails.errors }">
-                I Understand and agree to the <a href=""> MenuzApp terms </a>
+                &nbsp;I Understand and agree to the <a href=""> MenuzApp terms </a>
             </label>
         </div>
         <div *ngIf="checkbankdetailsSubmit && f.checkbankdetails.errors" class="error-mez">
@@ -52,8 +52,8 @@
         </div>
     </div>
     <div class="form-group">
-        <input type="button" class="btn re-send" value="Back" (click)="backOwnership()">
-        <input type="submit" class="btn btn-custom-login" value="Save and continue" style="margin-left:10px;">
+        <input type="button" class="btn std-button std-button--transparency" value="Back" (click)="backOwnership()">
+        <input type="submit" class="btn std-button std-button--primary" value="Save and continue" style="margin-left:15px;">
     </div>
 </form>
 </div>

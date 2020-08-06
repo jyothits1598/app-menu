@@ -58,9 +58,9 @@
       <p class="mb-2"> 
           If you continue you will lose any unsaved progress
       </p>
-      <button class="std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue </button>
-      <hr>
-      <button class="std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
+      <button class="std-button std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue </button>
+      <hr style="margin:0">
+      <button class="std-button std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 <!-- back save continue end-->
@@ -71,8 +71,8 @@
       <p class="mb-2"> 
           Are you sure? 
       </p>
-      <button class="std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
-      <hr>
-      <button class="std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+      <button class="std-button std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
+      <hr style="margin:0">
+      <button class="std-button std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
