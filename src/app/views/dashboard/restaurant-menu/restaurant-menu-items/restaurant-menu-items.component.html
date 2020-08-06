@@ -1,4 +1,4 @@
-<h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;"> Items </h3>
+<h3 class="u-margin-bottom-small std-heading-3"> Items </h3>
 <div class="row">
     <!-- <div class="col-md-3 mb-1">
         <input type="search" placeholder="Search" class="form-control form-input search" />
@@ -10,21 +10,21 @@
     </div> -->
     <div class="col-md-12">
         <div style="text-align: right;">
-            <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./new']"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New items </button>
+            <button class="btn std-button std-button--primary u-margin-bottom-small" [routerLink]="['./new']"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New items </button>
         </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-border">
+        <table class="table table-border table-color">
             <thead>
                 <tr>
-                    <th scope="col"> Name </th>
-                    <th scope="col"> Price </th>
-                    <th scope="col"> Menus </th>
-                    <th scope="col"> Categories</th>
-                    <th scope="col"> Modifier groups </th>
+                    <th> Name </th>
+                    <th> Price </th>
+                    <th> Menus </th>
+                    <th> Categories</th>
+                    <th> Modifier groups </th>
                     <th></th>
                 </tr>
             </thead>
@@ -34,7 +34,7 @@
                   <td> {{item.item_base_price}} </td>
                   <td> <span *ngFor="let menu of item['menu_details'];let j=index;"><span *ngIf="j == 1">, </span><span *ngIf="j <= 1">{{menu.menu_name}}</span><span *ngIf="j == item['menu_details'].length-1"><span *ngIf="item['menu_details'].length > 2" >, +{{item['menu_details'].length - 2}}</span></span></span> </td>
                   <td> <span *ngFor="let category of item['category_details'];let i=index;"><span *ngIf="i == 1">, </span><span *ngIf="i <= 1">{{category.category_name}}</span><span *ngIf="i == item['category_details'].length-1"><span *ngIf="item['category_details'].length > 2" >, +{{item['category_details'].length - 2}}</span></span></span> </td>
-                  <td> Size,Sauce,+1</td>
+                  <td> </td>
                   <td style="text-align: right;cursor:pointer;outline: none;">
                     <div class="dropdown">
                         <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="Options">
@@ -61,13 +61,13 @@
 
 <ng-template #deleteComform let-modal3>
     <div class="modal-body text-center">
-        <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
+        <h4 class="std-heading-4 mb-2"> Delete item </h4>
       <p class="mb-2"> 
           Are you sure? 
       </p>
-      <button class="std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
-      <hr>
-      <button class="std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+      <button class="std-button std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
+      <hr style="margin: 0;">
+      <button class="std-button std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 <router-outlet></router-outlet>

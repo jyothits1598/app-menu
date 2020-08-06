@@ -1,5 +1,5 @@
 <ng-container *ngIf="route.children.length == 0">
-    <h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;">Menus
+    <h3 class="u-margin-bottom-small std-heading-3">Menus
         <img src="../../../../../assets/images/ico_help.png"
         style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });">
     </h3>
@@ -8,9 +8,8 @@
                 src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New menu</button>
     </div>
     <ng-container *ngIf="menus.length <= 0">
-        <h3 class="u-margin-bottom-medium std-heading-3">Add your first menu</h3>
-
-        <p class="u-margin-bottom-medium">
+        <h4 class="std-heading-4 mb-3">Add your first menu</h4>
+        <p class="paragraph u-margin-bottom-medium">
             Here you can decide to create one menu for you entire store, or break it down into multiple menus such as
             breakfast, lunch and dinner. You can also specify the days and times each menu is available. Press <b>new menu</b>
             to begin.
@@ -18,12 +17,12 @@
     </ng-container>
     <div class="row" *ngIf="menus.length > 0">
         <div class="col-md-12">
-            <table class="table table-border">
+            <table class="table table-border table-color">
                 <thead>
                     <tr>
-                        <th scope="col"> Name </th>
-                        <th scope="col"> Availability </th>
-                        <th scope="col"> </th>
+                        <th> Name </th>
+                        <th> Availability </th>
+                        <th> </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +58,7 @@
 
 <ng-template #deleteComform let-modal3>
     <div class="modal-body text-center">
-        <h4 class="std-heading-4 mb-2"> Delete menu </h4>
+        <h5 class="std-heading-5 mb-2"> Delete menu </h5>
       <p class="mb-2"> 
           Are you sure? 
       </p>
@@ -71,13 +70,13 @@
 <!-- Info modal -->
 <ng-template #content let-modal>
     <div class="modal-header header-info">
-        <h4 class="std-heading-3"> Menus </h4>
+        <div class="std-heading-5 std-heading-5--popheader"> Menus </div>
         <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
         </button>
     </div>
     <div class="modal-body">
-        <p>
+        <p class="paragraph">
         Here you can decide to create one menu for you entire store, or break it down into multiple menus such
         as <b>breakfast, lunch</b> and <b>dinner.</b> You can also specify
         the <b>days</b> and <b>times</b> each menu is available.

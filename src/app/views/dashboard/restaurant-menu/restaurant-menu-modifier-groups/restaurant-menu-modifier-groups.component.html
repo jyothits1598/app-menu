@@ -1,17 +1,17 @@
-<h3 class="u-margin-bottom-small std-heading-3" style="font-size: 1.5rem;"> Modifier groups </h3>
+<h3 class="u-margin-bottom-small std-heading-3"> Modifier groups </h3>
 <div style="text-align: right;">
     <button class="std-button std-button--primary u-margin-bottom-small" routerLink="./new"> <img
             src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New modifier group </button>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-border">
+        <table class="table table-border table-color">
             <thead>
                 <tr>
-                    <th scope="col"> Name </th>
-                    <th scope="col"> Display </th>
-                    <th scope="col"> Contains </th>
-                    <th scope="col"> Used by </th>
+                    <th> Name </th>
+                    <th> Display </th>
+                    <th> Contains </th>
+                    <th> Used by </th>
                     <th></th>
                 </tr>
             </thead>
@@ -30,7 +30,7 @@
                                     <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                     Edit
                                 </li>
-                                <li title="Delete" class="herf-class" (click)="modifierIndexToBeDeleted = i; modalService.open(deleteComform, { centered: true });">
+                                <li title="Delete" class="herf-class" (click)="modifierIndexToBeDeleted = i; modalService.open(deleteComform, { centered: true, size: 'sm' });">
                                     <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                     Delete
                                 </li>
@@ -57,8 +57,8 @@
       <p class="mb-2"> 
           Are you sure? 
       </p>
-      <button class="std-button--plane" (click)="deleteModifier(modifierIndexToBeDeleted); deleteConf.dismiss('Cross click')"> Delete </button>
-      <hr>
-      <button class="std-button--plane" (click)="deleteConf.dismiss('Cross click')"> Cancel </button>
+      <button class="std-button std-button--plane" (click)="deleteModifier(modifierIndexToBeDeleted); deleteConf.dismiss('Cross click')"> Delete </button>
+      <hr style="margin: 0;">
+      <button class="std-button std-button--plane" (click)="deleteConf.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>

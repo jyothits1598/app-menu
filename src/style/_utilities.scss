@@ -26,3 +26,23 @@
 .mb-4{
     margin-bottom: 3.5rem !important;
 }
+
+.upload-image {
+    border: 2px dashed #B3B3B3;  
+    background: #FAFAFA;
+    color: #353FA8;
+    width:200px;
+    height:200px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: column;
+    text-align: center;
+}
+.upload-image .ud-image {
+  height:100%;
+  width:100%;
+  object-fit: cover;
+}

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login.component';
 import { ReactiveFormsModule,FormsModule} from '@angular/forms';
-import { TopNavBarComponent } from '../top-nav-bar/top-nav-bar.component';
+// import { TopNavBarComponent } from '../top-nav-bar/top-nav-bar.component';
 
 const routes: Routes = [
   {

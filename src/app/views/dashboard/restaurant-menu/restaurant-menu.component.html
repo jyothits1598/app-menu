@@ -1,34 +1,34 @@
 <div class="pending-tab" *ngIf="!isActive" >
-    <img src="../../../../assets/images/ico_alert.png">&nbsp;Pending approval - <span class="norml-text-class"> &nbsp; Before you start trading we need to review your application. We will be in touch shortly. 
+    <img src="../../../../assets/images/ico_alert.png">&nbsp;Pending approval - <span class="norml-text-class">Before you start trading we need to review your application. We will be in touch shortly. 
     </span>
-    <span style="float:right;color:#353FA8;font-size:14px;">
+    <span style="float:right;color:#353FA8;font-size:16px;">
         Why am I seeing this? <span style="margin-left:20px;cursor: pointer;" (click)="hide()"> Hide </span>
     </span>
 </div>
 <!-- <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> -->
 <ul class="resnt-menu-top-tabs u-margin-bottom-medium" [ngClass]="!isActive ? 't-class' : '' ">
     <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button std-heading-4" routerLink="./overview"
+        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./overview"
             routerLinkActive="resnt-menu-top-tabs__button__active">Overview</button>
     </li>
     <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button std-heading-4" routerLink="./menus"
+        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./menus"
             routerLinkActive="resnt-menu-top-tabs__button__active">Menus</button>
     </li>
     <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button std-heading-4" routerLink="./categories" 
+        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./categories" 
         routerLinkActive="resnt-menu-top-tabs__button__active">
             Categories
         </button>
     </li>
     <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button std-heading-4" routerLink="./items" 
+        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./items" 
         routerLinkActive="resnt-menu-top-tabs__button__active">
         Items
         </button>
      </li>
     <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button std-heading-4" routerLink="./modifier-groups" 
+        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./modifier-groups" 
         routerLinkActive="resnt-menu-top-tabs__button__active">
         Modifier
             Groups

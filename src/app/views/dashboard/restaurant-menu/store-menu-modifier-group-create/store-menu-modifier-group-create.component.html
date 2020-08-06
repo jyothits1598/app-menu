@@ -2,18 +2,18 @@
     <div class="row mb-2">
         <div class="col-md-12">
             <div class="float-right">
-                <button class="btn std-button--transparency" type="button" *ngIf="modifierId" (click)="modalService.open(deleteComform, { centered: true });" > Delete </button>
-                <button class="btn std-button--transparency" style="margin-left:10px;" type="button"> Duplicate
+                <button class="btn std-button std-button--transparency" type="button" *ngIf="modifierId" (click)="modalService.open(deleteComform, { centered: true, size:'sm' });" > Delete </button>
+                <button class="btn std-button std-button--transparency" style="margin-left:10px;" type="button"> Duplicate
                 </button>
                 <button appBtnIcon [valid]="modifierForm.valid" [loading]="submitting"
-                    class="btn std-button--transparency" style="margin-left:10px;"> <span #span>Save</span> </button>
+                    class="btn std-button-active" style="margin-left:10px;"> <span #span>Save</span> </button>
             </div>
         </div>
         <div class="col-md-12">
             <div class="input-container">
-                <img (click)="modifierForm.touched? modalService.open(backConfirm, { centered: true }) : navigateBack()" src="../../../../../assets/images/ico_back.png" class="input-img">
-                <input type="text" class="input-border" formControlName="name">
-                <span style="color: red;"
+                <img (click)="modifierForm.touched? modalService.open(backConfirm, { centered: true, size: 'sm' }) : navigateBack()" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
+                <input type="text" class="input-border input-palceholder" formControlName="name">
+                <span class="error-mez"
                     *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
                     required.</span>
             </div>
@@ -21,25 +21,25 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h3 class="std-heading-3 mb-3"> Items <img src="../../../../../assets/images/ico_help.png"
-                    style="cursor:pointer" title="info"></h3>
-            <h3 class="std-heading-4" style="margin-bottom: 3px;"> Add Item </h3>
+            <h4 class="std-heading-4 mb-3"> Items <img src="../../../../../assets/images/ico_help.png"
+                    style="cursor:pointer" title="info"></h4>
+            <h5 class="std-heading-5" style="margin-bottom: 3px;"> Add Item </h5>
         </div>
         <div class="col-md-3 mb-1">
             <input type="search" placeholder="Search" class="form-control form-input search" />
         </div>
         <div class="col-md-3">
-            <button class="btn std-button--blue" type="button" (click)="this.selectedItemsForm.markAsTouched({onlySelf: true}); placeHolderForSearch()">Add </button>
+            <button class="btn std-button std-button--primary" type="button" (click)="this.selectedItemsForm.markAsTouched({onlySelf: true}); placeHolderForSearch()">Add </button>
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-md-12">
-            <table class="table table-border" formArrayName="selectedItems">
+            <table class="table table-border table-color" formArrayName="selectedItems">
                 <thead>
                     <tr>
-                        <th scope="col"> Name </th>
-                        <th scope="col"> Standard price </th>
-                        <th scope="col"> Modifier price </th>
+                        <th> Name </th>
+                        <th> Standard price </th>
+                        <th> Modifier price </th>
                         <th></th>
                     </tr>
                 </thead>
@@ -78,11 +78,11 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h3 class="std-heading-3 mb-3"> Rules <img src="../../../../../assets/images/ico_help.png"
-                    style="cursor:pointer" title="info"></h3>
-            <h3 class="std-heading-4" style="margin-bottom: 3px;"> Is this a required selection? </h3>
+            <h4 class="std-heading-4 mb-3"> Rules <img src="../../../../../assets/images/ico_help.png"
+                    style="cursor:pointer" title="info"></h4>
+            <h5 class="std-heading-5" style="margin-bottom: 3px;"> Is this a required selection? </h5>
             <input type="checkbox" formControlName="selectionRequired">
-            <h3 class="std-heading-4" style="margin-bottom: 3px;"> Maximum items selected </h3>
+            <h5 class="std-heading-5" style="margin-bottom: 3px;"> Maximum items selected </h5>
             <input type="number" formControlName="maxItemsSelectable">
         </div>
     </div>
@@ -110,9 +110,9 @@
       <p class="mb-2"> 
           Are you sure? 
       </p>
-      <button class="std-button--plane" (click)="deleteModifier(); deleteConf.dismiss('Cross click')"> Delete </button>
-      <hr>
-      <button class="std-button--plane" (click)="deleteConf.dismiss('Cross click')"> Cancel </button>
+      <button class="std-button std-button--plane" (click)="deleteModifier(); deleteConf.dismiss('Cross click')"> Delete </button>
+      <hr style="margin: 0;">
+      <button class="std-button std-button--plane" (click)="deleteConf.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 
@@ -122,9 +122,9 @@
       <p class="mb-2"> 
         If you continue you will lose any unsaved progress
       </p>
-      <button class="std-button--plane" (click)="navigateBack(); backConf.dismiss('Cross click')"> Continue </button>
-      <hr>
-      <button class="std-button--plane" (click)="backConf.dismiss('Cross click')"> Cancel </button>
+      <button class="std-button std-button--plane" (click)="navigateBack(); backConf.dismiss('Cross click')"> Continue </button>
+      <hr style="margin: 0;">
+      <button class="std-button std-button--plane" (click)="backConf.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 

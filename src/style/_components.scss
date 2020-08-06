@@ -36,6 +36,26 @@
         background: var(--color-background);
     }
 }
+.std-button-active {
+    border-radius: 0;
+    padding: 14px 16px;
+    border: none;
+    outline: none !important;
+    height: 48px !important;
+    font-size:16px;
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
+    background: #fafafa;
+    color:var(--color-primary);
+    &--primary {
+        color: var(--color-background);
+        background: var(--color-primary);
+    }
+    &--primary:hover {
+        color: var(--color-background);
+    }
+}
 .form-control:focus {
     border-color:var(--color-primary) !important;
     box-shadow: none !important;
@@ -106,8 +126,13 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     opacity: 1; /* Firefox */
   }
   .input-palceholder{
-    font-weight: 600;
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
     font-size: 24px;
+    line-height: 28px;
+    color: #B3B3B3;
+    padding: 10px;
   }
   .input-palceholder:first-letter{
     text-transform:capitalize;
@@ -362,10 +387,9 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     padding: 0.5rem;
     background-color: var(--color-background-secondary);
     // font-size: 1rem;
-    height: auto;
+    height: 48px;
     border: none;
     border-radius: 0;
-    font-weight: bolder;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
@@ -397,9 +421,9 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     border-radius: 8px 8px 0px 0px;
     width: 100%;
     font-size: 24px;
-    // font-weight: bold;
-    color: #1a1a1a;
+    color: var(--color-boldlevelcolor);
     padding-left: 30px;
+    line-height: 28px;
 }
 .input-container {
     position: relative;
@@ -408,13 +432,13 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 .input-img {
     position: absolute;
     left: 0;
-    top: 6px;
+    top: 7px;
     outline: none;
     cursor: pointer;
 }
 .info-q {
     outline: none !important;
-    color: #ffffff;
+    color: var(--color-background);
 }
 
 .modal-content {
@@ -426,7 +450,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     background: #353fa8;
     border: 0;
     color: #fff;
-    padding: 10px !important;
+    padding: 10px 16px !important;
     border-radius: 0 !important;
 }
 .dropdown-edit {

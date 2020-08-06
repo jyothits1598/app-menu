@@ -27,7 +27,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
-                <select formControlName="typeCuisine" class="form-control form-input form-input--select-input" (ngModelChange)="changeCuisine()" [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
+                <select class="custom-select form-control form-input form-input--select-input" formControlName="typeCuisine" (ngModelChange)="changeCuisine()" [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
                     <option [ngValue]="null" selected> Select </option>
                     <option *ngFor="let cuisine of Cuisines" [ngValue]="cuisine"> {{ cuisine }} </option>
                 </select>
@@ -68,8 +68,9 @@
             <div class="col-md-12">
                 <div class="d-flex flex-row">
                     <div class="upload-image" (click)="imageUrl? '' : fileInput.click()" >
-                        <img [src]="imageUrl ? imageUrl : 'assets/images/ico_add_blue.png'">     
-                        <p *ngIf="!imageUrl" class="std-heading-4">Upload an image</p>
+                        <img src="assets/images/ico_add_blue.png" *ngIf="!imageUrl">     
+                        <img class="ud-image" [src]="imageUrl" *ngIf="imageUrl">   
+                        <div *ngIf="!imageUrl" class="std-heading-5" style="color:#353FA8;">Upload an image</div>
                     </div>
                     <div class="response-padding" style="margin-left:20px;">
                         <span style="font-size:12px">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>

@@ -2,31 +2,31 @@
 <div class="row" [formGroup]="createCatForm">
     <div class="col-md-12">
         <div class="float-right">
-            <button class="btn std-button--transparency" *ngIf="categoryId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
-            <button appBtnIcon [valid]="createCatForm.valid" [loading]="saveBtnLoading" class="std-button" style="margin-left:10px" (click)="saveData()"><span #span>Save</span> </button>
+            <button class="btn std-button std-button--transparency" *ngIf="categoryId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
+            <button appBtnIcon [valid]="createCatForm.valid" [loading]="saveBtnLoading" class="btn std-button-active" style="margin-left:10px" (click)="saveData()"><span #span>Save</span> </button>
         </div>
     </div>
     <div class="col-md-12">
         <div class="input-container">
             <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1" (click)="(createCatForm.controls.categoryName.valid || createCatForm.controls.menus.valid) && createCatForm.touched ? pagebackPopup(back) : navigateBack()">
             <input type="text" class="input-border input-palceholder"  formControlName="categoryName" placeholder="Enter a name for this category">
-            <span style="color: red;" *ngIf="createCatForm.controls.categoryName.invalid && createCatForm.controls.categoryName.touched">Category name is required.</span>
+            <span class="error-mez" *ngIf="createCatForm.controls.categoryName.invalid && createCatForm.controls.categoryName.touched">Category name is required.</span>
         </div>  
     </div>
     <div class="col-md-12">
         <div class="row pt-5">
             <div class="col-md-12">
-                <h3 class="std-heading-3 mb-3"> Menus <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openVerticallyCentered(content)"></h3>
+                <h4 class="std-heading-4 mb-2"> Menus <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openVerticallyCentered(content)"></h4>
             </div>
         </div>
-        <label style="font-weight: 600;"> Menus this category will appear in: </label>
+        <div class="std-heading-5"> Menus this category will appear in: </div>
         <div *ngIf="menuIdMap.length > 0; else noMenus" formArrayName="menus" class="menu-creator__days mb-3" (click)="createCatForm.controls.menus.markAsTouched({onlySelf: true});">
             <div class="custom-checkbox mr-2" *ngFor="let control of menusForm(); let i = index;">
                 <input type="checkbox" [id]="i" [formControlName]="i">
                 <label class="custom-checkbox__label std-heading-4  text-capitalize" [for]="i">{{menuIdMap[i].name}}</label>
             </div>
         </div>
-        <br><span style="color: red;" *ngIf="createCatForm.controls.menus.invalid && createCatForm.controls.menus.touched">Atleast one menu should be selected</span>
+        <br><span class="error-mez" *ngIf="createCatForm.controls.menus.invalid && createCatForm.controls.menus.touched">Atleast one menu should be selected</span>
      </div>
 </div>
 
@@ -38,13 +38,13 @@
 <!-- Info modal -->
 <ng-template #content let-modal>
     <div class="modal-header header-info">
-      <h4 class="std-heading-3"> Menus </h4>
+      <div class="std-heading-5 std-heading-5--popheader"> Menus </div>
       <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
       </button>
     </div>
     <div class="modal-body">
-      <p> Categories may appear in multiple menus. To arrange the order that categories appear in the app, 
+      <p class="paragraph"> Categories may appear in multiple menus. To arrange the order that categories appear in the app, 
         visit the <b>Overview</b> tab.
       </p>
     </div>
@@ -54,8 +54,8 @@
 <!-- back save continue -->
 <ng-template #back let-modal2>
     <div class="modal-body text-center">
-        <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
-      <p class="mb-2"> 
+        <h5 class="std-heading-5 mb-2"> Unsaved changes </h5>
+      <p class="mb-2 paragraph"> 
           If you continue you will lose any unsaved progress
       </p>
       <button class="std-button std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue </button>
@@ -67,8 +67,8 @@
 
 <ng-template #deleteComform let-modal3>
     <div class="modal-body text-center">
-        <h4 class="std-heading-4 mb-2"> Delete category </h4>
-      <p class="mb-2"> 
+        <h5 class="std-heading-5 mb-2"> Delete category </h5>
+      <p class="mb-2 paragraph"> 
           Are you sure? 
       </p>
       <button class="std-button std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>

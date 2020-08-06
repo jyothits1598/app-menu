@@ -1,24 +1,2 @@
 
-  .upload-image {
-      border: 2px dashed #B3B3B3;  
-      background: #FAFAFA;
-      color: #353FA8;
-      width:180px;
-      height:200px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      flex-direction: column;
-      text-align: center;
-  }
-  .upload-image img {
-    max-width:180px;
-    max-height:200px;
-  }
-  img {
-  image-orientation: 90deg; /* Rotate 90deg */
-  image-orientation: 90deg flip; /* Rotate 90deg, and flip it horizontally */ 
-  image-orientation: flip; 
-  }
+  

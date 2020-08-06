@@ -2,9 +2,9 @@
 <div class="row">
     <div class="col-md-12 mb-2">
         <div class="float-right">
-            <button class="btn std-button--transparency" [disabled]="!itemId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
-            <button class="btn std-button--transparency" style="margin-left:10px;" > Duplicate </button>
-            <button appBtnIcon [valid]="createItemForm.valid" [loading]="saveBtnLoading" class="btn std-button--transparency" style="margin-left:10px;"  (click)="saveData()"><span #span>Save</span></button>
+            <button class="btn std-button std-button--transparency" [disabled]="!itemId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
+            <button class="btn std-button std-button--transparency" style="margin-left:10px;" > Duplicate </button>
+            <button appBtnIcon [valid]="createItemForm.valid" [loading]="saveBtnLoading" class="btn std-button-active" style="margin-left:10px;"  (click)="saveData()"><span #span>Save</span></button>
             <!-- <button class="btn std-button--blue" style="margin-left:10px;"  (click)="saveData()"><img src="../../../../../assets/images/tick.png">&nbsp; {{ saveBtnLoading ? "Loading" : "Save" }} </button> -->
         </div>
     </div>
@@ -12,35 +12,29 @@
         <div class="input-container">
             <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1" (click)="(createItemForm.controls.itemName || createItemForm.controls.category) && createItemForm.touched ? pagebackPopup(back) : navigateBack()">
             <input type="text" class="input-border input-palceholder" formControlName="itemName" placeholder="Enter a name for this item">
-            <span style="color: red;" *ngIf="createItemForm.controls.itemName.invalid && createItemForm.controls.itemName.touched">Item name is required.</span>
+            <span class="error-mez" *ngIf="createItemForm.controls.itemName.invalid && createItemForm.controls.itemName.touched">Item name is required.</span>
         </div>  
     </div>
 </div>
 <div class="row mt-5">
     <div class="col-md-12">
-        <h4 class="std-heading-3"> Item details </h4>
-        <label class="std-heading-4 mt-4"> Photo </label>
+        <h4 class="std-heading-4"> Item details </h4>
+        <div class="std-heading-5 mt-4"> Photo </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="d-flex flex-row">
-                    <!-- <div class="upload-image" (click)="fileInput.click()">
-                        <div>
-                            <img *ngIf="uploadedImagePath" style="width:190px;height:184px" src="{{uploadedImagePath}}">
-                            <img *ngIf="!uploadedImagePath" src="../../../../../assets/images/ico_add_blue.png"> <span *ngIf="!uploadedImagePath" class="upload-text"> Upload an image</span>
-                        </div>
-                    </div> -->
+                <div class="d-flex flex-row">                    
                     <div class="upload-image" (click)="imageUrl? '' : fileInput.click()" >
-                        <img *ngIf="imageUrl; else imageNotFound" [src]="imageUrl">     
+                        <img class="ud-image" *ngIf="imageUrl; else imageNotFound" [src]="imageUrl">     
                         <ng-template #imageNotFound>
                             <img src="assets/images/ico_add_blue.png">     
-                            <h4 class="std-heading-4">Upload an image</h4>
+                            <div class="std-heading-5" style="color:#353FA8;">Upload an image</div>
                         </ng-template>
                     </div>
                     <div class="response-padding" style="margin-left:20px;">
                         <span style="font-size:14px"> JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
                         <div class="mt-2">
-                            <button class="btn std-button--blue" (click)="fileInput.click()" > Browse </button> 
-                            <button class="btn std-button--transparency" style="margin-left:10px;" *ngIf="imageUrl"  (click)="imageUrl = null"> Remove </button>
+                            <button class="btn std-button std-button--primary" (click)="fileInput.click()" > Browse </button> 
+                            <button class="btn std-button std-button--transparency" style="margin-left:10px;" *ngIf="imageUrl"  (click)="imageUrl = null"> Remove </button>
                             <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput accept=".jpg,.jpeg,.png,.gif">
                         </div>
                     </div>
@@ -50,11 +44,11 @@
         <div class="row mt-3">
             <div class="col-md-7">
                 <div class="form-group mb-2">
-                    <label class="std-heading-4 "> Description </label>
+                    <div class="std-heading-5"> Description </div>
                     <textarea class="form-control form-input" formControlName="itemDescription" placeholder="Enter description" style="height:96px;"></textarea>
                 </div>
                 <div class="form-group mb-2">
-                    <label class="std-heading-4"> Keywords </label>
+                    <div class="std-heading-5"> Keywords </div>
                     <textarea class="form-control form-input" formControlName="itemKeyword" placeholder="Enter search keywords separated by comma e. g. italian, pasta" style="height:96px;"></textarea>
                 </div>
             </div>
@@ -62,7 +56,7 @@
         <div class="row mt-2">
             <div class="col-md-2 col-sm-4 col-lg-2">
                 <div class="form-group mb-2">
-                    <label class="std-heading-4"> Base price </label>
+                    <div class="std-heading-5"> Base price </div>
                     <div class="prefixed-input">
                         <span class="prefixed-input__prefix">$</span>
                         <input class="form-control form-input prefixed-input__input prefixed-input__input" type="number" formControlName="itemBasePrice" placeholder="09.11" >
@@ -72,7 +66,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-md-6">
-                <label class="std-heading-4"> Is item in stock </label>
+                <div class="std-heading-5"> Is item in stock </div>
                 <div class="menu-creator__days">
                     <div class="custom-radio">
                         <input type="radio" id="yes" name="itemStock" formControlName="itemStock"  value="1" checked>
@@ -87,7 +81,7 @@
         </div>
         <div class="row mt-2 mb-3">
             <div class="col-md-7">
-                <label class="std-heading-4"> Sell item on it's own? <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;width:14px;height:14px;" title="info" (click)="openVerticallyCentered(content)"> </label>
+                <div class="std-heading-5"> Sell item on it's own? <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;width:14px;height:14px;" title="info" (click)="openVerticallyCentered(content)"> </div>
                 <div class="menu-creator__days">
                     <div class="custom-radio" >
                         <input type="radio" id="sellYes" name="sellitem" formControlName="sellitem" value="1" checked>
@@ -102,9 +96,9 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-12">
-                <h4 class="std-heading-3 mb-2"> Categories <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="opencategoryCentered(category)"></h4>
-                <p class="mb-2"> Items may appear in one or more categories. </p>
-                <label class="std-heading-4"> This item will be appear in: </label>
+                <h4 class="std-heading-4 mb-2"> Categories <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="opencategoryCentered(category)"></h4>
+                <p class="mb-2 paragraph"> Items may appear in one or more categories. </p>
+                <div class="std-heading-5"> This item will be appear in: </div>
                 <div  formArrayName="categories" class="menu-creator__days"  (click)="createItemForm.controls.categories.markAsTouched({onlySelf: true});">
                     <div class="custom-checkbox mr-2" *ngFor="let control of categoryForm(); let i = index;">
                         <input type="checkbox" id="category_id_{{i}}" name="category_id_{{i}}" [formControlName]="i">
@@ -116,9 +110,9 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-12">
-                <h4 class="std-heading-3 mb-2"> Modifier groups <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="openmodifierCentered(modifier)"></h4>
+                <h4 class="std-heading-4 mb-2"> Modifier groups <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="openmodifierCentered(modifier)"></h4>
                 <p class="mb-2"> Modifiers allow you to add sides, sizes and more to your menu items. </p>
-                <label class="std-heading-4"> This item will be available with:</label>
+                <div class="std-heading-5"> This item will be available with:</div>
                <div  formArrayName="modifier" class="menu-creator__days"  (click)="createItemForm.controls.modifier.markAsTouched({onlySelf: true});">
                     <div class="custom-checkbox pd-left" *ngFor="let control of modifierForm(); let i = index;">
                         <input type="checkbox" id="modifer_id_{{i}}"  name="modifier_id_{{i}}" [formControlName]="i">
@@ -141,16 +135,16 @@
 <!-- Info modal -->
 <ng-template #content let-modal>
     <div class="modal-header header-info">
-      <h4 class="std-heading-4" style="margin:5px;"> Sell item on it's own? </h4>
+      <div class="std-heading-5 std-heading-5--popheader" style="margin:5px;"> Sell item on it's own? </div>
       <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
       </button>
     </div>
     <div class="modal-body">
-      <p> 
+      <p class="paragraph"> 
           Select 'Yes' to allow customers to purchase this item from the menu.
       </p>
-      <p> 
+      <p class="paragraph"> 
           If this item is a modifier, such as a <b>side, size</b> or <b> sauce </b>for example, you may select 'No' to exclude it from individual sale. 
       </p>
     </div>
@@ -160,16 +154,16 @@
 <!-- Info modal -->
 <ng-template #category let-modal>
     <div class="modal-header header-info">
-      <h4 class="std-heading-4" style="margin:5px;"> Categories  </h4>
+      <div class="std-heading-5 std-heading-5--popheader" style="margin:5px;"> Categories  </div>
       <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
       </button>
     </div>
     <div class="modal-body">
-      <p> 
+      <p class="paragraph"> 
           Items may appear in any number of categories or none at all.
       </p>
-      <p> 
+      <p class="paragraph"> 
           Categories will only appear in the menu when they contain at least one item marked to <b>sell on it's own</b>.
       </p>
     </div>
@@ -179,13 +173,13 @@
 <!-- Info modal -->
 <ng-template #modifier let-modal>
     <div class="modal-header header-info">
-      <h4 class="std-heading-4" style="margin:5px;"> Modifier groups </h4>
+      <div class="std-heading-5 std-heading-5--popheader" style="margin:5px;"> Modifier groups </div>
       <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
       </button>
     </div>
     <div class="modal-body">
-      <p> 
+      <p class="paragraph"> 
           If you have created a modifier group, such as a <b>side, size</b> or <b>Sauce</b>, you may select it here to link this item. Customers will be presented with the modifier options at purchase.
       </p>
     </div>
@@ -195,25 +189,25 @@
 <!-- back save continue -->
 <ng-template #back let-modal2>
     <div class="modal-body text-center">
-        <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
-      <p class="mb-2"> 
+        <h5 class="std-heading-5 mb-2"> Unsaved changes </h5>
+      <p class="mb-2 paragraph"> 
           If you continue you will lose any unsaved progress
       </p>
-      <button class="std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue </button>
-      <hr>
-      <button class="std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
+      <button class="std-button std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue </button>
+      <hr style="margin:0">
+      <button class="std-button std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 <!-- back save continue end-->
 
 <ng-template #deleteComform let-modal3>
     <div class="modal-body text-center">
-        <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
-      <p class="mb-2"> 
+        <h5 class="std-heading-5 mb-2"> Unsaved changes </h5>
+      <p class="mb-2 paragraph"> 
           Are you sure? 
       </p>
-      <button class="std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
-      <hr>
-      <button class="std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+      <button class="std-button std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
+      <hr style="margin:0">
+      <button class="std-button std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>

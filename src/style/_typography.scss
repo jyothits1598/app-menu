@@ -1,15 +1,66 @@
+// all headers styles
 .std-heading-1 {
-    font-size: 26px;
+    font-family: DM Sans;
+    font-style: normal;
     font-weight: bold;
+    font-size: 40px;
+    line-height: 48px;
+    color: var(--color-boldlevelcolor);
+}
+.std-heading-2 {
+    font-size: 30px;
 }
 .std-heading-3 {
-    font-size: 1.25rem;
-    margin: 0px;
+    font-family: DM Sans;
+    font-style: normal;
     font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    color: var(--color-boldlevelcolor);
+}
+.std-heading-4 {
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--color-boldlevelcolor);
+}
+.std-heading-5 {
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-boldlevelcolor);
+    &--popheader {
+        color:var(--color-background);
+        padding-top: 3px;
+    }
+}
+.table-colors {
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-boldlevelcolor);
 }
 
-.std-heading-4 {
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 0px;
+.tabs-menu {
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--color-boldlevelcolor);
+}
+
+.paragraph {
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-boldlevelcolor);
 }
