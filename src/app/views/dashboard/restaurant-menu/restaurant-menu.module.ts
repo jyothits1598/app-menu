@@ -9,7 +9,6 @@ import { StoreMenuMenusCreateComponent } from './store-menu-menus-create/store-m
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StoreMenuCategoriesCreateComponent } from './store-menu-categories-create/store-menu-categories-create.component';
 import { RestaurantMenuItemsComponent } from './restaurant-menu-items/restaurant-menu-items.component';
-import { pathToFileURL } from 'url';
 import { NotFoundComponent } from '../../shared/not-found/not-found.component';
 import { SharedModule } from '../../shared/shared.module';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +18,7 @@ import { StoreMenuItemContainerComponent } from './store-menu-item-container/sto
 import { StoreMenuResolver } from 'src/app/_guards/store-menu-resolver';
 import { RestaurantMenuModifierGroupsComponent } from './restaurant-menu-modifier-groups/restaurant-menu-modifier-groups.component';
 import { StoreMenuModifierGroupCreateComponent } from './store-menu-modifier-group-create/store-menu-modifier-group-create.component';
+import { OverlayModule } from '@angular/cdk/overlay'
 
 const routes: Routes = [
   {
@@ -132,7 +132,8 @@ const restaurantMenuRouting = RouterModule.forChild(routes);
     CommonModule,
     SharedModule,
     NgbModalModule,
-    restaurantMenuRouting
+    restaurantMenuRouting,
+    OverlayModule
   ],
   providers: [StoreMenuResolver]
 })

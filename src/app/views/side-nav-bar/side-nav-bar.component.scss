@@ -1,59 +1,37 @@
-.add-plus {
-    padding: 9px 10px;
-    color: var(--color-boldlevelcolor);
-    cursor: pointer;
-    // box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
-    background: #FAFAFA;
-}
-.add-group {
-    height:100%;
-    color:var(--color-primary);
-    overflow-y: auto;
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 24px;
-}
-.menu-list .sidebar{
-    height:100%;
-    padding: 10px;
-}
-.nav-item .nav-link i {
-    width:20px;
-}
-.menu-custom a:hover {background-color: var(--color-background-secondary);cursor: pointer;}
-.nav-link {
-    padding: 8px;
-}
-.nav-link__active{
-    border-top:1px solid #ccc;
-    background-color: var(--color-background-secondary);
-    color:var(--color-primary);
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 24px;
-}
-.add-plus:focus{
-    outline: 0;
-}
-.pd-tb {
-    padding-top: 8px;
-    padding-bottom: 8px;
-    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
-}
-a{
-    text-decoration:none;
-}
-.store-name {
-    padding-top: 10px;
-    margin-left: 10px;
-    color: var(--color-boldlevelcolor);
-    font-family: DM Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 24px;
+.sidenav {
+    &--hover:hover:not(.sidenav__link--active) {
+        background-color: var(--color-background-tertiary);
+    }
+
+    &__list--bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-bottom: 0;
+        box-shadow: inset 0px 1px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    &__link {
+        padding: 1rem;
+        cursor: pointer;
+        display: flex;
+        width: 100%;
+
+        &:hover &__img--hover-back{
+            transform: translateX(-.3rem);
+            transition: transform .2s;
+        }
+
+        &--active {
+            font-weight: bold;
+            background-color: var(--color-background-secondary);
+            text-decoration: none;
+        }
+
+        &__img {
+            width: 1.5rem;
+            margin-right: 1rem;
+        }
+    }
 }

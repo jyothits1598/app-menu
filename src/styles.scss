@@ -4,6 +4,7 @@
 @import "./style/base";
 @import "./style/utilities";
 @import "./style/components";
+@import '~@angular/cdk/overlay-prebuilt.css';
 
 // *{font-family: 'DM Sans', sans-serif;}
 
@@ -192,10 +193,10 @@ nav {
       margin-top:90px;
     }
     .sidebar-div {
-      width: 260px;
+      width: 320px;
     }
     .main-panel {
-      width: calc(100% - 260px);
+      width: calc(100% - 320px);
     }
     .pd-mq {
       padding-left: 0;

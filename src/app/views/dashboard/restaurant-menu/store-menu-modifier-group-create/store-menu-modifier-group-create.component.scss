@@ -1,0 +1,17 @@
+.auto-fill {
+    position: relative;
+
+    &__list {
+        list-style-type: none;
+        position: absolute;
+        top: 2rem;
+        left: 0;
+        padding: 1rem;
+        background: white;
+        z-index: 10;
+    }
+
+    &__li{
+        margin: .5rem 0;
+    }
+}
