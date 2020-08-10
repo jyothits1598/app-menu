@@ -58,19 +58,26 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
   searchData$: Observable<any>;
 
   ngAfterViewInit(): void {
-    merge(fromEvent(this.searchInput.nativeElement, 'keyup'), fromEvent(this.searchInput.nativeElement, 'focus'))
+
+    fromEvent(this.searchInput.nativeElement, 'focus').pipe(
+      tap(() => {
+        console.log('focus event');
+        if (this.searchData.length > 0) this.openTemplateOverlay(this.listTemplate, this.searchInput);
+      })
+    ).subscribe();
+
+    merge(fromEvent(this.searchInput.nativeElement, 'keyup'))
       .pipe(
         map((event: any) => event.target.value),
-        tap(() => { this.listLoading = true; 
-          this.openTemplateOverlay(this.listTemplate, this.searchInput) 
-        }),
         distinctUntilChanged(),
+        tap(() => {
+          this.listLoading = true;
+          this.openTemplateOverlay(this.listTemplate, this.searchInput)
+        }),
         debounce(() => interval(1000)),
         switchMap((val) => this.restApiService.getDataObs(`stores/${17}/items?name=${val}`).pipe(finalize(() => this.listLoading = false)))
       ).subscribe(resp => this.searchData = resp.data);
   }
-
-
 
   overlayRef: OverlayRef;
   openTemplateOverlay(template: TemplateRef<any>, origin: ElementRef) {
@@ -82,7 +89,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
     //   .width('300px')
     //   .centerVertically();
 
-    if (this.overLayVisible) return;
+    if (this.overLayVisible) { console.log('retruning open template overlay'); return; }
 
     const positionStrategy = this.overlay.position().connectedTo(origin, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
 
@@ -96,13 +103,23 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
     this.overlayRef = this.overlay.create(overlayConfig);
 
     this.overlayRef.backdropClick().subscribe(() => {
-      console.log('backdrop click');
       this.overlayRef.dispose();
       this.overLayVisible = false;
     });
     let tempPortal = new TemplatePortal(template, this.vCRef);
     this.overlayRef.attach(tempPortal);
     this.overLayVisible = true;
+  }
+
+  closeOverlay() {
+    this.overLayVisible = false;
+    this.overlayRef.dispose();
+  }
+
+  selectItem(item: any) {
+    if(this.selectedItems.find((i)=>i.name == item.item_name)) return;
+    let stModItem: StoreMenuModifierItem = new StoreMenuModifierItem(item.item_id, item.item_name, item.item_base_price, null, 0);
+    this.addItem(stModItem);
   }
 
   // ----------------------- search functionalify end ----------------------------
@@ -157,10 +174,6 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
     );
   }
 
-  // transformData(data): StoreMenuModifier{
-
-  // }
-
   addItem(sItem) {
     // this.selectedItemsForm.markAsTouched({onlySelf: true});
     this.selectedItems.push(sItem);
@@ -205,19 +218,19 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
 
   }
 
-  placeHolderForSearch() {
-    this.restApiService.getDataObs('store/items/get/5/all').pipe(
-      map((resp: any) => {
-        if (resp.data && resp.data.length > 0) {
-          let itemCats: Array<StoreMenuCategory> = [];
-          resp.data[0].category_details.forEach(cat => {
-            itemCats.push(new StoreMenuCategory(cat.category_id, cat.category_name, null))
-          });
-          return new StoreMenuItem(resp.data[0].item_id, resp.data[0].item_name, resp.data[0].item_base_price, itemCats);
-        }
-      })
-    ).subscribe(item => this.addItem(item));
-  }
+  // placeHolderForSearch() {
+  //   this.restApiService.getDataObs('store/items/get/5/all').pipe(
+  //     map((resp: any) => {
+  //       if (resp.data && resp.data.length > 0) {
+  //         let itemCats: Array<StoreMenuCategory> = [];
+  //         resp.data[0].category_details.forEach(cat => {
+  //           itemCats.push(new StoreMenuCategory(cat.category_id, cat.category_name, null))
+  //         });
+  //         return new StoreMenuItem(resp.data[0].item_id, resp.data[0].item_name, resp.data[0].item_base_price, itemCats);
+  //       }
+  //     })
+  //   ).subscribe(item => this.addItem(item));
+  // }
 
   updatePrice(value: string) {
     if (value) this.selectedItemsForm.at(this.editedItemIndex).setValue(parseFloat(value));
