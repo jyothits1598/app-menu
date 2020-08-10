@@ -24,7 +24,7 @@
     background-color: #fff;
     padding: 0;
     color:#58666e;
-    padding:15px;
+    padding:16px;
 }
 .img-container-draft {
     width:100%;
@@ -48,13 +48,13 @@
     transition: all 2s ease;
   }
   .form-padding {
-    padding: 15px 0 0 0;
+    padding: 16px 0 0 0;
 }
 .story-header {
     font-family: proxima-nova,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
-    font-weight: 600;
+    font-weight: bold;
     font-style: normal;
-    font-size: 18px;
+    font-size: 20px;
     color: #1A1A1A;
     text-transform: capitalize!important;
     white-space: nowrap;
@@ -62,7 +62,7 @@
 .google-rating {
     background: #F2F2F2;
     border-radius: 12px;
-    padding: 4px 4px;
+    padding: 4px 8px;
     color: #1A1A1A;
     font-weight: normal;
     font-size: 12px;
@@ -71,18 +71,15 @@
     }
     &--pending-color {
         background: #FFBF42;
-        margin-top: 5px;
-        font-weight: 600;
+        margin-top: 16px;
     }
     &--approve-color {
         background: #72CC00;
-        margin-top: 5px;
-        font-weight: 600;
+        margin-top: 16px;
     }
     &--incomplete-color {
         background: #ff4c4c;
-        margin-top: 5px;
-        font-weight: 600;
+        margin-top: 16px;
     }
 
 }

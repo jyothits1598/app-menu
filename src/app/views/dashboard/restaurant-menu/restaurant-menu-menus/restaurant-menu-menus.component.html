@@ -4,12 +4,12 @@
         style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });">
     </h3>
     <div style="text-align: right;">
-        <button class="std-button std-button--primary u-margin-bottom-small" [routerLink]="['./editor']"><img
+        <button class="btn std-button std-button--primary" [routerLink]="['./editor']"><img
                 src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New menu</button>
     </div>
     <ng-container *ngIf="menus.length <= 0">
-        <h4 class="std-heading-4 mb-3">Add your first menu</h4>
-        <p class="paragraph u-margin-bottom-medium">
+        <h4 class="std-heading-4" style="margin-top:24px;margin-bottom: 32px;">Add your first menu</h4>
+        <p class="paragraph">
             Here you can decide to create one menu for you entire store, or break it down into multiple menus such as
             breakfast, lunch and dinner. You can also specify the days and times each menu is available. Press <b>new menu</b>
             to begin.
@@ -17,7 +17,7 @@
     </ng-container>
     <div class="row" *ngIf="menus.length > 0">
         <div class="col-md-12">
-            <table class="table table-border table-color">
+            <table class="table table-border table-color" style="margin-top:24px;">
                 <thead>
                     <tr>
                         <th> Name </th>

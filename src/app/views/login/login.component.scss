@@ -1,9 +1,11 @@
 .login-header {
-    text-align: center;
-    color:#000;
+    font-family: DM Sans;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
+    line-height: 28px;
+    color:#000000;
+    margin-bottom:38px;
 }
 .default-text {
     color:#353FA8;
@@ -14,7 +16,7 @@
 .signin-card {
     margin: 0 auto 25px;     
     max-width: 312px;
-    padding-top: 100px;
+    padding-top: 80px;
 }
 input.custom-password-eye {
     padding-right:30px;
@@ -22,8 +24,12 @@ input.custom-password-eye {
 .field-icon {
   position: absolute;
   cursor: pointer;
-  top:15px;
+  top:16px;
   right:25px;
   z-index: 1;
   color:#B3B3B3;
+}
+.default {
+    margin-top:46px;
+    margin-bottom:44px;
 }

@@ -1,10 +1,10 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Categories </h3>
 <div style="text-align: right;">
-    <button class="std-button std-button--primary u-margin-bottom-small" routerLink="./new"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New category </button>
+    <button class="std-button std-button--primary" routerLink="./new"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New category </button>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table  class="table table-border table-color">
+        <table  class="table table-border table-color" style="margin-top:24px;">
             <thead>
                 <tr>
                     <th> Name </th>
@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let category of categories; let i = index">
-                  <td style="text-transform: capitalize;" class="menu-clr std-heading-4 std-heading-4--primary" [routerLink]="'./'+category.id"> {{category.name}} </td>
+                  <td  style="outline: none;color: #353FA8;font-weight:600;cursor: pointer; text-transform: capitalize;" [routerLink]="'./'+category.id"> {{category.name}} </td>
                   <td style="text-transform: capitalize;">{{menuListToString(category.menus)}}</td>
                   <td>{{menuListToString(category.items)}}</td>
                     <td style="text-align: right;cursor:pointer;outline: none;">

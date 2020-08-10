@@ -1,20 +1,23 @@
   .select-file {
-    // padding:10px;
     border: 2px solid #F2F2F2;
-    color:#353FA8;
-    width:130px;
-    text-align: center;
-    float:left;
-    cursor: pointer;
+    border-radius: 0;
+    outline: none !important;
+    font-size: 16px;
     font-family: DM Sans;
     font-style: normal;
     font-weight: bold;
-    font-size: 16px;
-    line-height: 20px;
+    margin: 0 auto;
+    display: inline-block;
+    padding: 14px 16px;
     background: #fff;
+    color:var(--color-primary);
+    cursor: pointer;
   }
   .fnt-14 {
     font-size:14px;
+    padding: 17px 16px;
+    margin: 0 auto;
+    display: inline-block;
   }
   .select-file.is-invalid {
     border-color:none !important;

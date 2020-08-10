@@ -1,16 +1,16 @@
 <div class="container h-100 m-class">
 <form [formGroup]="storeDetailform" (ngSubmit)="storeDetails()" >
-    <h1 class="form-header mb-5"> 
+    <h1 class="form-header" style="margin-bottom:72px;"> 
         Tell us a little about your store 
     </h1>
-    <div class="form-group">
+    <div class="form-group form-group--margin">
         <label class="label-inputs"> Store name <b class="m-star">*</b> </label>
         <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers" formControlName="storeName" [ngClass]="{ 'is-invalid': storeNameSubmit && f.storeName.errors }" >
         <div *ngIf="storeNameSubmit && f.storeName.errors" class="error-mez">
             <div *ngIf="f.storeName.errors.required"> Please enter store name </div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group form-group--margin">
         <label class="label-inputs"> Store address <b class="m-star">*</b> </label>
         <!-- <input type="text" class="form-control form-input" placeholder="e.g. 100 Main street, Sampletown, Qld 4000" formControlName="storeAddress" #storeAddress [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }" >
         <ngx-google-places-autocomplete formControlName="place"></ngx-google-places-autocomplete>
@@ -25,7 +25,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group form-group--margin">
                 <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
                 <select class="custom-select form-control form-input form-input--select-input" formControlName="typeCuisine" (ngModelChange)="changeCuisine()" [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
                     <option [ngValue]="null" selected> Select </option>
@@ -37,21 +37,21 @@
             </div>
         </div>
     </div>   
-    <div class="form-group">
+    <div class="form-group form-group--margin">
         <label class="label-inputs"> Description <b class="m-star">*</b> </label>
         <textarea class="form-control form-input form-input--text-area" placeholder="Description" formControlName="descriptionItem" [ngClass]="{ 'is-invalid': descriptionItemSubmit && f.descriptionItem.errors }" ></textarea>
         <div *ngIf="descriptionItemSubmit && f.descriptionItem.errors" class="error-mez">
             <div *ngIf="f.descriptionItem.errors.required"> Please enter description </div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group form-group--margin">
         <label class="label-inputs"> Google business URL <b class="m-star"></b> </label>
         <input type="text" class="form-control form-input" placeholder="e.g. goo.gl/map/xxxxxxxx" formControlName="google_business_url" [ngClass]="{ 'is-invalid': googleBussinessSubmit && f.google_business_url.errors }" >
         <div *ngIf="googleBussinessSubmit && f.google_business_url.errors" class="error-mez">
             <div *ngIf="f.google_business_url.errors.required"> Please enter Google business URL </div>
         </div>
     </div>
-    <div class="form-group pb-1">
+    <div class="form-group form-group--margin">
         <label class="label-inputs"> Facebook URL <b class="m-star"></b> </label>
         <input type="text" class="form-control form-input" placeholder="e.g. http://www.facebook.com/xxxxxxxx" formControlName="facebook_url" [ngClass]="{ 'is-invalid': facebookBussinessSubmit && f.facebook_url.errors }" >
         <div *ngIf="facebookBussinessSubmit && f.facebook_url.errors" class="error-mez">
@@ -62,7 +62,7 @@
         <label class="label-inputs"> Opening hours <b class="m-star">*</b> </label>
         <input type="text" class="form-control form-input" placeholder="e.g. Buzz" >
     </div> -->
-    <div class="form-group mb-3">
+    <div class="form-group form-group--null">
         <label class="label-inputs"> Store logo or photo </label>
         <div class="row">
             <div class="col-md-12">
@@ -72,20 +72,20 @@
                         <img class="ud-image" [src]="imageUrl" *ngIf="imageUrl">   
                         <div *ngIf="!imageUrl" class="std-heading-5" style="color:#353FA8;">Upload an image</div>
                     </div>
-                    <div class="response-padding" style="margin-left:20px;">
-                        <span style="font-size:12px">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
-                        <div class="mt-2">
-                            <button class="btn std-button std-button--primary" type="button" (click)="fileInput.click()" style="margin-right: .62rem;"> Browse </button> 
-                            <button class="btn std-button std-button--transparency"  type="button" *ngIf="imageUrl"  (click)="imageUrl = null" style="margin-right: 5px;"> Remove </button>
+                    <div class="response-padding" style="margin-left:32px;">
+                        <span class="paragraph paragraph--small">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
+                        <div style="margin-top:17px;">
+                            <button class="btn std-button std-button--primary" type="button" (click)="fileInput.click()"> Browse </button> 
+                            <button class="btn std-button std-button--transparency"  type="button" *ngIf="imageUrl"  (click)="imageUrl = null" style="margin-left: 16px;"> Remove </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group mtop mbottom">
         <a [routerLink]="['/store/first-form']"> <input type="button" class="btn std-button std-button--transparency" value="Cancel" ></a>
-        <input type="submit" class="btn std-button std-button--primary" value="{{add_edit_type == 'add' ? 'Save and continue' : 'Edit store'}}" style="margin-left:15px;">
+        <input type="submit" class="btn std-button std-button--primary" value="{{add_edit_type == 'add' ? 'Save and continue' : 'Edit store'}}" style="margin-left:16px;">
     </div>
 </form>
 <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput accept=".jpg,.png,.jpeg,.gif">

@@ -7,25 +7,22 @@
 
 // *{font-family: 'DM Sans', sans-serif;}
 
-nav {
-  background: var(--color-primary);
-  color:var(--color-background);
-  padding-left: 10px;
-  padding-right: 10px;
-}
+// nav {
+//   background: var(--color-primary);
+//   color:var(--color-background);
+//   padding-left: 10px;
+//   padding-right: 10px;
+// }
 
-.btn-names {
-  border-radius: 5px;
-  color:var(--color-background);
-  padding: 10px;
-  cursor: pointer;
-}
+// .btn-names {
+//   border-radius: 5px;
+//   color:var(--color-background);
+//   padding: 10px;
+//   cursor: pointer;
+// }
 // .btn-names:hover {
 //   background: #6868cc;
 // }
-.btn-pd {
-  padding: 0 !important;
-}
 .sign-header {
   font-family: DM Sans;
   font-style: normal;
@@ -115,7 +112,8 @@ nav {
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .m-class {
-    margin-top:100px;
+    margin-top:60px;
+    margin-bottom:60px;
   }
   .sidebar-div {
     display: none;
@@ -130,7 +128,8 @@ nav {
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   .m-class {
-    margin-top:90px;
+    margin-top:80px;
+    margin-bottom:80px;
   }
   .sidebar-div {
     width: 200px;
@@ -142,7 +141,8 @@ nav {
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
 @media (min-width: 768px) {  
   .m-class {
-    margin-top:90px;
+    margin-top:80px;
+    margin-bottom:80px;
   }
   /*side bar */
   .sidebar {
@@ -167,7 +167,8 @@ nav {
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
   .m-class {
-    margin-top:90px;
+    margin-top:80px;
+    margin-bottom:80px;
   }
   .sidebar-div {
     width: 260px;
@@ -179,7 +180,7 @@ nav {
     padding-left: 0;
   }
   .response-padding {
-    padding-top: 95px;
+    padding-top: 83px;
   }
   .container{
     padding:0px 8%;
@@ -188,8 +189,8 @@ nav {
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {  
     .m-class {
-      padding-left: 60px;
-      margin-top:90px;
+      margin-top:80px;
+      margin-bottom:80px;
     }
     .sidebar-div {
       width: 260px;
@@ -201,7 +202,7 @@ nav {
       padding-left: 0;
     }
     .response-padding {
-      padding-top: 95px;
+      padding-top: 83px;
     }
     .container{
       padding:0px 8%;

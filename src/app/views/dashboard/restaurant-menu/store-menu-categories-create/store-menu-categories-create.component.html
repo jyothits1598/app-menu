@@ -1,5 +1,5 @@
 <!-- create category -->
-<div class="row" [formGroup]="createCatForm">
+<div class="row" [formGroup]="createCatForm" style="margin-top:-24px;">
     <div class="col-md-12">
         <div class="float-right">
             <button class="btn std-button std-button--transparency" *ngIf="categoryId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
@@ -14,19 +14,19 @@
         </div>  
     </div>
     <div class="col-md-12">
-        <div class="row pt-5">
+        <div class="row">
             <div class="col-md-12">
-                <h4 class="std-heading-4 mb-2"> Menus <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openVerticallyCentered(content)"></h4>
+                <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;"> Menus <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openVerticallyCentered(content)"></h4>
             </div>
         </div>
-        <div class="std-heading-5"> Menus this category will appear in: </div>
+        <div class="label-inputs"> Menus this category will appear in: </div>
         <div *ngIf="menuIdMap.length > 0; else noMenus" formArrayName="menus" class="menu-creator__days mb-3" (click)="createCatForm.controls.menus.markAsTouched({onlySelf: true});">
             <div class="custom-checkbox mr-2" *ngFor="let control of menusForm(); let i = index;">
                 <input type="checkbox" [id]="i" [formControlName]="i">
                 <label class="custom-checkbox__label std-heading-4  text-capitalize" [for]="i">{{menuIdMap[i].name}}</label>
             </div>
         </div>
-        <br><span class="error-mez" *ngIf="createCatForm.controls.menus.invalid && createCatForm.controls.menus.touched">Atleast one menu should be selected</span>
+        <div class="error-mez" *ngIf="createCatForm.controls.menus.invalid && createCatForm.controls.menus.touched">Atleast one menu should be selected</div>
      </div>
 </div>
 

@@ -1,14 +1,16 @@
 /* All buttons styles */
 .std-button {
     border-radius: 0;
-    padding: 14px 16px;
     border: none;
     outline: none !important;
-    height: 48px !important;
-    font-size:16px;
+    font-size: 16px;
     font-family: DM Sans;
     font-style: normal;
     font-weight: bold;
+    margin: 0 auto;
+    display: inline-block;
+    padding: 14px 16px;
+
     &--primary {
         color: var(--color-background);
         background: var(--color-primary);
@@ -38,16 +40,18 @@
 }
 .std-button-active {
     border-radius: 0;
-    padding: 14px 16px;
     border: none;
     outline: none !important;
-    height: 48px !important;
-    font-size:16px;
+    font-size: 16px;
     font-family: DM Sans;
     font-style: normal;
     font-weight: bold;
+    margin: 0 auto;
+    display: inline-block;
+    padding: 14px 16px;
     background: #fafafa;
     color:var(--color-primary);
+
     &--primary {
         color: var(--color-background);
         background: var(--color-primary);
@@ -78,7 +82,7 @@
     font-size: 16px;
     line-height: 24px;
     color:var(--color-boldlevelcolor);
-
+    padding:12px 16px;
     &::placeholder{
       color: var(--color-typography-tertiary);
     }
@@ -132,7 +136,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-size: 24px;
     line-height: 28px;
     color: #B3B3B3;
-    padding: 10px;
+    padding: 12px;
   }
   .input-palceholder:first-letter{
     text-transform:capitalize;
@@ -177,7 +181,8 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-style: normal;
     font-weight: bold;
     font-size: 16px;
-    margin-bottom: -0.5rem;
+    line-height: 24px;
+    margin-bottom: 4px;
   }
   .m-star {
     color:var(--color-failure);
@@ -189,6 +194,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-size: 14px;
     line-height: 20px;
     color:var(--color-failure);
+    margin-top:4px !important;
   }
   .form-control.is-invalid {
     border-color:var(--color-failure) !important;
@@ -203,7 +209,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-weight: bold;
     font-size: 40px;
     line-height: 48px;
-    color:#000;
+    color:var(--color-typography-primary);
   }
   .upload-file-btn {
     color: var(--color-primary);
@@ -384,10 +390,10 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 
 .custom-select {
     min-width: 12.5rem;
-    padding: 0.5rem;
+    // padding: 0.5rem;
     background-color: var(--color-background-secondary);
     // font-size: 1rem;
-    height: 48px;
+    // height: 48px;
     border: none;
     border-radius: 0;
     -moz-appearance: none;
@@ -432,7 +438,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 .input-img {
     position: absolute;
     left: 0;
-    top: 7px;
+    top: 10px;
     outline: none;
     cursor: pointer;
 }
@@ -505,3 +511,23 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-weight: bold;
     color: var(--color-boldlevelcolor);
 }
+.nav-bars {
+    padding:12px 16px;
+    background: var(--color-primary);  
+}
+.btns-navbar {
+    color:var(--color-background);
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 32px;
+    &:hover {
+        color:var(--color-background);
+        text-decoration: none;
+    }
+  }
+  .table td, .table th {
+    padding: 16px 24px;
+    color:var(--color-boldlevelcolor);
+  }

@@ -55,7 +55,6 @@
     line-height: 20px;
     color: var(--color-boldlevelcolor);
 }
-
 .paragraph {
     font-family: DM Sans;
     font-style: normal;
@@ -63,4 +62,8 @@
     font-size: 16px;
     line-height: 24px;
     color: var(--color-boldlevelcolor);
+    &--small {
+        font-size: 14px;
+        line-height: 20px; 
+    }
 }
