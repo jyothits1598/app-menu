@@ -8,12 +8,12 @@
     <div class="row m-class">
         <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
             <form [formGroup]="resendSignupEmail" (ngSubmit)="resendEmail()" >
-                <h2 class="sign-header"> Resend email </h2>
-                <p style="margin-top: 15px;"> We have sent an email to <b> {{ emailAddress }} </b> with a link to confirm the address.</p>
-                <p> If you don't receive the email, try resending it or enter a new email below if it was incorrect. </p>
-                <div class="row mb-2">
+                <h1 class="form-header" style="margin-bottom: 24px;"> Resend email </h1>
+                <p class="paragraph"> We have sent an email to <b> {{ emailAddress }} </b> with a link to confirm the address.</p>
+                <p class="paragraph" > If you don't receive the email, try resending it or enter a new email below if it was incorrect. </p>
+                <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top:40px;margin-bottom: 40px;">
                             <label class="label-inputs"> Email </label>
                             <input type="email" class="form-control form-input" placeholder="e.g. name@domain.com" formControlName="resendemail" [ngClass]="{ 'is-invalid': resendemailSubmit && f.resendemail.errors }">
                             <div *ngIf="resendemailSubmit && f.resendemail.errors" class="error-mez">

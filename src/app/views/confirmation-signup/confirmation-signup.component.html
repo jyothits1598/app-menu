@@ -7,9 +7,9 @@
 <div class="container h-100">
     <div class="row m-class">
         <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-                <h2 class="sign-header"> Please confirm your email address </h2>
-                <p style="margin-top: 15px;"> We have sent an email to <b> {{ emailAddress }} </b> with a link to confirm the address.</p>
-                <p> If you don't receive the email, check your spam folder, try again using a different email address, or contact our <a [routerLink]="['/page-under-progress']" title="Support team"> support team.</a>  </p>
+                <h1 class="form-header" style="margin-bottom: 24px;"> Please confirm your email address </h1>
+                <p class="paragraph"> We have sent an email to <b> {{ emailAddress }} </b> with a link to confirm the address.</p>
+                <p class="paragraph"> If you don't receive the email, check your spam folder, try again using a different email address, or contact our <a [routerLink]="['/page-under-progress']" title="Support team"> support team.</a>  </p>
                 <!-- <div class="row mb-2">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -22,9 +22,9 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="row mb-2">
+                <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top:40px;">
                             <a [routerLink]="['/resend-email']"><input type="button" class="btn std-button std-button--transparency" value="Resend email" title="Resend email"></a>
                             <a [routerLink]="['/']" ><input type="button" class="btn std-button std-button--primary" value="Back to menuzapp" style="margin-left:15px;"></a>
                         </div>

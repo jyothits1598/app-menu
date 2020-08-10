@@ -17,7 +17,7 @@
         cursor: pointer;
         display: flex;
         width: 100%;
-
+        outline: none;
         &:hover &__img--hover-back{
             transform: translateX(-.3rem);
             transition: transform .2s;
