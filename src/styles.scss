@@ -4,6 +4,7 @@
 @import "./style/base";
 @import "./style/utilities";
 @import "./style/components";
+@import '~@angular/cdk/overlay-prebuilt.css';
 
 // *{font-family: 'DM Sans', sans-serif;}
 
@@ -187,16 +188,16 @@
   }
 }
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {  
+@media (min-width: 1400px) {  
     .m-class {
       margin-top:80px;
       margin-bottom:80px;
     }
     .sidebar-div {
-      width: 260px;
+      width: 320px;
     }
     .main-panel {
-      width: calc(100% - 260px);
+      width: calc(100% - 320px);
     }
     .pd-mq {
       padding-left: 0;

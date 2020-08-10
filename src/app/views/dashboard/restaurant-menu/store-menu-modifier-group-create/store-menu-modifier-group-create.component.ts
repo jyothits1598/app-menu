@@ -1,9 +1,9 @@
-import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy, ViewContainerRef, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { StoreMenuItem } from 'src/app/_models/store-menu-items';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { Store } from 'src/app/_models/store';
-import { map, finalize, filter } from 'rxjs/operators';
+import { map, finalize, filter, debounce, switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StoreMenu } from 'src/app/_models/store-menu';
 import { StoreMenuCategory } from 'src/app/_models/store-menu-category';
@@ -12,23 +12,27 @@ import { StoreService } from 'src/app/services/store.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { ReadStoreMenuModifier, StoreMenuModifierItem, StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, fromEvent, interval, of, merge } from 'rxjs';
 import { MinNumberValidator } from 'src/app/_helpers/validators';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-store-menu-modifier-group-create',
   templateUrl: './store-menu-modifier-group-create.component.html',
   styleUrls: ['./store-menu-modifier-group-create.component.scss']
 })
-export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy {
+export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private restApiService: RestApiService,
     private _modalService: NgbModal,
     private storeService: StoreService,
     private alertService: AlertService,
     private router: Router,
-    private route: ActivatedRoute
-    ) {
+    private route: ActivatedRoute,
+    private overlay: Overlay,
+    private vCRef: ViewContainerRef
+  ) {
     this.routerSubs = this.route.params.subscribe(params => {
       //creating a new category
       if (params['id'] === undefined) {
@@ -43,9 +47,69 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       }
     })
   }
-  
+
+  // ----------------------- search functionalify start ----------------------------
+  @ViewChild('itemSearch', { read: ElementRef }) searchInput: ElementRef;
+  @ViewChild('template', { read: TemplateRef }) listTemplate: TemplateRef<any>;
+
+  overLayVisible: boolean = false;
+  listLoading: boolean = false;
+  searchData: Array<any> = [];
+  searchData$: Observable<any>;
+
+  ngAfterViewInit(): void {
+    merge(fromEvent(this.searchInput.nativeElement, 'keyup'), fromEvent(this.searchInput.nativeElement, 'focus'))
+      .pipe(
+        map((event: any) => event.target.value),
+        tap(() => { this.listLoading = true; 
+          this.openTemplateOverlay(this.listTemplate, this.searchInput) 
+        }),
+        distinctUntilChanged(),
+        debounce(() => interval(1000)),
+        switchMap((val) => this.restApiService.getDataObs(`stores/${17}/items?name=${val}`).pipe(finalize(() => this.listLoading = false)))
+      ).subscribe(resp => this.searchData = resp.data);
+  }
+
+
+
+  overlayRef: OverlayRef;
+  openTemplateOverlay(template: TemplateRef<any>, origin: ElementRef) {
+    // const positionStrategy = this.overlay
+    //   .position()
+    //   .global()
+    //   .centerHorizontally()
+    //   .height('300px')
+    //   .width('300px')
+    //   .centerVertically();
+
+    if (this.overLayVisible) return;
+
+    const positionStrategy = this.overlay.position().connectedTo(origin, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
+
+
+    const overlayConfig = new OverlayConfig({
+      positionStrategy
+    });
+    overlayConfig.backdropClass = '';
+    overlayConfig.hasBackdrop = true;
+
+    this.overlayRef = this.overlay.create(overlayConfig);
+
+    this.overlayRef.backdropClick().subscribe(() => {
+      console.log('backdrop click');
+      this.overlayRef.dispose();
+      this.overLayVisible = false;
+    });
+    let tempPortal = new TemplatePortal(template, this.vCRef);
+    this.overlayRef.attach(tempPortal);
+    this.overLayVisible = true;
+  }
+
+  // ----------------------- search functionalify end ----------------------------
+
   routerSubs: Subscription;
   modifierId: number;
+  storeId: number;
   submitting: boolean = false;
   allItems: Array<StoreMenuItem> = [];
 
@@ -69,16 +133,17 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   }
 
   ngOnInit(): void {
-    if(this.modifierId) this.getInitialData();
+    if (this.modifierId) this.getInitialData();
+    this.storeId = this.storeService.activeStore$.value.id;
   }
 
-  getInitialData(){
+  getInitialData() {
     this.alertService.showLoader();
     this.restApiService.getDataObs(`modifiers/${this.storeService.activeStore$.value.id}/${this.modifierId}`).pipe(
-      finalize(()=>this.alertService.hideLoader())
+      finalize(() => this.alertService.hideLoader())
     ).subscribe(
       resp => {
-        if(resp.success && resp.data && resp.data[0]){
+        if (resp.success && resp.data && resp.data[0]) {
           let mod = ReadStoreMenuModifier(resp.data[0]);
           this.modifierForm.controls.name.setValue(mod.name);
           this.modifierForm.controls.selectionRequired.setValue(mod.selectionRequired);
@@ -92,20 +157,24 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     );
   }
 
+  // transformData(data): StoreMenuModifier{
+
+  // }
+
   addItem(sItem) {
     // this.selectedItemsForm.markAsTouched({onlySelf: true});
     this.selectedItems.push(sItem);
-    this.selectedItemsForm.push(new FormControl(sItem.modifierPrice? sItem.modifierPrice : 0 , Validators.required));
+    this.selectedItemsForm.push(new FormControl(sItem.modifierPrice ? sItem.modifierPrice : 0, Validators.required));
   }
 
-  deleteItem(index: number){
+  deleteItem(index: number) {
     // this.selectedItemsForm.markAsTouched({onlySelf: true});
     this.selectedItems.splice(index, 1);
     this.selectedItemsForm.removeAt(index);
   }
 
   saveModifer(formData: any) {
-    
+
     if (this.modifierForm.invalid) {
       this.modifierForm.markAllAsTouched();
       return;
@@ -113,7 +182,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     this.submitting = true;
 
     let data: any = {};
-    if(this.modifierId) data.modifier_id = this.modifierId;
+    if (this.modifierId) data.modifier_id = this.modifierId;
     data.store_id = this.storeService.activeStore$.value.id;
     data.modifier_name = formData.name;
     data.required_selection = formData.selectionRequired ? 1 : 0;
@@ -155,32 +224,32 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     else this.selectedItemsForm.at(this.editedItemIndex).setValue(0);
   }
 
-  deleteModifier(){
-    if(!this.modifierId) return;
-    
-    var data : any= {} ;
+  deleteModifier() {
+    if (!this.modifierId) return;
+
+    var data: any = {};
     data.modifier_id = this.modifierId;
     data.store_id = this.storeService.activeStore$.value.id;
     data.active_flag = 0;
 
     this.alertService.showLoader();
     this.restApiService.postData('modifiers', data).pipe(
-      finalize(()=>this.alertService.hideLoader())
-    ).subscribe((resp : any)=>{
-      if(resp && resp.success) this.router.navigate(['../'], {relativeTo: this.route})
+      finalize(() => this.alertService.hideLoader())
+    ).subscribe((resp: any) => {
+      if (resp && resp.success) this.router.navigate(['../'], { relativeTo: this.route })
     });
   }
 
-  navigateBack(){
-    this.router.navigate(['../'], {relativeTo: this.route});
+  navigateBack() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();
   }
 
-  debug() {
-    console.log(this.modifierForm);
-  }
+  // debug() {
+  //   console.log(this.modifierForm);
+  // }
 
 }

@@ -1,17 +1,20 @@
 <form [formGroup]="modifierForm" (ngSubmit)="saveModifer(modifierForm.value)">
     <div class="row" style="margin-top:-24px;">
         <div class="col-md-12">
-            <div class="float-right" style="margin-bottom: 16px;">
-                <button class="btn std-button std-button--transparency" type="button" *ngIf="modifierId" (click)="modalService.open(deleteComform, { centered: true, size:'sm' });" > Delete </button>
-                <button class="btn std-button std-button--transparency" style="margin-left:10px;" type="button"> Duplicate
+            <div class="float-right">
+                <button class="btn std-button std-button--transparency" type="button" *ngIf="modifierId"
+                    (click)="modalService.open(deleteComform, { centered: true, size:'sm' });"> Delete </button>
+                <button class="btn std-button std-button--transparency" style="margin-left:10px;" type="button">
+                    Duplicate
                 </button>
-                <button appBtnIcon [valid]="modifierForm.valid" [loading]="submitting"
-                    class="btn std-button-active" style="margin-left:10px;"> <span #span>Save</span> </button>
+                <button appBtnIcon [valid]="modifierForm.valid" [loading]="submitting" class="btn std-button-active"
+                    style="margin-left:10px;"> <span #span>Save</span> </button>
             </div>
         </div>
         <div class="col-md-12">
             <div class="input-container">
-                <img (click)="modifierForm.touched? modalService.open(backConfirm, { centered: true, size: 'sm' }) : navigateBack()" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
+                <img (click)="modifierForm.touched? modalService.open(backConfirm, { centered: true, size: 'sm' }) : navigateBack()"
+                    src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
                 <input type="text" class="input-border input-palceholder" formControlName="name">
                 <span class="error-mez"
                     *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
@@ -25,11 +28,25 @@
                     style="cursor:pointer" title="info"></h4>
             <h5 class="std-heading-5" style="margin-bottom: 4px;"> Add Item </h5>
         </div>
-        <div class="col-md-3">
-            <input type="search" placeholder="Search" class="form-control form-input search" />
+        <div class="col-md-3 mb-1">
+            <div class="auto-fill">
+                <span *ngIf="listLoading">loading</span>
+                <input #itemSearch type="search" placeholder="Search" class="form-control form-input search" />
+                <!-- <ng-template  class="auto-fill__list">
+                    <li class="auto-fill__li">One</li>
+                    <li class="auto-fill__li">Two</li>
+                    <li class="auto-fill__li">Three</li>
+                </ng-template> -->
+                <ng-template #template>
+                    <ul *ngIf="searchData.length > 0"  class="auto-fill__list">
+                        <li class="auto-fill__list__item" *ngFor="let item of searchData">{{item.item_name}}</li>
+                    </ul>
+                </ng-template>
+            </div>
         </div>
         <div class="col-md-3">
-            <button class="btn std-button std-button--primary" style="padding: 12px 16px" type="button" (click)="this.selectedItemsForm.markAsTouched({onlySelf: true}); placeHolderForSearch()">Add </button>
+            <button class="btn std-button std-button--primary" type="button"
+                (click)="this.selectedItemsForm.markAsTouched({onlySelf: true}); placeHolderForSearch()">Add </button>
         </div>
     </div>
     <div class="row mb-3">
@@ -56,7 +73,8 @@
                                 <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
                                     data-toggle="dropdown" title="Options">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                    <li title="Delete" class="herf-class" (click)="this.selectedItemsForm.markAsTouched({onlySelf: true}); deleteItem(i);">
+                                    <li title="Delete" class="herf-class"
+                                        (click)="this.selectedItemsForm.markAsTouched({onlySelf: true}); deleteItem(i);">
                                         <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                         Delete
                                     </li>
@@ -73,7 +91,8 @@
                     </tbody>
                 </ng-template>
             </table>
-            <p *ngIf="selectedItemsForm.invalid && selectedItemsForm.touched" style="color: var(--color-failure);">Please add atleast one item.</p>
+            <p *ngIf="selectedItemsForm.invalid && selectedItemsForm.touched" style="color: var(--color-failure);">
+                Please add atleast one item.</p>
         </div>
     </div>
     <div class="row">
@@ -94,8 +113,8 @@
         <h4>Modifier group</h4>
         <div class="prefixed-input">
             <span class="prefixed-input__prefix">$</span>
-            <input class="form-control form-input prefixed-input__input" #valInput type="number" [value]="selectedItemsForm.at(editedItemIndex).value"
-                >
+            <input class="form-control form-input prefixed-input__input" #valInput type="number"
+                [value]="selectedItemsForm.at(editedItemIndex).value">
         </div>
         <div>
             <button (click)="editPopup.dismiss('Cross click')" type="button">Cancel</button>
@@ -106,26 +125,29 @@
 
 <ng-template #deleteComform let-deleteConf>
     <div class="modal-body text-center">
-        <h4 class="std-heading-4 mb-2"> Deleting modifier group {{modifierForm.value.name? '"'+modifierForm.value.name+'"' : ''}} </h4>
-      <p class="mb-2"> 
-          Are you sure? 
-      </p>
-      <button class="std-button std-button--plane" (click)="deleteModifier(); deleteConf.dismiss('Cross click')"> Delete </button>
-      <hr style="margin: 0;">
-      <button class="std-button std-button--plane" (click)="deleteConf.dismiss('Cross click')"> Cancel </button>
+        <h4 class="std-heading-4 mb-2"> Deleting modifier group
+            {{modifierForm.value.name? '"'+modifierForm.value.name+'"' : ''}} </h4>
+        <p class="mb-2">
+            Are you sure?
+        </p>
+        <button class="std-button std-button--plane" (click)="deleteModifier(); deleteConf.dismiss('Cross click')">
+            Delete </button>
+        <hr style="margin: 0;">
+        <button class="std-button std-button--plane" (click)="deleteConf.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 
 <ng-template #backConfirm let-backConf>
     <div class="modal-body text-center">
         <h4 class="std-heading-4 mb-2"> Unsaved changes </h4>
-      <p class="mb-2"> 
-        If you continue you will lose any unsaved progress
-      </p>
-      <button class="std-button std-button--plane" (click)="navigateBack(); backConf.dismiss('Cross click')"> Continue </button>
-      <hr style="margin: 0;">
-      <button class="std-button std-button--plane" (click)="backConf.dismiss('Cross click')"> Cancel </button>
+        <p class="mb-2">
+            If you continue you will lose any unsaved progress
+        </p>
+        <button class="std-button std-button--plane" (click)="navigateBack(); backConf.dismiss('Cross click')"> Continue
+        </button>
+        <hr style="margin: 0;">
+        <button class="std-button std-button--plane" (click)="backConf.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
 
-<button (click)="debug()">debug</button>
+<!-- <button (click)="debug()">debug</button> -->
