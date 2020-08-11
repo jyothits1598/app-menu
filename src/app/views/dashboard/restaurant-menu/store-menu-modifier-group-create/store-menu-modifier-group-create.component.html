@@ -30,6 +30,21 @@
         </div>
         <div class="col-md-3 mb-1">
             <div class="auto-fill">
+                <incremental-search [apiFunction]="apiFunction"
+                    [params]="{restApiService: restApiService, storeId: storeId}"
+                    (select)="selectItem($event)">
+                        <input #itemSearch placeholder="Search" class="form-control form-input search" />
+                    <ng-template #itemTemplate let-option="option">
+                        <li class="auto-fill__list__item">{{option.item_name}}</li>
+                    </ng-template>
+                    <ng-template #noItemsTemplate>
+                        <li class="auto-fill__list__item">No results found</li>
+                    </ng-template>
+                </incremental-search>
+            </div>
+        </div>
+        <!-- <div class="col-md-3 mb-1">
+            <div class="auto-fill">
                 <div class=auto-fill__input-container>
                     <input #itemSearch type="search" placeholder="Search" class="form-control form-input search" />
                     <img *ngIf="listLoading" class="auto-fill__input-container__loader" src="/assets/images/loader.gif"
@@ -43,11 +58,14 @@
                         </ul>
                     </ng-container>
                 </ng-template>
+                <ng-template #itemTemplate let-option="option">
+                    <li></li>
+                </ng-template>
                 <ng-template #noItemsTemplate>
                     <div *ngIf="!listLoading">No result found</div>
                 </ng-template>
             </div>
-        </div>
+        </div> -->
         <div class="col-md-3">
             <button class="btn std-button std-button--primary" type="button"
                 (click)="this.selectedItemsForm.markAsTouched({onlySelf: true})">Add </button>
@@ -155,3 +173,6 @@
 </ng-template>
 
 <!-- <button (click)="debug()">debug</button> -->
+<ng-container *ngFor="let name of names" [ngTemplateOutlet]="eng" [ngTemplateOutletContext]="{name: name}">
+</ng-container>
+<ng-template #eng let-pname="name"><span>Hello {{pname}}!</span></ng-template>

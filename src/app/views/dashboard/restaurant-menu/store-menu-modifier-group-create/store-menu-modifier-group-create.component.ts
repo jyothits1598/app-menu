@@ -22,9 +22,9 @@ import { TemplatePortal } from '@angular/cdk/portal';
   templateUrl: './store-menu-modifier-group-create.component.html',
   styleUrls: ['./store-menu-modifier-group-create.component.scss']
 })
-export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy, AfterViewInit {
+export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy {
 
-  constructor(private restApiService: RestApiService,
+  constructor(public restApiService: RestApiService,
     private _modalService: NgbModal,
     private storeService: StoreService,
     private alertService: AlertService,
@@ -49,6 +49,12 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
   }
 
   // ----------------------- search functionalify start ----------------------------
+  apiFunction(params: any, term: string){
+    return params.restApiService.getDataObs(`stores/${params.storeId}/items?name=${term}`).pipe(
+      map((resp:any)=>resp.data)
+      );
+  }
+  names: Array<string> = ['ganesh', 'prasad', 'mashesh'];
   @ViewChild('itemSearch', { read: ElementRef }) searchInput: ElementRef;
   @ViewChild('template', { read: TemplateRef }) listTemplate: TemplateRef<any>;
 
@@ -57,27 +63,26 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
   searchData: Array<any> = [];
   searchData$: Observable<any>;
 
-  ngAfterViewInit(): void {
+  // ngAfterViewInit(): void {
 
-    fromEvent(this.searchInput.nativeElement, 'focus').pipe(
-      tap(() => {
-        console.log('focus event');
-        if (this.searchData.length > 0) this.openTemplateOverlay(this.listTemplate, this.searchInput);
-      })
-    ).subscribe();
+  //   fromEvent(this.searchInput.nativeElement, 'focus').pipe(
+  //     tap(() => {
+  //       if (this.searchData.length > 0) this.openTemplateOverlay(this.listTemplate, this.searchInput);
+  //     })
+  //   ).subscribe();
 
-    merge(fromEvent(this.searchInput.nativeElement, 'keyup'))
-      .pipe(
-        map((event: any) => event.target.value),
-        distinctUntilChanged(),
-        tap(() => {
-          this.listLoading = true;
-          this.openTemplateOverlay(this.listTemplate, this.searchInput)
-        }),
-        debounce(() => interval(1000)),
-        switchMap((val) => this.restApiService.getDataObs(`stores/${17}/items?name=${val}`).pipe(finalize(() => this.listLoading = false)))
-      ).subscribe(resp => this.searchData = resp.data);
-  }
+  //   merge(fromEvent(this.searchInput.nativeElement, 'keyup'))
+  //     .pipe(
+  //       map((event: any) => event.target.value),
+  //       distinctUntilChanged(),
+  //       tap(() => {
+  //         this.listLoading = true;
+  //         this.openTemplateOverlay(this.listTemplate, this.searchInput)
+  //       }),
+  //       debounce(() => interval(1000)),
+  //       switchMap((val) => this.restApiService.getDataObs(`stores/${this.storeId}/items?name=${val}`).pipe(finalize(() => this.listLoading = false)))
+  //     ).subscribe(resp => this.searchData = resp.data);
+  // }
 
   overlayRef: OverlayRef;
   openTemplateOverlay(template: TemplateRef<any>, origin: ElementRef) {
@@ -89,7 +94,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
     //   .width('300px')
     //   .centerVertically();
 
-    if (this.overLayVisible) { console.log('retruning open template overlay'); return; }
+    if (this.overLayVisible) return;
 
     const positionStrategy = this.overlay.position().connectedTo(origin, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
 
