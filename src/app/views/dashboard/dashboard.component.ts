@@ -16,13 +16,13 @@ export class DashboardComponent implements OnInit {
   tab_acive=new Array();
   userRole:number;
   active_status = false;
-  storename: string;
   dasboard_empty:boolean = false;
   mutiple_stores_array: Array<Storedetails> = [];
   store_status:boolean = false;
   store_status_approve:boolean = false;
   store_status_setup:boolean = false;
   logoUrl:string = 'assets/images/null.png';
+  storeName:string;
 
   constructor(
     private authenticateService: AuthenticationService,
@@ -73,6 +73,9 @@ export class DashboardComponent implements OnInit {
           if(!newstoreDetails.logoUrl) {
             newstoreDetails.logoUrl = this.logoUrl;
           } 
+          if(newstoreDetails.storeName) {
+           this.storeName = newstoreDetails.storeName.substring(0,28) + (newstoreDetails.storeName.length>28 ? '...' : '');
+          }        
           this.mutiple_stores_array.push(newstoreDetails);
 
           this.alertService.hideLoader();

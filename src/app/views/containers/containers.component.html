@@ -3,8 +3,10 @@
         <div class="sidebar-heading" [routerLink]="['/dasboard']" style="outline: none;cursor: pointer;height:56px;" title="Dasboard"><img class="mt-1" style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"></div>
         <app-side-nav-bar></app-side-nav-bar>
    </div>
-   <div class="main-panel" >
-    <router-outlet></router-outlet>
+   <div class="main-panel">
+      <div class="container-fluid">
+         <router-outlet></router-outlet>
+      </div>
    </div>
 </div> 
 

@@ -40,6 +40,8 @@ export class SecondFormsComponent implements OnInit {
   logoUploadSucceeded: boolean = false;
   width: number;
   height: number;
+  errors = new Array();
+
   constructor(
     private router: Router,
     private http: HttpClient,

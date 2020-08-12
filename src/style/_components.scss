@@ -509,6 +509,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-size: 1rem;
     font-style: normal;
     font-weight: bold;
+    z-index: 1;
     color: var(--color-boldlevelcolor);
 }
 .nav-bars {
