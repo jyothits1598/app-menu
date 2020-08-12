@@ -24,29 +24,33 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Items <img src="../../../../../assets/images/ico_help.png"
-                    style="cursor:pointer" title="info"></h4>
+            <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Items <img
+                    src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info"></h4>
             <h5 class="std-heading-5" style="margin-bottom: 4px;"> Add Item </h5>
         </div>
         <div class="col-md-3 mb-1">
             <div class="auto-fill">
-                <span *ngIf="listLoading">loading</span>
-                <input #itemSearch type="search" placeholder="Search" class="form-control form-input search" />
-                <!-- <ng-template  class="auto-fill__list">
-                    <li class="auto-fill__li">One</li>
-                    <li class="auto-fill__li">Two</li>
-                    <li class="auto-fill__li">Three</li>
-                </ng-template> -->
+                <div class=auto-fill__input-container>
+                    <input #itemSearch type="search" placeholder="Search" class="form-control form-input search" />
+                    <img *ngIf="listLoading" class="auto-fill__input-container__loader" src="/assets/images/loader.gif"
+                        alt="Content Loading">
+                </div>
                 <ng-template #template>
-                    <ul *ngIf="searchData.length > 0"  class="auto-fill__list">
-                        <li class="auto-fill__list__item" *ngFor="let item of searchData">{{item.item_name}}</li>
-                    </ul>
+                    <ng-container *ngIf="(searchData | filter:itemSearch.value.trim()) as filterData">
+                        <ul *ngIf="filterData.length > 0; else noItemsTemplate" class="auto-fill__list">
+                            <li class="auto-fill__list__item" (click)="selectItem(item); closeOverlay()"
+                                *ngFor="let item of filterData">{{item.item_name}}</li>
+                        </ul>
+                    </ng-container>
+                </ng-template>
+                <ng-template #noItemsTemplate>
+                    <div *ngIf="!listLoading">No result found</div>
                 </ng-template>
             </div>
         </div>
         <div class="col-md-3">
             <button class="btn std-button std-button--primary" type="button"
-                (click)="this.selectedItemsForm.markAsTouched({onlySelf: true}); placeHolderForSearch()">Add </button>
+                (click)="this.selectedItemsForm.markAsTouched({onlySelf: true})">Add </button>
         </div>
     </div>
     <div class="row mb-3">
@@ -97,8 +101,8 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Rules <img src="../../../../../assets/images/ico_help.png"
-                    style="cursor:pointer" title="info"></h4>
+            <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Rules <img
+                    src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info"></h4>
             <h5 class="std-heading-5" style="margin-bottom: 3px;"> Is this a required selection? </h5>
             <input type="checkbox" formControlName="selectionRequired">
             <h5 class="std-heading-5" style="margin-bottom: 3px;"> Maximum items selected </h5>
