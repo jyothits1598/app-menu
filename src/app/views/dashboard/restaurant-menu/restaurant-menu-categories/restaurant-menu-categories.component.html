@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let category of categories; let i = index">
-                  <td  style="outline: none;color: #353FA8;font-weight:600;cursor: pointer; text-transform: capitalize;" [routerLink]="'./'+category.id"> {{category.name}} </td>
+                  <td  class="table-name" [routerLink]="'./'+category.id"> {{category.name}} </td>
                   <td style="text-transform: capitalize;">{{menuListToString(category.menus)}}</td>
                   <td>{{menuListToString(category.items)}}</td>
                     <td style="text-align: right;cursor:pointer;outline: none;">
