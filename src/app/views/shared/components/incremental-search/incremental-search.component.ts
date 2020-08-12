@@ -18,10 +18,14 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
   constructor(private overlay: Overlay,
     private vCRef: ViewContainerRef) { }
 
+  onOptionSelect(item: any) {
+    this.onSelect.emit(item);
+    this.closeOverlay();
+  }
   ngAfterViewInit(): void {
     fromEvent(this.searchBox.nativeElement, 'focus').pipe(
       tap(() => {
-        if (this.searchData.length > 0) this.openTemplateOverlay(this.overlayTemplate , this.searchBox);
+        if (this.searchData.length > 0) this.openTemplateOverlay(this.overlayTemplate, this.searchBox);
       })
     ).subscribe();
 
@@ -35,10 +39,10 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
         }),
         debounce(() => interval(1000)),
         switchMap((val) => this.apiFunction(this.params, this.searchBox.nativeElement.value).pipe(finalize(() => this.listLoading = false)))
-      ).subscribe((resp:any) => this.searchData = resp);
+      ).subscribe((resp: any) => this.searchData = resp);
   }
-  @Output() select = new EventEmitter<any>();
-  @Input() apiFunction: (params, term)=>Observable<any>;
+  @Output() onSelect = new EventEmitter<any>();
+  @Input() apiFunction: (params, term) => Observable<any>;
   @Input() params: any;
 
   @ViewChild('loadingIcon') iconContainer;
@@ -79,7 +83,7 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
   }
 
   selectItem(item: any) {
-    
+
   }
 
   ngOnInit(): void {

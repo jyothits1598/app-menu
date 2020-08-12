@@ -32,7 +32,7 @@
             <div class="auto-fill">
                 <incremental-search [apiFunction]="apiFunction"
                     [params]="{restApiService: restApiService, storeId: storeId}"
-                    (select)="selectItem($event)">
+                    (onSelect)="selectItem($event)">
                         <input #itemSearch placeholder="Search" class="form-control form-input search" />
                     <ng-template #itemTemplate let-option="option">
                         <li class="auto-fill__list__item">{{option.item_name}}</li>
@@ -171,8 +171,3 @@
         <button class="std-button std-button--plane" (click)="backConf.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
-
-<!-- <button (click)="debug()">debug</button> -->
-<ng-container *ngFor="let name of names" [ngTemplateOutlet]="eng" [ngTemplateOutletContext]="{name: name}">
-</ng-container>
-<ng-template #eng let-pname="name"><span>Hello {{pname}}!</span></ng-template>
