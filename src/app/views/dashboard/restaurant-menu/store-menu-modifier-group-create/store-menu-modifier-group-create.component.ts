@@ -22,9 +22,9 @@ import { TemplatePortal } from '@angular/cdk/portal';
   templateUrl: './store-menu-modifier-group-create.component.html',
   styleUrls: ['./store-menu-modifier-group-create.component.scss']
 })
-export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy, AfterViewInit {
+export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy {
 
-  constructor(private restApiService: RestApiService,
+  constructor(public restApiService: RestApiService,
     private _modalService: NgbModal,
     private storeService: StoreService,
     private alertService: AlertService,
@@ -48,72 +48,10 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
     })
   }
 
-  // ----------------------- search functionalify start ----------------------------
-  @ViewChild('itemSearch', { read: ElementRef }) searchInput: ElementRef;
-  @ViewChild('template', { read: TemplateRef }) listTemplate: TemplateRef<any>;
-
-  overLayVisible: boolean = false;
-  listLoading: boolean = false;
-  searchData: Array<any> = [];
-  searchData$: Observable<any>;
-
-  ngAfterViewInit(): void {
-
-    fromEvent(this.searchInput.nativeElement, 'focus').pipe(
-      tap(() => {
-        console.log('focus event');
-        if (this.searchData.length > 0) this.openTemplateOverlay(this.listTemplate, this.searchInput);
-      })
-    ).subscribe();
-
-    merge(fromEvent(this.searchInput.nativeElement, 'keyup'))
-      .pipe(
-        map((event: any) => event.target.value),
-        distinctUntilChanged(),
-        tap(() => {
-          this.listLoading = true;
-          this.openTemplateOverlay(this.listTemplate, this.searchInput)
-        }),
-        debounce(() => interval(1000)),
-        switchMap((val) => this.restApiService.getDataObs(`stores/${17}/items?name=${val}`).pipe(finalize(() => this.listLoading = false)))
-      ).subscribe(resp => this.searchData = resp.data);
-  }
-
-  overlayRef: OverlayRef;
-  openTemplateOverlay(template: TemplateRef<any>, origin: ElementRef) {
-    // const positionStrategy = this.overlay
-    //   .position()
-    //   .global()
-    //   .centerHorizontally()
-    //   .height('300px')
-    //   .width('300px')
-    //   .centerVertically();
-
-    if (this.overLayVisible) { console.log('retruning open template overlay'); return; }
-
-    const positionStrategy = this.overlay.position().connectedTo(origin, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-
-
-    const overlayConfig = new OverlayConfig({
-      positionStrategy
-    });
-    overlayConfig.backdropClass = '';
-    overlayConfig.hasBackdrop = true;
-
-    this.overlayRef = this.overlay.create(overlayConfig);
-
-    this.overlayRef.backdropClick().subscribe(() => {
-      this.overlayRef.dispose();
-      this.overLayVisible = false;
-    });
-    let tempPortal = new TemplatePortal(template, this.vCRef);
-    this.overlayRef.attach(tempPortal);
-    this.overLayVisible = true;
-  }
-
-  closeOverlay() {
-    this.overLayVisible = false;
-    this.overlayRef.dispose();
+  apiFunction(params: any, term: string){
+    return params.restApiService.getDataObs(`stores/${params.storeId}/items?name=${term}`).pipe(
+      map((resp:any)=>resp.data)
+      );
   }
 
   selectItem(item: any) {

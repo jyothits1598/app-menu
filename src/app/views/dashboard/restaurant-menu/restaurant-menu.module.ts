@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RestaurantMenuComponent } from './restaurant-menu.component';
 import { Routes, RouterModule } from '@angular/router';
-import { RestaurantMenuOverviewComponent } from './restaurant-menu-overview/restaurant-menu-overview.component';
 import { RestaurantMenuMenusComponent } from './restaurant-menu-menus/restaurant-menu-menus.component';
 import { RestaurantMenuCategoriesComponent } from './restaurant-menu-categories/restaurant-menu-categories.component';
 import { StoreMenuMenusCreateComponent } from './store-menu-menus-create/store-menu-menus-create.component';
@@ -26,10 +25,8 @@ const routes: Routes = [
     component: RestaurantMenuComponent,
     resolve: {store: StoreMenuResolver},
     children: [
-      {
-        path: 'overview',
-        component: RestaurantMenuOverviewComponent
-      },
+      { path: 'overview', loadChildren: () => import('./store-menu-overview/store-menu-overview.module').then(m => m.StoreMenuOverviewModule)},
+      // { path: 'login', loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule)},
       {
         path: 'menus',
         component: RestaurantMenuMenusComponent,
@@ -125,7 +122,7 @@ const routes: Routes = [
 const restaurantMenuRouting = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [RestaurantMenuComponent, RestaurantMenuOverviewComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent, StoreMenuCategoriesContainerComponent, StoreMenuItemsCreateComponent, StoreMenuItemContainerComponent, RestaurantMenuModifierGroupsComponent, StoreMenuModifierGroupCreateComponent],
+  declarations: [RestaurantMenuComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent, StoreMenuCategoriesContainerComponent, StoreMenuItemsCreateComponent, StoreMenuItemContainerComponent, RestaurantMenuModifierGroupsComponent, StoreMenuModifierGroupCreateComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,

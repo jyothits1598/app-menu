@@ -32,7 +32,7 @@ export class StoreMenuModifier {
 export class StoreMenuModifierItem extends StoreMenuItem {
     modifierPrice: number;
     constructor(id: number, name: string, basePrice: number, categories: StoreMenuCategory[], modifierPrice: number) {
-        super(id, name, basePrice, categories);
+        super(id, name, basePrice, categories, null, null);
         this.modifierPrice = modifierPrice;
     }
 }

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ForgotPasswordComponent} from './views/forgot-password/forgot-password.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignupEmailRedirectComponent } from './views/signup-email-redirect/signup-email-redirect.component';
 import { RestApiService } from './services/rest-api.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { AlertComponent } from './_directives/alert/alert.component';
 import { AuthGuard } from './_guards';
 import { DatePipe } from '@angular/common';
+import { HttpErrorInterceptor } from './interceptors/httpErrorInterceptor';
 // import { TopNavBarComponent } from './views/top-nav-bar/top-nav-bar.component';
 
 // import { PendingApprovalComponent } from './views/pending-approval/pending-approval.component';
@@ -37,7 +38,13 @@ import { DatePipe } from '@angular/common';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [AlertService,RestApiService,AuthGuard,AuthenticationService, DatePipe],
+  providers: [AlertService,RestApiService,AuthGuard,AuthenticationService, DatePipe, 
+  {
+    provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+  }
+  ],
   bootstrap: [AppComponent],
   exports: [FormsModule]
 })

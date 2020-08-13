@@ -13,9 +13,9 @@
         </div>
         <div class="col-md-12">
             <div class="input-container">
-                <img (click)="modifierForm.touched? modalService.open(backConfirm, { centered: true, size: 'sm' }) : navigateBack()"
+                <img (click)="modifierForm.dirty? modalService.open(backConfirm, { centered: true, size: 'sm' }) : navigateBack()"
                     src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
-                <input type="text" class="input-border input-palceholder" formControlName="name">
+                <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="name">
                 <span class="error-mez"
                     *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
                     required.</span>
@@ -30,27 +30,22 @@
         </div>
         <div class="col-md-3 mb-1">
             <div class="auto-fill">
-                <div class=auto-fill__input-container>
-                    <input #itemSearch type="search" placeholder="Search" class="form-control form-input search" />
-                    <img *ngIf="listLoading" class="auto-fill__input-container__loader" src="/assets/images/loader.gif"
-                        alt="Content Loading">
-                </div>
-                <ng-template #template>
-                    <ng-container *ngIf="(searchData | filter:itemSearch.value.trim()) as filterData">
-                        <ul *ngIf="filterData.length > 0; else noItemsTemplate" class="auto-fill__list">
-                            <li class="auto-fill__list__item" (click)="selectItem(item); closeOverlay()"
-                                *ngFor="let item of filterData">{{item.item_name}}</li>
-                        </ul>
-                    </ng-container>
-                </ng-template>
-                <ng-template #noItemsTemplate>
-                    <div *ngIf="!listLoading">No result found</div>
-                </ng-template>
+                <incremental-search [apiFunction]="apiFunction"
+                    [params]="{restApiService: restApiService, storeId: storeId}"
+                    (onSelect)="selectItem($event)">
+                        <input #itemSearch placeholder="Search" class="form-control form-input search" />
+                    <ng-template #itemTemplate let-option="option">
+                        <li class="auto-fill__list__item">{{option.item_name}}</li>
+                    </ng-template>
+                    <ng-template #noItemsTemplate>
+                        <li class="auto-fill__list__item">No results found</li>
+                    </ng-template>
+                </incremental-search>
             </div>
         </div>
         <div class="col-md-3">
-            <button class="btn std-button std-button--primary" type="button" style="padding:12px 16px"
-                (click)="this.selectedItemsForm.markAsTouched({onlySelf: true})">Add </button>
+            <button type="button"  class="btn std-button std-button--primary" type="button" style="padding:12px 16px"
+                routerLink="../../items/new">Add </button>
         </div>
     </div>
     <div class="row mb-3">

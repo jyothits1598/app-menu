@@ -19,7 +19,7 @@
                 <tr class="text-capitalize" *ngFor="let modifier of modifiers; let i = index">
                     <td [routerLink]="'./'+modifier.id" class="table-name" > {{modifier.name}} </td>
                     <td>Display Text</td>
-                    <td> {{modifier.itemsToString()}}</td>
+                    <td> {{stringHelperService.ArrayToConsolidatedString(modifier.items, 2, nameAccessor)}}</td>
                     <td> Lamb yirous </td>
                     <td style="text-align: right;cursor:pointer;outline: none;">
                         <div class="dropdown">
