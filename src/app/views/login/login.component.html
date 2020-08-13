@@ -14,7 +14,7 @@
                 <div class="col-md-12">
                     <div class="form-group form-group--margin">
                         <input class="form-control form-input" [(ngModel)]="email" email pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"  placeholder="Email" type="email" required id="email" name="email" #useremail="ngModel">
-                        <div class="error-mez"  *ngIf="useremail.touched && useremail.invalid || email_error">
+                        <div class="error-mez"  *ngIf="useremail.invalid && email_error">
                             <p *ngIf="useremail?.errors?.required" class="error-mez">
                               Email is required
                             </p>
@@ -28,7 +28,7 @@
                     <div class="form-group form-group--margin">
                         <input class="form-control form-input custom-password-eye" required [(ngModel)]="password" placeholder="Password" type="password" id="password" name="password" #userpassword="ngModel">
                     <span toggle="#password" class="fa fa-eye-slash field-icon toggle-password"></span>
-                    <p *ngIf="userpassword.touched && userpassword.invalid || password_error" class="error-mez"> Password is required </p>
+                    <p *ngIf="userpassword.invalid && password_error" class="error-mez"> Password is required </p>
                     </div>
                 </div>
                 <div class="col-md-12">

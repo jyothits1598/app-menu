@@ -8,65 +8,81 @@
         <div class="col-md-7 col-sm-12">
             <router-outlet></router-outlet>
         </div>
-        <div class="col-md-5 col-sm-12">
+        <div class="col-md-5 col-sm-12" class="d-none d-sm-block">
             <br><br>
             <table style="margin-top:196px;margin-left:120px;font-weight:bold;">
                 <!-- first form -->
-                <tr >
+                <tr [ngClass]="{'complete-step' : fifth_step_status}">
                     <td width="28px" align="center" valign="middle">
-                        <img [src]="first_step_status ? active_image : inactive_image" width="16px" height="16px" >
+                        <div *ngIf="!fifth_step_status">
+                            <img [src]= "first_step_status ? active_image : inactive_image" width="20px" height="20px">
+                        </div>
+                        <div *ngIf="fifth_step_status">
+                            <img src="../../../assets/svg/dark_circle.svg" width="16px" height="16px">
+                        </div>
                     </td>
                     <td style="padding-top: 1px;"> Find your store </td>
                 </tr>
                 <tr>
                     <td align="center" width="28px" valign="middle">
-                        <img src="../../../assets/svg/line.svg" style="text-align: center;">                   
+                        <img [src]="fifth_step_status ? active_line_image : inactive_line_image" style="text-align: center;" >                   
                     </td>
                 </tr>
                 <!-- second form -->
-                <tr>
+                <tr [ngClass]="{'complete-step' : fifth_step_status}">
                     <td align="center" width="28px" valign="middle">
-                        <img [src]="second_step_status ? active_image : inactive_image" width="16px" height="16px" >
-
+                        <div *ngIf="!fifth_step_status">
+                            <img [src]= "second_step_status ? active_image : inactive_image" width="20px" height="20px">
+                        </div>
+                        <div *ngIf="fifth_step_status">
+                            <img src="../../../assets/svg/dark_circle.svg" width="16px" height="16px">
+                        </div>
                     </td>
                     <td style="padding-top: 1px;"> Store details </td>
                 </tr>
                 <tr>
                     <td align="center" width="28px" valign="middle">
-                        <img src="../../../assets/svg/line.svg" style="text-align: center;">                   
+                        <img [src]="fifth_step_status ? active_line_image : inactive_line_image" style="text-align: center;" >                
                     </td>
                 </tr>
                 <!-- third form -->
-                <tr>
+                <tr [ngClass]="{'complete-step' : fifth_step_status}">
                     <td align="center" width="28px" valign="middle">
-                        <img [src]="third_step_status ? active_image : inactive_image" width="16px" height="16px" >
-                    
+                        <div *ngIf="!fifth_step_status">
+                            <img [src]= "third_step_status ? active_image : inactive_image" width="20px" height="20px">
+                        </div>
+                        <div *ngIf="fifth_step_status">
+                            <img src="../../../assets/svg/dark_circle.svg" width="16px" height="16px">
+                        </div>
                     </td>
                     <td style="padding-top: 1px;"> Proof of ownership </td>
                 </tr>
                 <tr>
                     <td align="center" width="28px" valign="middle">
-                        <img src="../../../assets/svg/line.svg" style="text-align: center;">                  
+                        <img [src]="fifth_step_status ? active_line_image : inactive_line_image" style="text-align: center;" >                
                     </td>
                 </tr>
                 <!-- fourth form -->
-                <tr>
+                <tr [ngClass]="{'complete-step' : fifth_step_status}">
                     <td align="center" width="28px" valign="middle">
-                        <img [src]="fourth_step_status ? active_image : inactive_image" width="16px" height="16px" >
-                    
+                        <div *ngIf="!fifth_step_status">
+                            <img [src]= "fourth_step_status ? active_image : inactive_image" width="20px" height="20px">
+                        </div>
+                        <div *ngIf="fifth_step_status">
+                            <img src="../../../assets/svg/dark_circle.svg" width="16px" height="16px">
+                        </div>
                     </td>
                     <td style="padding-top: 1px;"> Add a bank account </td>
                 </tr>
                 <tr>
                     <td align="center" width="28px" valign="middle">
-                        <img src="../../../assets/svg/line.svg" style="text-align: center;">                   
+                        <img [src]="fifth_step_status ? active_line_image : inactive_line_image" style="text-align: center;" >                 
                     </td>
                 </tr>
                 <!-- fifth form -->
                 <tr>
                     <td align="center" width="28px" valign="middle">
-                        <img [src]="fifth_step_status ? complete_image : inactive_image" width="16px" height="16px" >
-                    
+                        <img [src]="fifth_step_status ? complete_image : inactive_image" width="18px" height="18px" >
                     </td>
                     <td style="padding-top: 1px;"> Complete setup </td>
                 </tr>

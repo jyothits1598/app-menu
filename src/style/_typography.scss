@@ -54,6 +54,9 @@
     font-size: 16px;
     line-height: 20px;
     color: var(--color-boldlevelcolor);
+    &:hover {
+        color:var(--color-typography-tertiary);
+    }
 }
 .paragraph {
     font-family: DM Sans;

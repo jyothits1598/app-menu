@@ -166,7 +166,7 @@ patternValidator(): ValidatorFn {
       return null;
     }
     // const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
-    const regex = new RegExp('^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()])');
+    const regex = new RegExp('^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()])');
     const valid = regex.test(control.value);
     return valid ? null : { invalidPassword: true };
   };
