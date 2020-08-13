@@ -103,7 +103,6 @@
                 50% 50% no-repeat #fff0;
     
   } 
-  
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .m-class {
@@ -170,6 +169,7 @@
   }
   .main-panel {
     width: calc(100% - 260px);
+    padding: 48px;
   }
   .pd-mq {
     padding-left: 0;
@@ -192,6 +192,7 @@
     }
     .main-panel {
       width: calc(100% - 320px);
+      padding: 48px;
     }
     .pd-mq {
       padding-left: 0;

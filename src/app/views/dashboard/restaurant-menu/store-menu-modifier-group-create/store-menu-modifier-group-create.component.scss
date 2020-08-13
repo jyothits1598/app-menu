@@ -1,15 +1,16 @@
 .auto-fill {
     position: relative;
+    font-size: 16px;
     &__input-container {
         display: relative;
     }
 
     &__input-container__loader {
-        height: 24px;
+        height: 16px;
         position: absolute;
-        top: 50%;
+        top: 51%;
         transform: translateY(-50%);
-        right: 1rem;
+        right: 18px;
     }
 
     &__list {
@@ -19,11 +20,11 @@
         background: white;
         z-index: 10;
         width: max-content;
-        max-width: 10rem;
+        // max-width: 10rem;
         border: 1px solid var(--color-lines-primary);
 
         &__item {
-            padding: 1rem;
+            padding: 10px;
             border-bottom: 1px solid var(--color-lines-primary);
             
             &:hover{
@@ -34,4 +35,11 @@
     }
 
     
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }

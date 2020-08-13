@@ -27,13 +27,11 @@
     transition-duration: .2s,.2s,.35s;
     transition-timing-function: linear,linear,ease;
     -webkit-overflow-scrolling: touch;
-}
-.main-panel {
     position: relative;
     float: right;
     transition: .33s,cubic-bezier(.685,.0473,.346,1);
-    padding: 48px 48px;
-}
+}   
+    // padding: 48px 48px;
 .wrapper.toggled .sidebar-wrapper {
       margin-left: 0;
 }

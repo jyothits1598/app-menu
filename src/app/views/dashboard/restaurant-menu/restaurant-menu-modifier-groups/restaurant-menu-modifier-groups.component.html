@@ -17,7 +17,7 @@
             </thead>
             <tbody *ngIf="modifiers.length > 0; else noModifiers">
                 <tr class="text-capitalize" *ngFor="let modifier of modifiers; let i = index">
-                    <td [routerLink]="'./'+modifier.id" class="menu-clr" style="text-transform: capitalize; font-weight: bold;"> {{modifier.name}} </td>
+                    <td [routerLink]="'./'+modifier.id" class="table-name" > {{modifier.name}} </td>
                     <td>Display Text</td>
                     <td> {{modifier.itemsToString()}}</td>
                     <td> Lamb yirous </td>

@@ -66,19 +66,23 @@
         <label class="label-inputs"> Store logo or photo </label>
         <div class="row">
             <div class="col-md-12">
-                <div class="d-flex flex-row">
-                    <div class="upload-image" (click)="imageUrl? '' : fileInput.click()" >
-                        <img src="assets/images/ico_add_blue.png" *ngIf="!imageUrl">     
-                        <img class="ud-image" [src]="imageUrl" *ngIf="imageUrl">   
-                        <div *ngIf="!imageUrl" class="std-heading-5" style="color:#353FA8;">Upload an image</div>
-                    </div>
-                    <div class="response-padding" style="margin-left:32px;">
-                        <span class="paragraph paragraph--small">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
-                        <div style="margin-top:17px;">
-                            <button class="btn std-button std-button--primary" type="button" (click)="fileInput.click()"> Browse </button> 
-                            <button class="btn std-button std-button--transparency"  type="button" *ngIf="imageUrl"  (click)="imageUrl = null" style="margin-left: 16px;"> Remove </button>
+                <div class="row">
+                    <div class="col-auto mr-auto">
+                        <div class="upload-image" (click)="imageUrl? '' : fileInput.click()" style="margin-bottom: 5px;">
+                            <img src="assets/images/ico_add_blue.png" *ngIf="!imageUrl">     
+                            <img class="ud-image" [src]="imageUrl" *ngIf="imageUrl">   
+                            <div *ngIf="!imageUrl" class="std-heading-5" style="color:#353FA8;">Upload an image</div>
                         </div>
                     </div>
+                    <div class="col-auto">
+                        <div class="response-padding" >
+                            <span class="paragraph paragraph--small">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
+                            <div style="margin-top:17px;">
+                                <button class="btn std-button std-button--primary" type="button" (click)="fileInput.click()"> Browse </button> 
+                                <button class="btn std-button std-button--transparency"  type="button" *ngIf="imageUrl"  (click)="imageUrl = null" style="margin-left: 16px;"> Remove </button>
+                            </div>
+                        </div>
+                    </div>                   
                 </div>
             </div>
         </div>

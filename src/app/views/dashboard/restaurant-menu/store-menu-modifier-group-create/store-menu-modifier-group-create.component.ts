@@ -199,8 +199,8 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     this.routerSubs.unsubscribe();
   }
 
-  // debug() {
-  //   console.log(this.modifierForm);
-  // }
+  openitemModifierCentered(itemModifier) {
+    this.modalService.open(itemModifier, { centered: true });
+  }
 
 }

@@ -30,7 +30,7 @@
             </thead>
             <tbody>
                 <tr class="text-capitalize" *ngFor="let item of items">
-                  <td [routerLink]="'./'+item.item_id" style="outline: none;color: #353FA8;font-weight:600;cursor: pointer; text-transform: capitalize;"> {{item.item_name}} </td>
+                  <td [routerLink]="'./'+item.item_id" class="table-name"> {{item.item_name}} </td>
                   <td> {{item.item_base_price}} </td>
                   <td> <span *ngFor="let menu of item['menu_details'];let j=index;"><span *ngIf="j == 1">, </span><span *ngIf="j <= 1">{{menu.menu_name}}</span><span *ngIf="j == item['menu_details'].length-1"><span *ngIf="item['menu_details'].length > 2" >, +{{item['menu_details'].length - 2}}</span></span></span> </td>
                   <td> <span *ngFor="let category of item['category_details'];let i=index;"><span *ngIf="i == 1">, </span><span *ngIf="i <= 1">{{category.category_name}}</span><span *ngIf="i == item['category_details'].length-1"><span *ngIf="item['category_details'].length > 2" >, +{{item['category_details'].length - 2}}</span></span></span> </td>

@@ -251,7 +251,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 }
 
 .menu-clr {
-    color: #353fa8;
+    color: var(--color-primary);
     outline: 0;
     cursor: pointer;
 }
@@ -453,7 +453,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     border-radius: 0 !important;
 }
 .header-info {
-    background: #353fa8;
+    background: var(--color-primary);
     border: 0;
     color: #fff;
     padding: 10px 16px !important;
@@ -509,6 +509,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-size: 1rem;
     font-style: normal;
     font-weight: bold;
+    z-index: 1;
     color: var(--color-boldlevelcolor);
 }
 .nav-bars {
@@ -530,4 +531,11 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   .table td, .table th {
     padding: 16px 24px;
     color:var(--color-boldlevelcolor);
+  }
+  .table-name {
+    outline: none;
+    color:var(--color-primary) !important;
+    font-weight:600;
+    cursor: pointer; 
+    text-transform: capitalize;
   }

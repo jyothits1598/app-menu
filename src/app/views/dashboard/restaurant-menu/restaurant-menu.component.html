@@ -1,11 +1,24 @@
-<div class="pending-tab" *ngIf="!isActive" >
-    <img src="../../../../assets/images/ico_alert.png">&nbsp;Pending approval - <span class="norml-text-class">Before you start trading we need to review your application. We will be in touch shortly. 
+<!-- <div class="pending-tab" *ngIf="!isActive" >
+    <img src="../../../../assets/images/ico_alert.png">&nbsp;Pending approval - <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> <span class="norml-text-class">Before you start trading we need to review your application. We will be in touch shortly. 
     </span>
     <span style="float:right;color:#353FA8;font-size:16px;">
         Why am I seeing this? <span style="margin-left:20px;cursor: pointer;" (click)="hide()"> Hide </span>
     </span>
+</div> -->
+<div class="pending-tab" *ngIf="!isActive">
+    <table>
+        <tr>
+            <td valign="top" > <img src="../../../../assets/images/ico_alert.png"> </td>
+            <td style="padding-left: 18px;"> 
+                Pending approval - 
+                <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> <span class="norml-text-class">Before you start trading we need to review your application. We will be in touch shortly. </span> 
+            </td>
+            <td valign="top" style="padding-left: 18px;cursor: pointer;" (click)="hide()" title="hide">
+                <img src="../../../../assets/images/ico_close.png">
+            </td>
+        </tr>
+    </table>
 </div>
-<!-- <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> -->
 <ul class="resnt-menu-top-tabs u-margin-bottom-medium" [ngClass]="!isActive ? 't-class' : '' ">
     <li class="resnt-menu-top-tabs__item">
         <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./overview"
