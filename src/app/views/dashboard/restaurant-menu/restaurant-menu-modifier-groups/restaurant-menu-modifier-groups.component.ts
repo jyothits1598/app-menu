@@ -5,6 +5,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { finalize } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { StringHelperService } from 'src/app/services/string-helper.service';
 
 @Component({
   selector: 'app-restaurant-menu-modifier-groups',
@@ -15,7 +16,8 @@ export class RestaurantMenuModifierGroupsComponent implements OnInit {
   constructor(private restApiService: RestApiService,
     private storeService: StoreService,
     private alertService: AlertService,
-    private _modalService: NgbModal
+    private _modalService: NgbModal,
+    public stringHelperService: StringHelperService
     ) { }
 
   modifiers: Array<StoreMenuModifier> = [];
@@ -38,6 +40,8 @@ export class RestaurantMenuModifierGroupsComponent implements OnInit {
       console.log(this.modifiers);
     });
   }
+  
+  nameAccessor: (item) => string = (item: any) => item.name;
 
   deleteModifier(index : number){
     let mod = this.modifiers[index];

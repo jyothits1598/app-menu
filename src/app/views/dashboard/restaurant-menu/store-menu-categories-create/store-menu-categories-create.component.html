@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="input-container">
             <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1" (click)="(createCatForm.controls.categoryName.valid || createCatForm.controls.menus.valid) && createCatForm.touched ? pagebackPopup(back) : navigateBack()">
-            <input type="text" class="input-border input-palceholder"  formControlName="categoryName" placeholder="Enter a name for this category">
+            <input focusOnLoad type="text" class="input-border input-palceholder"  formControlName="categoryName" placeholder="Enter a name for this category">
             <span class="error-mez" *ngIf="createCatForm.controls.categoryName.invalid && createCatForm.controls.categoryName.touched">Category name is required.</span>
         </div>  
     </div>

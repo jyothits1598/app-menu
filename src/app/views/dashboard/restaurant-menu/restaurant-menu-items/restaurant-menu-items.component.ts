@@ -5,8 +5,13 @@ import { StoreService } from 'src/app/services/store.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
 
-import { filter } from 'rxjs/operators';
+import { filter, catchError } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
+import { StoreMenuItem } from 'src/app/_models/store-menu-items';
+import { StoreMenuCategory } from 'src/app/_models/store-menu-category';
+import { StoreMenu } from 'src/app/_models/store-menu';
+import { StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
+import { StringHelperService } from 'src/app/services/string-helper.service';
 
 @Component({
   selector: 'app-restaurant-menu-items',
@@ -14,17 +19,19 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./restaurant-menu-items.component.scss']
 })
 export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
-  items = new Array();
+  items = new Array<StoreMenuItem>();
   routerSub$ : Subscription;
   item_id:string;
   item_name:string;
   constructor(
     private modalService: NgbModal,
-    public route: ActivatedRoute
-    , private router: Router
-    , private storeService: StoreService
-    , private restApiService: RestApiService
-    , private alertService: AlertService
+    public route: ActivatedRoute,
+    private router: Router,
+    private storeService: StoreService,
+    private restApiService: RestApiService,
+    private alertService: AlertService,
+    public stringHelper: StringHelperService
+    
   ) { 
     this.routerSub$ = this.router.events.pipe(
       filter(e => e instanceof NavigationEnd && this.route.children.length == 0)
@@ -33,12 +40,13 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
     });
   }
 
+  nameAccessor: (any) => string = (data)=>data.name;
+
   ngOnDestroy(): void {
     this.routerSub$.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.alertService.hideLoader();
   }
 
   fetchItems(){
@@ -49,12 +57,13 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
     this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/all`, (response) => {
       if (response['data'] && response['data'].length > 0) {
         let data = response['data'];
-        data.forEach(items => {
-           this.items.push(items);
+        data.forEach(item => {
+           this.items.push(this.readItems(item));
         });
         this.alertService.hideLoader();
       }
     });
+
     this.alertService.hideLoader();
   }
   
@@ -87,6 +96,22 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
         this.alertService.showNotification('There was an error while deleting the category, please try again.');
       })
       this.alertService.showLoader();
+  }
+
+  readItems(data: any): StoreMenuItem{
+    let cats = new Array<StoreMenuCategory>();
+    data.category_details.forEach(cat => {
+      cats.push(new StoreMenuCategory(cat.category_id, cat.category_name, null))
+    });
+    let menus = new Array<StoreMenu>();
+    data.menu_details.forEach(menu => {
+      menus.push(new StoreMenu(menu.menu_id, menu.menu_name, null))
+    });
+    let mods = new Array<StoreMenuModifier>();
+    data.modifiers_details.forEach(mod => {
+      mods.push(new StoreMenuModifier(mod.modifier_id, mod.modifier_name))
+    });
+    return new StoreMenuItem(data.item_id, data.item_name, data.item_base_price, cats, menus, mods);
   }
 
 }

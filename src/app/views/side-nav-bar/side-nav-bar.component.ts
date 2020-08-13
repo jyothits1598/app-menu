@@ -55,7 +55,7 @@ export class SideNavBarComponent implements OnInit {
     obj.authenticateService.getUserObject().subscribe((response)=>{
       if(response && response['user_details'] && response['user_details']['store_partner_id']){
         // console.log(response['user_details']['store_partner_id']);
-        obj.storeDetails();
+        // obj.storeDetails();
       }else{
         return obj.router.navigate(['/login']);
       }
