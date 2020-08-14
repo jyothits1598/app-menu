@@ -24,6 +24,16 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Custom display text <img
+                src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openDisplyinfo(displaytext)"></h4>
+            <h5 class="std-heading-5" style="margin-bottom: 4px;"> Display text </h5>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control form-input" placeholder="e.g Add a side" >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Items <img
                     src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openitemModifierCentered(itemModifier)"></h4>
             <h5 class="std-heading-5" style="margin-bottom: 4px;"> Add Item </h5>
@@ -166,7 +176,7 @@
 <!-- Info modal -->
 <ng-template #itemModifier let-modal>
     <div class="modal-header header-info">
-      <div class="std-heading-5 std-heading-5--popheader"> Items </div>
+      <div class="std-heading-4 std-heading-5--popheader"> Items </div>
       <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
       </button>
@@ -188,6 +198,23 @@
           *When creating an <b>item</b> you can decide whether or not to sell it on its own. This flexibility is 
           handy if you want to sell extras or sides individually or for exluding items like <b>sizes</b> from appearing in your menu.
       </p>
+    </div>
+</ng-template>
+<!-- Info modal end-->
+<!-- Info modal -->
+<ng-template #displaytext let-modal>
+    <div class="modal-header header-info">
+      <div class="std-heading-4 std-heading-5--popheader"> Custom display text </div>
+      <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p class="paragraph"> 
+          To add items like <b>Chips</b> or <b>Salad</b> to modifier groups you must first create them
+          via the <b>Items*</b> tab. Once created, search for the item here and press <b>Add</b> to add it to the group.
+      </p>
+    
     </div>
 </ng-template>
 <!-- Info modal end-->

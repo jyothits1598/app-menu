@@ -203,4 +203,8 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     this.modalService.open(itemModifier, { centered: true });
   }
 
+  openDisplyinfo(displaytext) {
+    this.modalService.open(displaytext, { centered: true });
+  }
+
 }

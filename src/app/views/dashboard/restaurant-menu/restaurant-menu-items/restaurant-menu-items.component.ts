@@ -19,6 +19,7 @@ import { StringHelperService } from 'src/app/services/string-helper.service';
   styleUrls: ['./restaurant-menu-items.component.scss']
 })
 export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
+  deleteIndex: number;
   items = new Array<StoreMenuItem>();
   routerSub$ : Subscription;
   item_id:string;
@@ -57,6 +58,7 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
     this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/all`, (response) => {
       if (response['data'] && response['data'].length > 0) {
         let data = response['data'];
+        console.log(data);
         data.forEach(item => {
            this.items.push(this.readItems(item));
         });
@@ -67,14 +69,13 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
     this.alertService.hideLoader();
   }
   
-  openVerticallyCentered(content,item_id,item_name) {
+  openVerticallyCentered(content,id,name) {
     this.modalService.open(content, { centered: true, size: 'sm' });
-    this.item_id = item_id;
-    this.item_name = item_name;
+    this.item_id = id;
+    this.item_name = name;
   }
 
   deleteData() {
-
     if (!this.item_id) return;
     this.alertService.showLoader();
     let data: any = {};

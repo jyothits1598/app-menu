@@ -4,42 +4,43 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table  class="table table-border table-color" style="margin-top:24px;">
-            <thead>
-                <tr>
-                    <th> Name </th>
-                    <th> Menus </th>
-                    <th> Items </th>
-                    <th> </th>
+        <div class="table-responsive">
+            <table  class="table table-border table-color" style="margin-top:24px;">
+                <thead>
+                    <tr>
+                        <th> Name </th>
+                        <th> Menus </th>
+                        <th> Items </th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categories; let i = index">
+                    <td  class="table-name" [routerLink]="'./'+category.id"> {{category.name}} </td>
+                    <td style="text-transform: capitalize;">{{menuListToString(category.menus)}}</td>
+                    <td>{{menuListToString(category.items)}}</td>
+                        <td style="text-align: right;cursor:pointer;outline: none;">
+                            <div class="dropdown">
+                                <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="Options">
+                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <li class="herf-class" [routerLink]="'./'+category.id" title="Edit">
+                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                    Edit
+                                    </li>
+                                    <li (click)="deleteIndex = i; modalService.open(deleteComform, { centered: true, size: 'sm' })" title="Delete" class="herf-class">
+                                        <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                        Delete
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
                 </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let category of categories; let i = index">
-                  <td  class="table-name" [routerLink]="'./'+category.id"> {{category.name}} </td>
-                  <td style="text-transform: capitalize;">{{menuListToString(category.menus)}}</td>
-                  <td>{{menuListToString(category.items)}}</td>
-                    <td style="text-align: right;cursor:pointer;outline: none;">
-                        <div class="dropdown">
-                            <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="Options">
-                            <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                <li class="herf-class" [routerLink]="'./'+category.id" title="Edit">
-                                    <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
-                                  Edit
-                                </li>
-                                <li (click)="deleteIndex = i; modalService.open(deleteComform, { centered: true, size: 'sm' })" title="Delete" class="herf-class">
-                                    <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
-                                    Delete
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-               </tr>
-               <tr class="text-center">
-                    <td colspan="6" *ngIf="categories?.length==0">No categories have been added yet.</td>
-                </tr>
-            </tbody>
-        </table>
-       
+                <tr class="text-center">
+                        <td colspan="6" *ngIf="categories?.length==0">No categories have been added yet.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

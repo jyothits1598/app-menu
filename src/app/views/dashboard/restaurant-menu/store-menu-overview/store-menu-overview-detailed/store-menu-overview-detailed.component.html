@@ -1,1 +1,139 @@
-<p>store-menu-overview-detailed works!</p>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="std-heading-3"> Overview 
+            <img src="../../../../../assets/images/ico_help.png"
+            style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });">
+        </h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <select class="custom-select form-control form-input form-input--select-input" style="margin-top:28px;margin-bottom: 24px;">
+            <option> Select </option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table custom-table">
+                <!-------------------- parent box ---------------------------->
+                <tr style="cursor: pointer;">
+                    <td width= "10px" align="left" (click)="toggleClass()"> 
+                        <img [src]= "dropdownChild ? right_image : down_image" />                   
+                    </td>
+                    <td style="padding: 16px 0px;" class="std-heading-4"> Salad </td>
+                    <td align="right" class="td-class">
+                        <div class="main-div">
+                            <span class="sub-div">
+                              Absolute span
+                            </span>
+                            Relative div
+                          </div>
+                        <!-- <div style="position:relative;">
+                            <div class="dropdown">
+                                <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" class="dropdown-toggle"
+                                    data-toggle="dropdown" title="Options">
+                                    <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                        <li class="herf-class" title="Edit">
+                                            <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                            Edit
+                                        </li>
+                                        <li title="Delete" class="herf-class">
+                                            <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                            Delete
+                                        </li>
+                                    </ul>
+                            </div> 
+                            <div class="dropdown-content">
+                                <ul>
+                                    <li title="Edit">
+                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        Edit
+                                    </li>
+                                    <li title="Delete">
+                                        <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                        Delete
+                                    </li>
+                                </ul>
+                            </div>
+                            <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" 
+                                    title="Options">
+                        </div> -->
+                    </td>
+                </tr>
+                <!--------------------- parent box end --------------------------------------->
+                <!--------------------- children dropdown box ------------------------------->
+                <tr [hidden]="dropdownChild">
+                    <td colspan="3" class="tdsingle-row std-heading-5"> 
+                        <table class="inside-table"> 
+                            <tr>
+                                <td> Salad </td>
+                                <td align="right"> $11.99 </td>
+                                <td align="right" width="20px"> <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" > </td>
+                            </tr>
+                            <tr>
+                                <td> Salad </td>
+                                <td align="right"> $11.99 </td>
+                                <td align="right" width="20px"> <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" > </td>
+                            </tr>
+                            <tr>
+                                <td> Salad </td>
+                                <td align="right"> $11.99 </td>
+                                <td align="right" width="20px"> <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" > </td>
+                            </tr>
+                        </table>
+                    </td>               
+                </tr>
+                <!----------------------------- children dropdown box end ------------------------->
+            </table>
+        </div>
+    </div>
+</div>
+<!-- <div class="dropdown-content">
+    <ul>
+        <li title="Edit">
+            <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+            Edit
+        </li>
+        <li title="Delete">
+            <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+            Delete
+        </li>
+    </ul>
+</div> -->
+<!-- Info modal -->
+<ng-template #content let-modal>
+    <div class="modal-header header-info">
+        <div class="std-heading-4 std-heading-5--popheader"> Overview </div>
+        <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p class="paragraph">
+            You may rename and reorder categories and items here to update the menu in the app.
+        </p>
+        <p class="paragraph">
+            You can start building in any order, however before your menu appears here in the overview, and 
+            in the app, you must link a menu to a category and that category to some items.
+        </p>
+        <div class="std-heading-5">Menu</div>
+        <p class="paragraph resnt-menu-overview-list__smry">Add new menus (e.g. breakfast, lunch and
+            dinner).
+        </p>
+        <div class="std-heading-5">Categories</div>
+        <p class="paragraph resnt-menu-overview-list__smry">Add categories and select which menus they
+            appear
+            in.
+        </p>
+        <div class="std-heading-5">Items</div>
+        <p class="resnt-menu-overview-list__smry">Add items and select which categories they appear in.</p>
+        <div class="std-heading-5">Modifier groups</div>
+        <p class="paragraph resnt-menu-overview-list__smry">Add options for your items (e.g. extras, sauce
+            and
+            size).</p>
+    </div>
+</ng-template>
+<!-- Info modal end-->
+

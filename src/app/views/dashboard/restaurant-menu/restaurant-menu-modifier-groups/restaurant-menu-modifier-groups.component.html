@@ -5,49 +5,51 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-border table-color" style="margin-top:24px;">
-            <thead>
-                <tr>
-                    <th> Name </th>
-                    <th> Display </th>
-                    <th> Contains </th>
-                    <th> Used by </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody *ngIf="modifiers.length > 0; else noModifiers">
-                <tr class="text-capitalize" *ngFor="let modifier of modifiers; let i = index">
-                    <td [routerLink]="'./'+modifier.id" class="table-name" > {{modifier.name}} </td>
-                    <td>Display Text</td>
-                    <td> {{stringHelperService.ArrayToConsolidatedString(modifier.items, 2, nameAccessor)}}</td>
-                    <td> Lamb yirous </td>
-                    <td style="text-align: right;cursor:pointer;outline: none;">
-                        <div class="dropdown">
-                            <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
-                                data-toggle="dropdown" title="Options">
-                            <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                <li class="herf-class" title="Edit" [routerLink]="'../'+modifier.id">
-                                    <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
-                                    Edit
-                                </li>
-                                <li title="Delete" class="herf-class" (click)="modifierIndexToBeDeleted = i; modalService.open(deleteComform, { centered: true, size: 'sm' });">
-                                    <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
-                                    Delete
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-
-            </tbody>
-            <ng-template #noModifiers>
-                <tbody>
-                    <tr class="text-center">
-                        <td colspan="4">No items have been added yet.</td>
+        <div class="table-responsive">
+            <table class="table table-border table-color" style="margin-top:24px;">
+                <thead>
+                    <tr>
+                        <th> Name </th>
+                        <th> Display </th>
+                        <th> Contains </th>
+                        <th> Used by </th>
+                        <th></th>
                     </tr>
+                </thead>
+                <tbody *ngIf="modifiers.length > 0; else noModifiers">
+                    <tr class="text-capitalize" *ngFor="let modifier of modifiers; let i = index">
+                        <td [routerLink]="'./'+modifier.id" class="table-name" > {{modifier.name}} </td>
+                        <td>Display Text</td>
+                        <td> {{stringHelperService.ArrayToConsolidatedString(modifier.items, 2, nameAccessor)}}</td>
+                        <td> Lamb yirous </td>
+                        <td style="text-align: right;cursor:pointer;outline: none;">
+                            <div class="dropdown">
+                                <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
+                                    data-toggle="dropdown" title="Options">
+                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <li class="herf-class" title="Edit" [routerLink]="'../'+modifier.id">
+                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        Edit
+                                    </li>
+                                    <li title="Delete" class="herf-class" (click)="modifierIndexToBeDeleted = i; modalService.open(deleteComform, { centered: true, size: 'sm' });">
+                                        <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                        Delete
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
                 </tbody>
-            </ng-template>
-        </table>
+                <ng-template #noModifiers>
+                    <tbody>
+                        <tr class="text-center">
+                            <td colspan="4">No items have been added yet.</td>
+                        </tr>
+                    </tbody>
+                </ng-template>
+            </table>
+        </div>
     </div>
 </div>
 
