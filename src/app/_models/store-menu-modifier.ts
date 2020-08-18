@@ -4,6 +4,7 @@ import { StoreMenuCategory } from './store-menu-category';
 export class StoreMenuModifier {
     id: number;
     name: string;
+    displayText: string;
     selectionRequired: boolean;
     maxItemsSelectable: number;
     items: Array<StoreMenuModifierItem>
@@ -38,7 +39,8 @@ export class StoreMenuModifierItem extends StoreMenuItem {
 }
 
 export function ReadStoreMenuModifier(data: any): StoreMenuModifier {
-    let mod = new StoreMenuModifier(data.modifier_id, data.modifier_name)
+    let mod = new StoreMenuModifier(data.modifier_id, data.modifier_name);
+    mod.displayText = data.display_text;
     mod.selectionRequired = data.required_selection ? true : false;
     mod.maxItemsSelectable = data.max_items_selected;
     mod.items = [];

@@ -74,6 +74,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
 
   modifierForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
+    displayText: new FormControl(),
     selectedItems: new FormArray([], [MinNumberValidator()]),
     selectionRequired: new FormControl(false),
     maxItemsSelectable: new FormControl(null)
@@ -101,6 +102,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
         if (resp.success && resp.data && resp.data[0]) {
           let mod = ReadStoreMenuModifier(resp.data[0]);
           this.modifierForm.controls.name.setValue(mod.name);
+          this.modifierForm.controls.displayText.setValue(mod.displayText);
           this.modifierForm.controls.selectionRequired.setValue(mod.selectionRequired);
           this.modifierForm.controls.maxItemsSelectable.setValue(mod.maxItemsSelectable)
 
@@ -139,6 +141,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     data.required_selection = formData.selectionRequired ? 1 : 0;
     data.max_items_selected = formData.maxItemsSelectable;
     data.modifier_items = [];
+    data.display_text = formData.displayText;
 
     for (let i = 0; i < formData.selectedItems.length; i++) {
       let item = {

@@ -106,7 +106,7 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
     let data: any = {};
     data.item_id = menuItems.id;
     data.item_name = menuItems.name;
-    data.active_flag = 1;
+    data.active_flag = 0;
 
     this.restApiService.postAPI(`store/items/add/${this.storeService.activeStore}`
       , data
