@@ -42,7 +42,7 @@
                                             <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                             Edit
                                         </li>
-                                        <li title="Delete" class="herf-class" (click)="modalService.open(deleteComform, { centered: true, size: 'sm' }); deleteIndex = i">
+                                        <li title="Delete" class="herf-class" (click)="modalService.open(deleteComform, { centered: true, size: 'sm' }); deletemenuIndex = i">
                                             <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                             Delete
                                         </li>
@@ -59,7 +59,7 @@
 
 <ng-template #deleteComform let-modal3>
     <div class="modal-body text-center">
-        <h4 class="std-heading-4 mb-2"> Delete menu </h4>
+        <h4 class="std-heading-4 mb-2"> Delete menu "{{menus[deletemenuIndex].name}}" </h4>
       <p class="mb-2"> 
           Are you sure? 
       </p>

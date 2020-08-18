@@ -43,13 +43,13 @@ export class StoreMenuOverviewDetailedComponent implements OnInit {
     this.modalService.open(content, { centered: true });
   }
 
-  opencategoryCentered(category) {
-    this.modalService.open(category, { centered: true });
-  }
+  // opencategoryCentered(category) {
+  //   this.modalService.open(category, { centered: true });
+  // }
 
-  openmodifierCentered(modifier) {
-    this.modalService.open(modifier, { centered: true });
-  }
+  // openmodifierCentered(modifier) {
+  //   this.modalService.open(modifier, { centered: true });
+  // }
 
   onFileChanged(event) {
     this.fileUptoLoad = event.target.files[0];

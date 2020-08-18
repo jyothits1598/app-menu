@@ -10,7 +10,7 @@
     </div> -->
     <div class="col-md-12">
         <div style="text-align: right;">
-            <button class="btn std-button std-button--primary" [routerLink]="['./new']"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New items </button>
+            <button class="btn std-button std-button--primary" routerLink="./new"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New items </button>
         </div>
     </div>
 </div>
@@ -30,13 +30,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-capitalize" *ngFor="let item of items">
+                    <tr class="text-capitalize" *ngFor="let item of items; let i = index">
                     <td [routerLink]="'./'+item.id" class="table-name"> {{item.name}} </td>
                     <td> {{item.basePrice}} </td>
                     <td> {{stringHelper.ArrayToConsolidatedString(item.menus, 2, nameAccessor)}} </td>
                     <td> {{stringHelper.ArrayToConsolidatedString(item.categories, 2, nameAccessor)}} </td>
                     <td> {{stringHelper.ArrayToConsolidatedString(item.modifiers, 2, nameAccessor)}} </td>
-                    <td> </td>
                     <td style="text-align: right;cursor:pointer;outline: none;">
                         <div class="dropdown">
                             <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="Options">
@@ -45,7 +44,7 @@
                                     <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                 Edit
                                 </li>
-                                <li title="Delete" (click)="openVerticallyCentered(deleteComform,item.id,item.name)" class="herf-class">
+                                <li title="Delete" (click)="deleteIndexlist = i; modalService.open(deleteComform, { centered: true, size: 'sm' })" class="herf-class">
                                     <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                     Delete
                                 </li>
@@ -61,14 +60,14 @@
         </div>
     </div> 
 </div>
-
+<!-- openVerticallyCentered(deleteComform,item.id,item.name)"  -->
 <ng-template #deleteComform let-modal3>
     <div class="modal-body text-center">
-        <h4 class="std-heading-4 mb-2"> Delete item </h4>
+        <h4 class="std-heading-4 mb-2"> Delete item "{{items[deleteIndexlist].name}}"</h4>
       <p class="mb-2"> 
           Are you sure? 
       </p>
-      <button class="std-button std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
+      <button class="std-button std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Delete </button>
       <hr style="margin: 0;">
       <button class="std-button std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
     </div>

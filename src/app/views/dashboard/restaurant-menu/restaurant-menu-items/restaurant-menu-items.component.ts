@@ -19,13 +19,13 @@ import { StringHelperService } from 'src/app/services/string-helper.service';
   styleUrls: ['./restaurant-menu-items.component.scss']
 })
 export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
-  deleteIndex: number;
+  deleteIndexlist: number;
   items = new Array<StoreMenuItem>();
   routerSub$ : Subscription;
   item_id:string;
   item_name:string;
   constructor(
-    private modalService: NgbModal,
+    private _modalService: NgbModal,
     public route: ActivatedRoute,
     private router: Router,
     private storeService: StoreService,
@@ -65,39 +65,65 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
         this.alertService.hideLoader();
       }
     });
-
     this.alertService.hideLoader();
   }
   
-  openVerticallyCentered(content,id,name) {
-    this.modalService.open(content, { centered: true, size: 'sm' });
-    this.item_id = id;
-    this.item_name = name;
-  }
+  // openVerticallyCentered(content,id,name) {
+  //   this.modalService.open(content, { centered: true, size: 'sm' });
+  //   this.item_id = id;
+  //   this.item_name = name;
+  // }
+
+  // deleteData() {
+  //   let menuItems = this.items[this.deleteIndex];
+
+  //   if (!this.item_id) return;
+  //   this.alertService.showLoader();
+  //   let data: any = {};
+  //   data.item_id = menuItems.id;
+  //   data.item_name = menuItems.name;
+  //   data.active_flag = 1;
+
+  //   if (this.item_id) data.item_id = this.item_id;
+  //   this.restApiService.postAPI(`store/items/add/${this.storeService.activeStore}`
+  //     , data
+  //     , (resp) => {
+  //       if (resp.success) {
+  //         this.alertService.showNotification('Item successfully deleted.');
+  //         this.fetchItems();
+  //         this.alertService.hideLoader();
+  //       }
+  //     }
+  //     , (err) => {
+  //       this.alertService.showNotification('There was an error while deleting the category, please try again.');
+  //     })
+  //     this.alertService.showLoader();
+  // }
 
   deleteData() {
-    if (!this.item_id) return;
-    this.alertService.showLoader();
+    let menuItems = this.items[this.deleteIndexlist];
+
     let data: any = {};
-    data.item_id = this.item_id;
-    data.item_name = this.item_name;
+    data.item_id = menuItems.id;
+    data.item_name = menuItems.name;
     data.active_flag = 1;
 
-    if (this.item_id) data.item_id = this.item_id;
     this.restApiService.postAPI(`store/items/add/${this.storeService.activeStore}`
       , data
       , (resp) => {
         if (resp.success) {
-          this.alertService.showNotification('Item successfully deleted.');
+          this.alertService.showNotification('Items successfully deleted.');
           this.fetchItems();
-          this.alertService.hideLoader();
+          this.items.splice(this.deleteIndexlist, 1);
         }
       }
       , (err) => {
-        this.alertService.showNotification('There was an error while deleting the category, please try again.');
+        this.alertService.showNotification('There was an error while deleting the item, please try again.');
       })
-      this.alertService.showLoader();
   }
+
+
+
 
   readItems(data: any): StoreMenuItem{
     let cats = new Array<StoreMenuCategory>();
@@ -113,6 +139,10 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
       mods.push(new StoreMenuModifier(mod.modifier_id, mod.modifier_name))
     });
     return new StoreMenuItem(data.item_id, data.item_name, data.item_base_price, cats, menus, mods);
+  }
+
+  get modalService(): NgbModal{
+    return this._modalService;
   }
 
 }
