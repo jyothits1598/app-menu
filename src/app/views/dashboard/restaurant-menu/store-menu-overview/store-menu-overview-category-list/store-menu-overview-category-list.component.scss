@@ -1,0 +1,22 @@
+.custom-table {
+    border:1px solid #f2f2f2;
+
+    &tr {
+        border:1px solid #f2f2f2;
+    }
+    &td {
+        border-top: none !important;
+    }
+}
+.inside-table {
+    width: 100%;
+    background: var(--color-background);
+}
+.tdsingle-row {
+    background: var(--color-background-secondary);
+    padding:32px;
+}
+
+.rotate-right{
+    transform: rotateZ(90deg);
+}
