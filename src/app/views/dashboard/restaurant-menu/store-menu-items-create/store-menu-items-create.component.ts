@@ -229,7 +229,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
         if (resp.success) {
           this.saveBtnLoading = false;
           // this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
-          this.navigateBack();
+          this.router.navigate(['../'], { relativeTo: this.route });
         } else if (!resp.success) {
           this.saveBtnLoading = false;
           let i = 0;
