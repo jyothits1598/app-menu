@@ -1,48 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { AlertMessage } from './alert-message.model';
 // import 'rxjs/add/operator/filter';
 
-declare var alert:any;
+declare var alert: any;
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AlertService {
   private loader = new Subject();
-  private notification = new Subject();
+  private notification = new Subject<AlertMessage>();
   private keepAfterRouteChange = false;
   private bottomNotification = new Subject();
-  constructor() {
-   }
-  
-   showNotification(message: string, alertType?: string){
-    this.notification.next({message:message, alertType: alertType});
+  constructor() {}
+
+  showNotification(message: string, alertType?: string) {
+    this.notification.next({ message, alertType });
   }
 
-  getNotification(){
+  getNotification() {
     return this.notification.asObservable();
   }
 
-  showAlertBottomNotification(message:string){
+  showAlertBottomNotification(message: string) {
     this.bottomNotification.next(message);
   }
 
-  getAlertBottomNotification(){
+  getAlertBottomNotification() {
     return this.bottomNotification.asObservable();
   }
 
-  showLoader(){
+  showLoader() {
     this.loader.next(true);
   }
 
-  hideLoader(){
+  hideLoader() {
     this.loader.next(false);
   }
-  
-  getLoaderDetails(){
+
+  getLoaderDetails() {
     return this.loader.asObservable();
   }
-
- 
 }
