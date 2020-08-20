@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { ReactiveFormsModule,FormsModule,FormGroup,FormControl,Validators,FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule,FormsModule,FormGroup,FormControl,Validators,FormBuilder, AbstractControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MustMatch } from 'src/app/_helpers/must-match.validator';
 import { REQUEST_A_ACTIVE } from 'src/environments/environment';
@@ -82,7 +82,7 @@ export class SignupComponent implements OnInit {
     });
 
   }
-
+  
   get f() { return this.signupMenuzappform.controls;}
 
   menuzappSignup() {
@@ -133,3 +133,13 @@ export class SignupComponent implements OnInit {
     }
   }
 }
+
+// export function spaceValidator(control: AbstractControl) {
+//   if (control && control.value && !control.value.replace(/\s/g, '').length) {
+//       control.setValue('');
+//       return { required: true }
+//    }
+//     else {
+//         return null;
+//     }
+//   }

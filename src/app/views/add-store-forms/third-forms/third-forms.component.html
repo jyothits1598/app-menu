@@ -22,9 +22,10 @@
     </div>
     <div class="form-group form-group--margin">
         <label class="label-inputs"> ABN or ACN(Australian Business or Company Number) <b class="m-star">*</b> </label>
-        <input type="text" class="form-control form-input" formControlName="ABNnumber" [ngClass]="{ 'is-invalid': ABNnumberSubmit && f.ABNnumber.errors }" >
+        <input type="number" class="form-control form-input" formControlName="ABNnumber" [ngClass]="{ 'is-invalid': ABNnumberSubmit && f.ABNnumber.errors }" >
         <div *ngIf="ABNnumberSubmit && f.ABNnumber.errors" class="error-mez">
             <div *ngIf="f.ABNnumber.errors.required"> Please enter ABN or ACN </div>
+            <div *ngIf="f.ABNnumber.errors.pattern"> Please enter a valid ABN or ACN </div>
         </div>
     </div>
     <div class="form-group form-group--margin">
@@ -50,8 +51,8 @@
         </div>
     </div>
     <div class="form-group mtop mbottom">
-        <div class="checkbox" style="cursor: pointer;">
-            <label style="margin-bottom:0;">
+        <div class="checkbox">
+            <label style="margin-bottom:0;cursor: pointer;">
                 <input type="checkbox" style="height:auto" formControlName="checkownership" [ngClass]="{ 'is-invalid': checkownershipSubmit && f.checkownership.errors }">
                     &nbsp;I Understand and agree to the <a href=""> menuzapp terms </a>
             </label>

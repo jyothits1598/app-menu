@@ -50,7 +50,7 @@ export class FourthFormsComponent implements OnInit {
     this.bankForm = this.formBuilder.group({
       bankName: ['', Validators.required],
       accountName: ['', Validators.required],
-     BSBnumber: ['', [Validators.required,Validators.pattern("^[0-9]*$")]],
+      BSBnumber: ['', [Validators.required,Validators.pattern("^[0-9]*$")]],
       accountNumber: ['', [Validators.required,Validators.pattern("^[0-9]*$")]],
       checkbankdetails: [false, Validators.requiredTrue],
     });
@@ -78,18 +78,22 @@ export class FourthFormsComponent implements OnInit {
         this.alertservice.showLoader();
         this.restApiservice.putAPI('store/update/'+this.store_id+'/bank-account',data,(response)=>{
           if(response && response['success'] && response['data']) {
-            console.log('success');
             this.alertservice.hideLoader();
-            console.log('/store/step4/'+response['data']['store_id'])
             localStorage.removeItem("storeCreationId");
            return this.router.navigateByUrl('/store/step4/'+response['data']['store_id']);
           }else if(response && !response['success'] && response['error']['error']){
-            if(response['error']['error']['bsb_number'][0]) {
-              this.bsb_number = response['error']['error']['bsb_number'][0];
-              this.alertservice.showNotification(this.bsb_number,'error');
-            } if(response['error']['error']['bank_account_number'][0]) {
-              this.bank_account = response['error']['error']['bank_account_number'][0];
-              this.alertservice.showNotification(this.bank_account,'error');
+            // if(response['error']['error']['bsb_number'][0]) {
+            //   this.bsb_number = response['error']['error']['bsb_number'][0];
+            //   this.alertservice.showNotification(this.bsb_number,'error');
+            // } if(response['error']['error']['bank_account_number'][0]) {
+            //   this.bank_account = response['error']['error']['bank_account_number'][0];
+            //   this.alertservice.showNotification(this.bank_account,'error');
+            // }
+            let i = 0;
+            for (let key in response['error']['error']) {
+              this.fourthformError = true;
+              this.errors[key] = response['error']['error'][key][0];
+              this.alertservice.showNotification(this.errors[key], 'error');
             }
           }else{
             this.alertservice.showNotification('Something went wrong','error');
@@ -108,7 +112,7 @@ export class FourthFormsComponent implements OnInit {
       this.restApiservice.getData('store/details/step2/'+this.store_id+'',(response)=> {
         if(response && response['success'] && response['data']) {
           this.alertservice.hideLoader();
-          console.log(this.router.navigateByUrl('/store/step2/'+this.store_id+'/'));
+          // console.log(this.router.navigateByUrl('/store/step2/'+this.store_id+'/'));
           return this.router.navigateByUrl('/store/step2/'+this.store_id+'/ownership-proof');
         } else if(response && !response['success'] && response['error']['error']) { 
           let i=0;

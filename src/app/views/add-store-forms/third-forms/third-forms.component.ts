@@ -55,7 +55,7 @@ export class ThirdFormsComponent implements OnInit {
     this.ownershipform = this.formBuilder.group({
       ownerName: ['', Validators.required],
       businessName: ['', Validators.required],
-      ABNnumber: ['', Validators.required],
+      ABNnumber: ['', [Validators.required,Validators.pattern("^[0-9]*$")]],
       // file:['', Validators.required],
       checkownership: [false, Validators.requiredTrue],
     });

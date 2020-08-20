@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators, FormBuilder, ValidatorFn } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -41,7 +41,7 @@ export class SecondFormsComponent implements OnInit {
   width: number;
   height: number;
   errors = new Array();
-
+  firstFormError = false;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -117,17 +117,23 @@ export class SecondFormsComponent implements OnInit {
       };
       if (this.imageUrl) data.store_logo = this.imageUrl;
       if (this.store_id) data.store_id = this.store_id;
-      console.log(data);
+      // console.log(data);
       if (this.add_edit_type == 'add') {
         this.alertservice.showLoader();
         this.restApiservice.postAPI('store/add', data, (response) => {
           if (response && response['success'] && response['data']) {
+            // console.log(response);
             this.alertservice.hideLoader();
             // localStorage.setItem('storeCreationId', response['data']['store_id']);
             // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
             return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
-          } else if (response && !response['success'] && response['message']) {
-            this.alertservice.showNotification(response['message'], 'error');
+          } else if (response && !response['success'] && response['error']['error']) {
+            let i=0;
+            for(let key in response['error']['error']) {
+              this.firstFormError = true;
+              this.errors[key]=response['error']['error'][key][0];
+              this.alertservice.showNotification(this.errors[key],'error');
+            }
           } else {
             this.alertservice.showNotification('Something went wrong', 'error');
           }
@@ -138,9 +144,19 @@ export class SecondFormsComponent implements OnInit {
         this.alertservice.showLoader();
         this.restApiservice.putAPI('store/update/' + this.store_id + '', data, (response) => {
           if (response && response['success'] && response['data']) {
+            // console.log(response);
             this.alertservice.hideLoader();
             // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
             return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
+          } else if (response && !response['success'] && response['error']['error']) {
+            let i=0;
+            for(let key in response['error']['error']) {
+              this.firstFormError = true;
+              this.errors[key]=response['error']['error'][key][0];
+              this.alertservice.showNotification(this.errors[key],'error');
+            }
+          } else {
+            this.alertservice.showNotification('Something went wrong', 'error');
           }
         });
       }
@@ -155,7 +171,7 @@ export class SecondFormsComponent implements OnInit {
     // this.alertservice.showLoader();
     if (this.store_id) {
       this.restApiservice.getData('store/details/step1/' + this.store_id + '', (response) => {
-        console.log(response);
+        // console.log(response);
         if (response && response['success'] && response['data']) {
           response['data'].forEach(element => {
             this.imageUrl = element.store_logo;

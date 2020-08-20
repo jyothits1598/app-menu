@@ -22,7 +22,7 @@
         <div class="col-md-6">
             <div class="form-group form-group--null">
                 <label class="label-inputs"> BSB number <b class="m-star">*</b></label>
-                <input type="text" class="form-control form-input" formControlName="BSBnumber" [ngClass]="{ 'is-invalid': BSBnumberSubmit && f.BSBnumber.errors }">
+                <input type="number" class="form-control form-input" formControlName="BSBnumber" [ngClass]="{ 'is-invalid': BSBnumberSubmit && f.BSBnumber.errors }">
                 <div *ngIf="BSBnumberSubmit && f.BSBnumber.errors" class="error-mez">
                     <div *ngIf="f.BSBnumber.errors.required"> Please enter BSB number </div>
                     <div *ngIf="f.BSBnumber.errors.pattern"> Please enter a valid BSB number</div>
@@ -32,7 +32,7 @@
         <div class="col-md-6">
             <div class="form-group form-group--null">
                 <label class="label-inputs"> Account number <b class="m-star">*</b></label>
-                <input type="text" class="form-control form-input" formControlName="accountNumber" [ngClass]="{ 'is-invalid': accountNumberSubmit && f.accountNumber.errors }" >
+                <input type="number" class="form-control form-input" formControlName="accountNumber" [ngClass]="{ 'is-invalid': accountNumberSubmit && f.accountNumber.errors }" >
                 <div *ngIf="accountNumberSubmit && f.accountNumber.errors" class="error-mez">
                     <div *ngIf="f.accountNumber.errors.required"> Please enter account number </div>
                     <div *ngIf="f.accountNumber.errors.pattern"> Please enter a valid Account number</div>
@@ -41,8 +41,8 @@
         </div>
     </div>
     <div class="form-group mtop mbottom">
-        <div class="checkbox" style="cursor: pointer;">
-            <label style="margin-bottom:0;">
+        <div class="checkbox" >
+            <label style="margin-bottom:0;cursor: pointer;">
                 <input type="checkbox" style="height:auto" formControlName="checkbankdetails" [ngClass]="{ 'is-invalid': checkbankdetailsSubmit && f.checkbankdetails.errors }">
                 &nbsp;I Understand and agree to the <a href=""> menuzapp terms </a>
             </label>
