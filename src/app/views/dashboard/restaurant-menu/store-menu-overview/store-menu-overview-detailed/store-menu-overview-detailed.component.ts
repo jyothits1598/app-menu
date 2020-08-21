@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -16,7 +16,7 @@ import { StoreMenuOverviewCategoryListComponent } from '../store-menu-overview-c
   templateUrl: './store-menu-overview-detailed.component.html',
   styleUrls: ['./store-menu-overview-detailed.component.scss']
 })
-export class StoreMenuOverviewDetailedComponent implements OnInit {
+export class StoreMenuOverviewDetailedComponent implements OnInit, OnDestroy {
 
   storeId: number;
   menus$: Observable<Array<StoreMenu>>;
@@ -99,6 +99,10 @@ export class StoreMenuOverviewDetailedComponent implements OnInit {
   hideModal() {
     this.ngbModal.dismissAll();
     if(this.route.children.length > 0) this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub$.unsubscribe();
   }
 
 }
