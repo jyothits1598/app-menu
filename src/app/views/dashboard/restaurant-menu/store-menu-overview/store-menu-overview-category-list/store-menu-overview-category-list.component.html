@@ -19,11 +19,11 @@
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                     <li [routerLink]="['./category/', category.category.id]" class="herf-class" title="Edit">
                                         <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
-                                        Edit item
+                                        Edit Category
                                     </li>
-                                    <li title="Delete" class="herf-class">
+                                    <li (click)="deleteCatIndex = i; modal.open(deleteComform, { centered: true });" title="Delete" class="herf-class">
                                         <img src="../../../../../assets/images/ico_cancel.png">&nbsp;&nbsp;
-                                        Remove item
+                                        Remove Category
                                     </li>
                                 </ul>
                             </div>                           
@@ -34,7 +34,7 @@
                             No items found
                         </ng-template>
                         <td colspan="3" class="tdsingle-row std-heading-5" *ngIf="category.category.items.length > 0; else noItems">
-                            <table class="inside-table" *ngFor="let item of category.category.items">
+                            <table class="inside-table" *ngFor="let item of category.category.items; let j = index">
                                 <tr>
                                     <td> {{item.name}} </td>
                                     <td align="right"> ${{item.basePrice}} </td>
@@ -47,7 +47,8 @@
                                                     <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                                     Edit item
                                                 </li>
-                                                <li title="Delete" class="herf-class">
+                                                <li title="Delete" class="herf-class"
+                                                    (click)="deleteCatIndex = i; deleteItemIndex = j; modal.open(itemdeleteComform, { centered: true });">
                                                     <img src="../../../../../assets/images/ico_cancel.png">&nbsp;&nbsp;
                                                     Remove items
                                                 </li>
@@ -105,3 +106,29 @@
         </div>
     </div>
 </div>
+
+<ng-template #deleteComform let-modal>
+    <div class="modal-body text-center">
+        <h5 class="std-heading-5 mb-2"> Delete category "{{categories[deleteCatIndex].category.name}}"</h5>
+        <p class="mb-2 paragraph">
+            Are you sure?
+        </p>
+        <button class="std-button std-button--plane" (click)="deleteCategory(categories[deleteCatIndex].category); modal.dismiss('Cross click')"> Delete
+        </button>
+        <hr style="margin:0">
+        <button class="std-button std-button--plane" (click)="modal.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
+
+<ng-template #itemdeleteComform let-modal>
+    <div class="modal-body text-center">
+        <h5 class="std-heading-5 mb-2"> Delete item "{{categories[deleteCatIndex].category.items[deleteItemIndex].name}}"</h5>
+        <p class="mb-2 paragraph">
+            Are you sure?
+        </p>
+        <button class="std-button std-button--plane" (click)="deleteItem(categories[deleteCatIndex].category.items[deleteItemIndex]); modal.dismiss('Cross click')"> Delete
+        </button>
+        <hr style="margin:0">
+        <button class="std-button std-button--plane" (click)="modal.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
