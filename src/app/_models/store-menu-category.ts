@@ -6,7 +6,7 @@ export class StoreMenuCategory {
     id: number;
     name: string;
     menus: Array<StoreMenu>
-    items: Array<StoreItem>
+    items: Array<StoreMenuItem>
 
     constructor(id: number, name: string, menus: Array<StoreMenu> = null, items: Array<StoreMenuItem>= null){
         this.id = id;

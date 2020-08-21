@@ -5,6 +5,7 @@ import { StoreMenuTime, StoreMenu } from '../_models/store-menu';
 import { StoreMenuCategory } from '../_models/store-menu-category';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { StoreItem } from './store-item';
+import { StoreMenuItem } from '../_models/store-menu-items';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +56,7 @@ export class StoreService {
       newStrCat.menus.push(new StoreMenu(data.menu_details[key].menu_id, data.menu_details[key].menu_name, null))
     });
     Object.keys(data.item_details).forEach(function (key, index) {
-      newStrCat.items.push(new StoreItem(data.item_details[key].item_name))
+      newStrCat.items.push(new StoreMenuItem(data.item_details[key].item_id, data.item_details[key].item_name, null))
     });
     return newStrCat;
   }
