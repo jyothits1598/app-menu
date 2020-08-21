@@ -6,9 +6,10 @@ import { StoreService } from 'src/app/services/store.service';
 import { ThirdFormsComponent } from 'src/app/views/add-store-forms/third-forms/third-forms.component';
 import { AlertService } from 'src/app/services/alert.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 import { API_URL_LINK } from 'src/environments/environment.prod';
+import { tap, map, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-store-menu-items-create',
@@ -17,6 +18,7 @@ import { API_URL_LINK } from 'src/environments/environment.prod';
 })
 export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   itemId: number = null;
+  formDataLoaded: boolean = false;
   // uploadedImagePath:string;
   imageUrl: string = null;
   routerSubs: Subscription;
@@ -26,8 +28,8 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   width: number;
   height: number;
 
-  categoryIdMap: Array<{ name: string, id: number }> = [];
-  modifierIdMap: Array<{ name: string, id: number }> = [];
+  categoryIdMap: Array<{ name: string, id: number }>;
+  modifierIdMap: Array<{ name: string, id: number }>;
 
   createItemForm: FormGroup = new FormGroup({
     itemName: new FormControl('', Validators.required),
@@ -53,7 +55,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     this.routerSubs = this.route.params.subscribe(params => {
       //creating a new category
       if (params['id'] === undefined) {
-        this.fetchInitialData();
+        this.fetchData()
         return;
       };
 
@@ -63,7 +65,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       if (!this.itemId) {
         this.router.navigate(['./not-found'], { relativeTo: this.route });
       }
-      this.fetchInitialData();
+      this.fetchData();
     })
   }
 
@@ -72,7 +74,6 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.alertService.hideLoader();
   }
 
   // stock_item : {[key: string]: boolean} = {
@@ -117,70 +118,68 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     };
   }
 
-  fetchInitialData() {
-    this.alertService.showLoader();
-    this.restApiService.getData('store/items/category/' + this.storeService.activeStore
-      , (resp) => {
-        if (resp.success && resp.data) {
-          this.alertService.showLoader();
-          resp.data.forEach(category => {
+  fetchData() {
+    let categories$ = this.restApiService.getDataObs('store/items/category/' + this.storeService.activeStore).pipe(tap(
+      categories => {
+        if (categories.success && categories.data) {
+          this.categoryIdMap = [];
+          categories.data.forEach(category => {
             this.categoryIdMap.push({ id: category.category_id, name: category.category_name });
             (<FormArray>this.createItemForm.controls.categories).push(new FormControl(false));
           });
-
-          //if we have a valid categoryId fetch category data
-          if (this.itemId) {
-            this.alertService.showLoader();
-            this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/${this.itemId}`
-              , (resp) => {
-                this.alertService.hideLoader();
-                if (resp.success && resp.data.length > 0) {
-                  let menuItem = resp.data[0];
-                  this.createItemForm.controls.itemName.setValue(menuItem.item_name);
-                  this.createItemForm.controls.itemDescription.setValue(menuItem.item_description);
-                  this.createItemForm.controls.itemKeyword.setValue(menuItem.item_keyword);
-                  this.createItemForm.controls.itemBasePrice.setValue(menuItem.item_base_price);
-                  this.createItemForm.controls.itemStock.setValue(menuItem.item_in_stock.toString());
-                  this.createItemForm.controls.sellitem.setValue(menuItem.item_individual.toString());
-                  this.imageUrl = menuItem.item_image;
-                  menuItem.category_details.forEach(activeCategory => {
-                    let index: number = this.categoryIdMap.findIndex(category => activeCategory.category_id == category.id);
-                    if (index != -1) (<FormArray>this.createItemForm.controls.categories).controls[index].setValue(true);
-                  });
-                }
-              })
-          }
-
         }
-      })
+      }
+    ));
 
-    this.restApiService.getData('store/items/modifier/' + this.storeService.activeStore
-      , (resp) => {
-        if (resp.success && resp.data) {
-          this.alertService.hideLoader();
-          resp.data.forEach(modifier => {
+    let menus$ = this.restApiService.getDataObs('store/items/modifier/' + this.storeService.activeStore).pipe(tap(
+      menus => {
+        if (menus.success && menus.data) {
+          this.modifierIdMap = [];
+          menus.data.forEach(modifier => {
             this.modifierIdMap.push({ id: modifier.modifier_id, name: modifier.modifier_name });
             (<FormArray>this.createItemForm.controls.modifier).push(new FormControl(false));
           });
-
-          //if we have a valid categoryId fetch category data
-          if (this.itemId) {
-            this.alertService.showLoader();
-            this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/${this.itemId}`
-              , (resp) => {
-                this.alertService.hideLoader();
-                if (resp.success && resp.data.length > 0) {
-                  let modifierItem = resp.data[0];
-                  modifierItem.category_details.forEach(activeModifier => {
-                    let index: number = this.modifierIdMap.findIndex(modifier => activeModifier.id == modifier.id);
-                    if (index != -1) (<FormArray>this.createItemForm.controls.modifier).controls[index].setValue(true);
-                  });
-                }
-              })
-          }
-
         }
-      })
+      }
+    ));
+
+    let inputObservables = [categories$, menus$];
+
+    if (this.itemId) {
+      let item$ = this.restApiService.getDataObs(`store/items/get/${this.storeService.activeStore}/${this.itemId}`).pipe(
+        finalize(() => this.formDataLoaded = true)
+      );
+      inputObservables.push(item$);
+    }
+
+    forkJoin(inputObservables).pipe(
+      map(value => value[2])
+    ).subscribe((value)=>{if(value)this.updateForm(value)}, (error) => { console.log('errored out', error) });
+  }
+
+  updateForm = (data) => {
+    console.log('update form', data);
+    if (data.success && data.data.length > 0) {
+      let menuItem = data.data[0];
+      this.createItemForm.controls.itemName.setValue(menuItem.item_name);
+      this.createItemForm.controls.itemDescription.setValue(menuItem.item_description);
+      this.createItemForm.controls.itemKeyword.setValue(menuItem.item_keyword);
+      this.createItemForm.controls.itemBasePrice.setValue(menuItem.item_base_price);
+      this.createItemForm.controls.itemStock.setValue(menuItem.item_in_stock.toString());
+      this.createItemForm.controls.sellitem.setValue(menuItem.item_individual.toString());
+      this.imageUrl = menuItem.item_image;
+
+      menuItem.category_details.forEach(activeCategory => {
+        let index: number = this.categoryIdMap.findIndex(category => activeCategory.category_id == category.id);
+        if (index != -1) (<FormArray>this.createItemForm.controls.categories).controls[index].setValue(true);
+      });
+
+      menuItem.modifiers_details.forEach(activeModifier => {
+        let index: number = this.modifierIdMap.findIndex(modifier => activeModifier.modifier_id == modifier.id);
+        console.log(activeModifier, this.modifierIdMap);
+        if (index != -1) (<FormArray>this.createItemForm.controls.modifier).controls[index].setValue(true);
+      });
+    }
   }
 
   saveData() {
@@ -229,7 +228,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
         if (resp.success) {
           this.saveBtnLoading = false;
           // this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
-          this.navigateBack();
+          this.router.navigate(['../'], { relativeTo: this.route });
         } else if (!resp.success) {
           this.saveBtnLoading = false;
           let i = 0;
@@ -313,15 +312,15 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
           form_data.append('item_image', this.fileUptoLoad);
           this.alertService.showLoader();
           this.restApiService.pushSaveFileToStorageWithFormdata(form_data, 'store/items/upload/image', (response) => {
-            if(response && response['success'] && response['data']) { 
-              this.imageUrl=response['data'];
-            this.alertService.hideLoader();
+            if (response && response['success'] && response['data']) {
+              this.imageUrl = response['data'];
+              this.alertService.hideLoader();
             }
           });
         }
       }
     } else {
-        this.alertService.showNotification('No file selected', 'error');
+      this.alertService.showNotification('No file selected', 'error');
     }
   }
 }

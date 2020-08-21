@@ -1,6 +1,12 @@
+<ng-template #loading>
+    <processing-placeholder></processing-placeholder>
+</ng-template>
 <div [formGroup]="createItemForm">
 <div class="row" style="margin-top:-24px;"> 
     <div class="col-md-12">
+        <div class="float-left" *ngIf="itemId && !formDataLoaded">
+            <ng-container *ngTemplateOutlet="loading"></ng-container>
+        </div>
         <div class="float-right" style="margin-bottom:16px;">
             <button class="btn std-button std-button--transparency" [disabled]="!itemId" (click)="openVerticallyCentered(deleteComform)"> Delete </button>
             <button class="btn std-button std-button--transparency" style="margin-left:10px;" > Duplicate </button>
@@ -104,12 +110,14 @@
                     <h4 class="std-heading-4" style="margin-top:56px;margin-bottom: 32px;"> Categories <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="opencategoryCentered(category)"></h4>
                     <p class="paragraph" style="margin-bottom: 32px;"> Items may appear in one or more categories. </p>
                     <div class="label-inputs"> This item will be appear in: </div>
-                    <div  formArrayName="categories" class="menu-creator__days"  (click)="createItemForm.controls.categories.markAsTouched({onlySelf: true});">
-                        <div class="custom-checkbox mr-2" *ngFor="let control of categoryForm(); let i = index;">
-                            <input type="checkbox" id="category_id_{{i}}" name="category_id_{{i}}" [formControlName]="i">
-                            <label class="custom-checkbox__label std-heading-4" for="category_id_{{i}}">{{categoryIdMap[i].name}}</label>
+                    <ng-container *ngIf="categoryIdMap; else loading">
+                        <div  formArrayName="categories" class="menu-creator__days"  (click)="createItemForm.controls.categories.markAsTouched({onlySelf: true});">
+                            <div class="custom-checkbox mr-2" *ngFor="let control of categoryForm(); let i = index;">
+                                <input type="checkbox" id="category_id_{{i}}" name="category_id_{{i}}" [formControlName]="i">
+                                <label class="custom-checkbox__label std-heading-4" for="category_id_{{i}}">{{categoryIdMap[i].name}}</label>
+                            </div>
                         </div>
-                    </div>
+                    </ng-container>
                     <div *ngIf="categoryIdMap?.length==0">No categories found.</div>
                 </div>
             </div>
@@ -118,13 +126,15 @@
                     <h4 class="std-heading-4" style="margin-top:56px;margin-bottom: 32px;"> Modifier groups <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="openmodifierCentered(modifier)"></h4>
                     <p class="paragraph" style="margin-bottom: 32px;"> Modifiers allow you to add sides, sizes and more to your menu items. </p>
                     <div class="label-inputs" > This item will be available with:</div>
-                   <div  formArrayName="modifier" class="menu-creator__days"  (click)="createItemForm.controls.modifier.markAsTouched({onlySelf: true});">
-                        <div class="custom-checkbox pd-left" *ngFor="let control of modifierForm(); let i = index;">
-                            <input type="checkbox" id="modifer_id_{{i}}"  name="modifier_id_{{i}}" [formControlName]="i">
-                            <label class="custom-checkbox__label std-heading-4" for="modifer_id_{{i}}">{{modifierIdMap[i].name}}</label>
-                        </div>
-                    </div>
-                   <div *ngIf="modifierIdMap?.length==0">No modifier found.</div>
+                    <ng-container *ngIf="modifierIdMap; else loading">
+                        <div  formArrayName="modifier" class="menu-creator__days"  (click)="createItemForm.controls.modifier.markAsTouched({onlySelf: true});">
+                             <div class="custom-checkbox pd-left" *ngFor="let control of modifierForm(); let i = index;">
+                                 <input type="checkbox" id="modifer_id_{{i}}"  name="modifier_id_{{i}}" [formControlName]="i">
+                                 <label class="custom-checkbox__label std-heading-4" for="modifer_id_{{i}}">{{modifierIdMap[i].name}}</label>
+                             </div>
+                         </div>
+                        <div *ngIf="modifierIdMap?.length==0">No modifier found.</div>
+                    </ng-container>
                 </div>
             </div>
         </ng-container>

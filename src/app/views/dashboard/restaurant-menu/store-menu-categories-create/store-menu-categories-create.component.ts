@@ -7,6 +7,7 @@ import { ThirdFormsComponent } from 'src/app/views/add-store-forms/third-forms/t
 import { AlertService } from 'src/app/services/alert.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { StoreMenuService } from 'src/app/services/store-menu.service';
 
 @Component({
   selector: 'app-store-menu-categories-create',
@@ -14,13 +15,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./store-menu-categories-create.component.scss']
 })
 export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
+  storeId: number;
   categoryId: number = null;
 
   routerSubs: Subscription;
 
   saveBtnLoading: boolean = false;
 
-  menuIdMap: Array<{ name: string, id: number }> = [];
+  menuIdMap: Array<{ name: string, id: number }>;
+  categoryContentLoaded: boolean = false;
 
   createCatForm: FormGroup = new FormGroup({
     categoryName: new FormControl('', Validators.required),
@@ -31,9 +34,10 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private restApiService: RestApiService,
     private storeService: StoreService,
-    private alertService: AlertService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private storeMenuService: StoreMenuService,
+    private alertService: AlertService
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
       //creating a new category
@@ -75,11 +79,11 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
   }
 
   fetchInitialData() {
-    this.alertService.showLoader();
-    this.restApiService.getData('store/category/menu/' + this.storeService.activeStore
+    this.storeId = this.storeService.activeStore$.value.id;
+    this.restApiService.getData('store/category/menu/' + this.storeId
       , (resp) => {
         if (resp.success && resp.data) {
-          this.alertService.hideLoader();
+          this.menuIdMap = [];
           resp.data.forEach(menu => {
             this.menuIdMap.push({ id: menu.menu_id, name: menu.menu_name });
             (<FormArray>this.createCatForm.controls.menus).push(new FormControl(false));
@@ -87,10 +91,9 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
 
           //if we have a valid categoryId, fetch category data
           if (this.categoryId) {
-            this.alertService.showLoader();
-            this.restApiService.getData(`store/category/get/${this.storeService.activeStore}/${this.categoryId}`
+            this.restApiService.getData(`store/category/get/${this.storeId}/${this.categoryId}`
               , (resp) => {
-                this.alertService.hideLoader();
+                this.categoryContentLoaded = true;
                 if (resp.success && resp.data.length > 0) {
                   let menuCat = this.storeService.ReadStoreMenuCategory(resp.data[0]);
                   this.createCatForm.controls.categoryName.setValue(menuCat.name);
@@ -100,11 +103,11 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
                   });
                 }
               }
-              , err =>  this.alertService.hideLoader())
+            )
           }
         }
       },
-      error=>  this.alertService.hideLoader())
+    )
   }
 
   saveData() {
@@ -130,7 +133,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
     data.menu = selectedMenus;
 
     this.saveBtnLoading = true;
-    this.restApiService.postAPI(`store/category/add/${this.storeService.activeStore}`
+    this.restApiService.postAPI(`store/category/add/${this.storeId}`
       , data
       , (resp) => {
         if (resp.success) {
@@ -147,26 +150,16 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
   }
 
   deleteData() {
-
-    if (!this.categoryId) return;
-
-    let data: any = {};
-    data.category_id = this.categoryId;
-    data.category_name = this.createCatForm.value.categoryName;
-    data.active_flag = 0;
-
-    if (this.categoryId) data.category_id = this.categoryId;
-    this.restApiService.postAPI(`store/category/add/${this.storeService.activeStore}`
-      , data
-      , (resp) => {
+    this.storeMenuService.DeleteStoreMenuCategory(this.storeId, this.categoryId, this.createCatForm.value.categoryName).subscribe(
+      (resp: any) => {
         if (resp.success) {
-          // this.alertService.showNotification('Category successfully deleted.');
           this.navigateBack();
         }
-      }
-      , (err) => {
+      },
+      (err) => {
         this.alertService.showNotification('There was an error while deleting the category, please try again.');
-      })
+      }
+    );
   }
 
   openVerticallyCentered(content) {

@@ -1,23 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { DataService } from 'src/app/services/data.service';
+import { StoreMenu } from 'src/app/_models/store-menu';
+import { consolidatedMenuListUrl } from 'src/environments/api-endpoint';
+import { map, tap, filter } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { StoreMenuOverviewCategoryListComponent } from '../store-menu-overview-category-list/store-menu-overview-category-list.component';
 
 @Component({
   selector: 'app-store-menu-overview-detailed',
   templateUrl: './store-menu-overview-detailed.component.html',
   styleUrls: ['./store-menu-overview-detailed.component.scss']
 })
-export class StoreMenuOverviewDetailedComponent implements OnInit {
-  dropdownChild = true;
-  right_image:string = "../../../assets/images/ico_right.png";
-  down_image:string = "../../../assets/images/ico_down.png";
-  imageUrl: string = null;
-  errors: string;
-  fileUptoLoad: File;
+export class StoreMenuOverviewDetailedComponent implements OnInit, OnDestroy {
+
+  storeId: number;
+  menus$: Observable<Array<StoreMenu>>;
+  selectedMenuId: number;
+
+  routerSub$: Subscription;
+  
+  @ViewChild("childOutlets", { read: TemplateRef }) routeTemp: TemplateRef<any>;
+  @ViewChild("categoryList", { read: StoreMenuOverviewCategoryListComponent }) catListComponent: StoreMenuOverviewCategoryListComponent;
+  
+  childOutletName: string;
+
+  onSelect(value) {
+    this.selectedMenuId = value;
+    this.catListComponent.fetchCategories(value);
+  }
 
   constructor(
     private _modalService: NgbModal,
@@ -25,67 +40,69 @@ export class StoreMenuOverviewDetailedComponent implements OnInit {
     private router: Router,
     private restApiService: RestApiService,
     private storeService: StoreService,
-    private alertService: AlertService,
-    private dataService: DataService
-  ) { }
+    private ngbModal: NgbModal,
+
+  ) {
+    this.routerSub$ = this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd)
+    ).subscribe((event) => {
+      if(this.route.children.length == 0) {
+        this.hideModal();
+        this.catListComponent.fetchCategories(this.selectedMenuId);
+      }
+      else {
+        this.setOutletName(this.router.url);
+        this.showChildRoutes();
+      }
+    });
+   }
 
   ngOnInit(): void {
+    this.storeId = this.storeService.activeStore$.value.id;
+    this.menus$ = this.restApiService.getDataObs(consolidatedMenuListUrl(this.storeId)).pipe(
+      map((resp: any) => {
+        if (resp.success && resp.data) {
+          let menus: Array<StoreMenu> = [];
+          resp.data.forEach(menu => {
+            menus.push(new StoreMenu(menu.menu_id, menu.menu_name, null));
+          });
+          return menus;
+        }
+      })
+    ).pipe(tap(
+      (data) => {
+        if (data.length > 0) { setTimeout(() => {
+          this.selectedMenuId = data[0].id;
+          this.catListComponent.fetchCategories(data[0].id);
+        }, 0);  }
+      }
+    ));
+
   }
 
-  get modalService(): NgbModal{
+  get modalService(): NgbModal {
     return this._modalService;
   }
 
-  toggleClass() {
-    this.dropdownChild = !this.dropdownChild;
-  }
-  openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true });
+  setOutletName(route: string){
+    if(route.includes('item'))this.childOutletName = 'Edit Item';
+    if(route.includes('category'))this.childOutletName = 'Edit Category';
   }
 
-  // opencategoryCentered(category) {
-  //   this.modalService.open(category, { centered: true });
-  // }
-
-  // openmodifierCentered(modifier) {
-  //   this.modalService.open(modifier, { centered: true });
-  // }
-
-  onFileChanged(event) {
-    this.fileUptoLoad = event.target.files[0];
-    if (this.fileUptoLoad) {
-      if (!this.dataService.validateFileSize(this.fileUptoLoad.size)) {
-        this.alertService.showNotification('File to be uploaded should be less than 5MB', 'error')
-        return false;
-      }
-      if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
-        this.alertService.showNotification('Selected file format is not supported', 'error')
-        return false;
-      }
-      let reader = new FileReader();
-      reader.readAsDataURL(this.fileUptoLoad);
-
-      reader.onload = (e: any) => {
-        var img = new Image();
-        img.src = e.target.result;
-        img.onload = () => {
-          if (img.width < 500 || img.height < 500) {
-            this.alertService.showNotification('Minimum size 500*500 pixel', 'error')
-            return false;
-          }
-          let form_data = new FormData();
-          form_data.append('item_image', this.fileUptoLoad);
-          this.alertService.showLoader();
-          this.restApiService.pushSaveFileToStorageWithFormdata(form_data, 'store/items/upload/image', (response) => {
-            if(response && response['success'] && response['data']) { 
-              this.imageUrl=response['data'];
-            this.alertService.hideLoader();
-            }
-          });
-        }
-      }
-    } else {
-        this.alertService.showNotification('No file selected', 'error');
-    }
+  showChildRoutes() {
+    this.ngbModal.open(this.routeTemp).result.then((result) => { console.log(result) },
+      (reason) => {
+        this.router.navigate(['../'], { relativeTo: this.route })
+      });
   }
+
+  hideModal() {
+    this.ngbModal.dismissAll();
+    if(this.route.children.length > 0) this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub$.unsubscribe();
+  }
+
 }

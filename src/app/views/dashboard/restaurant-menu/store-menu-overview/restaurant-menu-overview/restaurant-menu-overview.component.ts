@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { StoreService } from 'src/app/services/store.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, filter } from 'rxjs/operators';
 import { AlertService } from 'src/app/services/alert.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Route, Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-restaurant-menu-overview',
@@ -11,7 +14,7 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class RestaurantMenuOverviewComponent implements OnInit {
   isLoading: boolean = false;
-
+  
   menuAvailable: boolean;
   categoryAvailable: boolean;
   itemAvailable: boolean;
@@ -19,11 +22,11 @@ export class RestaurantMenuOverviewComponent implements OnInit {
 
   nextStep: { stepName: string, route: string } = null;
 
-  constructor(private storeService: StoreService
-    , private restApiService: RestApiService,
-    private alertservice: AlertService,) { }
-
-
+  constructor(private storeService: StoreService,
+    private restApiService: RestApiService,
+    private alertservice: AlertService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.alertservice.showLoader();

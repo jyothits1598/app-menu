@@ -1,0 +1,134 @@
+<ng-template #loading>
+    <processing-placeholder></processing-placeholder>
+</ng-template>
+<div class="row" *ngIf="categories; else loading">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table custom-table">
+                <!-------------------- parent box ---------------------------->
+                <div *ngFor="let category of categories; let i = index;">
+                    <tr>
+                        <td width="10px" align="left" (click)="categories[i].expanded = !categories[i].expanded">
+                            <img style="transition: all .2s;" [class.rotate-right]="category.expanded" src="/assets/images/ico_right.png" />
+                        </td>
+                        <td style="padding: 16px 0px;" class="std-heading-4"> {{category.category.name}} </td>
+                        <td align="right">         
+                            <div class="dropdown">
+                            <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" class="dropdown-toggle"
+                                data-toggle="dropdown" title="Options">
+                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <li [routerLink]="['./category/', category.category.id]" class="herf-class" title="Edit">
+                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        Edit Category
+                                    </li>
+                                    <li (click)="deleteCatIndex = i; modal.open(deleteComform, { centered: true });" title="Delete" class="herf-class">
+                                        <img src="../../../../../assets/images/ico_cancel.png">&nbsp;&nbsp;
+                                        Remove Category
+                                    </li>
+                                </ul>
+                            </div>                           
+                        </td>
+                    </tr>
+                    <tr *ngIf="category.expanded">
+                        <ng-template #noItems> 
+                            No items found
+                        </ng-template>
+                        <td colspan="3" class="tdsingle-row std-heading-5" *ngIf="category.category.items.length > 0; else noItems">
+                            <table class="inside-table" *ngFor="let item of category.category.items; let j = index">
+                                <tr>
+                                    <td> {{item.name}} </td>
+                                    <td align="right"> ${{item.basePrice}} </td>
+                                    <td align="right" width="20px">
+                                        <div class="dropdown">
+                                            <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png"
+                                                class="dropdown-toggle" data-toggle="dropdown" title="Options">
+                                            <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                                <li [routerLink]="['./item/', item.id]" class="herf-class" title="Edit">
+                                                    <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                                    Edit item
+                                                </li>
+                                                <li title="Delete" class="herf-class"
+                                                    (click)="deleteCatIndex = i; deleteItemIndex = j; modal.open(itemdeleteComform, { centered: true });">
+                                                    <img src="../../../../../assets/images/ico_cancel.png">&nbsp;&nbsp;
+                                                    Remove items
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                </div>
+                <!--------------------- parent box end --------------------------------------->
+                <!--------------------- children dropdown box ------------------------------->
+                <!-- <tr>
+                    <td colspan="3" class="tdsingle-row std-heading-5">
+                        <table class="inside-table">
+                            <tr>
+                                <td> Salad </td>
+                                <td align="right"> $11.99 </td>
+                                <td align="right" width="20px">
+                                    <div class="dropdown">
+                                        <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png"
+                                            class="dropdown-toggle" data-toggle="dropdown" title="Options">
+                                        <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                            <li class="herf-class" title="Edit">
+                                                <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                                Edit item
+                                            </li>
+                                            <li title="Delete" class="herf-class">
+                                                <img src="../../../../../assets/images/ico_cancel.png">&nbsp;&nbsp;
+                                                Remove items
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Salad </td>
+                                <td align="right"> $11.99 </td>
+                                <td align="right" width="20px"> <img
+                                        src="../../../../../../assets/images/menu-icons/ico_black_overflow.png"> </td>
+                            </tr>
+                            <tr>
+                                <td> Salad </td>
+                                <td align="right"> $11.99 </td>
+                                <td align="right" width="20px"> <img
+                                        src="../../../../../../assets/images/menu-icons/ico_black_overflow.png"> </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr> -->
+                <!----------------------------- children dropdown box end ------------------------->
+            </table>
+        </div>
+    </div>
+</div>
+
+<ng-template #deleteComform let-modal>
+    <div class="modal-body text-center">
+        <h5 class="std-heading-5 mb-2"> Delete category "{{categories[deleteCatIndex].category.name}}"</h5>
+        <p class="mb-2 paragraph">
+            Are you sure?
+        </p>
+        <button class="std-button std-button--plane" (click)="deleteCategory(categories[deleteCatIndex].category); modal.dismiss('Cross click')"> Delete
+        </button>
+        <hr style="margin:0">
+        <button class="std-button std-button--plane" (click)="modal.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
+
+<ng-template #itemdeleteComform let-modal>
+    <div class="modal-body text-center">
+        <h5 class="std-heading-5 mb-2"> Delete item "{{categories[deleteCatIndex].category.items[deleteItemIndex].name}}"</h5>
+        <p class="mb-2 paragraph">
+            Are you sure?
+        </p>
+        <button class="std-button std-button--plane" (click)="deleteItem(categories[deleteCatIndex].category.items[deleteItemIndex]); modal.dismiss('Cross click')"> Delete
+        </button>
+        <hr style="margin:0">
+        <button class="std-button std-button--plane" (click)="modal.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
