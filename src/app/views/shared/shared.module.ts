@@ -6,11 +6,14 @@ import { FilterPipe } from 'src/app/_helpers/filter-pipe';
 import { IncrementalSearchComponent } from './components/incremental-search/incremental-search.component';
 import { FocusOnLoadDirective } from './directives/focus-on-load.directive';
 import { ProcessingPlaceholderComponent } from './components/processing-placeholder/processing-placeholder.component';
+import { LoadingPlaceholderComponent } from './components/loading-placeholder/loading-placeholder.component';
+import { LoadingPlaceholderDirective } from './directives/loading-placeholder.directive';
 
 
 
 @NgModule({
-  declarations: [NotFoundComponent, BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent],
+  entryComponents: [LoadingPlaceholderComponent],
+  declarations: [NotFoundComponent, BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderComponent, LoadingPlaceholderDirective],
   imports: [
     CommonModule
   ],
