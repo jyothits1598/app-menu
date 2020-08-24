@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators, FormBuilder, ValidatorFn } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -82,7 +82,7 @@ export class SecondFormsComponent implements OnInit {
     }
 
     this.storeDetailform = this.formBuilder.group({
-      storeName: ['', Validators.required],
+      storeName: [null, [Validators.required, removeSpaces]],
       storeAddress: ['', Validators.required],
       typeCuisine: ['', Validators.required],
       descriptionItem: ['', Validators.required],
@@ -249,4 +249,12 @@ export class SecondFormsComponent implements OnInit {
 
   }
 
+}
+
+
+export function removeSpaces(control: AbstractControl) {
+  if (control && control.value && !control.value.replace(/\s/g, '').length) {
+    control.setValue('');
+  }
+  return null;
 }

@@ -17,7 +17,7 @@ import { StoreMenuItemContainerComponent } from './store-menu-item-container/sto
 import { StoreMenuResolver } from 'src/app/_guards/store-menu-resolver';
 import { RestaurantMenuModifierGroupsComponent } from './restaurant-menu-modifier-groups/restaurant-menu-modifier-groups.component';
 import { StoreMenuModifierGroupCreateComponent } from './store-menu-modifier-group-create/store-menu-modifier-group-create.component';
-import { OverlayModule } from '@angular/cdk/overlay'
+import { OverlayModule } from '@angular/cdk/overlay';
 
 const routes: Routes = [
   {
@@ -122,7 +122,7 @@ const routes: Routes = [
 const restaurantMenuRouting = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [RestaurantMenuComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent, StoreMenuCategoriesContainerComponent, StoreMenuItemsCreateComponent, StoreMenuItemContainerComponent, RestaurantMenuModifierGroupsComponent, StoreMenuModifierGroupCreateComponent],
+  declarations: [RestaurantMenuComponent, RestaurantMenuMenusComponent, StoreMenuMenusCreateComponent, RestaurantMenuCategoriesComponent, StoreMenuCategoriesCreateComponent, RestaurantMenuItemsComponent, StoreMenuCategoriesContainerComponent, StoreMenuItemsCreateComponent, StoreMenuItemContainerComponent, RestaurantMenuModifierGroupsComponent, StoreMenuModifierGroupCreateComponent ],
   imports: [
     FormsModule,
     ReactiveFormsModule,

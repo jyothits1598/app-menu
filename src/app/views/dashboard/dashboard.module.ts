@@ -11,13 +11,13 @@ const routes: Routes = [
   },
   {
     path: 'stores/:id',
-    loadChildren: () => import('./restaurant-menu/restaurant-menu.module').then(m => m.RestaurantMenuModule)
-  }
+    loadChildren: () => import('./restaurant-menu/restaurant-menu.module').then(m => m.RestaurantMenuModule)  
+  },
 ]
 const dashboardRouting = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [DashboardComponent ],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     dashboardRouting

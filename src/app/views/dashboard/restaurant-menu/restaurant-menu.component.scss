@@ -1,32 +1,4 @@
-.resnt-menu-top-tabs{
-    list-style: none;
-    padding: 0px;
-    border-bottom: 1px solid var(--color-lines-primary);
-    width: max-content;
 
-    &__item{
-        display: inline-block;
-
-        
-    }
-
-    &__button{
-        background-color: transparent;
-        padding: 0.6rem 1.1rem;
-        border: none;
-        outline: none !important;
-        &__active{
-            border-bottom: 4px solid var(--color-primary);
-        }
-    }
-}
-
-.resnt-menu-tabs-content{
-    max-width: 60rem;
-}
-.t-class {
-    margin-top:40px;
-}
 .norml-text-class {
     font-size:16px;
     font-weight: normal;
