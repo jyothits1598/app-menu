@@ -6,83 +6,43 @@
         </h3>
     </div>
 </div>
-<div class="row">
-    <ng-template #loading>
-        <processing-placeholder></processing-placeholder>
-    </ng-template>
-    <div *ngIf="(menus$ | async) as menus; else loading">
-        <div class="col-md-3">
-            <select (change)="onSelect($event.target.value)"
-                class="custom-select form-control form-input form-input--select-input"
-                style="margin-top:28px;margin-bottom: 24px;">
-                <option *ngFor="let menu of menus;" [value]="menu.id"> {{menu.name}} </option>
-            </select>
-        </div>
-        <app-store-menu-overview-category-list *ngIf="menus.length > 0" #categoryList>
-        </app-store-menu-overview-category-list>
+<!-- <div class="row">
+    <div class="col-md-12">
+        <ng-template #loading>
+            <processing-placeholder></processing-placeholder>
+        </ng-template>
     </div>
-</div>
+</div> -->
 
-<ng-template #childOutlets>
-    <div>
-        <h4>{{childOutletName}}</h4>
-        <router-outlet></router-outlet>
-    </div>
-</ng-template>
-
-
-<!-- <button (click)="debug()">debug()</button> -->
-
-<!-- Edit  parent category -->
-<ng-template #editCategory let-modal>
-    <div class="modal-header header-info">
-        <div class="std-heading-4 std-heading-5--popheader"> Edit category </div>
-        <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="row">
+        <div class="row" *ngIf="(menus$ | async) as menus;">
+            <div class="col-md-3">
+                <select (change)="onSelect($event.target.value)"
+                    class="custom-select form-control form-input form-input--select-input"
+                    style="margin-top:28px;margin-bottom: 24px;">
+                    <option *ngFor="let menu of menus;" [value]="menu.id"> {{menu.name}} </option>
+                </select>
+            </div>
             <div class="col-md-12">
-                <h5 class="std-heading-5" style="margin-top:24px;"> Name </h5>
-                <input type="text" class="form-control form-input">
+                <app-store-menu-overview-category-list *ngIf="menus.length > 0" #categoryList>
+                </app-store-menu-overview-category-list>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h4 class="std-heading-4" style="margin-top:64px;margin-bottom: 32px;"> Menus </h4>
-                <div class="label-inputs"> Menus this category will appear in: </div>
-                <div class="menu-creator__days">
-                    <div class="custom-checkbox mr-2">
-                        <input type="checkbox">
-                        <label class="custom-checkbox__label std-heading-4"> Lunch </label>
-                    </div>
-                    <div class="custom-checkbox mr-2">
-                        <input type="checkbox">
-                        <label class="custom-checkbox__label std-heading-4"> Dinner </label>
+        
+        <!-- Edit details popup -->
+        <ng-template #childOutlets>
+            <div class="modal-header header-info" style="margin-bottom:32px;">
+                <div class="std-heading-4 std-heading-5--popheader"> {{childOutletName}} </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <router-outlet></router-outlet>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div style="float: right;margin-top:48px">
-                    <button type="button" class="btn std-button std-button--transparency"
-                        style="margin-right:16px">Cancel</button>
-                    <button class="btn std-button std-button--primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template>
-<!--end  Edit  parent category -->
-
-<!-- Edit  child item -->
-<ng-template #editItem let-modal>
-    item edit function
-</ng-template>
-<!--end  Edit  child item -->
-
+        </ng-template>
+        <!-- Edit details popup end -->
+      
 
 
 
