@@ -4,34 +4,40 @@ import { Location } from '@angular/common';
 import { Subject, Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { DataService } from '../services/data.service';
+import { map, tap } from 'rxjs/operators';
+import { User, UserRole } from '../_models/user';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    private roleId:number;
+    private roleId: number;
     private unsubscribe$ = new Subject();
-    
+
     constructor(
         private router: Router,
-        private authenticationService:AuthenticationService,
-        private location:Location,
-        private dataService: DataService,
-        private activatedRoute: ActivatedRoute
-    ){}
+        private authenticationService: AuthenticationService,
+    ) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean{
-        if(this.authenticationService.isLoggedIn()){
-            this.dataService.getSelectedId.subscribe((seleted_id)=>{
-                this.roleId=seleted_id;
-            });
-            const permission = route.data["permission"];
-            if(this.roleId && permission && permission.length>0 && permission.indexOf(this.roleId) != -1){
-                return this.authenticationService.isLoggedIn();
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        return this.authenticationService.getUserObject().pipe(
+            tap(user => {
+                console.log('can parent activate just ran');
+                if (route.children.length == 0) {
+                    console.log('route children 0', user.role);
+                    //evaluate roles
+                    if (user.role == UserRole.Admin) this.router.navigate(['/dashboard/admin'])
+                    if (user.role == UserRole.Owner) this.router.navigate(['/dashboard/partner'])
+                }
             }
-            //alert('Permission denied');
-            this.location.back();
-            return false;
-        }else{
-            this.router.navigate(['/login'], {queryParams: {'returnUrl':state.url}});
+            ),
+            map((user) => {
+                return this.authenticationService.isLoggedIn();
+            })
+        );
+        if (this.authenticationService.isLoggedIn()) {
+
+            return true;
+        } else {
+            this.router.navigate(['/login'], { queryParams: { 'returnUrl': state.url } });
             return this.authenticationService.isLoggedIn();
         }
     }
@@ -43,4 +49,4 @@ export class AuthGuard implements CanActivate {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
     }
-  }
+}

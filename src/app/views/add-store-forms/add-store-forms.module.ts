@@ -15,8 +15,8 @@ const routes: Routes = [
       // loadChildren: () => import('../add-store-forms/first-forms/first-forms.module').then(m => m.FirstFormsModule)},  
       { path: 'first-form', loadChildren: () => import('../add-store-forms/first-forms/first-forms.module').then(m => m.FirstFormsModule)}, 
       { path: 'step1/:store-id', loadChildren: () => import('../add-store-forms/second-forms/second-forms.module').then(m => m.SecondFormsModule)},
-      { path: 'step2/:store-id/ownership-proof', loadChildren: () => import('../add-store-forms/third-forms/third-forms.module').then(m => m.ThirdFormsModule )},
-      { path: 'step3/:store-id/bank-account', loadChildren: () => import('../add-store-forms/fourth-forms/fourth-forms.module').then(m => m.FourthFormsModule )},
+      { path: 'step2/:store-id/ownership', loadChildren: () => import('../add-store-forms/third-forms/third-forms.module').then(m => m.ThirdFormsModule )},
+      { path: 'step3/:store-id/bankaccount', loadChildren: () => import('../add-store-forms/fourth-forms/fourth-forms.module').then(m => m.FourthFormsModule )},
       { path: 'step4/:store-id', loadChildren: () => import('../add-store-forms/fifth-forms/fifth-forms.module').then(m => m.FifthFormsModule )},
       {
         path: '**',

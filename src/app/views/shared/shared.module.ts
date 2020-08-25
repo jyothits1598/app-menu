@@ -8,12 +8,13 @@ import { FocusOnLoadDirective } from './directives/focus-on-load.directive';
 import { ProcessingPlaceholderComponent } from './components/processing-placeholder/processing-placeholder.component';
 import { LoadingPlaceholderComponent } from './components/loading-placeholder/loading-placeholder.component';
 import { LoadingPlaceholderDirective } from './directives/loading-placeholder.directive';
+import { UnautherisedComponent } from './components/unautherised/unautherised.component';
 
 
 
 @NgModule({
   entryComponents: [LoadingPlaceholderComponent],
-  declarations: [NotFoundComponent, BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderComponent, LoadingPlaceholderDirective],
+  declarations: [NotFoundComponent, BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderComponent, LoadingPlaceholderDirective, UnautherisedComponent],
   imports: [
     CommonModule
   ],

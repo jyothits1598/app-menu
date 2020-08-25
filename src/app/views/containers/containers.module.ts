@@ -4,29 +4,43 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContainersComponent } from './containers.component';
 import { AuthGuard } from 'src/app/_guards';
 import { SideNavBarComponent } from '../side-nav-bar/side-nav-bar.component'
+import { UnautherisedComponent } from '../shared/components/unautherised/unautherised.component';
+import { OwnerRoleGuard, AdminRoleGuard } from 'src/app/_guards/user-role.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: ContainersComponent ,children:[
-      { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)},  
-      { path: 'pending-approval', loadChildren: () => import('../pending-approval/pending-approval.module').then(m => m.PendingApprovalModule)},
+    component: ContainersComponent,
+    canActivate: [AuthGuard],
+    runGuardsAndResolvers: 'always',
+    children: [
       {
-        path: '**',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      }
-    ]
-    ,canActivate: [AuthGuard],
+        path: 'partner',
+        canActivate: [OwnerRoleGuard],
+        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'admin',
+        canActivate: [AdminRoleGuard],
+        loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)
+      },
+      { path: 'pending-approval', loadChildren: () => import('../pending-approval/pending-approval.module').then(m => m.PendingApprovalModule) },
+      { path: 'unauthorized', component: UnautherisedComponent },
+      // {
+      //   path: '**',
+      //   redirectTo: 'dashboard',
+      //   pathMatch: 'full'
+      // }
+    ],
     data: {
-      permission:[1]
+      permission: [1]
     },
   }
 ]
 const routingModule = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [ContainersComponent,SideNavBarComponent],
+  declarations: [ContainersComponent, SideNavBarComponent],
   imports: [
     CommonModule,
     routingModule

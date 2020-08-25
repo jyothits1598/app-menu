@@ -26,7 +26,6 @@ const routes: Routes = [
     resolve: {store: StoreMenuResolver},
     children: [
       { path: 'overview', loadChildren: () => import('./store-menu-overview/store-menu-overview.module').then(m => m.StoreMenuOverviewModule)},
-      // { path: 'login', loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule)},
       {
         path: 'menus',
         component: RestaurantMenuMenusComponent,

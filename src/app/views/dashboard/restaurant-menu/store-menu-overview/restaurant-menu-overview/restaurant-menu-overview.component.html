@@ -51,9 +51,9 @@
             </li>
         </ul>
 
-        <button *ngIf="nextStep" type="button" class="btn std-button std-button--primary"
+        <a *ngIf="nextStep" type="button" class="btn std-button std-button--primary"
             [routerLink]="nextStep.route">Add
-            your first {{nextStep.stepName}}</button>
+            your first {{nextStep.stepName}}</a>
     </ng-container>
     <ng-template #overViewDetailed>
         <app-store-menu-overview-detailed></app-store-menu-overview-detailed>
