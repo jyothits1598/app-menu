@@ -40,8 +40,7 @@
         </div>
         <div class="col-md-3 mb-1">
             <div class="auto-fill">
-                <incremental-search [apiFunction]="apiFunction"
-                    [params]="{restApiService: restApiService, storeId: storeId}"
+                <incremental-search [apiFunction]="apiFun"
                     [accessorFunction]="nameAccessor"
                     (onSelect)="selectItem($event)">
                         <input #itemSearch placeholder="Search" class="form-control form-input search" />

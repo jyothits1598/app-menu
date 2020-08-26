@@ -48,12 +48,6 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     })
   }
 
-  apiFunction(params: any, term: string){
-    return params.restApiService.getDataObs(`stores/${params.storeId}/items?name=${term}`).pipe(
-      map((resp:any)=>resp.data)
-      );
-  }
-
   apiFun = (term) => {return this.restApiService.getDataObs(`stores/${this.storeId}/items?name=${term}`).pipe(
     map((resp:any)=>resp.data)
   )}
