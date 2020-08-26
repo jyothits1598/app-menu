@@ -76,7 +76,7 @@ export class FourthFormsComponent implements OnInit {
           'bank_account_number':this.bankForm.value.accountNumber
         }; 
         this.alertservice.showLoader();
-        this.restApiservice.putAPI('store/update/'+this.store_id+'/bank-account',data,(response)=>{
+        this.restApiservice.putAPI(`/api/stores/${this.store_id}/bankaccount`,data,(response)=>{
           if(response && response['success'] && response['data']) {
             this.alertservice.hideLoader();
             localStorage.removeItem("storeCreationId");
@@ -113,7 +113,7 @@ export class FourthFormsComponent implements OnInit {
         if(response && response['success'] && response['data']) {
           this.alertservice.hideLoader();
           // console.log(this.router.navigateByUrl('/store/step2/'+this.store_id+'/'));
-          return this.router.navigateByUrl('/store/step2/'+this.store_id+'/ownership-proof');
+          return this.router.navigateByUrl('/store/step2/'+this.store_id+'/ownership');
         } else if(response && !response['success'] && response['error']['error']) { 
           let i=0;
             for(let key in response['error']['error']) {

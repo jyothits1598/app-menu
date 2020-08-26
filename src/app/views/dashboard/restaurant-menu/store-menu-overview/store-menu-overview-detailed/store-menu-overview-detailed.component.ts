@@ -58,6 +58,7 @@ export class StoreMenuOverviewDetailedComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit(): void {
+    if(this.route.children.length > 0) this.showChildRoutes();
     this.storeId = this.storeService.activeStore$.value.id;
     this.menus$ = this.restApiService.getDataObs(consolidatedMenuListUrl(this.storeId)).pipe(
       map((resp: any) => {
@@ -90,6 +91,7 @@ export class StoreMenuOverviewDetailedComponent implements OnInit, OnDestroy {
   }
 
   showChildRoutes() {
+    console.log('show child routes called');
     this.ngbModal.open(this.routeTemp).result.then((result) => { console.log(result) },
       (reason) => {
         this.router.navigate(['../'], { relativeTo: this.route })

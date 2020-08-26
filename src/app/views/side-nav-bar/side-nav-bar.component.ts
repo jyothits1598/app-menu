@@ -16,8 +16,8 @@ export class SideNavBarComponent implements OnInit {
   public show:boolean = false;
   public buttonName:any = 'Show';
 
-  dashboard_url:string = "/dashboard";
-  menu_url:string = "/dashboard/stores/";
+  dashboard_url:string = "/dashboard/partner";
+  menu_url:string = "/partner/stores";
   dashboard_status:boolean = false;
   menu_status:boolean = false;
 
@@ -51,15 +51,15 @@ export class SideNavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var obj = this;
-    obj.authenticateService.getUserObject().subscribe((response)=>{
-      if(response && response['user_details'] && response['user_details']['store_partner_id']){
-        // console.log(response['user_details']['store_partner_id']);
-        // obj.storeDetails();
-      }else{
-        return obj.router.navigate(['/login']);
-      }
-    });
+    // var obj = this;
+    // obj.authenticateService.getUserObject().subscribe((response)=>{
+    //   if(response && response['user_details'] && response['user_details']['store_partner_id']){
+    //     // console.log(response['user_details']['store_partner_id']);
+    //     // obj.storeDetails();
+    //   }else{
+    //     return obj.router.navigate(['/login']);
+    //   }
+    // });
   }
 
     storeDetails() {

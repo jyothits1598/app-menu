@@ -16,7 +16,7 @@
 <div class="sidenav">
     <ul class="sidenav__list" *ngIf="!dashboard_status && menu_status">
         <ng-container *ngIf="(storeSer.activeStore$ | async) as store" title="Store">
-            <li class="sidenav__link sidenav--hover" [routerLink]="['/dasboard']"
+            <li class="sidenav__link sidenav--hover" [routerLink]="['/dashboard']"
                 style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);">
                 <img class="sidenav__link__img sidenav__link__img--hover-back" style="cursor: pointer;outline: none;"
                     src="../../../assets/images/arrow-left.png"><span class="std-heading-5">

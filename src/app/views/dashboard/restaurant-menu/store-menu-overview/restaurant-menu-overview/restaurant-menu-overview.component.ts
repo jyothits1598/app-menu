@@ -49,10 +49,10 @@ export class RestaurantMenuOverviewComponent implements OnInit {
   }
 
   determinNextStep(): { stepName: string, route: string } {
-    if (!this.menuAvailable) return { stepName: 'menu', route: '../menus/editor' };
-    if (!this.categoryAvailable) return { stepName: 'category', route: '../categories/new' };
-    if (!this.itemAvailable) return { stepName: 'item', route: '../items' };
-    if (!this.modifiersAvailable) return { stepName: 'modifier group', route: '../modifierGroup' };
+    if (!this.menuAvailable) return { stepName: 'menu', route: '../../../../../menus/editor' };
+    if (!this.categoryAvailable) return { stepName: 'category', route: '../../../../../categories/new' };
+    if (!this.itemAvailable) return { stepName: 'item', route: '../../../../../items/new' };
+    if (!this.modifiersAvailable) return { stepName: 'modifier group', route: '../../../../../modifier-groups/new' };
     return null;
   }
 

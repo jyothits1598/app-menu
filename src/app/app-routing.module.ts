@@ -13,10 +13,10 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent},
   { path: 'email-verify', component: SignupEmailRedirectComponent},
   { path: 'store', loadChildren: () => import('./views/add-store-forms/add-store-forms.module').then(m => m.AddStoreFormsModule)},
-  { path: '', loadChildren: () => import('./views/containers/containers.module').then(m => m.ContainersModule)},
+  { path: 'dashboard', loadChildren: () => import('./views/containers/containers.module').then(m => m.ContainersModule)},
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   }
 ];

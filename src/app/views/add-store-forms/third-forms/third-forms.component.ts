@@ -43,15 +43,16 @@ export class ThirdFormsComponent implements OnInit {
   ) {
     this.store_id = this.route.snapshot.paramMap.get('store-id');
     this.add_edit_type = this.route.snapshot.queryParams['type'] || '';
+    console.log('this is the third form');
   }
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     var obj = this;
-    if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
+    // if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
       obj.getownershipform();
-      // obj.authenticateService.checkExpiryStatus();
-    }
+    //   // obj.authenticateService.checkExpiryStatus();
+    // }
     this.ownershipform = this.formBuilder.group({
       ownerName: ['', Validators.required],
       businessName: ['', Validators.required],
@@ -103,7 +104,8 @@ export class ThirdFormsComponent implements OnInit {
   }
 
   saveStore(data) {
-    this.restApiservice.putAPI('store/update/' + this.store_id + '/ownership-proof', data, (response) => {
+    // this.restApiservice.putAPI('store/update/' + this.store_id + '/ownership-proof', data, (response) => {
+    this.restApiservice.putAPI(`api/stores/${this.store_id}/ownership`, data, (response) => {
       if (response && response['success'] && response['data']) {
         this.alertservice.hideLoader();
         // console.log('success');
@@ -145,7 +147,7 @@ export class ThirdFormsComponent implements OnInit {
 
   getownershipform() {
     // this.alertservice.showLoader();
-    this.restApiservice.getData('store/details/step2/' + this.store_id + '', (response) => {
+    this.restApiservice.getData(`api/stores/${this.store_id}/ownership`, (response) => {
       if (response && response['success'] && response['data']) {
         response['data'].forEach(element => {
           this.legalOwnerName = element.legal_owner_name;

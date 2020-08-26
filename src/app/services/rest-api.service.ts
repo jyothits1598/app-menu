@@ -197,16 +197,6 @@ export class RestApiService {
             }
         );
     }
-    /*
-      * Function to get logged user details
-      */
-    getOfflineLoggedUserDetails() {
-        if (localStorage.getItem('loggedUser')) {
-            var user_details = JSON.parse(localStorage.getItem('loggedUser'));
-            return user_details;
-        }
-        return [];
-    }
 
     /*
      * default Angular Destroy Method

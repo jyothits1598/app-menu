@@ -48,13 +48,6 @@ export class DashboardComponent implements OnInit {
       // obj.authenticateService.checkExpiryStatus();
       obj.storeDetail();
     }
-    obj.authenticateService.getUserObject().subscribe((response)=>{
-      if(response && response['user_details'] && response['user_details']['store_partner_id']){
-       console.log(response['user_details']['store_partner_id']);
-      }else{
-        return obj.router.navigate(['/login']);
-      }
-    });
   }
 
   storeDetail() {
@@ -101,8 +94,8 @@ export class DashboardComponent implements OnInit {
     if(!storeDetail.activeFlag) {
       // if(storeDetail.activeFlag)  return this.router.navigate(['./stores', storeDetail.id], {relativeTo: this.route});
       if(storeDetail.nextStep == '')  return this.router.navigate(['./stores', storeDetail.id], {relativeTo: this.route});
-      if(storeDetail.nextStep = 'ownership-proof') return this.router.navigate([`../store/step2/${storeDetail.id}/ownership-proof`])
-      if(storeDetail.nextStep = 'bank-account') return this.router.navigate([`../store/step3/${storeDetail.id}/bank-account`])
+      if(storeDetail.nextStep = 'ownership') return this.router.navigate([`../store/step2/${storeDetail.id}/ownership`])
+      if(storeDetail.nextStep = 'bankaccount') return this.router.navigate([`../store/step3/${storeDetail.id}/bankaccount`])
     } if (storeDetail.activeFlag) {
       return this.router.navigate(['./stores', storeDetail.id], {relativeTo: this.route});
     }    
