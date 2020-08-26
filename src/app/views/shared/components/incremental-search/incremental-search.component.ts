@@ -44,6 +44,7 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
   @Output() onSelect = new EventEmitter<any>();
   @Input() apiFunction: (params, term) => Observable<any>;
   @Input() params: any;
+  @Input() accessorFunction: (any) => string;
 
   @ViewChild('loadingIcon') iconContainer;
   @ViewChild('overlayTemplate') overlayTemplate;

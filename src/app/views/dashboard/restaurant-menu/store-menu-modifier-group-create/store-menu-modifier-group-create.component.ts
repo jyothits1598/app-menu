@@ -54,11 +54,17 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       );
   }
 
+  apiFun = (term) => {return this.restApiService.getDataObs(`stores/${this.storeId}/items?name=${term}`).pipe(
+    map((resp:any)=>resp.data)
+  )}
+
   selectItem(item: any) {
     if(this.selectedItems.find((i)=>i.name == item.item_name)) return;
     let stModItem: StoreMenuModifierItem = new StoreMenuModifierItem(item.item_id, item.item_name, item.item_base_price, null, 0);
     this.addItem(stModItem);
   }
+
+  nameAccessor: (any)=>string = (item) => item.item_name;
 
   // ----------------------- search functionalify end ----------------------------
 

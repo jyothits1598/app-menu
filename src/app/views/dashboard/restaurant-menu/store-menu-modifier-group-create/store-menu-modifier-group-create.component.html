@@ -42,6 +42,7 @@
             <div class="auto-fill">
                 <incremental-search [apiFunction]="apiFunction"
                     [params]="{restApiService: restApiService, storeId: storeId}"
+                    [accessorFunction]="nameAccessor"
                     (onSelect)="selectItem($event)">
                         <input #itemSearch placeholder="Search" class="form-control form-input search" />
                     <ng-template #itemTemplate let-option="option">

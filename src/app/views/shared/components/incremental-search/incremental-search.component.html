@@ -4,7 +4,7 @@
         [ngClass]="{'auto-fill__input-container__loader--zero': !listLoading}"
         src="/assets/images/loader.gif" alt="Loading...">
     <ng-template #overlayTemplate>
-        <ng-container *ngIf="(searchData | filter:searchBox.nativeElement.value.trim()) as filterData">
+        <ng-container *ngIf="(searchData | filter:searchBox.nativeElement.value.trim() : accessorFunction) as filterData">
             <ul *ngIf="filterData.length > 0; else noItems" class="auto-fill__list">
                 <!-- <li class="auto-fill__list__item" *ngFor="let item of filterData">{{item.item_name}}</li> -->
                 <li (click)="onOptionSelect(option)" *ngFor="let option of filterData"> 
@@ -21,4 +21,4 @@
             </ng-container>
         </ng-template>
     </ng-template>
-</div>
+</div> 
