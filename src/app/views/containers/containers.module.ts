@@ -10,7 +10,8 @@ const routes: Routes = [
     path: '',
     component: ContainersComponent ,children:[
       { path: 'dashboard', loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)},  
-      { path: 'pending-approval', loadChildren: () => import('../pending-approval/pending-approval.module').then(m => m.PendingApprovalModule)},
+      // { path: 'pending-approval', loadChildren: () => import('../pending-approval/pending-approval.module').then(m => m.PendingApprovalModule)},
+      { path: 'adminboard', loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)},
       {
         path: '**',
         redirectTo: 'dashboard',

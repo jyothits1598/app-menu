@@ -13,6 +13,7 @@ import { AlertComponent } from './_directives/alert/alert.component';
 import { AuthGuard } from './_guards';
 import { DatePipe } from '@angular/common';
 import { HttpErrorInterceptor } from './interceptors/httpErrorInterceptor';
+// import { AdminDashboardComponent } from './views/admin-dashboard/admin-dashboard.component';
 // import { TopNavBarComponent } from './views/top-nav-bar/top-nav-bar.component';
 
 // import { PendingApprovalComponent } from './views/pending-approval/pending-approval.component';
@@ -25,6 +26,7 @@ import { HttpErrorInterceptor } from './interceptors/httpErrorInterceptor';
     ForgotPasswordComponent,
     SignupEmailRedirectComponent,
     AlertComponent,
+    // AdminDashboardComponent,
     // TopNavBarComponent
     // ResendEmailComponent,
     // PendingApprovalComponent,
