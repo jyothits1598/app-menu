@@ -3,17 +3,20 @@
         <h1 class="std-heading-1" style="margin-bottom:56px;"> Stores </h1>
         <h4 class="std-heading-4" style="margin-bottom: 32px;"> Welcome to menuzapp </h4>
 
-        <p class="mb-2 paragraph"> 
-           Please add your store. You will need your proof of ownership documents ready to upload.
-         </p>
+        <p class="mb-2 paragraph">
+            Please add your store. You will need your proof of ownership documents ready to upload.
+        </p>
         <!-- <a style="text-decoration: none;" [routerLink]="['/store/first-form']" ><input type="button" class="btn btn-custom-db mt-3" value="Add store" ></a>
         <br>
         <h3 class="wl-sub-header"> I am staff member </h3>
         <br>
         <p> If you are a staff member please request an invitation from the account owner and check your email. </p> -->
-       
-        <div class="image-dashboard" [routerLink]="['/store/first-form']" style="outline: none;text-decoration: none;cursor: pointer;">
-            <div class="inside-bck"> <img src="../../../../../assets/images/ico_add_blue.png"><div class="upload-text">Add store </div></div>
+
+        <div class="image-dashboard" [routerLink]="['/store/first-form']"
+            style="outline: none;text-decoration: none;cursor: pointer;">
+            <div class="inside-bck"> <img src="../../../../../assets/images/ico_add_blue.png">
+                <div class="upload-text">Add store </div>
+            </div>
         </div>
     </div>
 </div>
@@ -23,13 +26,15 @@
         <h4 class="std-heading-4" style="margin-bottom: 32px;"> Owned </h4>
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-4 col-xs-12" *ngFor="let stores of mutiple_stores_array">
-                <div class="well main-form draft-card-pending"  (click)="navigate(stores)"  style="outline: none;" title="{{ stores.storeName }}"> 
+                <div class="well main-form draft-card-pending" (click)="navigate(stores)" style="outline: none;"
+                    title="{{ stores.storeName }}">
                     <div class="img-container-draft">
                         <img [src]="stores.logoUrl">
                     </div>
                     <div class="form-padding">
                         <h4>
-                            <span class="story-header" style="word-break: break-all;"> {{stores?.storeName | slice:0:26 }}</span>
+                            <span class="story-header" style="word-break: break-all;">
+                                {{stores?.storeName | slice:0:26 }}</span>
                         </h4>
                         <div style="margin-bottom:16px;">
                             <span class="google-rating">
@@ -39,13 +44,15 @@
                                 <i class="fa fa-facebook"></i>&nbsp;<b>Steve</b> & 125k others liked
                             </span> -->
                         </div>
-                        <span class="google-rating google-rating--pending-color" *ngIf="!stores.activeFlag && stores.nextStep == ''">
+                        <span class="google-rating google-rating--pending-color"
+                            *ngIf="!stores.activeFlag && stores.nextStep == ''">
                             Pending approval
                         </span>
                         <span class="google-rating google-rating--approve-color" *ngIf="stores.activeFlag">
                             Trading
                         </span>
-                        <span class="google-rating google-rating--incomplete-color" *ngIf="!stores.activeFlag && stores.nextStep" >
+                        <span class="google-rating google-rating--incomplete-color"
+                            *ngIf="!stores.activeFlag && stores.nextStep">
                             Setup
                         </span>
                     </div>
@@ -54,6 +61,19 @@
         </div>
     </div>
 </div>
+<ng-template #sideBarLinks>
+    <ul class="sidenav__list">
+        <li class="sidenav__link" style="border-bottom: 1px solid var(--color-lines-primary); cursor: context-menu;">
+            <span class="std-heading-5"> Stores </span>
+        </li>
+        <li class="sidenav__link sidenav--hover color-primary"
+            style="border-bottom: 1px solid var(--color-lines-primary);" [routerLink]="['/store/first-form']"
+            title="Add store">
+            <img class="sidenav__link__img" src="../../../assets/images/ico_add_blue.png">
+            <span> Add store </span>
+        </li>
+    </ul>
+</ng-template>
 <!-- <div class="row" *ngIf="active_status">[routerLink]="'/dashboard/stores/'+stores.id"
     <div class="col-12">
         <h2 class="wl-header"> {{ storename }} </h2>

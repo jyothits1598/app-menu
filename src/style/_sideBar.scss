@@ -1,0 +1,39 @@
+.sidenav {
+    &--hover:hover:not(.sidenav__link--active) {
+        background-color: var(--color-background-tertiary);
+    }
+  
+    &__list--bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-bottom: 0;
+        box-shadow: inset 0px 1px 0px rgba(0, 0, 0, 0.1);
+    }
+  
+    &__link {
+        padding: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        outline: none;
+        &:hover &__img--hover-back{
+            transform: translateX(-.3rem);
+            transition: transform .2s;
+        }
+  
+        &--active {
+            font-weight: bold;
+            background-color: var(--color-background-secondary);
+            text-decoration: none;
+        }
+  
+        &__img {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 1rem;
+        }
+    }
+  }

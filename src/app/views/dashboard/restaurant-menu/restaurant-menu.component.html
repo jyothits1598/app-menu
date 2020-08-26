@@ -8,10 +8,12 @@
 <div class="pending-tab" *ngIf="!isActive">
     <table>
         <tr>
-            <td valign="top" > <img src="../../../../assets/images/ico_alert.png"> </td>
-            <td style="padding-left: 18px;"> 
-                Pending approval - 
-                <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> <span class="norml-text-class">Before you start trading we need to review your application. We will be in touch shortly. </span> 
+            <td valign="top"> <img src="../../../../assets/images/ico_alert.png"> </td>
+            <td style="padding-left: 18px;">
+                Pending approval -
+                <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> <span
+                    class="norml-text-class">Before you start trading we need to review your application. We will be in
+                    touch shortly. </span>
             </td>
             <td valign="top" style="padding-left: 18px;cursor: pointer;" (click)="hide()" title="hide">
                 <img src="../../../../assets/images/ico_close.png">
@@ -29,25 +31,52 @@
             routerLinkActive="resnt-menu-top-tabs__button__active">Menus</button>
     </li>
     <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./categories" 
-        routerLinkActive="resnt-menu-top-tabs__button__active">
+        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./categories"
+            routerLinkActive="resnt-menu-top-tabs__button__active">
             Categories
         </button>
     </li>
     <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./items" 
-        routerLinkActive="resnt-menu-top-tabs__button__active">
-        Items
+        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./items"
+            routerLinkActive="resnt-menu-top-tabs__button__active">
+            Items
         </button>
-     </li>
+    </li>
     <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./modifier-groups" 
-        routerLinkActive="resnt-menu-top-tabs__button__active">
-        Modifier
+        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./modifier-groups"
+            routerLinkActive="resnt-menu-top-tabs__button__active">
+            Modifier
             Groups
         </button>
-     </li>
+    </li>
 </ul>
 <section class="resnt-menu-tabs-content">
     <router-outlet></router-outlet>
 </section>
+
+<ng-template let-store #sideBarLinks>
+    <ul class="sidenav__list">
+            <li class="sidenav__link sidenav--hover" [routerLink]="['/dashboard']"
+                style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);">
+                <img class="sidenav__link__img sidenav__link__img--hover-back" style="cursor: pointer;outline: none;"
+                    src="../../../assets/images/arrow-left.png"><span class="std-heading-5">
+                    {{store.name}} </span>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link sidenav--hover" [routerLink]="['./partner/stores/'+store.id]"
+                    routerLinkActive="sidenav__link--active"><img class="sidenav__link__img"
+                        src="../../../assets/images/ico_book.png"><span class="color-primary"> Menu
+                    </span></a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img"
+                        src="../../../assets/images/ico_restaurant.png"><span class="color-primary">Store
+                        profile</span></a>
+            </li>
+            <li class="sidenav__item">
+                <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img"
+                        src="../../../assets/images/ico_members.png"><span class="color-primary">
+                        Members</span></a>
+            </li>
+    </ul>
+</ng-template>

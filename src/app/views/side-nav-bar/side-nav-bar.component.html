@@ -1,44 +1,11 @@
-<div *ngIf="dashboard_status">
-    <ul class="sidenav__list">
-        <li class="sidenav__link" style="border-bottom: 1px solid var(--color-lines-primary); cursor: context-menu;">
-            <span class="std-heading-5"> Stores </span>
-        </li>
-        <li class="sidenav__link sidenav--hover color-primary"
-            style="border-bottom: 1px solid var(--color-lines-primary);" [routerLink]="['/store/first-form']"
-            title="Add store">
-            <img class="sidenav__link__img" src="../../../assets/images/ico_add_blue.png">
-            <span> Add store </span>
-        </li>
-    </ul>
-</div>
-
+<ng-container #navLinks>
+    <ng-container *ngFor="let sideBarTemplate of sideBarTemplates" 
+    [ngTemplateOutlet]="sideBarTemplate.templateRef"
+    [ngTemplateOutletContext]="sideBarTemplate.context">
+    </ng-container>
+</ng-container>
 
 <div class="sidenav">
-    <ul class="sidenav__list" *ngIf="!dashboard_status && menu_status">
-        <ng-container *ngIf="(storeSer.activeStore$ | async) as store" title="Store">
-            <li class="sidenav__link sidenav--hover" [routerLink]="['/dashboard']"
-                style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);">
-                <img class="sidenav__link__img sidenav__link__img--hover-back" style="cursor: pointer;outline: none;"
-                    src="../../../assets/images/arrow-left.png"><span class="std-heading-5">
-                    {{store.name}} </span>
-            </li>
-        </ng-container>
-        <li class="sidenav__item">
-            <a class="sidenav__link sidenav--hover" [routerLink]="['/dashboard/stores/'+storeSer.activeStore]"
-                routerLinkActive="sidenav__link--active"><img class="sidenav__link__img"
-                    src="../../../assets/images/ico_book.png"><span class="color-primary"> Menu
-                </span></a>
-        </li>
-        <li class="sidenav__item">
-            <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img"
-                    src="../../../assets/images/ico_restaurant.png"><span class="color-primary">Store profile</span></a>
-        </li>
-        <li class="sidenav__item">
-            <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img"
-                    src="../../../assets/images/ico_members.png"><span class="color-primary">
-                    Members</span></a>
-        </li>
-    </ul>
     <ul class="sidenav__list--bottom">
         <li class="sidenav__item ">
             <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img"
