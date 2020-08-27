@@ -7,7 +7,7 @@ import { stringify } from 'querystring';
 })
 
 export class FilterPipe implements PipeTransform {
-    transform(items: any[], args: string): any {
-        return items.filter(item => item.item_name.toLowerCase().includes(args.toLowerCase()));
+    transform(items: any[], args: string, accessor: (any)=>string): any {
+        return items.filter(item => accessor(item).toLowerCase().includes(args.toLowerCase()));
     }
 }

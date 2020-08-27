@@ -38,12 +38,12 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
           this.openTemplateOverlay(this.overlayTemplate, this.searchBox)
         }),
         debounce(() => interval(1000)),
-        switchMap((val) => this.apiFunction(this.params, this.searchBox.nativeElement.value).pipe(finalize(() => this.listLoading = false)))
+        switchMap((val) => this.apiFunction(this.searchBox.nativeElement.value).pipe(finalize(() => this.listLoading = false)))
       ).subscribe((resp: any) => this.searchData = resp);
   }
   @Output() onSelect = new EventEmitter<any>();
-  @Input() apiFunction: (params, term) => Observable<any>;
-  @Input() params: any;
+  @Input() apiFunction: (term) => Observable<any>;
+  @Input() accessorFunction: (any) => string;
 
   @ViewChild('loadingIcon') iconContainer;
   @ViewChild('overlayTemplate') overlayTemplate;

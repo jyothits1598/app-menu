@@ -31,9 +31,9 @@ export class AdminRoleGuard implements CanActivate {
   }
   canActivate(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.authService.getUserObject().pipe(
-      tap(user => {if(user.role !== UserRole.Admin) this.router.navigate(['/dashboard/unauthorized'])}),
+      tap(user => {if(user.role !== UserRole.Owner) this.router.navigate(['/dashboard/unauthorized'])}),
       map((user)=>{
-        return user.role == UserRole.Admin;
+        return user.role == UserRole.Owner;
       })  
     )
   }
