@@ -28,7 +28,7 @@ const routes: Routes = [
       { path: 'unauthorized', component: UnautherisedComponent },
     ],
     data: {
-      permission: [1]
+      permission: [2]
     },
   }
 ]
