@@ -109,7 +109,7 @@ export class AuthenticationService {
     user.firstName = data.first_name;
     user.lastName = data.last_name;
     user.mobileNumber = data.mobile_number;
-    user.role = UserRole.Owner;
+    user.role = data.role_id;
     return user;
   }
 

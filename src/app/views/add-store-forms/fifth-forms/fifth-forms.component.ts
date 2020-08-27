@@ -30,9 +30,9 @@ export class FifthFormsComponent implements OnInit {
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     var obj = this;
-    if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
-      obj.authenticateService.checkExpiryStatus();
-    }
+    // if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
+    //   obj.authenticateService.checkExpiryStatus();
+    // }
   }
 
   storeDetail() {

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RestApiService } from 'src/app/services/rest-api.service';
+import { URL_AdminPendingStores } from 'src/environments/api-endpoint';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-store-pending-list',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StorePendingListComponent implements OnInit {
 
-  constructor() { }
+  pendingStores : Array<{id: number, name: string, claimType: string}>; 
 
+  constructor(private restApiService: RestApiService) {
+  }
+  
   ngOnInit(): void {
+    this.restApiService.getDataObs(URL_AdminPendingStores).subscribe(
+      (resp) => {
+        if(resp && resp.data){
+          this.pendingStores = [];
+          resp.data.forEach(store => {
+            this.pendingStores.push({id: store.store_id, name: store.store_name, claimType: store.type_of_creation})
+          });
+        }
+        console.log(this.pendingStores);
+      }
+    )
   }
 
 }

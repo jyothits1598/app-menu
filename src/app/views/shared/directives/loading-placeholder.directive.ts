@@ -14,14 +14,15 @@ export class LoadingPlaceholderDirective {
     private resolver: ComponentFactoryResolver) { }
 
   ngAfterViewInit(): void {
-    this.renderer.setStyle(this.elem.nativeElement, 'filter', 'opacity(0.5)');
+    console.log('view in loading placedholder called');
+    this.renderer.setStyle(this.elem.nativeElement, 'display', 'none');
     let componentFactory = this.resolver.resolveComponentFactory(LoadingPlaceholderComponent)
     let componetRef = this.viewCR.createComponent(componentFactory);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.viewCR.clear();
-    if(this.loaded) this.renderer.setStyle(this.elem.nativeElement, 'filter', 'opacity(1)')
+    if(this.loaded) this.renderer.setStyle(this.elem.nativeElement, 'display', 'block');
   }
 
   ngOnInit(): void {

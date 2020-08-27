@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/htt
 import { API_URL_LINK } from '../../environments/environment';
 import { Subject, Observable } from 'rxjs';
 import { AlertService } from './alert.service';
+import { take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -102,7 +103,7 @@ export class RestApiService {
         url = this.hostURL + url;
         let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
         const headers = new HttpHeaders(cred);
-        return this.http.get(url, { headers: headers })
+        return this.http.get(url, { headers: headers }).pipe(take(1));
     }
 
     /*

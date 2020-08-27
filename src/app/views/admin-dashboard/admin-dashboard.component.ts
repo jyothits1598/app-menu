@@ -10,13 +10,9 @@ import { StoreService } from 'src/app/services/store.service';
 export class AdminDashboardComponent implements OnInit {
   isActive: boolean = false;
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private storeService: StoreService
   ) { }
 
   ngOnInit(): void {
-    this.isActive = this.storeService.activeStore$.value.isActive;
   }
 
 }

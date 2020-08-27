@@ -18,6 +18,6 @@ import { UnautherisedComponent } from './components/unautherised/unautherised.co
   imports: [
     CommonModule
   ],
-  exports: [BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent]
+  exports: [BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderDirective]
 })
 export class SharedModule { }
