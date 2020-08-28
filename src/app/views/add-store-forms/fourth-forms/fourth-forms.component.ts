@@ -43,9 +43,9 @@ export class FourthFormsComponent implements OnInit {
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     var obj = this;
-    if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
-      obj.authenticateService.checkExpiryStatus();
-    }
+    // if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
+    //   obj.authenticateService.checkExpiryStatus();
+    // }
 
     this.bankForm = this.formBuilder.group({
       bankName: ['', Validators.required],

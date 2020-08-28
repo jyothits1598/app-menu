@@ -8,6 +8,7 @@ import { StorePendingContainerComponent } from './store-pending-container/store-
 import { StoreApprovedContainerComponent } from './store-approved-container/store-approved-container.component';
 import { StoreApprovedListComponent } from './store-approved-list/store-approved-list.component';
 import { StoreApprovedDetailsComponent } from './store-approved-details/store-approved-details.component';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -63,6 +64,7 @@ const adminDashboardRouting = RouterModule.forChild(routes);
     StoreApprovedDetailsComponent ],
   imports: [
     CommonModule,
+    SharedModule,
     adminDashboardRouting
   ]
 })

@@ -21,14 +21,17 @@ export class AuthGuard implements CanActivate {
         return this.authenticationService.getUserObject().pipe(
             tap(user => {
                 if (route.children.length == 0) {
-                    console.log('route children 0', user.role);
                     //evaluate roles
-                    if (user.role == UserRole.Admin) this.router.navigate(['/dashboard/admin'])
-                    if (user.role == UserRole.Owner) this.router.navigate(['/dashboard/partner'])
+                    if(!this.authenticationService.isLoggedIn()) this.router.navigate(['/login']);
+                    else{
+                        if (user.role == UserRole.Admin) { this.router.navigate(['/dashboard/admin'])}
+                        if (user.role == UserRole.Owner) { this.router.navigate(['/dashboard/partner'])}
+                    }
                 }
             }
             ),
             map((user) => {
+                
                 return this.authenticationService.isLoggedIn();
             })
         );

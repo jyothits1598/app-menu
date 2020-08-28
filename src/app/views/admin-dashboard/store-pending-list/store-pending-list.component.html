@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col-md-3 mb-1">
         <input type="search" placeholder="Search" class="form-control form-input search" />
@@ -9,7 +8,7 @@
         </select>
     </div>
 </div>
-<div class="row">
+<div class="row" loadingPlaceholder [loaded]="pendingStores">
     <div class="col-md-12">
         <div class="table-responsive">
             <table class="table table-border table-color" style="margin-top:24px;">
@@ -22,29 +21,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-capitalize" >
-                    <td class="store-name-table" > ksdrgs sgfsrgf s</td>
-                    <td>  esrgfsgf </td>
-                    <td> cliam</td>
-                    <td style="text-align: right;cursor:pointer;outline: none;">
-                        <div class="dropdown">
-                            <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="Options">
-                            <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                <li class="herf-class" title="Edit">
-                                    <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
-                                Edit
-                                </li>
-                                <li title="Delete" class="herf-class">
-                                    <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
-                                    Delete
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
+                    <tr class="text-capitalize" *ngFor="let store of pendingStores">
+                        <td class="store-name-table"> store.name </td>
+                        <td>Applicant</td>
+                        <td> {{store.claim}} </td>
+                        <td style="text-align: right;cursor:pointer;outline: none;">
+                            <div class="dropdown">
+                                <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
+                                    data-toggle="dropdown" title="Options">
+                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <li class="herf-class" title="Edit">
+                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        Edit
+                                    </li>
+                                    <li title="Delete" class="herf-class">
+                                        <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                        Delete
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
                     </tr>
-                   
                 </tbody>
             </table>
         </div>
-    </div> 
+    </div>
 </div>
