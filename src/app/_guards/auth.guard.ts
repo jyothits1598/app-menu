@@ -20,7 +20,6 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         return this.authenticationService.getUserObject().pipe(
             tap(user => {
-                console.log('can parent activate just ran');
                 if (route.children.length == 0) {
                     console.log('route children 0', user.role);
                     //evaluate roles

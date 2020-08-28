@@ -15,7 +15,6 @@ export class StoreMenuResolver implements Resolve<Store> {
     ) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Store | Observable<Store> {
-        console.log('inside resolver', route.paramMap.get('id'));
         return this.restApiService.getDataObs('store/' + route.paramMap.get('id')).pipe(
             map((resp) => {
                 if (resp.data && resp.data[0]) {

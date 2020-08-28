@@ -32,9 +32,8 @@
                         <img [src]="stores.logoUrl">
                     </div>
                     <div class="form-padding">
-                        <h4>
-                            <span class="story-header" style="word-break: break-all;">
-                                {{stores?.storeName | slice:0:26 }}</span>
+                        <h4 class="std-heading-4">
+                            {{stores.storeName ? stores.storeName : '' }}
                         </h4>
                         <div style="margin-bottom:16px;">
                             <span class="google-rating">
@@ -45,14 +44,14 @@
                             </span> -->
                         </div>
                         <span class="google-rating google-rating--pending-color"
-                            *ngIf="!stores.activeFlag && stores.nextStep == ''">
+                            *ngIf="stores.nextStep == ''">
                             Pending approval
                         </span>
-                        <span class="google-rating google-rating--approve-color" *ngIf="stores.activeFlag">
+                        <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'approved'">
                             Trading
                         </span>
                         <span class="google-rating google-rating--incomplete-color"
-                            *ngIf="!stores.activeFlag && stores.nextStep">
+                            *ngIf="stores.nextStep">
                             Setup
                         </span>
                     </div>

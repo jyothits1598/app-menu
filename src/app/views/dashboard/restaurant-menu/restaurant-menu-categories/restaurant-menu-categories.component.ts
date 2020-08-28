@@ -28,14 +28,13 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.storeId = this.storeService.activeStore$.value.id;
     this.alertService.showLoader();
-    this.restApiService.getData(`store/category/get/${this.storeId}/all`
+    this.restApiService.getData(`store/category/get/${this.storeId}/all`    
       , (response) => {
         if (response.success && response.data) {
           response.data.forEach((cat) => {
             let menuCat = this.storeService.ReadStoreMenuCategory(cat);
             this.categories.push(menuCat);
           });
-          console.log(this.categories);
           this.alertService.hideLoader();
         }
       }

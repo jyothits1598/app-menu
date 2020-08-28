@@ -4,7 +4,6 @@ import { StoreService } from 'src/app/services/store.service';
 import { Observable, Subject, } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 import { RestApiService } from 'src/app/services/rest-api.service';
-import { Store } from 'src/app/_models/store';
 import { SideNavbarService } from 'src/app/services/side-navbar.service';
 
 @Component({
@@ -15,7 +14,7 @@ import { SideNavbarService } from 'src/app/services/side-navbar.service';
 export class RestaurantMenuComponent implements AfterViewInit, OnInit, OnDestroy {
   notifier = new Subject();
   isActive: boolean = false;
-
+  storeName: string;
   @ViewChild('sideBarLinks', { read: TemplateRef }) sideBarLinks: TemplateRef<any>;
   
   constructor(private route: ActivatedRoute
@@ -26,7 +25,9 @@ export class RestaurantMenuComponent implements AfterViewInit, OnInit, OnDestroy
   }
   ngAfterViewInit(): void {
     this.storeService.activeStore$.subscribe((store)=>{
-      console.log('active store resolved', store);
+      if(store.name){
+        this.storeName = store.name.substring(0, 36) + (store.name.length > 36 ? '. . .' : '');
+      }
     })
     this.sideNavServ.AddTemplate(this.sideBarLinks, this.storeService.activeStore$.value, 'RestMenu');
   }
