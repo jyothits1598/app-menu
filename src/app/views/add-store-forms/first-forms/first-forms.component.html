@@ -1,16 +1,33 @@
 <div class="container h-100 m-class">
-    <h1 class="form-header" style="margin-bottom:72px;"> 
-        Search for a match in our database 
+    <h1 class="form-header" style="margin-bottom:72px;">
+        Search for a match in our database
     </h1>
-    <p class="paragraph form-group--margin" > Menuzapp has collected the menus of many stores already. To find and claim your store simply search here.
-     <br><br> No match? Simply add your store manually. </p>
+    <p class="paragraph form-group--margin"> Menuzapp has collected the menus of many stores already. To find and claim
+        your store simply search here.
+        <br><br> No match? Simply add your store manually. </p>
     <div class="form-group form-group--margin">
         <label class="label-inputs"> Search for your store </label>
-        <input type="text" class="form-control form-input" placeholder="Start typing name, location, keyword or cuisine" >
+        <div class="auto-fill">
+            <incremental-search [apiFunction]="apiFunction" [accessorFunction]="accessor"
+                (onSelect)="handleSelection($event)">
+                <input #itemSearch placeholder="Start typing name, location, keyword or cuisine"
+                    class="form-control form-input search" />
+                <ng-template #itemTemplate let-option="option">
+                    <li class="auto-fill__list__item">
+                        <span>{{option.store_name}}</span>
+                        <span style="background-color: beige;">{{option.store_address}}</span>
+                    </li>
+                </ng-template>
+                <ng-template #noItemsTemplate>
+                    <li class="auto-fill__list__item">No results found</li>
+                </ng-template>
+            </incremental-search>
+        </div>
     </div>
     <div class="form-group">
-        <a [routerLink]="['/dashboard']"> <input type="button" class="btn std-button std-button--transparency" value="Cancel" > </a>
-        <a [routerLink]="['/store/step1/create']"> <input type="button" class="btn std-button std-button--transparency" value="Add store manually" style="margin-left:16px;"></a>
+        <a [routerLink]="['/dashboard']"> <input type="button" class="btn std-button std-button--transparency"
+                value="Cancel"> </a>
+        <a [routerLink]="['/store/step1/create']"> <input type="button" class="btn std-button std-button--transparency"
+                value="Add store manually" style="margin-left:16px;"></a>
     </div>
 </div>
-  

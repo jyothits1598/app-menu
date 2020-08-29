@@ -10,14 +10,15 @@ import { LoadingPlaceholderComponent } from './components/loading-placeholder/lo
 import { LoadingPlaceholderDirective } from './directives/loading-placeholder.directive';
 import { UnautherisedComponent } from './components/unautherised/unautherised.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-
+import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 
 
 @NgModule({
-  entryComponents: [LoadingPlaceholderComponent],
+  entryComponents: [LoadingPlaceholderComponent, ConfirmationDialogComponent],
   declarations: [NotFoundComponent, BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderComponent, LoadingPlaceholderDirective, UnautherisedComponent, ConfirmationDialogComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    OverlayModule
   ],
   exports: [BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderDirective]
 })
