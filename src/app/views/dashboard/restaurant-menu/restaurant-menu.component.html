@@ -5,7 +5,7 @@
         Why am I seeing this? <span style="margin-left:20px;cursor: pointer;" (click)="hide()"> Hide </span>
     </span>
 </div> -->
-<div class="pending-tab" *ngIf="!isActive">
+<div class="pending-tab" *ngIf="isActive">
     <table>
         <tr>
             <td valign="top"> <img src="../../../../assets/images/ico_alert.png"> </td>
@@ -21,7 +21,7 @@
         </tr>
     </table>
 </div>
-<ul class="resnt-menu-top-tabs u-margin-bottom-medium" [ngClass]="!isActive ? 't-class' : '' ">
+<ul class="resnt-menu-top-tabs u-margin-bottom-medium" [ngClass]="isActive ? 't-class' : '' ">
     <li class="resnt-menu-top-tabs__item">
         <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./overview"
             routerLinkActive="resnt-menu-top-tabs__button__active">Overview</button>
@@ -60,10 +60,10 @@
                 style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);">
                 <img class="sidenav__link__img sidenav__link__img--hover-back" style="cursor: pointer;outline: none;"
                     src="../../../assets/images/arrow-left.png"><span class="std-heading-5">
-                    {{store.name}} </span>
+                    {{storeName}} </span>
             </li>
             <li class="sidenav__item">
-                <a class="sidenav__link sidenav--hover" [routerLink]="['./partner/stores/'+store.id]"
+                <a class="sidenav__link sidenav--hover" [routerLink]="['./partner/stores/'+store.id]" style="text-decoration: none;"
                     routerLinkActive="sidenav__link--active"><img class="sidenav__link__img"
                         src="../../../assets/images/ico_book.png"><span class="color-primary"> Menu
                     </span></a>

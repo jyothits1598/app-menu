@@ -1,5 +1,5 @@
-<ng-container *ngIf="!isLoading">
-    <ng-template *ngIf="nextStep; else overViewDetailed">
+<div *ngIf= "!isLoading" >
+    <div *ngIf= "nextStep; else overViewDetailed">
         <h4 class="std-heading-3 u-margin-bottom-medium"> Let's start building your menu </h4>
 
         <p class="paragraph u-margin-bottom-medium">
@@ -7,8 +7,6 @@
             appears here (or in the app) you must link a <strong>menu</strong> to a <strong>category</strong> and that
             category to some <strong>items</strong>.
         </p>
-
-
 
         <ul class="resnt-menu-overview-list u-margin-bottom-medium">
             <li class="resnt-menu-overview-list__item">
@@ -53,8 +51,8 @@
 
         <a *ngIf="nextStep" type="button" class="btn std-button std-button--primary" [routerLink]="nextStep.route">Add
             your first {{nextStep.stepName}}</a>
-    </ng-template>
+    </div>
     <ng-template #overViewDetailed>
         <app-store-menu-overview-detailed></app-store-menu-overview-detailed>
     </ng-template>
-</ng-container>
+</div>

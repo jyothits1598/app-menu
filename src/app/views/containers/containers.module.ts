@@ -19,12 +19,14 @@ const routes: Routes = [
         canActivate: [OwnerRoleGuard],
         loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
       },
-      {
-        path: 'admin',
+      // {
+      //   path: 'admin',
+      //   canActivate: [AdminRoleGuard],
+      //   loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)
+      // },
+      { path: 'admin', 
         canActivate: [AdminRoleGuard],
-        loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)
-      },
-      { path: 'adminboard', loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)},
+        loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)},
       { path: 'unauthorized', component: UnautherisedComponent },
     ],
     data: {

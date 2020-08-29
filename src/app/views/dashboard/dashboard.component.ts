@@ -62,21 +62,20 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   storeDetail() {
     this.mutiple_stores_array = [];
     this.alertService.showLoader();
-    this.restapiService.getData('store/all', (response) => {
-      console.log(response);
+    this.restapiService.getData('api/stores/all/storedata', (response) => {
       if (response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length > 0) {
         let data = response['data'];
         data.forEach(storelist => {
           let newstoreDetails = new Storedetails(storelist.store_id
             , storelist.store_name
             , storelist.store_logo
-            , storelist.active_flag ? true : false
+            , storelist.status
             , storelist.next_step);
           if (!newstoreDetails.logoUrl) {
             newstoreDetails.logoUrl = this.logoUrl;
           }
           if (newstoreDetails.storeName) {
-            this.storeName = newstoreDetails.storeName.substring(0, 28) + (newstoreDetails.storeName.length > 28 ? '...' : '');
+            newstoreDetails.storeName = newstoreDetails.storeName.substring(0, 45) + (newstoreDetails.storeName.length > 45 ? '...' : '');
           }
           this.mutiple_stores_array.push(newstoreDetails);
 
@@ -100,12 +99,12 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   navigate(storeDetail: Storedetails) {
     console.log("navigate called", storeDetail);
-    if (!storeDetail.activeFlag) {
+    if (storeDetail.activeStatus) {
       // if(storeDetail.activeFlag)  return this.router.navigate(['./stores', storeDetail.id], {relativeTo: this.route});
       if (storeDetail.nextStep == '') return this.router.navigate(['./stores', storeDetail.id], { relativeTo: this.route });
       if (storeDetail.nextStep = 'ownership') return this.router.navigate([`../store/step2/${storeDetail.id}/ownership`])
       if (storeDetail.nextStep = 'bankaccount') return this.router.navigate([`../store/step3/${storeDetail.id}/bankaccount`])
-    } if (storeDetail.activeFlag) {
+    } if (storeDetail.nextStep) {
       return this.router.navigate(['./stores', storeDetail.id], { relativeTo: this.route });
     }
   }

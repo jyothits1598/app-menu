@@ -58,7 +58,6 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
     this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/all`, (response) => {
       if (response['data'] && response['data'].length > 0) {
         let data = response['data'];
-        console.log(data);
         data.forEach(item => {
            this.items.push(this.readItems(item));
         });
