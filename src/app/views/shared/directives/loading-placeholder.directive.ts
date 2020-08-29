@@ -6,7 +6,7 @@ import { LoadingPlaceholderComponent } from '../components/loading-placeholder/l
 })
 export class LoadingPlaceholderDirective {
 
-  @Input() loaded: any;
+  @Input() loadStatus: any;
 
   constructor(private viewCR: ViewContainerRef,
     private elem: ElementRef,
@@ -22,7 +22,7 @@ export class LoadingPlaceholderDirective {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.viewCR.clear();
-    if(this.loaded) this.renderer.setStyle(this.elem.nativeElement, 'display', 'block');
+    if(this.loadStatus) this.renderer.setStyle(this.elem.nativeElement, 'display', 'block');
   }
 
   ngOnInit(): void {

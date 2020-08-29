@@ -24,7 +24,6 @@ export class StorePendingListComponent implements OnInit {
             this.pendingStores.push({id: store.store_id, name: store.store_name, claimType: store.type_of_creation})
           });
         }
-        console.log(this.pendingStores);
       }
     )
   }

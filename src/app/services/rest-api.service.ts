@@ -125,6 +125,13 @@ export class RestApiService {
         });
     }
 
+    patchData(url, data) {
+        url = this.hostURL + url;
+        let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+        const headers = new HttpHeaders(cred);
+        return this.http.patch(url, data, { headers: headers }).pipe(take(1));
+    }
+
     /*
       * Rest API Function to Delete
       */

@@ -24,7 +24,7 @@ const routes: Routes = [
             component: StorePendingListComponent
           },
           {
-            path: 'id',
+            path: ':id',
             component: StorePendingDetailsComponent
           }
         ]
