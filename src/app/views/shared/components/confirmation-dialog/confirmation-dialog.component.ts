@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationDialogConfig } from '../../model/confirmation-dialog-config';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { config } from 'rxjs';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -19,7 +20,8 @@ export class ConfirmationDialogComponent implements OnInit {
   }
 
   onClick(decision: string) {
-    this.decision.emit(decision);
+    if(decision == this.config.confirmBtn) this.activeModal.close(decision);
+    else this.activeModal.dismiss(decision);
   }
 
 }
