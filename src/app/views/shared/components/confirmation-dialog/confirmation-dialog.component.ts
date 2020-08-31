@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConfirmationDialogConfig } from '../../model/confirmation-dialog-config';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -7,10 +8,18 @@ import { ConfirmationDialogConfig } from '../../model/confirmation-dialog-config
   styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent implements OnInit {
+
   @Input() config: ConfirmationDialogConfig;
-  constructor() { }
+  @Output() decision = new EventEmitter<string>();
+
+  constructor(public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
+    
+  }
+
+  onClick(decision: string) {
+    this.decision.emit(decision);
   }
 
 }

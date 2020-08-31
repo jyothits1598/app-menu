@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log("navigate called", storeDetail);
     if (storeDetail.activeStatus) {
       // if(storeDetail.activeFlag)  return this.router.navigate(['./stores', storeDetail.id], {relativeTo: this.route});
-      if (storeDetail.nextStep == '') return this.router.navigate(['./stores', storeDetail.id], { relativeTo: this.route });
+      if (storeDetail.nextStep == '') return this.router.navigate(['./stores', storeDetail.id, 'menu'], { relativeTo: this.route });
       if (storeDetail.nextStep = 'ownership') return this.router.navigate([`../store/step2/${storeDetail.id}/ownership`])
       if (storeDetail.nextStep = 'bankaccount') return this.router.navigate([`../store/step3/${storeDetail.id}/bankaccount`])
     } if (storeDetail.nextStep) {

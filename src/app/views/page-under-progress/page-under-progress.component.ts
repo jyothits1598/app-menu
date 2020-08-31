@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalService } from '../shared/services/modal.service';
 
 @Component({
   selector: 'app-page-under-progress',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageUnderProgressComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private modalService: ModalService) { }
+  
   ngOnInit(): void {
+  }
+
+  debug(){
+    this.modalService.GetConfirmation()
   }
 
 }
