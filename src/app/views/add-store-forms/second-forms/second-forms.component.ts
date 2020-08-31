@@ -42,6 +42,9 @@ export class SecondFormsComponent implements OnInit {
   height: number;
   errors = new Array();
   firstFormError = false;
+
+  claimCreation: boolean = false;
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -55,6 +58,7 @@ export class SecondFormsComponent implements OnInit {
     this.store_id = +this.route.snapshot.paramMap.get('store-id');
     // if (!this.store_id) if (+localStorage.getItem('storeCreationId')) this.store_id = +localStorage.getItem('storeCreationId');
     this.add_edit_type = this.route.snapshot.queryParams['type'] || 'add';
+    this.claimCreation = this.route.snapshot.queryParams['claim'] == 'true' ? true : false;
   }
 
   options = {
@@ -116,7 +120,6 @@ export class SecondFormsComponent implements OnInit {
         'store_logo': this.imageUrl
       };
       if (this.imageUrl) data.store_logo = this.imageUrl;
-      if (this.store_id) data.store_id = this.store_id;
       // console.log(data);
       if (this.add_edit_type == 'add') {
         this.alertservice.showLoader();
@@ -128,11 +131,11 @@ export class SecondFormsComponent implements OnInit {
             // localStorage.setItem('storeCreationId', response['data']['store_id']);
             return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
           } else if (response && !response['success'] && response['error']['error']) {
-            let i=0;
-            for(let key in response['error']['error']) {
+            let i = 0;
+            for (let key in response['error']['error']) {
               this.firstFormError = true;
-              this.errors[key]=response['error']['error'][key][0];
-              this.alertservice.showNotification(this.errors[key],'error');
+              this.errors[key] = response['error']['error'][key][0];
+              this.alertservice.showNotification(this.errors[key], 'error');
             }
           } else {
             this.alertservice.showNotification('Something went wrong', 'error');
@@ -141,20 +144,22 @@ export class SecondFormsComponent implements OnInit {
         });
       }
       else if (this.add_edit_type == 'edit') {
+        if (this.claimCreation) data.claim_store_id = this.store_id;
+        else data.store_id = this.store_id;
         this.alertservice.showLoader();
         this.restApiservice.putAPI(`api/stores/${this.store_id}/storedata`, data, (response) => {
           if (response && response['success'] && response['data']) {
             // console.log(response);
             this.alertservice.hideLoader();
             // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
-            
+
             return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
           } else if (response && !response['success'] && response['error']['error']) {
-            let i=0;
-            for(let key in response['error']['error']) {
+            let i = 0;
+            for (let key in response['error']['error']) {
               this.firstFormError = true;
-              this.errors[key]=response['error']['error'][key][0];
-              this.alertservice.showNotification(this.errors[key],'error');
+              this.errors[key] = response['error']['error'][key][0];
+              this.alertservice.showNotification(this.errors[key], 'error');
             }
           } else {
             this.alertservice.showNotification('Something went wrong', 'error');
@@ -247,10 +252,13 @@ export class SecondFormsComponent implements OnInit {
     } else {
       this.alertservice.showNotification('No file selected', 'error');
     }
-
   }
 
+  debug() {
+    console.log('claim creation', this.claimCreation);
+  }
 }
+
 
 
 export function removeSpaces(control: AbstractControl) {

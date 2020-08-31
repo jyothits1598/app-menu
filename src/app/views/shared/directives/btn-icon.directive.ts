@@ -22,6 +22,7 @@ export class BtnIconDirective implements OnInit, AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     this.generateCheck();
+    this.checkStates();
   }
 
   generateCheck() {
@@ -29,29 +30,28 @@ export class BtnIconDirective implements OnInit, AfterViewInit, OnChanges {
     this.renderer.insertBefore(this.element.nativeElement, this.icon, this.divs.first.nativeElement)
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
-    // console.log("host element", this.element);
-    // console.log("icon", this.icon);
-
-    if (!this.icon) return;
-
-    if (changes.valid) {
-      if(changes.valid.currentValue){
-        this.renderer.addClass(this.icon, 'btn-icon-check');
-        this.renderer.addClass(this.element.nativeElement, 'std-button-active--primary');
-      }
-      else {
-        this.renderer.removeClass(this.icon, 'btn-icon-check');
-        this.renderer.removeClass(this.element.nativeElement, 'std-button-active--primary');
-      }
-      changes.valid.currentValue ? this.renderer.addClass(this.icon, 'btn-icon-check')
-        : this.renderer.removeClass(this.icon, 'btn-icon-check');
-      this.renderer.removeClass(this.icon, 'btn-icon-loader')
+  checkStates() {
+    if (!this.icon) {
+      console.log('not icon');
+      return;
     }
-    if (changes.loading) {
-      changes.loading.currentValue ? this.renderer.addClass(this.icon, 'btn-icon-loader')
-        : this.renderer.removeClass(this.icon, 'btn-icon-loader');
+
+    if (this.valid) {
+      this.renderer.addClass(this.icon, 'btn-icon-check');
+      this.renderer.addClass(this.element.nativeElement, 'std-button-active--primary');
     }
+    else {
+      this.renderer.removeClass(this.icon, 'btn-icon-check');
+      this.renderer.removeClass(this.element.nativeElement, 'std-button-active--primary');
+    }
+        
+    this.loading ? this.renderer.addClass(this.icon, 'btn-icon-loader')
+      : this.renderer.removeClass(this.icon, 'btn-icon-loader');
   }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.checkStates();
+  }
+
 }

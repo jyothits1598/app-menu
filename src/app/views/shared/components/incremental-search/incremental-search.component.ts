@@ -19,8 +19,8 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
     private vCRef: ViewContainerRef) { }
 
   onOptionSelect(item: any) {
-    this.onSelect.emit(item);
     this.closeOverlay();
+    this.onSelect.emit(item);
   }
   ngAfterViewInit(): void {
     fromEvent(this.searchBox.nativeElement, 'focus').pipe(
@@ -41,6 +41,7 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
         switchMap((val) => this.apiFunction(this.searchBox.nativeElement.value).pipe(finalize(() => this.listLoading = false)))
       ).subscribe((resp: any) => this.searchData = resp);
   }
+  
   @Output() onSelect = new EventEmitter<any>();
   @Input() apiFunction: (term) => Observable<any>;
   @Input() accessorFunction: (any) => string;

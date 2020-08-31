@@ -9,7 +9,7 @@ import { URL_AdminApprovedStores } from 'src/environments/api-endpoint';
 })
 export class StoreApprovedListComponent implements OnInit {
 
-  approvedStores: Array<{}>;
+  approvedStores: Array<{id: number, name: string, claimType: string}>;
   constructor(private restApiService: RestApiService) { }
 
   ngOnInit(): void {

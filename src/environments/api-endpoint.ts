@@ -7,5 +7,5 @@ export function CategoryiesWithItemsForMenu(menuId) {
 }
 
 // admin urls
-export const URL_AdminPendingStores = '/api/stores/pending';
-export const URL_AdminApprovedStores = '/api/stores/approved';
+export const URL_AdminPendingStores = 'api/stores/pending';
+export const URL_AdminApprovedStores = 'api/stores/approved';

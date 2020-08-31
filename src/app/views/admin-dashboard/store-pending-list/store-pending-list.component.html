@@ -8,7 +8,7 @@
         </select>
     </div>
 </div>
-<div class="row" loadingPlaceholder [loaded]="pendingStores">
+<div class="row" loadingPlaceholder [loadStatus]="pendingStores">
     <div class="col-md-12">
         <div class="table-responsive">
             <table class="table table-border table-color" style="margin-top:24px;">
@@ -22,9 +22,9 @@
                 </thead>
                 <tbody>
                     <tr class="text-capitalize" *ngFor="let store of pendingStores">
-                        <td class="store-name-table"> store.name </td>
+                        <td class="store-name-table" [routerLink]="'./'+store.id"> {{store.name}} </td>
                         <td>Applicant</td>
-                        <td> {{store.claim}} </td>
+                        <td> {{store.claimType}} </td>
                         <td style="text-align: right;cursor:pointer;outline: none;">
                             <div class="dropdown">
                                 <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
@@ -47,3 +47,5 @@
         </div>
     </div>
 </div>
+
+<button (click)="showModal()">show modal</button>
