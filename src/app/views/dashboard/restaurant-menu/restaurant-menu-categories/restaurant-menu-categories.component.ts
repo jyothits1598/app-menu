@@ -49,7 +49,8 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
     
     this.storeMenuService.DeleteStoreMenuCategory(this.storeId, category.id, category.name).subscribe(
       (resp: any) => {
-        if (resp.success) {
+        console.log(resp);
+                if (resp.success) {
           this.alertService.showNotification('Category successfully deleted.');
           this.categories.splice(this.deleteIndex, 1);
         }

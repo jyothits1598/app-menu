@@ -82,6 +82,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
     this.storeId = this.storeService.activeStore$.value.id;
     this.restApiService.getData('store/category/menu/' + this.storeId
       , (resp) => {
+        console.log(resp);
         if (resp.success && resp.data) {
           this.menuIdMap = [];
           resp.data.forEach(menu => {

@@ -107,7 +107,7 @@
         background: var(--color-background-secondary);
     }
     &--text-area {
-        height:48px !important;
+        height:96px !important;
     }
 }
 
@@ -500,6 +500,9 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 .pd-left {
     margin-left: 10px;
 }
+.pd-right {
+    margin-right: 10px;
+}
 .image-dashboard {
     text-align: center;
     padding: 10px;
@@ -556,11 +559,12 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
     margin: 0; 
 }
-
+input[type=number] {
+    -moz-appearance:textfield;
+}
 .resnt-menu-top-tabs{
     list-style: none;
     padding: 0px;
@@ -596,5 +600,12 @@ input[type=number]::-webkit-outer-spin-button {
 .mr-t56-b32 {
     margin-top:56px;
     margin-bottom:32px;
+}
+.upload-image-border {
+    border : 0 !important;
+    background:#fff;   
+}
+.upload-image-border .ud-image { 
+    border-radius: 200px !important;
 }
   

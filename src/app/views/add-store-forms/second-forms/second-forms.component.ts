@@ -257,9 +257,9 @@ export class SecondFormsComponent implements OnInit {
     }
   }
 
-  debug() {
-    console.log('claim creation', this.claimCreation);
-  }
+  // debug() {
+  //   console.log('claim creation', this.claimCreation);
+  // }
 }
 
 
