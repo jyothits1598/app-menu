@@ -32,8 +32,4 @@ export class StorePendingListComponent implements OnInit {
     )
   }
 
-  showModal(){
-    
-  }
-
 }

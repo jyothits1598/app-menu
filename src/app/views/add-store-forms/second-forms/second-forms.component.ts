@@ -8,6 +8,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DataService } from 'src/app/services/data.service';
 import { API_URL_LINK } from 'src/environments/environment.prod';
+import { StringHelperService } from 'src/app/services/string-helper.service';
 
 declare let $: any;
 
@@ -54,6 +55,7 @@ export class SecondFormsComponent implements OnInit {
     private alertservice: AlertService,
     private authenticateService: AuthenticationService,
     private dataService: DataService,
+    private stringHelper: StringHelperService
   ) {
     this.store_id = +this.route.snapshot.paramMap.get('store-id');
     // if (!this.store_id) if (+localStorage.getItem('storeCreationId')) this.store_id = +localStorage.getItem('storeCreationId');
@@ -119,7 +121,8 @@ export class SecondFormsComponent implements OnInit {
         'facebook_url': this.storeDetailform.value.facebook_url,
         'store_logo': this.imageUrl
       };
-      if (this.imageUrl) data.store_logo = this.imageUrl;
+      console.log('extracting logo url', this.imageUrl, this.stringHelper.ExtractFileName)
+      if (this.imageUrl) data.store_logo = this.stringHelper.ExtractFileName(this.imageUrl);
       // console.log(data);
       if (this.add_edit_type == 'add') {
         this.alertservice.showLoader();
@@ -233,7 +236,7 @@ export class SecondFormsComponent implements OnInit {
           this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/logo', (response) => {
             if (response && response['success']) {
               this.alertservice.hideLoader();
-              this.imageUrl = API_URL_LINK + response['data'];
+              this.imageUrl = response['data'];
             } else if (response && !response['success']) {
               this.imageUrl = null;
               this.alertservice.hideLoader();

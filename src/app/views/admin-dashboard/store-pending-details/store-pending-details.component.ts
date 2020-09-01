@@ -5,6 +5,7 @@ import { URL_StoreDetail, URL_ApproveStore } from 'src/environments/api/api-stor
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import { StringHelperService } from 'src/app/services/string-helper.service';
 
 @Component({
   selector: 'app-store-pending-details',
@@ -33,7 +34,8 @@ export class StorePendingDetailsComponent implements OnInit {
   loadingApproval: boolean = false;
 
   constructor(private restApiService: RestApiService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private stringHelper: StringHelperService) {
     this.routerSubs = this.route.params.subscribe(params => {
       this.storeId = +params['id'];
       if (!this.storeId) {
@@ -51,7 +53,7 @@ export class StorePendingDetailsComponent implements OnInit {
       (resp) => {
         if (resp && resp.data) {
           this.approvalData = resp.data;
-          this.approvalData.fileName = this.extractFileName(this.approvalData.certificate_of_registration);
+          this.approvalData.fileName = this.stringHelper.ExtractFileName(this.approvalData.certificate_of_registration);
         }
       }
     )
@@ -67,11 +69,4 @@ export class StorePendingDetailsComponent implements OnInit {
     )
   }
 
-  extractFileName(path: string): string {
-    let index = path.lastIndexOf('/');
-    let result = path.slice(index + 1, path.length);
-    console.log('get result', result);
-    return result;
-  }
-
-}
+} 

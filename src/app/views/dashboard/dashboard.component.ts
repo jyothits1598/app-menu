@@ -41,7 +41,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     // }
     // this.store_id = this.route.snapshot.paramMap.get('id');
     // console.log(this.store_id);
-
   }
   ngOnDestroy(): void {
     this.sideBarServ.RemoveTemplate('Dashboard');
