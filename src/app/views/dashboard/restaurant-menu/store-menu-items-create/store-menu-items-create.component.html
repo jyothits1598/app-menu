@@ -128,7 +128,7 @@
                     <div class="label-inputs" > This item will be available with:</div>
                     <ng-container *ngIf="modifierIdMap; else loading">
                         <div  formArrayName="modifier" class="menu-creator__days"  (click)="createItemForm.controls.modifier.markAsTouched({onlySelf: true});">
-                             <div class="custom-checkbox pd-left" *ngFor="let control of modifierForm(); let i = index;">
+                             <div class="custom-checkbox pd-right" *ngFor="let control of modifierForm(); let i = index;">
                                  <input type="checkbox" id="modifer_id_{{i}}"  name="modifier_id_{{i}}" [formControlName]="i">
                                  <label class="custom-checkbox__label std-heading-4" for="modifer_id_{{i}}">{{modifierIdMap[i].name}}</label>
                              </div>

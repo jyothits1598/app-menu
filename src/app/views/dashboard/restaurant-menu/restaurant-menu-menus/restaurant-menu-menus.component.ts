@@ -74,9 +74,10 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
     let data: any = {}
     data.menu_name = menu.name;
     data.menu_id = menu.id;
-    data.active_flag = 1;
+    data.active_flag = 0;
     
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp) => {
+      
       if (resp.success) {
         this.alertService.showNotification('Menu successfully deleted');
         this.menus.splice(this.deletemenuIndex, 1);
