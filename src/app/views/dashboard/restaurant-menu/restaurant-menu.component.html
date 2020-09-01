@@ -54,29 +54,3 @@
     <router-outlet></router-outlet>
 </section>
 
-<ng-template let-store #sideBarLinks>
-    <ul class="sidenav__list">
-            <li class="sidenav__link sidenav--hover" [routerLink]="['/dashboard']"
-                style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);">
-                <img class="sidenav__link__img sidenav__link__img--hover-back" style="cursor: pointer;outline: none;"
-                    src="../../../assets/images/arrow-left.png"><span class="std-heading-5">
-                    {{storeName}} </span>
-            </li>
-            <li class="sidenav__item">
-                <a class="sidenav__link sidenav--hover" [routerLink]="['./partner/stores/'+store.id]" style="text-decoration: none;"
-                    routerLinkActive="sidenav__link--active"><img class="sidenav__link__img"
-                        src="../../../assets/images/ico_book.png"><span class="color-primary"> Menu
-                    </span></a>
-            </li>
-            <li class="sidenav__item">
-                <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img"
-                        src="../../../assets/images/ico_restaurant.png"><span class="color-primary">Store
-                        profile</span></a>
-            </li>
-            <li class="sidenav__item">
-                <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img"
-                        src="../../../assets/images/ico_members.png"><span class="color-primary">
-                        Members</span></a>
-            </li>
-    </ul>
-</ng-template>

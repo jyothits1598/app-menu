@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreProfileDataService } from '../services/store-profile-data.service';
 
 @Component({
   selector: 'app-store-portrait',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StorePortraitComponent implements OnInit {
 
-  constructor() { }
+  constructor(private strProfileData: StoreProfileDataService) { }
 
   ngOnInit(): void {
   }
