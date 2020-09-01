@@ -2,8 +2,8 @@
     <div class="row"> 
         <div class="col-md-12">
             <div class="float-right" style="margin-bottom:16px;">
-                <button class="btn std-button std-button--redtransparency" > Deny </button>
-                <button appBtnIcon [valid]="true" [loading]="loadingApproval" class="btn std-button std-button--green" style="margin-left:10px;" (click)="approveStore(storeId)"> <span #span>Approve</span> </button>
+                <button class="btn std-button std-button--redtransparency" (click)="rejectStore(storeId)"> {{denialStatus ? 'Denyed' : 'Deny'}} </button>
+                <button class="btn std-button std-button--green" style="margin-left:10px;" (click)="approveStore(storeId)">{{approvalStatus ? 'Approved' : 'Approve'}} </button>
             </div>
         </div>
     </div>

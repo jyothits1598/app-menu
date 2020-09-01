@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { Store, ReadStore } from 'src/app/_models/store';
-import { URL_StoreDetail, URL_ApproveStore } from 'src/environments/api/api-store-administration';
+import { URL_StoreDetail, URL_ApproveStore, URL_RejectStore } from 'src/environments/api/api-store-administration';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { StringHelperService } from 'src/app/services/string-helper.service';
+import { AlertService } from 'src/app/services/alert.service';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-store-pending-details',
@@ -31,21 +33,22 @@ export class StorePendingDetailsComponent implements OnInit {
   
   // other
   routerSubs: Subscription;
-  loadingApproval: boolean = false;
+  approvalStatus: boolean = false;
+  denialStatus: boolean = false;
 
   constructor(private restApiService: RestApiService,
     private route: ActivatedRoute,
-    private stringHelper: StringHelperService) {
+    private router: Router,
+    private stringHelper: StringHelperService,
+    private alertService: AlertService) {
     this.routerSubs = this.route.params.subscribe(params => {
       this.storeId = +params['id'];
       if (!this.storeId) {
-        // this.router.navigate(['./not-found'], { relativeTo: this.route });
       } else this.fetchData();
     })
   }
 
   ngOnInit(): void {
-
   }
 
   fetchData() {
@@ -60,12 +63,30 @@ export class StorePendingDetailsComponent implements OnInit {
   }
 
   approveStore(storeId) {
-    console.log('approve called', storeId);
-    this.loadingApproval = true;
+    this.alertService.showLoader();
     this.restApiService.patchData(URL_ApproveStore(storeId), {}).pipe(
-      finalize(() => this.loadingApproval = false)
+      finalize(() => this.alertService.hideLoader())
     ).subscribe(
+      (resp : any)=>{
+        if(resp && resp.success){
+          this.alertService.showNotification('Store Approved', 'success');
+          this.router.navigate(['../'], {relativeTo: this.route});
+        }
+      }
+    )
+  }
 
+  rejectStore(storeId) {
+    this.alertService.showLoader();
+    this.restApiService.patchData(URL_RejectStore(storeId), {}).pipe(
+      finalize(() => this.alertService.hideLoader())
+    ).subscribe(
+      (resp : any)=>{
+        if(resp && resp.success){
+          this.alertService.showNotification('Store Denyed', 'success');
+          this.router.navigate(['../'], {relativeTo: this.route});
+        }
+      }
     )
   }
 

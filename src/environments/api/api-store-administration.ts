@@ -3,11 +3,11 @@ export function URL_StoreDetail(storeId) {
 }
 
 export function URL_ApproveStore(storeId) {
-    return `/api/stores/${storeId}/approve`;
+    return `api/stores/${storeId}/approve`;
 }
 
 export function URL_RejectStore(storeId) {
-    return `/api/stores/${storeId}/reject`;
+    return `api/stores/${storeId}/reject`;
 }
 
 export function URL_StoreClaimSearch(term: string){
