@@ -12,9 +12,4 @@ export class PageUnderProgressComponent implements OnInit {
   
   ngOnInit(): void {
   }
-
-  debug(){
-    this.modalService.GetConfirmation()
-  }
-
 }

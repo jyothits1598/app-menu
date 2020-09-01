@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { StringHelperService } from 'src/app/services/string-helper.service';
 declare let $: any;
 
 @Component({
@@ -34,16 +35,14 @@ export class ThirdFormsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private restApiservice: RestApiService,
     private alertservice: AlertService,
-    private authenticateService: AuthenticationService
+    private stringHelper: StringHelperService
   ) {
     this.store_id = this.route.snapshot.paramMap.get('store-id');
     this.add_edit_type = this.route.snapshot.queryParams['type'] || '';
-    console.log('this is the third form');
   }
 
   ngOnInit(): void {
@@ -80,7 +79,7 @@ export class ThirdFormsComponent implements OnInit {
         'legal_owner_name': this.ownershipform.value.ownerName,
         'legal_business_name': this.ownershipform.value.businessName,
         'business_register_number': this.ownershipform.value.ABNnumber,
-        'certificate_of_registration': this.legalFile
+        'certificate_of_registration': this.stringHelper.ExtractFileName(this.legalFile)
       };
       this.saveStore(data);
     } else {
@@ -88,7 +87,7 @@ export class ThirdFormsComponent implements OnInit {
       form_data.append('document', this.selectedFile, this.selectedFile.name);
       this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/update/' + this.store_id + '/file/upload', (response) => {
         if (response && response['success'] && response['data']) {
-          let certificate = response['data'];
+          let certificate = this.stringHelper.ExtractFileName(response['data']);
           let data = {
             'legal_owner_name': this.ownershipform.value.ownerName,
             'legal_business_name': this.ownershipform.value.businessName,

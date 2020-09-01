@@ -23,4 +23,11 @@ export class StringHelperService {
     
     return result;
   }
+
+  ExtractFileName(path: string): string {
+    let index = path.lastIndexOf('/');
+    let result = path.slice(index + 1, path.length);
+    console.log('get result', result);
+    return result;
+  }
 }

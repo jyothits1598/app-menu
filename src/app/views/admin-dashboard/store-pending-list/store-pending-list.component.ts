@@ -3,6 +3,7 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 import { URL_AdminPendingStores } from 'src/environments/api-endpoint';
 import { take } from 'rxjs/operators';
 import { ModalService } from '../../shared/services/modal.service';
+import { ConfirmationDialogConfig } from '../../shared/model/confirmation-dialog-config';
 
 @Component({
   selector: 'app-store-pending-list',
@@ -29,10 +30,6 @@ export class StorePendingListComponent implements OnInit {
         }
       }
     )
-  }
-
-  showModal(){
-    this.modalService.GetConfirmation();
   }
 
 }

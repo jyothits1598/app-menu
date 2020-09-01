@@ -2,6 +2,8 @@ import { Injectable, ComponentFactoryResolver, ViewContainerRef } from '@angular
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogConfig } from '../model/confirmation-dialog-config';
+import { switchMap, take, tap } from 'rxjs/operators';
+import { of, throwError, Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +13,20 @@ export class ModalService {
   constructor(
     private ngbModal: NgbModal) { }
 
-  GetConfirmation() {
-    let confimationConf = new ConfirmationDialogConfig();
-    confimationConf.heading = 'Heading';
-    confimationConf.dialog = 'Are you sure?';
-    confimationConf.confirmBtn = 'Yes';
-    confimationConf.declineBtn = 'No';
+  GetConfirmation(config: ConfirmationDialogConfig): Observable<boolean> {
+
     let modal = this.ngbModal.open(ConfirmationDialogComponent, { centered: true });
-    modal.componentInstance.config = confimationConf;
-    modal.componentInstance.decision.subscribe((desc)=> {console.log('from descition', desc)});
+    modal.componentInstance.config = config;
+    // return modal.componentInstance.decision.pipe(
+    //   take(1),
+    //   switchMap((value)=>{
+    //     if(value == config.confirmBtn) return of(true);
+    //     else return throwError(false);
+    //   })
+    // );
+
+    return from(modal.result).pipe(
+      take(1)
+    );
   }
 }

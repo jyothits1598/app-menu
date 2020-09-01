@@ -10,6 +10,7 @@ import { Subscription, forkJoin } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 import { API_URL_LINK } from 'src/environments/environment.prod';
 import { tap, map, finalize } from 'rxjs/operators';
+import { StringHelperService } from 'src/app/services/string-helper.service';
 
 @Component({
   selector: 'app-store-menu-items-create',
@@ -50,7 +51,8 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private router: Router,
     private route: ActivatedRoute,
-    private dataService: DataService
+    private dataService: DataService,
+    private stringHelper: StringHelperService
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
       //creating a new category
@@ -197,7 +199,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     data.item_base_price = this.createItemForm.value.itemBasePrice;
     data.item_in_stock = this.createItemForm.value.itemStock;
     data.item_individual = this.createItemForm.value.sellitem;
-    data.item_image = this.imageUrl;
+    data.item_image = this.stringHelper.ExtractFileName(this.imageUrl);
     if (this.itemId) data.item_id = this.itemId;
     let checkCategoryValues: Array<boolean> = this.createItemForm.controls.categories.value;
     let selectedCategory: Array<{ "category_id": number }> = [];
