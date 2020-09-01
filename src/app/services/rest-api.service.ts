@@ -33,9 +33,9 @@ export class RestApiService {
   async postAPI(url, data, callback) {
     // use Template literals (backtick) for string concatenation (as shown below)
     url = `${this.hostURL}${url}`;
-    let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+    const cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
     const headers = new HttpHeaders(cred);
-    await this.http.post(url, data, { headers: headers }).subscribe(
+    await this.http.post(url, data, { headers }).subscribe(
       response => {
         return callback && callback(response);
       },
@@ -51,9 +51,9 @@ export class RestApiService {
   }
   async postAPIHandler(url, data, callback) {
     url = this.hostURL + url;
-    let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+    const cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
     const headers = new HttpHeaders(cred);
-    await this.http.post(url, data, { headers: headers }).subscribe(
+    await this.http.post(url, data, { headers }).subscribe(
       response => {
         return callback && callback(response);
       },
@@ -73,9 +73,9 @@ export class RestApiService {
    */
   async getData(url, callback) {
     url = this.hostURL + url;
-    let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+    const cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
     const headers = new HttpHeaders(cred);
-    await this.http.get(url, { headers: headers }).subscribe(
+    await this.http.get(url, { headers }).subscribe(
       response => {
         return callback && callback(response);
       },
@@ -98,9 +98,9 @@ export class RestApiService {
    */
   async putAPI(url, data, callback) {
     url = this.hostURL + url;
-    let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+    const cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
     const headers = new HttpHeaders(cred);
-    await this.http.put(url, data, { headers: headers }).subscribe(
+    await this.http.put(url, data, { headers }).subscribe(
       response => {
         return callback && callback(response);
       },
@@ -120,9 +120,9 @@ export class RestApiService {
    */
   async deleteAPI(url, callback) {
     url = this.hostURL + url;
-    let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+    const cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
     const headers = new HttpHeaders(cred);
-    await this.http.delete(url, { headers: headers }).subscribe(
+    await this.http.delete(url, { headers }).subscribe(
       response => {
         return callback && callback(response);
       },
@@ -143,13 +143,13 @@ export class RestApiService {
    */
   async pushSaveFileToStorage(file, url, callback) {
     url = this.hostURL + url;
-    let formdata = new FormData();
+    const formdata = new FormData();
     formdata.append('profile_image', file);
-    let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+    const cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
     const headers = new HttpHeaders(cred);
     headers.append('Content-Type', 'application/form-data');
     // reportProgress: true,observe: 'events'
-    await this.http.post(url, formdata, { headers: headers }).subscribe(
+    await this.http.post(url, formdata, { headers }).subscribe(
       data => {
         return callback && callback(data);
       },
@@ -165,12 +165,12 @@ export class RestApiService {
    */
   async pushSaveFileToStorageWithFormdata(formdata, url, callback) {
     url = this.hostURL + url;
-    let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+    const cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
     // x-www-form-urlencoded
     // cred['Content-Type'] ? cred['Content-Type']='application/form-data' : cred['Content-Type']=cred['Content-Type'];
     const headers = new HttpHeaders(cred);
     // headers.append('Content-Type', 'application/form-data');
-    await this.http.post(url, formdata, { headers: headers }).subscribe(
+    await this.http.post(url, formdata, { headers }).subscribe(
       data => {
         return callback && callback(data);
       },
@@ -182,10 +182,10 @@ export class RestApiService {
         if (error.error.error) {
           this.alertservice.showNotification(error.error.error, 'error');
         }
-        if (error.error.error['excel_file']['0']) {
-          var errorMez = error.error.error['excel_file']['0'];
+        if (error.error.error.excel_file['0']) {
+          const errorMez = error.error.error.excel_file['0'];
           if (errorMez == 'The excel file must be a file of type: xlsx, xls.') {
-            var displayName = 'Upload file format is Wrong';
+            const displayName = 'Upload file format is Wrong';
             this.alertservice.showNotification(displayName, 'error');
           }
         }
@@ -197,7 +197,7 @@ export class RestApiService {
    */
   getOfflineLoggedUserDetails() {
     if (localStorage.getItem('loggedUser')) {
-      var user_details = JSON.parse(localStorage.getItem('loggedUser'));
+      const user_details = JSON.parse(localStorage.getItem('loggedUser'));
       return user_details;
     }
     return [];
