@@ -13,3 +13,9 @@ export function URL_RejectStore(storeId) {
 export function URL_StoreClaimSearch(term: string){
     return `api/stores?q=${term}`;
 }
+
+export function URL_StoreBasicData(storeId){
+    return `api/stores/${storeId}/storedata`
+}
+
+export const URL_StoreImage = 'store/logo';
