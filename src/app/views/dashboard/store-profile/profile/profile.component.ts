@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { read } from 'fs';
 import { StoreBasicDetailsComponent } from './store-basic-details/store-basic-details.component';
-import { StoreProfileDataService } from '../services/store-profile-data.service';
+import { StoreProfileDataService } from '../_services/store-profile-data.service';
 import { StoreService } from 'src/app/services/store.service';
 import { Storedetails } from 'src/app/_models/store-menu';
-import { StoreBasicDetails } from '../model/store-basic-details';
+import { StoreBasicDetails } from '../_model/store-basic-details';
 import { AlertService } from 'src/app/services/alert.service';
 import { DataService } from 'src/app/services/data.service';
 import { finalize } from 'rxjs/operators';

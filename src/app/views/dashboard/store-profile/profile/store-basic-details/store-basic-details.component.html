@@ -17,7 +17,7 @@
         <h4 class="std-heading-4" style="margin-bottom:32px;"> Store details </h4>
         <h5 class="std-heading-5" style="margin-bottom:16px;"> Photo </h5>
         <div class="upload-image upload-image-border">
-            <img class="ud-image" [src]="imageUrl">
+            <img class="ud-image" [src]="imageUrl ? imageUrl : 'assets/images/null.png'">
         </div>
         <div *ngIf="!normalMode" class="response-padding" style="margin-left:20px;">
             <span style="font-size:12px"> JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>

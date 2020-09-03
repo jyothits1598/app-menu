@@ -1,12 +1,13 @@
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { Injectable } from '@angular/core';
-import { URL_StoreBasicData, URL_StoreImage } from 'src/environments/api/api-store-administration';
+import { URL_StoreBasicData, URL_StoreImage, URL_StoreBankData } from 'src/environments/api/api-store-administration';
 import { tap, map, flatMap } from 'rxjs/operators';
 import { Observable, of, throwError, Subscriber } from 'rxjs';
-import { StoreBasicDetails } from '../model/store-basic-details';
+import { StoreBasicDetails } from '../_model/store-basic-details';
 import { DataService } from 'src/app/services/data.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { StringHelperService } from 'src/app/services/string-helper.service';
+import { StoreBankDetails } from '../_model/store-bank-details';
 
 @Injectable()
 export class StoreProfileDataService {
@@ -44,7 +45,21 @@ export class StoreProfileDataService {
       'store_logo': storeDetails.imageUrl ? this.stringHelper.ExtractFileName(storeDetails.imageUrl) : null
     };
     return this.restApiService.putData(URL_StoreBasicData(storeDetails.id), data);
+  }
 
+  GetStoreBankData(storeId): Observable<StoreBankDetails>{
+    return this.restApiService.getDataObs(URL_StoreBankData(storeId)).pipe(
+      map((resp)=>{
+        let data = resp.data[0];
+        let bankDetail : StoreBankDetails = {
+          name : data.bank,
+          accountName : data.bank_account_name,
+          accountNumber : data.bank_account_number,
+          bsbNumber : data.bsb_number,
+        };
+        return bankDetail;
+      })
+    );
   }
 
   SaveStoreLogo(file: File): Observable<any> {

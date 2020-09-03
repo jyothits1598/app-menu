@@ -18,4 +18,8 @@ export function URL_StoreBasicData(storeId){
     return `api/stores/${storeId}/storedata`
 }
 
+export function URL_StoreBankData(storeId){
+    return `api/stores/${storeId}/bankaccount`
+}
+
 export const URL_StoreImage = 'store/logo';

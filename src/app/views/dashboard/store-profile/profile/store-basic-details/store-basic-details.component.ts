@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { StoreBasicDetails } from '../../model/store-basic-details';
+import { StoreBasicDetails } from '../../_model/store-basic-details';
 
 @Component({
   selector: 'app-store-basic-details',
