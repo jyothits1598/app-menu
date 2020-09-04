@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserRole } from 'src/app/_models/user';
 declare let $: any;
 
 
@@ -27,7 +28,9 @@ export class FourthFormsComponent implements OnInit {
   errors = new Array();
   bsb_number:string;
   bank_account:string;
-
+  
+  isAdmin: boolean = false;
+  
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -35,12 +38,13 @@ export class FourthFormsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private restApiservice: RestApiService,
     private alertservice: AlertService,
-    private authenticateService: AuthenticationService
+    private authService: AuthenticationService
   ) { 
     this.store_id = this.route.snapshot.paramMap.get('store-id');
   }
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.userObjectSubject.value.role == UserRole.Admin;
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     var obj = this;
     // if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){

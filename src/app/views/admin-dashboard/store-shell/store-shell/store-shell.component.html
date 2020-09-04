@@ -22,7 +22,7 @@
                 <tbody *ngIf="(stores$ | async) as stores">
                     <tr *ngIf="stores.length == 0"> <td>No stores have been added</td>  </tr>
                     <tr class="text-capitalize" *ngFor="let store of stores">
-                        <td class="store-name-table" [routerLink]="'./'+store.id"> {{store.store_name}} </td>
+                        <td class="store-name-table"> {{store.store_name}} </td>
                         <td>{{store.status}}</td>
                         <td style="text-align: right;cursor:pointer;outline: none;">
                             <div class="dropdown">

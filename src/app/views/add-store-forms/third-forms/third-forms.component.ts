@@ -7,6 +7,7 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StringHelperService } from 'src/app/services/string-helper.service';
+import { UserRole } from 'src/app/_models/user';
 declare let $: any;
 
 @Component({
@@ -33,19 +34,23 @@ export class ThirdFormsComponent implements OnInit {
   legalFile: string;
   add_edit_type: string;
 
+  isAdmin: boolean = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private restApiservice: RestApiService,
     private alertservice: AlertService,
-    private stringHelper: StringHelperService
+    private stringHelper: StringHelperService,
+    private authService: AuthenticationService
   ) {
     this.store_id = this.route.snapshot.paramMap.get('store-id');
     this.add_edit_type = this.route.snapshot.queryParams['type'] || '';
   }
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.userObjectSubject.value.role == UserRole.Admin;
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     var obj = this;
     // if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
@@ -99,7 +104,6 @@ export class ThirdFormsComponent implements OnInit {
         }
       });
     }
-
   }
 
   saveStore(data) {

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AdminStoreDataService } from '../../admin-dashboard/_services/admin-store-data.service';
+import { UserRole } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-fifth-forms',
@@ -7,13 +10,13 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./fifth-forms.component.scss']
 })
 export class FifthFormsComponent implements OnInit {
-  
+  isAdmin: boolean = false;
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.userObjectSubject.value.role == UserRole.Admin;
   }
 
   // storeDetail() {

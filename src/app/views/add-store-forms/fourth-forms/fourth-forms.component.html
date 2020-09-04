@@ -54,6 +54,7 @@
     <div class="form-group">
         <input type="button" class="btn std-button std-button--transparency" value="Back" (click)="backOwnership()">
         <input type="submit" class="btn std-button std-button--primary" value="Save and continue" style="margin-left:15px;">
+        <input *ngIf="isAdmin" type="button" class="btn std-button std-button--primary" value="Skip" style="margin-left:16px;" [routerLink]="['../../../../', 'step4', store_id]">
     </div>
 </form>
 </div>
