@@ -54,7 +54,7 @@ export class RestApiService {
         url = this.hostURL + url;
         let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
         const headers = new HttpHeaders(cred);
-        return this.http.post(url, data, { headers: headers })
+        return this.http.post(url, data, { headers: headers }).pipe(take(1));
     }
 
     async postAPIHandler(url, data, callback) {
@@ -99,7 +99,7 @@ export class RestApiService {
         });
     }
 
-    getDataObs(url) : Observable<any>{
+    getDataObs(url): Observable<any> {
         url = this.hostURL + url;
         let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
         const headers = new HttpHeaders(cred);
@@ -124,6 +124,14 @@ export class RestApiService {
             }
         });
     }
+
+    putData(url, data) {
+        url = this.hostURL + url;
+        let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
+        const headers = new HttpHeaders(cred);
+        return this.http.put(url, data, { headers: headers }).pipe(take(1));
+    }
+
 
     patchData(url, data) {
         url = this.hostURL + url;
@@ -176,7 +184,7 @@ export class RestApiService {
     /*
     * Rest API Function to save file to storage using get form data object
     */
-    async pushSaveFileToStorageWithFormdata(formdata, url, callback, errorCallback=null) {
+    async pushSaveFileToStorageWithFormdata(formdata, url, callback, errorCallback = null) {
         url = this.hostURL + url;
         let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
         // x-www-form-urlencoded
@@ -187,7 +195,7 @@ export class RestApiService {
             (data) => {
                 return callback && callback(data);
             }, error => {
-                if(errorCallback) errorCallback();
+                if (errorCallback) errorCallback();
                 this.alertservice.hideLoader();
                 if (error.error.data) {
                     this.alertservice.showNotification(error.error.data, 'error');

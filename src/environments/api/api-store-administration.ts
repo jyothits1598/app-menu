@@ -3,13 +3,25 @@ export function URL_StoreDetail(storeId) {
 }
 
 export function URL_ApproveStore(storeId) {
-    return `/api/stores/${storeId}/approve`;
+    return `api/stores/${storeId}/approve`;
 }
 
 export function URL_RejectStore(storeId) {
-    return `/api/stores/${storeId}/reject`;
+    return `api/stores/${storeId}/reject`;
 }
 
 export function URL_StoreClaimSearch(term: string){
     return `api/stores?q=${term}`;
 }
+
+export function URL_StoreBasicData(storeId){
+    return `api/stores/${storeId}/storedata`
+}
+
+export function URL_StoreBankData(storeId){
+    return `api/stores/${storeId}/bankaccount`
+}
+
+export const URL_StoreImage = 'store/logo';
+
+export const URL_StoreShellAllStores = 'api/stores/all/storedata'

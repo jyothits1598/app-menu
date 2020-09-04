@@ -12,7 +12,8 @@ import { AuthenticationService } from './services/authentication.service';
 import { AlertComponent } from './_directives/alert/alert.component';
 import { AuthGuard } from './_guards';
 import { DatePipe } from '@angular/common';
-import { HttpErrorInterceptor } from './interceptors/httpErrorInterceptor';
+import { HttpAuthErrorInterceptor } from './_interceptors/http-auth-error.interceptor';
+import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
 // import { AdminDashboardComponent } from './views/admin-dashboard/admin-dashboard.component';
 // import { TopNavBarComponent } from './views/top-nav-bar/top-nav-bar.component';
 
@@ -41,6 +42,11 @@ import { HttpErrorInterceptor } from './interceptors/httpErrorInterceptor';
     FormsModule
   ],
   providers: [AlertService,RestApiService,AuthGuard,AuthenticationService, DatePipe, 
+  {
+    provide: HTTP_INTERCEPTORS,
+      useClass: HttpAuthErrorInterceptor,
+      multi: true
+  },
   {
     provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,

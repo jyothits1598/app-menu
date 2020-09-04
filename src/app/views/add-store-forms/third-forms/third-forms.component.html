@@ -64,9 +64,10 @@
     <div class="form-group">
         <input type="button" class="btn std-button std-button--transparency" value="Back" (click)="backTostore()">
         <input type="submit" class="btn std-button std-button--primary" value="Save and continue" style="margin-left:16px;">
+        <input *ngIf="isAdmin" type="button" class="btn std-button std-button--primary" value="Skip" style="margin-left:16px;" [routerLink]="['../../../../', 'step3', this.store_id, 'bankaccount']">
     </div>
 </form>
-    
+
 <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput >
 <!-- [ngClass]="{ 'is-invalid': fileSubmit && f.file.errors }" -->
 </div>

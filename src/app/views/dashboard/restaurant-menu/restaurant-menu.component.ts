@@ -15,7 +15,6 @@ export class RestaurantMenuComponent implements AfterViewInit, OnInit, OnDestroy
   notifier = new Subject();
   isActive: boolean = false;
   storeName: string;
-  @ViewChild('sideBarLinks', { read: TemplateRef }) sideBarLinks: TemplateRef<any>;
   
   constructor(private route: ActivatedRoute
     , private router: Router
@@ -29,7 +28,6 @@ export class RestaurantMenuComponent implements AfterViewInit, OnInit, OnDestroy
         this.storeName = store.name.substring(0, 36) + (store.name.length > 36 ? '. . .' : '');
       }
     })
-    this.sideNavServ.AddTemplate(this.sideBarLinks, this.storeService.activeStore$.value, 'RestMenu');
   }
 
   ngOnInit(): void {
@@ -43,7 +41,6 @@ export class RestaurantMenuComponent implements AfterViewInit, OnInit, OnDestroy
   ngOnDestroy(): void {
     this.notifier.next();
     this.notifier.complete();
-    this.sideNavServ.RemoveTemplate('RestMenu');
   }
  
   hide() {

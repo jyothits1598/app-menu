@@ -5,22 +5,6 @@
         Why am I seeing this? <span style="margin-left:20px;cursor: pointer;" (click)="hide()"> Hide </span>
     </span>
 </div> -->
-<div class="pending-tab" *ngIf="isActive">
-    <table>
-        <tr>
-            <td valign="top"> <img src="../../../../assets/images/ico_alert.png"> </td>
-            <td style="padding-left: 18px;">
-                Pending approval -
-                <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> <span
-                    class="norml-text-class">Before you start trading we need to review your application. We will be in
-                    touch shortly. </span>
-            </td>
-            <td valign="top" style="padding-left: 18px;cursor: pointer;" (click)="hide()" title="hide">
-                <img src="../../../../assets/images/ico_close.png">
-            </td>
-        </tr>
-    </table>
-</div>
 <ul class="resnt-menu-top-tabs u-margin-bottom-medium" [ngClass]="isActive ? 't-class' : '' ">
     <li class="resnt-menu-top-tabs__item">
         <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./overview"
@@ -54,29 +38,3 @@
     <router-outlet></router-outlet>
 </section>
 
-<ng-template let-store #sideBarLinks>
-    <ul class="sidenav__list">
-            <li class="sidenav__link sidenav--hover" [routerLink]="['/dashboard']"
-                style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);">
-                <img class="sidenav__link__img sidenav__link__img--hover-back" style="cursor: pointer;outline: none;"
-                    src="../../../assets/images/arrow-left.png"><span class="std-heading-5">
-                    {{storeName}} </span>
-            </li>
-            <li class="sidenav__item">
-                <a class="sidenav__link sidenav--hover" [routerLink]="['./partner/stores/'+store.id]" style="text-decoration: none;"
-                    routerLinkActive="sidenav__link--active"><img class="sidenav__link__img"
-                        src="../../../assets/images/ico_book.png"><span class="color-primary"> Menu
-                    </span></a>
-            </li>
-            <li class="sidenav__item">
-                <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img"
-                        src="../../../assets/images/ico_restaurant.png"><span class="color-primary">Store
-                        profile</span></a>
-            </li>
-            <li class="sidenav__item">
-                <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img"
-                        src="../../../assets/images/ico_members.png"><span class="color-primary">
-                        Members</span></a>
-            </li>
-    </ul>
-</ng-template>

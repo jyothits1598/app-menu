@@ -22,7 +22,6 @@ const routes: Routes = [
   {
     path: '',
     component: RestaurantMenuComponent,
-    resolve: {store: StoreMenuResolver},
     children: [
       { path: 'overview', loadChildren: () => import('./store-menu-overview/store-menu-overview.module').then(m => m.StoreMenuOverviewModule)},
       {

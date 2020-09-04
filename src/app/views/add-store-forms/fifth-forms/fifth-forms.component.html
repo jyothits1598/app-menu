@@ -1,4 +1,4 @@
-<div class="container h-100 m-class">
+<div class="container h-100 m-class" *ngIf="!isAdmin ; else adminMsg">
     <h1 class="form-header" style="margin-bottom:72px;"> 
         Thanks for adding your store 
     </h1>
@@ -6,3 +6,11 @@
     <br><br>If you have any questions please contact our <a href="#"> support team. </a></p>   
     <a [routerLink]="['/dashboard']"> <input type="button" class="btn std-button std-button--primary" value="Let's start building your menu"> </a>
 </div>
+<ng-template #adminMsg>
+    <div class="container h-100 m-class">
+        <h1 class="form-header" style="margin-bottom:72px;"> 
+            Store has been added successfully.
+        </h1>
+        <a routerLink="/dashboard/admin/shells"> <input type="button" class="btn std-button std-button--primary" value="Go to store shells"> </a>
+    </div>
+</ng-template>

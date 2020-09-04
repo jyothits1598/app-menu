@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StorePortraitComponent } from './store-portrait.component';
+import { StoreShellComponent } from './store-shell.component';
 
-describe('StorePortraitComponent', () => {
-  let component: StorePortraitComponent;
-  let fixture: ComponentFixture<StorePortraitComponent>;
+describe('StoreShellComponent', () => {
+  let component: StoreShellComponent;
+  let fixture: ComponentFixture<StoreShellComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StorePortraitComponent ]
+      declarations: [ StoreShellComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StorePortraitComponent);
+    fixture = TestBed.createComponent(StoreShellComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
