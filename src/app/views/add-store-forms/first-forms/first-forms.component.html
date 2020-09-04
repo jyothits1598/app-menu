@@ -12,10 +12,10 @@
                 (onSelect)="handleSelection($event)">
                 <input #itemSearch placeholder="Start typing name, location, keyword or cuisine"
                     class="form-control form-input search" />
-                <ng-template #itemTemplate let-option="option">
+                <ng-template #itemTemplate let-option="option" class="bd">
                     <li class="auto-fill__list__item">
-                        <span>{{option.store_name}}</span>
-                        <span style="background-color: beige;">{{option.store_address}}</span>
+                        <div>{{option.store_name}}</div>
+                        <div style="background-color: beige;">{{option.store_address}}</div>
                     </li>
                 </ng-template>
                 <ng-template #noItemsTemplate>

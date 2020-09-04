@@ -270,7 +270,6 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       },
       (err) => { this.submitting = false; })
 
-    console.log(data);
   }
 
   timingValidator(): ValidatorFn {

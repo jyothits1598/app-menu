@@ -199,7 +199,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     data.item_base_price = this.createItemForm.value.itemBasePrice;
     data.item_in_stock = this.createItemForm.value.itemStock;
     data.item_individual = this.createItemForm.value.sellitem;
-    data.item_image = this.stringHelper.ExtractFileName(this.imageUrl);
+    data.item_image = this.imageUrl;
     if (this.itemId) data.item_id = this.itemId;
     let checkCategoryValues: Array<boolean> = this.createItemForm.controls.categories.value;
     let selectedCategory: Array<{ "category_id": number }> = [];
@@ -222,11 +222,12 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       }
     }
     data.item_modifier = selectedModifier;
-
+    if (this.imageUrl) data.item_image = this.stringHelper.ExtractFileName(this.imageUrl);
     this.saveBtnLoading = true;
     this.restApiService.postAPI(`store/items/add/${this.storeService.activeStore}`
       , data
       , (resp) => {
+        console.log('hihih');
         if (resp.success) {
           this.saveBtnLoading = false;
           // this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
