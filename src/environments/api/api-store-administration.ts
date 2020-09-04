@@ -23,3 +23,5 @@ export function URL_StoreBankData(storeId){
 }
 
 export const URL_StoreImage = 'store/logo';
+
+export const URL_StoreShellAllStores = 'api/stores/all/storedata'

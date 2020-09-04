@@ -9,6 +9,7 @@ import { StoreApprovedContainerComponent } from './store-approved-container/stor
 import { StoreApprovedListComponent } from './store-approved-list/store-approved-list.component';
 import { StoreApprovedDetailsComponent } from './store-approved-details/store-approved-details.component';
 import { SharedModule } from '../shared/shared.module';
+import { AdminStoreDataService } from './_services/admin-store-data.service';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'shells',
+        loadChildren: () => import('./store-shell/store-shell.module').then(m => m.StoreShellModule)
+      },
+      {
         path: '**',
         redirectTo: 'pending',
         pathMatch: 'full'
@@ -66,6 +71,7 @@ const adminDashboardRouting = RouterModule.forChild(routes);
     CommonModule,
     SharedModule,
     adminDashboardRouting
-  ]
+  ],
+  providers: [AdminStoreDataService]
 })
 export class AdminDashboardModule { }

@@ -54,10 +54,11 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
 
   searchData: Array<any> = [];
   overlayRef: OverlayRef;
+  currentOrigin: HTMLElement;
 
   openTemplateOverlay(template: TemplateRef<any>, origin: ElementRef) {
     if (this.overLayVisible) return;
-
+    this.currentOrigin = origin.nativeElement;
     const positionStrategy = this.overlay.position().connectedTo(origin, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
 
 
@@ -68,7 +69,7 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
     overlayConfig.hasBackdrop = true;
 
     this.overlayRef = this.overlay.create(overlayConfig);
-
+    console.log('this is the host element', this.overlayRef.overlayElement);
     this.overlayRef.backdropClick().subscribe(() => {
       this.overlayRef.dispose();
       this.overLayVisible = false;
