@@ -55,7 +55,7 @@ export class SecondFormsComponent implements OnInit {
     startTime: new FormControl('Select'),
     endTime: new FormControl('Select')
   }, this.timingValidator())
-  
+
   time: Array<string> = [
     '12:00AM'
     , '12:30AM'
@@ -113,6 +113,8 @@ export class SecondFormsComponent implements OnInit {
 
   selectedDays: Array<string> = [];
   availability: Array<StoreMenuTime> = [];
+  finalAvailability: Array<StoreMenuTime> = [];
+
   deletedAvailability: Array<StoreMenuTime> = [];
 
   days: { [key: string]: boolean } = {
@@ -192,6 +194,7 @@ export class SecondFormsComponent implements OnInit {
     }
 
     if (this.storeDetailform.valid) {
+      console.log('store details called');
       let data: any = {
         'store_name': this.storeDetailform.value.storeName,
         'store_address': this.storeAddress,
@@ -203,6 +206,16 @@ export class SecondFormsComponent implements OnInit {
       };
       // console.log('extracting logo url', this.imageUrl, this.stringHelper.ExtractFileName)
       if (this.imageUrl) data.store_logo = this.stringHelper.ExtractFileName(this.imageUrl);
+      data.opening_hours = [];
+      this.finalAvailability.forEach((a) => {
+        let menuTime: any = {};
+        menuTime.days = a.day;
+        menuTime.start_time = a.startTime;
+        menuTime.end_time = a.endTime;
+        menuTime.marked_as_closed = a.markedAsClose;
+        // menuTime.active_flag = 0;
+        data.opening_hours.push(menuTime);
+      })
       if (this.add_edit_type == 'add') {
         this.alertservice.showLoader();
         this.restApiservice.postAPI('api/stores/storedata', data, (response) => {
@@ -233,7 +246,7 @@ export class SecondFormsComponent implements OnInit {
             // console.log(response);
             this.alertservice.hideLoader();
             // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
-
+            console.log('redirecting to ', '/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
             return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
           } else if (response && !response['success'] && response['error']['error']) {
             let i = 0;
@@ -275,17 +288,32 @@ export class SecondFormsComponent implements OnInit {
             this.storeDetailform.get('google_business_url').setValue(this.getgoogleBussiness);
             this.storeDetailform.get('facebook_url').setValue(this.getfacebookBussiness);
             this.alertservice.hideLoader();
+            this.finalAvailability = this.readAvailability(element.opening_hours);
           })
         }
       });
     }
   }
 
+  //fucntion to read availability aquired from the backend
+  readAvailability(availability: any): Array<StoreMenuTime> {
+    let result: Array<StoreMenuTime> = []
+    for (const a in availability) {
+      result.push(new StoreMenuTime(
+        availability[a].menu_timings_id
+        , availability[a].days
+        , availability[a].start_time
+        , availability[a].end_time
+        , availability[a].marked_as_closed ? true : false))
+    }
+    return result;
+  }
+
   changeCuisine() {
     let typeCuisine = this.storeDetailform.value.typeCuisine;
   }
 
-  get modalService(): NgbModal{
+  get modalService(): NgbModal {
     return this._modalService;
   }
 
@@ -359,7 +387,7 @@ export class SecondFormsComponent implements OnInit {
 
     return firstETime - secondETime;
   }
-  
+
   readyToSave(): boolean {
     if (this.availability.length == 0) {
       return false;

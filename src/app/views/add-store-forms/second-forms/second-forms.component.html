@@ -1,117 +1,161 @@
 <div class="container h-100 m-class">
-<form [formGroup]="storeDetailform" (ngSubmit)="storeDetails()" >
-    <h1 class="form-header" style="margin-bottom:72px;"> 
-        Tell us a little about your store 
-    </h1>
-    <div class="form-group form-group--margin">
-        <label class="label-inputs"> Store name <b class="m-star">*</b> </label>
-        <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers" formControlName="storeName" [ngClass]="{ 'is-invalid': storeNameSubmit && f.storeName.errors }" >
-        <div *ngIf="storeNameSubmit && f.storeName.errors" class="error-mez">
-            <div *ngIf="f.storeName.errors.required"> Please enter store name </div>
+    <form [formGroup]="storeDetailform" (ngSubmit)="storeDetails()">
+        <h1 class="form-header" style="margin-bottom:72px;">
+            Tell us a little about your store
+        </h1>
+        <div class="form-group form-group--margin">
+            <label class="label-inputs"> Store name <b class="m-star">*</b> </label>
+            <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
+                formControlName="storeName" [ngClass]="{ 'is-invalid': storeNameSubmit && f.storeName.errors }">
+            <div *ngIf="storeNameSubmit && f.storeName.errors" class="error-mez">
+                <div *ngIf="f.storeName.errors.required"> Please enter store name </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group form-group--margin">
-        <label class="label-inputs"> Store address <b class="m-star">*</b> </label>
-        <!-- <input type="text" class="form-control form-input" placeholder="e.g. 100 Main street, Sampletown, Qld 4000" formControlName="storeAddress" #storeAddress [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }" >
+        <div class="form-group form-group--margin">
+            <label class="label-inputs"> Store address <b class="m-star">*</b> </label>
+            <!-- <input type="text" class="form-control form-input" placeholder="e.g. 100 Main street, Sampletown, Qld 4000" formControlName="storeAddress" #storeAddress [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }" >
         <ngx-google-places-autocomplete formControlName="place"></ngx-google-places-autocomplete>
         <div *ngIf="storeAddressSubmit && f.storeAddress.errors" class="error-mez">
             <div *ngIf="f.storeAddress.errors.required"> Please enter store address </div>
         </div> -->
-        <input ngx-google-places-autocomplete [options]= 
-        'options'  (onAddressChange)="AddressChange($event)" class="form-control form-input" formControlName="storeAddress" [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }" placeholder="e.g. 100 Main street, Sampletown, Qld 4000"/> 
-        <div *ngIf="storeAddressSubmit && f.storeAddress.errors" class="error-mez">
-            <div *ngIf="f.storeAddress.errors.required"> Please enter store address </div>
+            <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="AddressChange($event)"
+                class="form-control form-input" formControlName="storeAddress"
+                [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }"
+                placeholder="e.g. 100 Main street, Sampletown, Qld 4000" />
+            <div *ngIf="storeAddressSubmit && f.storeAddress.errors" class="error-mez">
+                <div *ngIf="f.storeAddress.errors.required"> Please enter store address </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group form-group--margin">
-                <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
-                <select class="custom-select form-control form-input form-input--select-input" formControlName="typeCuisine" (ngModelChange)="changeCuisine()" [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
-                    <option [ngValue]="null" selected> Select </option>
-                    <option *ngFor="let cuisine of Cuisines" [ngValue]="cuisine"> {{ cuisine }} </option>
-                </select>
-                <div *ngIf="typeCuisineSubmit && f.typeCuisine.errors" class="error-mez">
-                    <div *ngIf="f.typeCuisine.errors.required"> Please select type of cuisine </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group form-group--margin">
+                    <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
+                    <select class="custom-select form-control form-input form-input--select-input"
+                        formControlName="typeCuisine" (ngModelChange)="changeCuisine()"
+                        [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
+                        <option [ngValue]="null" selected> Select </option>
+                        <option *ngFor="let cuisine of Cuisines" [ngValue]="cuisine"> {{ cuisine }} </option>
+                    </select>
+                    <div *ngIf="typeCuisineSubmit && f.typeCuisine.errors" class="error-mez">
+                        <div *ngIf="f.typeCuisine.errors.required"> Please select type of cuisine </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>   
-    <div class="form-group form-group--margin">
-        <label class="label-inputs"> Description <b class="m-star">*</b> </label>
-        <textarea class="form-control form-input form-input--text-area" placeholder="Will be displayed in the app" formControlName="descriptionItem" [ngClass]="{ 'is-invalid': descriptionItemSubmit && f.descriptionItem.errors }" ></textarea>
-        <div *ngIf="descriptionItemSubmit && f.descriptionItem.errors" class="error-mez">
-            <div *ngIf="f.descriptionItem.errors.required"> Please enter description </div>
-        </div>
-    </div>
-    <div class="form-group form-group--margin">
-        <label class="label-inputs"> Google business URL <b class="m-star"></b> </label>
-        <input type="text" class="form-control form-input" placeholder="e.g. goo.gl/map/xxxxxxxx" formControlName="google_business_url" [ngClass]="{ 'is-invalid': googleBussinessSubmit && f.google_business_url.errors }" >
-        <div *ngIf="googleBussinessSubmit && f.google_business_url.errors" class="error-mez">
-            <div *ngIf="f.google_business_url.errors.required"> Please enter Google business URL </div>
-        </div>
-    </div>
-    <div class="form-group form-group--margin">
-        <label class="label-inputs"> Facebook URL <b class="m-star"></b> </label>
-        <input type="text" class="form-control form-input" placeholder="e.g. http://www.facebook.com/xxxxxxxx" formControlName="facebook_url" [ngClass]="{ 'is-invalid': facebookBussinessSubmit && f.facebook_url.errors }" >
-        <div *ngIf="facebookBussinessSubmit && f.facebook_url.errors" class="error-mez">
-            <div *ngIf="f.facebook_url.errors.required"> Please enter Facebook URL </div>
-        </div>
-    </div>
-    <div class="form-group form-group--margin">
-        <label class="label-inputs"> Opening hours </label>
-        <div class="d-flex justify-content-between" style="cursor: pointer;" title="opening hours" (click)="modalService.open(content, { centered: false, size: 'lg' });">
-            <div class="content-label"> Add opening hours </div>
-            <div>
-                <img src="../../../../assets/images/ico_add_blue.png" >
+        <div class="form-group form-group--margin">
+            <label class="label-inputs"> Description <b class="m-star">*</b> </label>
+            <textarea class="form-control form-input form-input--text-area" placeholder="Will be displayed in the app"
+                formControlName="descriptionItem"
+                [ngClass]="{ 'is-invalid': descriptionItemSubmit && f.descriptionItem.errors }"></textarea>
+            <div *ngIf="descriptionItemSubmit && f.descriptionItem.errors" class="error-mez">
+                <div *ngIf="f.descriptionItem.errors.required"> Please enter description </div>
             </div>
         </div>
-        <div class="table-responsive" style="margin-top:48px">
-            <table>
-                <tr *ngFor="let a of availability; let i = index">
-                    <td width="128px" class="label-inputs"> {{ a.days }} </td>
-                    <td> {{ a.start_time }} - {{ a.end_time }} </td>
-                </tr>
-            </table>
+        <div class="form-group form-group--margin">
+            <label class="label-inputs"> Google business URL <b class="m-star"></b> </label>
+            <input type="text" class="form-control form-input" placeholder="e.g. goo.gl/map/xxxxxxxx"
+                formControlName="google_business_url"
+                [ngClass]="{ 'is-invalid': googleBussinessSubmit && f.google_business_url.errors }">
+            <div *ngIf="googleBussinessSubmit && f.google_business_url.errors" class="error-mez">
+                <div *ngIf="f.google_business_url.errors.required"> Please enter Google business URL </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group form-group--null">
-        <label class="label-inputs"> Store logo or photo </label>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="form-group form-group--margin">
+            <label class="label-inputs"> Facebook URL <b class="m-star"></b> </label>
+            <input type="text" class="form-control form-input" placeholder="e.g. http://www.facebook.com/xxxxxxxx"
+                formControlName="facebook_url"
+                [ngClass]="{ 'is-invalid': facebookBussinessSubmit && f.facebook_url.errors }">
+            <div *ngIf="facebookBussinessSubmit && f.facebook_url.errors" class="error-mez">
+                <div *ngIf="f.facebook_url.errors.required"> Please enter Facebook URL </div>
+            </div>
+        </div>
+        <div class="form-group form-group--margin">
+            <label class="label-inputs"> Opening hours </label>
+            <div class="d-flex justify-content-between" style="cursor: pointer;" title="opening hours"
+                (click)="availability = finalAvailability; modalService.open(content, { centered: false, size: 'lg' });">
+                <div class="content-label"> {{finalAvailability.length == 0 ? 'Add' : 'Edit'}} opening hours </div>
+                <div>
+                    <img src="../../../../assets/images/ico_add_blue.png">
+                </div>
+            </div>
+            <div class="table-responsive" style="margin-top:48px">
                 <div class="row">
-                    <div class="col-auto mr-auto">
-                        <div class="upload-image" (click)="imageUrl? '' : fileInput.click()" style="margin-bottom: 5px;">
-                            <img src="assets/images/ico_add_blue.png" *ngIf="!imageUrl">     
-                            <img class="ud-image" [src]="imageUrl" *ngIf="imageUrl">   
-                            <div *ngIf="!imageUrl" class="std-heading-5" style="color:#353FA8;">Upload an image</div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-border table-colors">
+                                <tbody>
+                                    <tr class="text-capitalize" *ngFor="let a of finalAvailability; let i = index">
+                                        <td><b>{{a.day}}</b></td>
+                                        <td class="text-uppercase">
+                                            {{a.startTime}}&nbsp;-&nbsp;{{a.endTime}}
+                                        </td>
+                                        <!-- <td>
+                                            <div class="form-check">
+                                                <input [(ngModel)]="a.markedAsClose" type="checkbox"
+                                                    class="form-check-input" style="margin-top:5px;">
+                                                <label class="form-check-label" style="font-size:14px;"> Mark as closed
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td valign="middle" style="color:#353FA8;cursor: pointer;"
+                                            (click)="a.id? deletedAvailability.push(availability.splice(i, 1)[0]) : availability.splice(i, 1)[0]">
+                                            <img src="../../../../../assets/images/ico_delete.png">&nbsp;Delete
+                                        </td> -->
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <div class="response-padding" >
-                            <span class="paragraph paragraph--small">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
-                            <div style="margin-top:20px;">
-                                <button class="btn std-button std-button--primary" type="button" (click)="fileInput.click()"> Browse </button> 
-                                <button class="btn std-button std-button--transparency"  type="button" *ngIf="imageUrl"  (click)="imageUrl = null" style="margin-left: 16px;"> Remove </button>
-                            </div>
-                        </div>
-                    </div>                   
                 </div>
             </div>
         </div>
-    </div>
-    <div class="form-group mtop mbottom">
-        <a [routerLink]="['/store/first-form']"> <input type="button" class="btn std-button std-button--transparency" value="Cancel" ></a>
-        <input type="submit" class="btn std-button std-button--primary" value="{{add_edit_type == 'add' ? 'Save and continue' : 'Edit store'}}" style="margin-left:16px;">
-    </div>
-</form>
-<input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput accept=".jpg,.png,.jpeg,.gif">
+        <div class="form-group form-group--null">
+            <label class="label-inputs"> Store logo or photo </label>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-auto mr-auto">
+                            <div class="upload-image" (click)="imageUrl? '' : fileInput.click()"
+                                style="margin-bottom: 5px;">
+                                <img src="assets/images/ico_add_blue.png" *ngIf="!imageUrl">
+                                <img class="ud-image" [src]="imageUrl" *ngIf="imageUrl">
+                                <div *ngIf="!imageUrl" class="std-heading-5" style="color:#353FA8;">Upload an image
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="response-padding">
+                                <span class="paragraph paragraph--small">JPG, PNG or GIF up to 5mb.<br> Minimum size
+                                    500&times;500 pixels. </span>
+                                <div style="margin-top:17px;">
+                                    <button class="btn std-button std-button--primary" type="button"
+                                        (click)="fileInput.click()"> Browse </button>
+                                    <button class="btn std-button std-button--transparency" type="button"
+                                        *ngIf="imageUrl" (click)="imageUrl = null" style="margin-left: 16px;"> Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mtop mbottom">
+            <a [routerLink]="['/store/first-form']"> <input type="button"
+                    class="btn std-button std-button--transparency" value="Cancel"></a>
+            <input type="submit" class="btn std-button std-button--primary"
+                value="{{add_edit_type == 'add' ? 'Save and continue' : 'Edit store'}}" style="margin-left:16px;">
+        </div>
+    </form>
+    <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput
+        accept=".jpg,.png,.jpeg,.gif">
 </div>
 
-<ng-template #content let-modal >
+<ng-template #content let-modal>
     <div class="modal-header header-info">
         <div class="std-heading-4 std-heading-5--popheader"> Opening hours </div>
-        
+
     </div>
     <div class="modal-body">
         <div class="row">
@@ -153,13 +197,14 @@
                             (change)="addRemvDay($event.target.value, $event.target.checked)">
                         <label class="custom-checkbox__label std-heading-4" for="day_sun">Sun</label>
                     </div>
-                    <div class="error-mez" *ngIf="selectedDays.length == 0 && daysTouched">Please select at least one day.</div>
+                    <div class="error-mez" *ngIf="selectedDays.length == 0 && daysTouched">Please select at least one
+                        day.</div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="menu-creator__time" [formGroup]="timing" >
+                <div class="menu-creator__time" [formGroup]="timing">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="std-heading-5 mb-1"> Start time <b class="m-star">*</b></div>
@@ -170,13 +215,14 @@
                         </div>
                         <div class="col-md-4">
                             <div class="std-heading-5 mb-1">End time <b class="m-star">*</b></div>
-                            <select class="custom-select form-input" formControlName="endTime" >
+                            <select class="custom-select form-input" formControlName="endTime">
                                 <option> Select </option>
                                 <option *ngFor="let t of time" [value]="t">{{ t }}</option>
                             </select>
                         </div>
                         <div class="col-md-4" style="padding-top: 26px;">
-                            <button class="btn std-button std-button--primary" (click)="addAvailability()" ><img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp; Add time</button>
+                            <button class="btn std-button std-button--primary" (click)="addAvailability()"><img
+                                    src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp; Add time</button>
                         </div>
                     </div>
                 </div>
@@ -184,14 +230,16 @@
                     <div class="error-mez" *ngIf="timing.errors?.sameSelection">{{timing.errors.sameSelection}}</div>
                     <div class="error-mez" *ngIf="timing.errors?.noSelection">{{timing.errors.noSelection}}</div>
                 </div>
-        
+
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Opening hours </h4>
-                <p class="paragraph" >Select <strong>days</strong> and <strong>times</strong> above and press <strong>add time</strong> to add opening hours.
-                <p *ngIf="availability.length == 0 && availabilityTouched" class="error-mez">Please provide atleast one availability</p>
+                <p class="paragraph">Select <strong>days</strong> and <strong>times</strong> above and press <strong>add
+                        time</strong> to add opening hours.
+                <p *ngIf="availability.length == 0 && availabilityTouched" class="error-mez">Please provide atleast one
+                    availability</p>
             </div>
         </div>
         <div class="row">
@@ -206,7 +254,8 @@
                                 </td>
                                 <td>
                                     <div class="form-check">
-                                        <input [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input" style="margin-top:5px;">
+                                        <input [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input"
+                                            style="margin-top:5px;">
                                         <label class="form-check-label" style="font-size:14px;"> Mark as closed </label>
                                     </div>
                                 </td>
@@ -225,8 +274,10 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <div class="float-right" style="margin-bottom:16px;">
-                        <button class="btn std-button std-button--transparency mr-sm-3" (click)="modal.dismiss('Cross click')"> Cancel </button>
-                        <button class="btn std-button-active"  (click)="saveTiming()" data-dismiss="modal" ><span #span>Save</span></button>
+                        <button class="btn std-button std-button--transparency mr-sm-3"
+                            (click)="modal.dismiss('Cross click')"> Cancel </button>
+                        <button class="btn std-button-active" (click)="this.finalAvailability = this.availability; modal.dismiss('Cross click')"><span
+                                #span>Save</span></button>
                     </div>
                 </div>
             </div>
