@@ -26,7 +26,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
   categoryContentLoaded: boolean = false;
 
   createCatForm: FormGroup = new FormGroup({
-    categoryName: new FormControl('', Validators.required),
+    categoryName: new FormControl(null, [Validators.required, removeSpaces]),
     menus: new FormArray([], [this.MinNumberValidator()])
   })
 
@@ -141,12 +141,17 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
           this.saveBtnLoading = false;
           // this.alertService.showNotification(`Category was successfully ${this.categoryId ? "Updated" : "Created"}`);
           this.navigateBack();
+        } else if (!resp.success) {  
+          this.saveBtnLoading = false;
+          let error_data = resp['error']['error']['category_name'][0];
+          this.alertService.showNotification(error_data, 'error');
         }
+        else this.alertService.showNotification("There was a problem, please try again.");
       }
-      , (errResp) => {
-        this.saveBtnLoading = false;
-        this.alertService.showNotification("There was a problem, please try again.")
-      }
+      // , (errResp) => {
+      //   this.saveBtnLoading = false;
+      //   this.alertService.showNotification("There was a problem, please try again.")
+      // }
     )
   }
 
@@ -174,4 +179,10 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();
   }
+}
+export function removeSpaces(control: AbstractControl) {
+  if (control && control.value && !control.value.replace(/\s/g, '').length) {
+    control.setValue('');
+  }
+  return null;
 }

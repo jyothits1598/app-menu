@@ -33,7 +33,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   modifierIdMap: Array<{ name: string, id: number }>;
 
   createItemForm: FormGroup = new FormGroup({
-    itemName: new FormControl('', Validators.required),
+    itemName: new FormControl(null, [Validators.required, removeSpaces]),
     itemDescription: new FormControl(''),
     itemKeyword: new FormControl(''),
     itemBasePrice: new FormControl(''),
@@ -227,18 +227,19 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     this.restApiService.postAPI(`store/items/add/${this.storeService.activeStore}`
       , data
       , (resp) => {
-        console.log('hihih');
         if (resp.success) {
           this.saveBtnLoading = false;
           // this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
           this.router.navigate(['../'], { relativeTo: this.route });
-        } else if (!resp.success) {
+        } else if (!resp.success) {         
           this.saveBtnLoading = false;
-          let i = 0;
-          for (let key in resp['error']['error']['error_msg']) {
-            this.errors = resp['error']['error']['error_msg'][0];
-            this.alertService.showNotification(this.errors, 'error');
-          }
+          let error_data = resp['error']['error']['item_name'][0];
+          this.alertService.showNotification(error_data, 'error');
+          // let i = 0;
+          // for (let key in resp['error']['error']) {
+          //   this.errors[key] = resp['error']['error'][key][0];
+          //   this.alertService.showNotification(this.errors[key], 'error');
+          // }
         }
         else this.alertService.showNotification("There was a problem, please try again.");
       }
@@ -326,4 +327,11 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       this.alertService.showNotification('No file selected', 'error');
     }
   }
+}
+
+export function removeSpaces(control: AbstractControl) {
+  if (control && control.value && !control.value.replace(/\s/g, '').length) {
+    control.setValue('');
+  }
+  return null;
 }

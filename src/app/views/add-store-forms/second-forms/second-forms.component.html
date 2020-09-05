@@ -67,12 +67,12 @@
             </div>
         </div>
         <div class="table-responsive" style="margin-top:48px">
-            <!-- <table>
-                <tr *ngFor="let storetime of ">
-                    <td width="128px" class="label-inputs"> {{ storetime.days }} </td>
-                    <td> {{ storetime.start_time }} - {{ storetime.end_time }} </td>
+            <table>
+                <tr *ngFor="let a of availability; let i = index">
+                    <td width="128px" class="label-inputs"> {{ a.days }} </td>
+                    <td> {{ a.start_time }} - {{ a.end_time }} </td>
                 </tr>
-            </table> -->
+            </table>
         </div>
     </div>
     <div class="form-group form-group--null">
@@ -90,7 +90,7 @@
                     <div class="col-auto">
                         <div class="response-padding" >
                             <span class="paragraph paragraph--small">JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
-                            <div style="margin-top:17px;">
+                            <div style="margin-top:20px;">
                                 <button class="btn std-button std-button--primary" type="button" (click)="fileInput.click()"> Browse </button> 
                                 <button class="btn std-button std-button--transparency"  type="button" *ngIf="imageUrl"  (click)="imageUrl = null" style="margin-left: 16px;"> Remove </button>
                             </div>

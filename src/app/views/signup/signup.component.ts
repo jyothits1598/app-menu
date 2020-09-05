@@ -116,10 +116,10 @@ export class SignupComponent implements OnInit {
           this.alertservice.hideLoader();
           return this.router.navigateByUrl('/confirm-singup');
         } else if(response && !response['success'] && response['error']['error']) {
-          let i=0;
+          let i = 0;
             for(let key in response['error']['error']) {
               this.SignupcodeError = true;
-              this.errors[key]=response['error']['error'][key][0];
+              this.errors[key]= response['error']['error'][key][0];
               this.alertservice.showNotification(this.errors[key],'error');
             }
         } else {

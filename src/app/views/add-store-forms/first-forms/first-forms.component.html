@@ -12,14 +12,35 @@
                 (onSelect)="handleSelection($event)">
                 <input #itemSearch placeholder="Start typing name, location, keyword or cuisine"
                     class="form-control form-input search" />
-                <ng-template #itemTemplate let-option="option" class="bd">
+                <ng-template #itemTemplate let-option="option">
                     <li class="auto-fill__list__item">
-                        <div>{{option.store_name}}</div>
-                        <div style="background-color: beige;">{{option.store_address}}</div>
+                        <table>
+                            <tr>
+                                <td valign="middle" style="padding: 16px;">
+                                    <img src="../../../../assets/images/search.png" >
+                                </td>
+                                <td style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);width:100%;">
+                                    <div class="paragraph"> {{option.store_name}} </div>
+                                    <div style="color: #808080;font-size: 14px;line-height: 20px;">{{option.store_address}}</div>
+                                </td>
+                            </tr>
+                        </table>                       
                     </li>
                 </ng-template>
                 <ng-template #noItemsTemplate>
-                    <li class="auto-fill__list__item">No results found</li>
+                    <li class="auto-fill__list__item">
+                        <table>
+                            <tr>
+                                <td valign="middle" style="padding: 16px;">
+                                    <img src="../../../../assets/images/ico_add_blue.png" >
+                                </td>
+                                <td style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);width:100%">
+                                    <div class="paragraph" [routerLink]="['/store/step1/create']" style="cursor: pointer;color:#353FA8;outline: 0;"> No match? Add store manually </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- No results found -->
+                    </li>
                 </ng-template>
             </incremental-search>
         </div>

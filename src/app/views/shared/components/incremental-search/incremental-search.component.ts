@@ -60,10 +60,11 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
     if (this.overLayVisible) return;
     this.currentOrigin = origin.nativeElement;
     const positionStrategy = this.overlay.position().connectedTo(origin, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-
+    const scrollStrategy = this.overlay.scrollStrategies.reposition();
 
     const overlayConfig = new OverlayConfig({
-      positionStrategy
+      positionStrategy,
+      scrollStrategy
     });
     overlayConfig.backdropClass = '';
     overlayConfig.hasBackdrop = true;
