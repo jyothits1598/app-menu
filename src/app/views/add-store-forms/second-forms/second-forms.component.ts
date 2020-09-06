@@ -21,6 +21,9 @@ declare let $: any;
 })
 export class SecondFormsComponent implements OnInit {
 
+  add_image:string = "../../../assets/images/ico_add_blue.png";
+  edit_image:string = "../../../assets/images/ico_edit_blue.png";
+
   storeDetailform: FormGroup;
   storeNameSubmit = false;
   storeAddressSubmit = false;
@@ -194,7 +197,6 @@ export class SecondFormsComponent implements OnInit {
     }
 
     if (this.storeDetailform.valid) {
-      console.log('store details called');
       let data: any = {
         'store_name': this.storeDetailform.value.storeName,
         'store_address': this.storeAddress,
@@ -395,28 +397,28 @@ export class SecondFormsComponent implements OnInit {
     return true;
   }
 
-  saveTiming() {
-    if (!this.readyToSave()) {
-      this.availabilityTouched = true;
-      this.alertservice.showNotification('Please complete the form below');
-      return;
-    }
+  // saveTiming() {
+  //   if (!this.readyToSave()) {
+  //     this.availabilityTouched = true;
+  //     this.alertservice.showNotification('Please complete the form below');
+  //     return;
+  //   }
 
-    let data: any = {}
-    data.opening_time = [];
+  //   let data: any = {}
+  //   data.opening_time = [];
 
-    this.availability.forEach((a) => {
-      let menuTime: any = {};
-      menuTime.days = a.day;
-      menuTime.start_time = a.startTime;
-      menuTime.end_time = a.endTime;
-      menuTime.marked_as_closed = a.markedAsClose;
-      // menuTime.active_flag = 0;
-      data.opening_time.push(menuTime);
-    })
-    this.submitting = true;
+  //   this.availability.forEach((a) => {
+  //     let menuTime: any = {};
+  //     menuTime.days = a.day;
+  //     menuTime.start_time = a.startTime;
+  //     menuTime.end_time = a.endTime;
+  //     menuTime.marked_as_closed = a.markedAsClose;
+  //     // menuTime.active_flag = 0;
+  //     data.opening_time.push(menuTime);
+  //   })
+  //   this.submitting = true;
 
-  }
+  // }
 
   onFileChanged(event) {
     /* File upload Required function */

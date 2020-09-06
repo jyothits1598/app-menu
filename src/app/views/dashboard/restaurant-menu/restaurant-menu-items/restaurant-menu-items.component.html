@@ -36,9 +36,9 @@
                     <td> {{stringHelper.ArrayToConsolidatedString(item.menus, 2, nameAccessor)}} </td>
                     <td> {{stringHelper.ArrayToConsolidatedString(item.categories, 2, nameAccessor)}} </td>
                     <td> {{stringHelper.ArrayToConsolidatedString(item.modifiers, 2, nameAccessor)}} </td>
-                    <td style="text-align: right;cursor:pointer;outline: none;">
+                    <td style="text-align: right;outline: none;">
                         <div class="dropdown">
-                            <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="Options">
+                            <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="options" style="cursor:pointer;">
                             <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                 <li class="herf-class" [routerLink]="'./'+item.id" title="Edit">
                                     <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;

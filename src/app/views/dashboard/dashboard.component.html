@@ -15,7 +15,7 @@
         <div class="image-dashboard" [routerLink]="['/store/first-form']"
             style="outline: none;text-decoration: none;cursor: pointer;">
             <div class="inside-bck"> <img src="../../../../../assets/images/ico_add_blue.png">
-                <div class="upload-text">Add store </div>
+                <div class="upload-text"> Add your first store </div>
             </div>
         </div>
     </div>
@@ -36,24 +36,29 @@
                             {{stores.storeName ? stores.storeName : '' }}
                         </h4>
                         <div style="margin-bottom:16px;">
-                            <span class="google-rating">
+                            <span class="google-rating google-rating--pad">
+                                <i class="fa fa-facebook"></i>&nbsp;<b>You</b> & 125k others
+                            </span>
+                            <span class="google-rating" style="margin-left:5px">
                                 4.5 <i class="fa fa-star"></i> Google (4.5)
                             </span>
-                            <!-- <span class="google-rating google-rating--pad">
-                                <i class="fa fa-facebook"></i>&nbsp;<b>Steve</b> & 125k others liked
-                            </span> -->
                         </div>
-                        <span class="google-rating google-rating--pending-color"
+                        <div>
+                            <span class="google-rating google-rating--pending-color"
                             *ngIf="stores.nextStep == ''">
                             Pending approval
-                        </span>
-                        <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'approved'">
-                            Trading
-                        </span>
-                        <span class="google-rating google-rating--incomplete-color"
-                            *ngIf="stores.nextStep">
-                            Setup
-                        </span>
+                            </span>
+                            <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'approved'">
+                                Trading
+                            </span>
+                            <span class="google-rating google-rating--incomplete-color"
+                                *ngIf="stores.nextStep">
+                                Setup
+                            </span>
+                        </div>
+                        <div style="margin-top:26px;text-align: right;">
+                            <img src="../../../assets/images/ico_chevron_right.png">
+                        </div>
                     </div>
                 </div>
             </div>

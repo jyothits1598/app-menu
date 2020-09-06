@@ -4,7 +4,7 @@
         style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });">
     </h3>
     <div style="text-align: right;">
-        <button class="btn std-button std-button--primary" [routerLink]="['./editor']"><img
+        <button class="btn std-button std-button--primary" routerLink="./new"><img
                 src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New menu</button>
     </div>
     <ng-container *ngIf="menus.length <= 0">
@@ -28,17 +28,17 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let menu of menus; let i = index">
-                            <td [routerLink]="['./editor', menu.id]" title="Edit"
+                            <td [routerLink]="'./'+menu.id" title="Edit"
                             class="table-name"> {{menu.name}} </td>
                             <td class="text-uppercase">
                                 {{menu.availability[0].startTime}}&nbsp;-&nbsp;{{menu.availability[0].endTime}}{{menu.availability.length > 1 ? ', +'+(menu.availability.length-1).toString() : ""}}
                             </td>
-                            <td style="text-align: right;cursor:pointer;outline: none;">
+                            <td style="text-align: right;outline: none;">
                                 <div class="dropdown">
                                     <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
-                                        data-toggle="dropdown" title="Options">
+                                        data-toggle="dropdown" title="options" style="cursor:pointer;">
                                     <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                        <li class="herf-class" [routerLink]="['./editor', menu.id]" title="Edit">
+                                        <li class="herf-class" [routerLink]="'./'+menu.id" title="Edit">
                                             <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                             Edit
                                         </li>

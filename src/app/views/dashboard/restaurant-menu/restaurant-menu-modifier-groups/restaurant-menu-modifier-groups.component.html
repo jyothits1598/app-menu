@@ -22,10 +22,10 @@
                         <td>{{modifier.displayText}}</td>
                         <td> {{stringHelperService.ArrayToConsolidatedString(modifier.items, 2, nameAccessor)}}</td>
                         <td> Lamb yirous </td>
-                        <td style="text-align: right;cursor:pointer;outline: none;">
+                        <td style="text-align: right;outline: none;">
                             <div class="dropdown">
                                 <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
-                                    data-toggle="dropdown" title="Options">
+                                    data-toggle="dropdown" title="options" style="cursor:pointer;">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                     <li class="herf-class" title="Edit" [routerLink]="'../'+modifier.id">
                                         <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
@@ -44,7 +44,7 @@
                 <ng-template #noModifiers>
                     <tbody>
                         <tr class="text-center">
-                            <td colspan="4">No items have been added yet.</td>
+                            <td colspan="5">No items have been added yet.</td>
                         </tr>
                     </tbody>
                 </ng-template>

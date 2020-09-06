@@ -116,6 +116,14 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     })
   }
 
+  navigateBack() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  pagebackPopup(back) {
+    this.modalService.open(back, { centered: true, size: 'sm' });
+  }
+  
   get modalService(): NgbModal {
     return this._modalService;
   }
@@ -266,10 +274,14 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
           this.submitting = false;
           // this.alertService.showNotification(`Menu successfully ${this.menuId ? 'updated' : 'created'}`);
           this.router.navigate(['.'], { relativeTo: this.route.parent });
-        } else this.alertService.showNotification(`There was an error ${this.menuId ? 'updating' : 'creating'} the menu. Please try again.`);
-      },
-      (err) => { this.submitting = false; })
-
+        } else if (!resp.success) { 
+          this.submitting = false;
+          let error_data = resp['error']['error']['menu_name'][0];
+          this.alertService.showNotification(error_data, 'error');
+        }
+        else this.alertService.showNotification(`There was an error ${this.menuId ? 'updating' : 'creating'} the menu. Please try again.`);
+      })
+      // (err) => { this.submitting = false; })
   }
 
   timingValidator(): ValidatorFn {
@@ -299,4 +311,11 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     })
   }
 
+}
+
+export function removeSpaces(control: AbstractControl) {
+  if (control && control.value && !control.value.replace(/\s/g, '').length) {
+    control.setValue('');
+  }
+  return null;
 }

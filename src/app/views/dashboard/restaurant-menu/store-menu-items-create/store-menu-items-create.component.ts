@@ -160,7 +160,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   }
 
   updateForm = (data) => {
-    console.log('update form', data);
+    // console.log('update form', data);
     if (data.success && data.data.length > 0) {
       let menuItem = data.data[0];
       this.createItemForm.controls.itemName.setValue(menuItem.item_name);
@@ -178,7 +178,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
 
       menuItem.modifiers_details.forEach(activeModifier => {
         let index: number = this.modifierIdMap.findIndex(modifier => activeModifier.modifier_id == modifier.id);
-        console.log(activeModifier, this.modifierIdMap);
+        // console.log(activeModifier, this.modifierIdMap);
         if (index != -1) (<FormArray>this.createItemForm.controls.modifier).controls[index].setValue(true);
       });
     }

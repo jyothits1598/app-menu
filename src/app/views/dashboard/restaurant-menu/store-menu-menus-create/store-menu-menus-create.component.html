@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-12">
         <div class="input-container" style="margin-bottom:16px;">
-            <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1" [routerLink]="menuId ? '../../' : '../'">
+            <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1" (click)="menuName.dirty ? pagebackPopup(back) : navigateBack()">
             <input focusOnLoad type="text" class="input-border input-palceholder" name="menu-name" [formControl]="menuName"
                 placeholder="Enter a name for this menu">
             <span class="error-mez" *ngIf="menuName.invalid && menuName.touched" >Name of the menu is required</span>
@@ -16,8 +16,19 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;">Add availability <img src="../../../../../assets/images/ico_help.png"style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });"></h4>
-        <div class="std-heading-5 mb-1">Days <b class="m-star">*</b></div>
+        <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;"> Availability <img src="../../../../../assets/images/ico_help.png"style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });"></h4>
+        <div class="label-inputs"> When will this menu will be available? </div>
+        <div class="menu-creator__days">
+            <div class="custom-radio">
+                <input type="radio" name="availabilty" value="opening_hours" >
+                <label class="custom-radio__label" > During opening hours </label>
+            </div>
+            <div class="custom-radio pd-left">
+                <input type="radio" name="availabilty" value="custom_availability" checked >
+                <label class="custom-radio__label" > Custom availability </label>
+            </div>
+        </div>
+        <div class="std-heading-5 mb-1" style="margin-top:32px;">Days <b class="m-star">*</b></div>
         <div class="menu-creator__days mb-2">
             <div class="custom-checkbox mr-3">
                 <input type="checkbox" id="day_mon" value="monday"
@@ -89,9 +100,7 @@
     </div>
 </div>
 
-<h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Availability </h4>
-
-<p class="paragraph" >Select <strong>days</strong> and <strong>times</strong> above and press <strong>add time</strong> to add availability.
+<p class="paragraph" style="margin-top:32px">Select <strong>days</strong> and <strong>times</strong> above and press <strong>add time</strong> to add availability.
 <p *ngIf="availability.length == 0 && availabilityTouched" class="error-mez">Please provide atleast one availability</p>
 
 <div class="row">
@@ -105,13 +114,13 @@
                     </td>
                     <td>
                         <div class="form-check">
-                            <input [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input" style="margin-top:5px;">
-                            <label class="form-check-label" style="font-size:14px;"> Mark as closed </label>
+                            <input [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input checkbox-box" >
+                            <label class="form-check-label check-label-text" >&nbsp; Mark as closed </label>
                         </div>
                     </td>
                     <td valign="middle" style="color:#353FA8;cursor: pointer;"
                         (click)="a.id? deletedAvailability.push(availability.splice(i, 1)[0]) : availability.splice(i, 1)[0]">
-                        <img src="../../../../../assets/images/ico_delete.png">&nbsp;Delete
+                        <img src="../../../../../assets/images/ico_delete.png">&nbsp; Delete
                     </td>
                     <td></td>
                 </tr>
@@ -151,3 +160,17 @@
       <button class="std-button std-button--plane" (click)="modal.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
+
+<!-- back save continue -->
+<ng-template #back let-modal2>
+    <div class="modal-body text-center">
+        <h5 class="std-heading-5 mb-2"> Unsaved changes </h5>
+      <p class="mb-2 paragraph"> 
+          If you continue you will lose any unsaved progress
+      </p>
+      <button class="std-button std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue </button>
+      <hr style="margin:0">
+      <button class="std-button std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
+<!-- back save continue end-->

@@ -16,7 +16,7 @@ export class AddStoreFormsComponent implements OnInit {
   complete_circle_image:string = "../../../assets/svg/dark_circle.svg";
 
   first_step_url:string = "/store/first-form";
-  second_step_url:string = "/store/step1/create";
+  second_step_url:string = "/store/step1/";
   third_step_url:string = "/store/step2/";
   fourth_step_url:string = "/store/step3";
   fifth_step_url:string = "/store/step4";

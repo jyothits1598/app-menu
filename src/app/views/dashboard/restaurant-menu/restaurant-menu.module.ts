@@ -29,15 +29,15 @@ const routes: Routes = [
         component: RestaurantMenuMenusComponent,
         children: [
           {
-            path: 'editor/:id',
+            path: 'new',
             component: StoreMenuMenusCreateComponent
           },
           {
-            path: 'editor',
+            path: ':id',
             component: StoreMenuMenusCreateComponent
           },
           {
-            path: 'editor/:id/notfound',
+            path: ':id/notfound',
             component: NotFoundComponent
           }
         ]
