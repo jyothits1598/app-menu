@@ -219,6 +219,7 @@ export class SecondFormsComponent implements OnInit {
         data.opening_hours.push(menuTime);
       })
       if (this.add_edit_type == 'add') {
+        if (this.claimCreation) data.claim_store_id = this.store_id;
         this.alertservice.showLoader();
         this.restApiservice.postAPI('api/stores/storedata', data, (response) => {
           console.log('store post called', response);
@@ -240,8 +241,7 @@ export class SecondFormsComponent implements OnInit {
         });
       }
       else if (this.add_edit_type == 'edit') {
-        if (this.claimCreation) data.claim_store_id = this.store_id;
-        else data.store_id = this.store_id;
+      data.store_id = this.store_id;
         this.alertservice.showLoader();
         this.restApiservice.putAPI(`api/stores/${this.store_id}/storedata`, data, (response) => {
           if (response && response['success'] && response['data']) {
