@@ -14,7 +14,7 @@ export class FirstFormsComponent implements OnInit {
   constructor(
     private router: Router,
     private restApiService: RestApiService,
-  ) { console.log("first") }
+  ) { }
 
   ngOnInit(): void {
 

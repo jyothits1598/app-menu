@@ -273,7 +273,7 @@ export class SecondFormsComponent implements OnInit {
     // this.alertservice.showLoader();
     if (this.store_id) {
       this.restApiservice.getData(`api/stores/${this.store_id}/storedata`, (response) => {
-        // console.log(response);
+        console.log(response);
         if (response && response['success'] && response['data']) {
           response['data'].forEach(element => {
             this.imageUrl = element.store_logo;

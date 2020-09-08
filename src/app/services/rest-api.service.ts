@@ -85,7 +85,7 @@ export class RestApiService {
         }, error => {
             if (errorCallback) errorCallback();
             this.alertservice.hideLoader();
-            console.log("inside getdata error", error.error.error.error_msg[0]);
+            // console.log("inside getdata error", error.error.error.error_msg[0]);
             // if(error && error.status && (error.status==404)){
             //     // return this.router.navigateByUrl('/page-not-found');
             // }else if(error && error.status && (error.status==400)){
@@ -93,7 +93,7 @@ export class RestApiService {
             // } else if(error && error.status && (error.status==422)){
             // }else
             if (error.error && error.error.error.error_msg[0]) {
-                console.log("got an error in getdata")
+                // console.log("got an error in getdata")
                 this.alertservice.showNotification(error.error.error.error_msg[0], 'error');
             }
         });
