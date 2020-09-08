@@ -29,6 +29,6 @@ export class FirstFormsComponent implements OnInit {
   accessor = (store) => store.store_name;
 
   handleSelection(item: any) {
-    this.router.navigate(['/store/step1/' + item.store_id], { queryParams: { type: 'edit', claim: 'true' } })
+    this.router.navigate(['/store/step1/' + item.store_id], { queryParams: { claim: 'true' } })
   }
 }
