@@ -232,6 +232,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     return true;
   }
 
+
   saveMenu() {
     if (!this.readyToSave()) {
       this.menuName.markAllAsTouched();

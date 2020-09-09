@@ -1,15 +1,26 @@
 <form [formGroup]="basicDetails" (ngSubmit)="onSubmit()" class="row">
+   
+        <div class="col-md-12">
+            <h4 class="std-heading-3" style="margin-bottom:32px;" *ngIf="normalMode"> Store profile &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" ></h4>
+            <h4 class="std-heading-3" style="margin-bottom:32px;" *ngIf="!normalMode">
+                <span>
+                    <img src="../../../../../../assets/images/ico_back.png" (click)="toggleEdit()" style="cursor: pointer;">&nbsp;
+                     Edit store profile
+                </span>
+            </h4>
+        </div>
+    
     <div *ngIf="normalMode; else editOption" class="col-md-12">
         <div class="float-right" style="margin-bottom:52px;">
             <button (click)="toggleEdit()" type="button" class="btn std-button std-button--primary"> <img
-                    src="../../../../../assets/images/ico_edit_white.png"> Edit store profile </button>
+                    src="../../../../../assets/images/ico_edit_white.png">&nbsp; Edit store profile </button>
         </div>
-    </div>
+    </div>   
     <ng-template #editOption >
         <div class="col-md-12">
             <div class="float-right" style="margin-bottom:16px;">
                 <button type="button" (click)="toggleEdit()" class="btn std-button std-button--transparency" style="margin-left:10px;"> Cancel </button>
-                <button  type="submit"  class="btn std-button-active" style="margin-left:10px;"> Save </button>
+                <button  type="submit"  class="btn std-button std-button--primary" style="margin-left:10px;"> Save </button>
             </div>
         </div>
     </ng-template>
@@ -95,9 +106,13 @@
                 <ng-template #facebookUrl>
                     <input [ngClass]="{ 'is-invalid': displayError('facebookUrl') }" class="form-control form-input" type="text" formControlName="facebookUrl">
                     <div  *ngIf="displayError('facebookUrl')" class="error-mez">
-                        <div> Please enter Google business URL </div>
+                        <div> Please enter facebook URL </div>
                     </div>
                 </ng-template>
+            </div>
+            <div class="col-md-12" *ngIf="normalMode">
+                <button class="btn std-button std-button--redtransparency" style="margin-bottom:16px;margin-top:32px;"> <img
+                    src="../../../../../assets/images/ico_delete_red.png"> Delete store </button>
             </div>
         </div>
     </div>

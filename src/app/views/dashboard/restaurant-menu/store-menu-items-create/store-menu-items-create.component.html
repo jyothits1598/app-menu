@@ -24,6 +24,20 @@
 </div>
 <div class="row">
     <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="label-inputs" style="margin-top:56px;"> Categories this item will appear in: </div>
+                <ng-container *ngIf="categoryIdMap; else loading">
+                    <div  formArrayName="categories" class="menu-creator__days"  (click)="createItemForm.controls.categories.markAsTouched({onlySelf: true});">
+                        <div class="custom-checkbox mr-2" *ngFor="let control of categoryForm(); let i = index;">
+                            <input type="checkbox" id="category_id_{{i}}" name="category_id_{{i}}" [formControlName]="i">
+                            <label class="custom-checkbox__label std-heading-4" for="category_id_{{i}}">{{categoryIdMap[i].name}}</label>
+                        </div>
+                    </div>
+                </ng-container>
+                <div *ngIf="categoryIdMap?.length==0">No categories found.</div>
+            </div>
+        </div>
         <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;"> Item details </h4>
         <div class="std-heading-5" style="margin-bottom:16px;"> Photo </div>
         <div class="row">
@@ -48,6 +62,17 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-3">
+                <div class="form-group" style="margin-top:32px">
+                    <div class="label-inputs"> Price </div>
+                    <div class="prefixed-input">
+                        <span class="prefixed-input__prefix">$</span>
+                        <input class="form-control form-input prefixed-input__input prefixed-input__input" type="number" formControlName="itemBasePrice" placeholder="09.11" >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-7">
                 <div class="form-group" style="margin-top:32px">
                     <div class="std-heading-5" style="margin-bottom:16px;" > Description </div>
@@ -60,17 +85,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="form-group" style="margin-top:32px">
-                    <div class="label-inputs"> Price </div>
-                    <div class="prefixed-input">
-                        <span class="prefixed-input__prefix">$</span>
-                        <input class="form-control form-input prefixed-input__input prefixed-input__input" type="number" formControlName="itemBasePrice" placeholder="09.11" >
-                      </div>
-                </div>
+            <div class="col-md-12">
+                <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;"> Modifiers and options &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="openVerticallyCentered(modifier)">  </h4>
+                <button class="btn std-button-active" style="cursor: pointer;padding: 12px 14px;" (click)="addModifier(modifierAdd)" >
+                    <img src="../../../../../assets/images/ico_add_blue.png">&nbsp;&nbsp;Add modifier
+            </button>
             </div>
         </div>
-        <div class="row">
+
+
+        <!-- <div class="row">
             <div class="col-md-6">
                 <div class="form-group" style="margin-top:32px">
                     <div class="label-inputs"> Is item in stock </div>
@@ -86,8 +110,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+        </div> -->
+        <!-- <div class="row">
             <div class="col-md-7">
                 <div class="form-group" style="margin-top:32px">
                     <div class="label-inputs"> Sell item on it's own? <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;width:14px;height:14px;" title="info" (click)="openVerticallyCentered(content)"> </div>
@@ -103,8 +127,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <ng-container *ngIf="sellItemOnOwn.checked">
+        </div> -->
+        <!-- <ng-container *ngIf="sellItemOnOwn.checked">
             <div class="row">
                 <div class="col-md-12">
                     <h4 class="std-heading-4" style="margin-top:56px;margin-bottom: 32px;"> Categories <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" (click)="opencategoryCentered(category)"></h4>
@@ -137,7 +161,8 @@
                     </ng-container>
                 </div>
             </div>
-        </ng-container>
+        </ng-container> -->
+
     </div>
 </div>
 
@@ -149,7 +174,7 @@
 
 
 <!-- Info modal -->
-<ng-template #content let-modal>
+<!-- <ng-template #content let-modal>
     <div class="modal-header header-info">
       <div class="std-heading-5 std-heading-5--popheader"> Sell item on it's own? </div>
       <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -164,7 +189,7 @@
           If this item is a modifier, such as a <b>side, size</b> or <b> sauce </b>for example, you may select 'No' to exclude it from individual sale. 
       </p>
     </div>
-</ng-template>
+</ng-template> -->
 <!-- Info modal end-->
 
 <!-- Info modal -->
@@ -189,15 +214,17 @@
 <!-- Info modal -->
 <ng-template #modifier let-modal>
     <div class="modal-header header-info">
-      <div class="std-heading-5 std-heading-5--popheader"> Modifier groups </div>
+      <div class="std-heading-5 std-heading-5--popheader"> Modifiers and options </div>
       <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
       </button>
     </div>
     <div class="modal-body">
       <p class="paragraph"> 
-          If you have created a modifier group, such as a <b>side, size</b> or <b>Sauce</b>, you may select it here to link this item. Customers will be presented with the modifier options at purchase.
-      </p>
+          A modifier is a group of options such as <b>side, size</b> or <b>Sauce</b>. Once you create a
+          modifier you may link it to this and any other items. Customers will be
+          presented with the options at purchase.
+    </p>
     </div>
 </ng-template>
 <!-- Info modal end-->
@@ -225,5 +252,64 @@
       <button class="std-button std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue </button>
       <hr style="margin:0">
       <button class="std-button std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
+
+<ng-template #modifierAdd let-modal>
+    <div class="modal-header header-info">
+        <div class="std-heading-4 std-heading-5--popheader"> Add modifier </div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-8">
+                <input type="text" class="form-control form-input" placeholder="Search modifiers" style="margin-top:32px;margin-bottom:32px;" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-border table-color">
+                        <tbody >
+                            <tr class="text-capitalize" >
+                                <td><b> Item name </b>  </td>
+                                <td> saef </td>
+                                <td style="text-align: right;outline: none;">
+                                    <div class="dropdown">
+                                        <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle" style="cursor:pointer;"
+                                            data-toggle="dropdown" title="Options">
+                                        <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                            <li title="Delete" class="herf-class" >
+                                                <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                                Delete
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- <ng-template #noItems>
+                            <tbody>
+                                <tr class="text-center">
+                                    <td colspan="6">No items have been added yet.</td>
+                                </tr>
+                            </tbody>
+                        </ng-template> -->
+                    </table>
+                </div>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="float-right" style="margin-bottom:16px;margin-top:32px;">
+                    <button class="btn std-button std-button--transparency" >  
+                        <img src="../../../../../assets/images/ico_add_blue.png">&nbsp;&nbsp;New modifier
+                    </button>
+                    <button class="btn std-button std-button--transparency" style="margin-left:10px;" > Cancel </button>
+                    <button class="btn std-button-active" style="margin-left:10px;" > 
+                        Add modifiers
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </ng-template>

@@ -1,7 +1,7 @@
-<h3 class="u-margin-bottom-small std-heading-3"> Modifier groups </h3>
+<h3 class="u-margin-bottom-small std-heading-3"> Modifiers </h3>
 <div style="text-align: right;">
     <button class="std-button std-button--primary" routerLink="./new"> <img
-            src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New modifier group </button>
+            src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New modifier </button>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -9,9 +9,9 @@
             <table class="table table-border table-color" style="margin-top:24px;">
                 <thead>
                     <tr>
-                        <th> Name </th>
-                        <th> Display </th>
-                        <th> Contains </th>
+                        <th> Modifier </th>
+                        <!-- <th> Display </th> -->
+                        <th> Options </th>
                         <th> Used by </th>
                         <th></th>
                     </tr>
@@ -19,7 +19,7 @@
                 <tbody *ngIf="modifiers.length > 0; else noModifiers">
                     <tr class="text-capitalize" *ngFor="let modifier of modifiers; let i = index">
                         <td [routerLink]="'./'+modifier.id" class="table-name" > {{modifier.name}} </td>
-                        <td>{{modifier.displayText}}</td>
+                        <!-- <td>{{modifier.displayText}}</td> -->
                         <td> {{stringHelperService.ArrayToConsolidatedString(modifier.items, 2, nameAccessor)}}</td>
                         <td> Lamb yirous </td>
                         <td style="text-align: right;outline: none;">
