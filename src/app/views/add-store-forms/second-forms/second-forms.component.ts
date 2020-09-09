@@ -248,7 +248,7 @@ export class SecondFormsComponent implements OnInit {
             // console.log(response);
             this.alertservice.hideLoader();
             // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
-            console.log('redirecting to ', '/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
+            // console.log('redirecting to ', '/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
             return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
           } else if (response && !response['success'] && response['error']['error']) {
             let i = 0;

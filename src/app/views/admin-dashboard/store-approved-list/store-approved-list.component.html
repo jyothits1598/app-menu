@@ -24,7 +24,7 @@
                     <tbody>
                         <tr *ngIf="approvedStores && approvedStores.length == 0"><td>No stores have been approved</td></tr>
                         <tr class="text-capitalize" *ngFor="let store of approvedStores">
-                            <td class="store-name-table"> {{store.name}}</td>
+                            <td class="table-name"> {{store.name}}</td>
                             <td> Owner's Name </td>
                             <td> {{store.claimType}} </td>
                             <td style="text-align: right;cursor:pointer;outline: none;">

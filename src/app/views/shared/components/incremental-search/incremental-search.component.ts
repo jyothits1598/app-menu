@@ -70,7 +70,7 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
     overlayConfig.hasBackdrop = true;
 
     this.overlayRef = this.overlay.create(overlayConfig);
-    console.log('this is the host element', this.overlayRef.overlayElement);
+    // console.log('this is the host element', this.overlayRef.overlayElement);
     this.overlayRef.backdropClick().subscribe(() => {
       this.overlayRef.dispose();
       this.overLayVisible = false;

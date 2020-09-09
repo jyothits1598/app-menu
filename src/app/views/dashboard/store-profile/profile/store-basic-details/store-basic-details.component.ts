@@ -26,8 +26,8 @@ export class StoreBasicDetailsComponent implements OnInit {
     address: new FormControl('', Validators.required),
     cuisineType : new FormControl('', Validators.required),
     description : new FormControl('', Validators.required),
-    googleUrl : new FormControl('', Validators.required),
-    facebookUrl : new FormControl('', Validators.required),
+    googleUrl : new FormControl(''),
+    facebookUrl : new FormControl(''),
   })
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class StoreBasicDetailsComponent implements OnInit {
     else return this.basicDetails.value;
   }
 
-  toggleEdit(){
+  toggleEdit(){    
     this.normalMode = !this.normalMode;
   }
 

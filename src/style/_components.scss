@@ -25,6 +25,14 @@
     &--transparency:hover {
         color: var(--color-primary);
     }
+    &--transparency1 {
+        color: var(--color-primary);
+        background: #fafafa;
+        width:100%;
+    }
+    &--transparency1:hover {
+        color: var(--color-primary);
+    }
     &--blue {
         color: var(--color-background);
         background: var(--color-primary);

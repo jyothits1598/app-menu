@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { URL_StoreClaimSearch } from 'src/environments/api/api-store-administration';
 import { map } from 'rxjs/operators';
+import { OverlayRef, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-first-forms',
@@ -29,6 +30,10 @@ export class FirstFormsComponent implements OnInit {
   accessor = (store) => store.store_name;
 
   handleSelection(item: any) {
-    this.router.navigate(['/store/step1/' + item.store_id], { queryParams: { claim: 'true' } })
+    if(item) {
+      this.router.navigate(['/store/step1/' + item.store_id], { queryParams: { claim: 'true' } })
+    } else {
+      this.router.navigate(['/store/step1/create']);
+    }    
   }
 }

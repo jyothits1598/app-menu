@@ -42,10 +42,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     var obj = this;
-    // if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
-    //   this.router.navigateByUrl('/dashboard');
-    //   //obj.authenticateService.checkExpiryStatus();
-    // }
+    if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
+      this.router.navigateByUrl('/dashboard');
+      //obj.authenticateService.checkExpiryStatus();
+    }
     this.alertservice.getNotification().subscribe(({message:message,alertType:alertType})=>{
       this.showNotificationMessage='';
       if(message){

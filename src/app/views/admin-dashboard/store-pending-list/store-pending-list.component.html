@@ -23,7 +23,7 @@
                 <tbody>
                     <tr *ngIf="pendingStores && pendingStores.length == 0"><td>No stores are pending.</td></tr>
                     <tr class="text-capitalize" *ngFor="let store of pendingStores">
-                        <td class="store-name-table" [routerLink]="'./'+store.id"> {{store.name}} </td>
+                        <td class="table-name" [routerLink]="'./'+store.id"> {{store.name}} </td>
                         <td>Applicant</td>
                         <td> {{store.claimType}} </td>
                         <td style="text-align: right;cursor:pointer;outline: none;">
