@@ -26,8 +26,8 @@ export class StoreBasicDetailsComponent implements OnInit {
     address: new FormControl('', Validators.required),
     cuisineType : new FormControl('', Validators.required),
     description : new FormControl('', Validators.required),
-    googleUrl : new FormControl('', Validators.required),
-    facebookUrl : new FormControl('', Validators.required),
+    googleUrl : new FormControl(''),
+    facebookUrl : new FormControl(''),
   })
 
   basicDetailCache: any = null;
@@ -38,6 +38,7 @@ export class StoreBasicDetailsComponent implements OnInit {
 
   patchData(data: StoreBasicDetails){
     this.basicDetails.patchValue(data);
+    console.log(this.basicDetails);
     this.imageUrl = data.imageUrl;
   }
 

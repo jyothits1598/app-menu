@@ -110,6 +110,10 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     this.modalService.open(back, { centered: true, size: 'sm' });
   }
 
+  addModifier(modifierAdd) {
+    this.modalService.open(modifierAdd, { centered: false, size: 'lg' });
+  }
+
   minChecksValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       let sum = 0;

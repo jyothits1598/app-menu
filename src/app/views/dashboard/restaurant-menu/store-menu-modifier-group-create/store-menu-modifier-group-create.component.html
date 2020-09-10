@@ -2,7 +2,7 @@
     <div class="row" style="margin-top:-24px;">
         <div class="col-md-12">
             <div class="float-right">
-                <button class="btn std-button std-button--transparency" type="button" *ngIf="modifierId"
+                <button class="btn std-button std-button--redtransparency" type="button" *ngIf="modifierId"
                     (click)="modalService.open(deleteComform, { centered: true, size:'sm' });"> Delete </button>
                 <button class="btn std-button std-button--transparency" style="margin-left:10px;" type="button">
                     Duplicate
@@ -22,6 +22,103 @@
             </div>
         </div>
     </div>
+    <!--------------------------- Rules start --------------------->
+    <div class="row" >
+        <div class="col-md-12">
+            <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Rules <img
+                src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="openDisplyinfo(displaytext)"></h4>
+        </div>
+        <div class="col-md-3">          
+            <h5 class="std-heading-5" style="margin-bottom: 4px;"> Select minimum </h5>
+            <select class="custom-select form-input" >
+                <option> Select </option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <h5 class="std-heading-5" style="margin-bottom: 4px;"> Select maximum </h5>
+            <select class="custom-select form-input" >
+                <option> Select </option>
+            </select>
+        </div>
+        <div class="col-md-3">          
+            <h5 class="std-heading-5" style="margin-bottom: 4px;"> Select free </h5>
+            <select class="custom-select form-input" >
+                <option> Select </option>
+            </select>
+        </div>
+    </div>
+    <!--------------------------- Rules start end --------------------->
+    <!--------------------------- Rules start --------------------->
+    <div class="row" >
+        <div class="col-md-12">
+            <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Options </h4>
+            <!------------------- looping add option ------------>
+            <div class="row">
+                <div class="col-md-3">
+                    <h5 class="std-heading-5" style="margin-bottom: 4px;"> Name </h5>
+                    <input type="text" class="form-control form-input" placeholder="Enter name"/>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="std-heading-5" style="margin-bottom: 4px;"> Price </h5>
+                    <input type="text" class="form-control form-input" placeholder="+$"/>
+                </div>
+                <div class="col-md-3" style="padding-top: 36px;">
+                    <span class="blue-text" > 
+                        <img src="../../../../../assets/images/ico_delete.png" >&nbsp; Delete </span> 
+                </div>
+            </div>
+            <!------------------- looping add option end ------------>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn std-button std-button--transparency" type="button" style="margin-top:32px">
+                        <img src="../../../../../assets/images/ico_add_blue.png" >&nbsp; Add option
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Used by </h4>
+            <table class="table table-border table-color">
+                <thead>
+                    <tr>
+                        <th> Item </th>
+                        <th> Category </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr class="text-capitalize" >
+                        <td class="table-name"> Item name </td>
+                        <td> saef </td>
+                        <td style="text-align: right;outline: none;">
+                            <div class="dropdown">
+                                <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle" style="cursor:pointer;"
+                                    data-toggle="dropdown" title="Options">
+                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <li title="Delete" class="herf-class" >
+                                        <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                        Delete
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <!-- <ng-template #noItems>
+                    <tbody>
+                        <tr class="text-center">
+                            <td colspan="6">No items have been added yet.</td>
+                        </tr>
+                    </tbody>
+                </ng-template> -->
+            </table>
+        </div>        
+    </div>
+    <!--------------------------- Rules start end --------------------->
+
+    
+    <!-- below design changed -->
+    
     <div class="row">
         <div class="col-md-12">
             <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Custom display text <img
@@ -125,6 +222,10 @@
         </div>
     </div>
 </form>
+
+
+
+
 
 <ng-template #popup let-editPopup>
     <form (ngSubmit)="updatePrice(valInput.value)">

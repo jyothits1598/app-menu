@@ -7,7 +7,7 @@ import { filter } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-restaurant-menu-menus',
@@ -20,7 +20,6 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
 
   modifierIndexToBeDeleted: number;
   deletemenuIndex : number; 
-  menuName:string;
   constructor(
     public route: ActivatedRoute
     , private router: Router
@@ -68,7 +67,7 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
         this.alertService.hideLoader();
       });
   }
-
+  
   deleteMenu() {
     let menu: StoreMenu = this.menus[this.deletemenuIndex];
     let data: any = {}

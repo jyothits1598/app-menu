@@ -5,7 +5,8 @@
         Why am I seeing this? <span style="margin-left:20px;cursor: pointer;" (click)="hide()"> Hide </span>
     </span>
 </div> -->
-<ul class="resnt-menu-top-tabs u-margin-bottom-medium" [ngClass]="isActive ? 't-class' : '' ">
+<!-- [ngClass]="isActive ? 't-class' : '' " -->
+<ul class="resnt-menu-top-tabs u-margin-bottom-medium" >
     <li class="resnt-menu-top-tabs__item">
         <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./overview"
             routerLinkActive="resnt-menu-top-tabs__button__active">Overview</button>
@@ -29,8 +30,7 @@
     <li class="resnt-menu-top-tabs__item">
         <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./modifier-groups"
             routerLinkActive="resnt-menu-top-tabs__button__active">
-            Modifier
-            Groups
+            Modifiers
         </button>
     </li>
 </ul>

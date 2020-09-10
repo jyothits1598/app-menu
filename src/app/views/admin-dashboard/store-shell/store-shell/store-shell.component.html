@@ -1,14 +1,22 @@
+<h3 class="u-margin-bottom-small std-heading-3"> Shells </h3>
 <div class="row">
-    <div class="col-md-3 mb-1">
+    <div class="col-md-3 mb-2">
         <input type="search" placeholder="Search" class="form-control form-input search" />
     </div>
-    <div class="col-md-3 mb-1 pd-mq">
+    <div class="col-md-2 mb-2 pd-mq">
         <select class="custom-select form-control form-input form-input--select-input">
             <option> All </option>
         </select>
     </div>
-            <a routerLink="/store/step1/create" type="button" class="btn std-button std-button--primary"> <img
-                    src="../../../../../assets/images/ico_add.png"> Add Store Shell </a>
+    <div class="col-md-1"></div>
+    <div class="col-md-3 mb-2">
+        <a routerLink="/store/step1/create" type="button" class="btn std-button std-button--transparency1"> <img
+            src="../../../../../assets/images/ico_upload.png"> &nbsp; Import via CSV </a>       
+    </div>
+    <div class="col-md-3 mb-2 pd-mq">
+        <a routerLink="/store/step1/create" type="button" class="btn std-button std-button--blue"> <img
+            src="../../../../../assets/images/ico_add.png"> &nbsp; Add Store Shell </a>
+    </div>
     <div class="col-md-12" loadingPlaceholder [loadStatus]="contentLoaded">
         <div class="table-responsive">
             <table class="table table-border table-color" style="margin-top:24px;">
@@ -22,7 +30,7 @@
                 <tbody *ngIf="(stores$ | async) as stores">
                     <tr *ngIf="stores.length == 0"> <td>No stores have been added</td>  </tr>
                     <tr class="text-capitalize" *ngFor="let store of stores">
-                        <td class="store-name-table"> {{store.store_name}} </td>
+                        <td class="table-name"> {{store.store_name}} </td>
                         <td>{{store.status}}</td>
                         <td style="text-align: right;cursor:pointer;outline: none;">
                             <div class="dropdown">
