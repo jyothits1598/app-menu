@@ -6,6 +6,8 @@ import { StoreMenuCategory } from '../_models/store-menu-category';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { StoreItem } from './store-item';
 import { StoreMenuItem } from '../_models/store-menu-items';
+import { TimeAvailabilityModule } from '../_modules/time-availability/time-availability.module';
+import { TimeAvailability } from '../_modules/time-availability/_model/time-availability';
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +37,10 @@ export class StoreService {
   }
 
   //fucntion to read availability aquired from the backend
-  readAvailability(availability: any): Array<StoreMenuTime> {
-    let result: Array<StoreMenuTime> = []
+  readAvailability(availability: any): Array<TimeAvailability> {
+    let result: Array<TimeAvailability> = []
     for (const a in availability) {
-      result.push(new StoreMenuTime(
+      result.push(new TimeAvailability(
         availability[a].menu_timings_id
         , availability[a].days
         , availability[a].start_time

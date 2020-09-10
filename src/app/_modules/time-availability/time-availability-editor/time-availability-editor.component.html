@@ -1,0 +1,85 @@
+<div class="std-heading-5 mb-1" style="margin-top:32px;">Days <b class="m-star">*</b></div>
+<div class="menu-creator__days mb-2">
+    <div class="custom-checkbox mr-3">
+        <input type="checkbox" id="day_mon" value="monday"
+            (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <label class="custom-checkbox__label std-heading-4" for="day_mon">Mon</label>
+    </div>
+    <div class="custom-checkbox mr-3">
+        <input type="checkbox" id="day_tue" value="tuesday"
+            (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <label class="custom-checkbox__label std-heading-4" for="day_tue">Tue</label>
+    </div>
+    <div class="custom-checkbox mr-3">
+        <input type="checkbox" id="day_wed" value="wednesday"
+            (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <label class="custom-checkbox__label std-heading-4" for="day_wed">Wed</label>
+    </div>
+    <div class="custom-checkbox mr-3">
+        <input type="checkbox" id="day_thu" value="thursday"
+            (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <label class="custom-checkbox__label std-heading-4" for="day_thu">Thu</label>
+    </div>
+    <div class="custom-checkbox mr-3">
+        <input type="checkbox" id="day_fri" value="friday"
+            (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <label class="custom-checkbox__label std-heading-4" for="day_fri">Fri</label>
+    </div>
+    <div class="custom-checkbox mr-3">
+        <input type="checkbox" id="day_sat" value="saturday"
+            (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <label class="custom-checkbox__label std-heading-4" for="day_sat">Sat</label>
+    </div>
+    <div class="custom-checkbox mr-3">
+        <input type="checkbox" id="day_sun" value="sunday"
+            (change)="addRemvDay($event.target.value, $event.target.checked)">
+        <label class="custom-checkbox__label std-heading-4" for="day_sun">Sun</label>
+    </div>
+    <div class="error-mez" *ngIf="selectedDays.length == 0 && daysTouched">Please select at least one day.</div>
+</div>
+<div class="menu-creator__time" [formGroup]="timing">
+    <div class="mr-3">
+        <div class="std-heading-5 mb-1">Start time <b class="m-star">*</b></div>
+        <select class="custom-select form-input" formControlName="startTime">
+            <option> Select </option>
+            <option *ngFor="let t of time" [value]="t">{{ t }}</option>
+        </select>
+    </div>
+    <div class="mr-3">
+        <div class="std-heading-5 mb-1">End time <b class="m-star">*</b></div>
+        <select class="custom-select form-input" formControlName="endTime">
+            <option> Select </option>
+            <option *ngFor="let t of time" [value]="t">{{ t }}</option>
+        </select>
+    </div>
+    <div class="mr-3">
+        <button class="btn std-button std-button--primary" style="cursor: pointer;padding: 12px 14px;"
+        (click)="addAvailability()"><img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;Add
+        time</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-border table-colors">
+            <tbody>
+                <tr class="text-capitalize" *ngFor="let a of _availability; let i = index">
+                    <td><b>{{a.day}}</b></td>
+                    <td class="text-uppercase">
+                        {{a.startTime}}&nbsp;-&nbsp;{{a.endTime}}
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input checkbox-box" >
+                            <label class="form-check-label check-label-text" >&nbsp; Mark as closed </label>
+                        </div>
+                    </td>
+                    <td valign="middle" style="color:#353FA8;cursor: pointer;"
+                        (click)="deleteAvailability(i)">
+                        <img src="../../../../../assets/images/ico_delete.png">&nbsp; Delete
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -17,6 +17,7 @@ import { StoreMenuItemContainerComponent } from './store-menu-item-container/sto
 import { StoreMenuResolver } from 'src/app/_guards/store-menu-resolver';
 import { RestaurantMenuModifierGroupsComponent } from './restaurant-menu-modifier-groups/restaurant-menu-modifier-groups.component';
 import { StoreMenuModifierGroupCreateComponent } from './store-menu-modifier-group-create/store-menu-modifier-group-create.component';
+import { TimeAvailabilityModule } from 'src/app/_modules/time-availability/time-availability.module';
 
 const routes: Routes = [
   {
@@ -127,6 +128,7 @@ const restaurantMenuRouting = RouterModule.forChild(routes);
     SharedModule,
     NgbModalModule,
     restaurantMenuRouting,
+    TimeAvailabilityModule
   ],
   providers: [StoreMenuResolver]
 })
