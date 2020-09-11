@@ -1,0 +1,15 @@
+@keyframes blink-highlight{
+    0%{
+        background-color: transparent;
+    }
+    50%{
+        background-color: var(--color-background-secondary);
+    }
+    100%{
+        background-color: transparent;
+    }
+}
+
+.new-highlight{
+    animation: blink-highlight 1s;
+}

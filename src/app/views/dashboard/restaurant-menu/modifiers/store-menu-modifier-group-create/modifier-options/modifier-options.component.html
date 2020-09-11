@@ -1,0 +1,32 @@
+<h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Options </h4>
+<!------------------- looping add option ------------>
+<div #optionElement class="row" FormArray="_options" *ngFor="let option of _options.controls; let  i = index">
+    <ng-container [formGroup]="option">
+        <div class="col-md-3">
+            <h5 class="std-heading-5" style="margin-bottom: 4px;"> Name </h5>
+            <input type="text" formControlName="name" class="form-control form-input error-highlight"
+                placeholder="Enter name"/>
+            <div *ngIf="option.controls.name.touched && option.controls.name.invalid">{{getNameError(option.controls.name)}}</div>
+        </div>
+        <div class="col-md-3">
+            <h5 class="std-heading-5" style="margin-bottom: 4px;"> Price </h5>
+            <input type="text" formControlName="price" class="form-control form-input error-highlight"
+                placeholder="+$"/>
+            <div *ngIf="option.controls.price.touched && option.controls.price.invalid">{{getPriceError(option.controls.price)}}</div>
+        </div>
+        <div class="col-md-3" style="padding-top: 36px;" (click)="deleteOption(i)">
+            <span class="blue-text">
+                <img src="../../../../../assets/images/ico_delete.png">&nbsp; Delete </span>
+        </div>
+    </ng-container>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button (click)="addOption()" class="btn std-button std-button--transparency" type="button"
+            style="margin-top:32px">
+            <img src="../../../../../assets/images/ico_add_blue.png">&nbsp; Add option
+        </button>
+    </div>
+</div>
+
+<button (click)="debug()">debug()</button>

@@ -2,20 +2,14 @@ import { Component, OnInit, TemplateRef, OnDestroy, ViewContainerRef, ViewChild,
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { StoreMenuItem } from 'src/app/_models/store-menu-items';
 import { RestApiService } from 'src/app/services/rest-api.service';
-import { Store } from 'src/app/_models/store';
 import { map, finalize, filter, debounce, switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { StoreMenu } from 'src/app/_models/store-menu';
-import { StoreMenuCategory } from 'src/app/_models/store-menu-category';
-import { StoreMenuItemsCreateComponent } from '../store-menu-items-create/store-menu-items-create.component';
 import { StoreService } from 'src/app/services/store.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { ReadStoreMenuModifier, StoreMenuModifierItem, StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
 import { Subscription, Observable, fromEvent, interval, of, merge } from 'rxjs';
 import { MinNumberValidator } from 'src/app/_helpers/validators';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-store-menu-modifier-group-create',
@@ -30,8 +24,6 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     private alertService: AlertService,
     private router: Router,
     private route: ActivatedRoute,
-    private overlay: Overlay,
-    private vCRef: ViewContainerRef
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
       //creating a new category

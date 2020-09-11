@@ -7,7 +7,7 @@ export class StringHelperService {
 
   constructor() { }
 
-  ArrayToConsolidatedString(items: Array<string>, maxLenght: number, stringAccessor: (any)=>string){
+  ArrayToConsolidatedString(items: Array<any>, maxLenght: number, stringAccessor: (any)=>string){
     let result = "";
     
     if(!items) return null;

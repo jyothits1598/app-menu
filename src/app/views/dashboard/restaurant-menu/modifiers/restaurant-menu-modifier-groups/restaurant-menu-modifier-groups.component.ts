@@ -6,6 +6,8 @@ import { AlertService } from 'src/app/services/alert.service';
 import { finalize } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StringHelperService } from 'src/app/services/string-helper.service';
+import { StoreMenuDataService } from '../../_services/store-menu-data.service';
+import { ModifierDisplay, ModifiersToModifierDisplay } from '../../_models/modifier-display';
 
 @Component({
   selector: 'app-restaurant-menu-modifier-groups',
@@ -17,44 +19,38 @@ export class RestaurantMenuModifierGroupsComponent implements OnInit {
     private storeService: StoreService,
     private alertService: AlertService,
     private _modalService: NgbModal,
-    public stringHelperService: StringHelperService
-    ) { }
+    public stringHelperService: StringHelperService,
+    private storeMenuData: StoreMenuDataService
+  ) { }
 
-  modifiers: Array<StoreMenuModifier> = [];
+  modifiers: Array<ModifierDisplay> = [];
   modifierIndexToBeDeleted: number;
 
-  get modalService(): NgbModal{
+  get modalService(): NgbModal {
     return this._modalService;
   }
 
   ngOnInit(): void {
     this.alertService.showLoader();
-    this.restApiService.getDataObs(`modifiers/${this.storeService.activeStore$.value.id}/all`).pipe(
-      finalize(()=>{this.alertService.hideLoader()})
-    ).subscribe((resp)=>{
-      if(resp && resp.success){
-        resp.data.forEach(mod => {
-          this.modifiers.push(ReadStoreMenuModifier(mod));
-        });
-      }
+    this.storeMenuData.allModifiers().pipe(
+      finalize(() => { this.alertService.hideLoader() })
+    ).subscribe((data) => {
+      this.modifiers = ModifiersToModifierDisplay(data);
       console.log(this.modifiers);
-    });
+    })
+
   }
-  
+
   nameAccessor: (item) => string = (item: any) => item.name;
 
-  deleteModifier(index : number){
+  deleteModifier(index: number) {
     let mod = this.modifiers[index];
-    var data : any= {} ;
-    data.modifier_id = mod.id;
-    data.store_id = this.storeService.activeStore$.value.id;
-    data.active_flag = 0;
-
     this.alertService.showLoader();
-    this.restApiService.postData('modifiers', data).pipe(
-      finalize(()=>this.alertService.hideLoader())
-    ).subscribe((resp : any)=>{
-      if(resp && resp.success) this.modifiers.splice(index, 1);
+
+    this.storeMenuData.deleteModifier(mod.modifier.id).pipe(
+      finalize(() => this.alertService.hideLoader())
+    ).subscribe((resp: any) => {
+      if (resp && resp.success) this.modifiers.splice(index, 1);
     });
   }
 

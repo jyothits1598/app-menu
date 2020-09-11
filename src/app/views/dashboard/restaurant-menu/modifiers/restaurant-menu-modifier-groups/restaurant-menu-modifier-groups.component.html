@@ -18,10 +18,10 @@
                 </thead>
                 <tbody *ngIf="modifiers.length > 0; else noModifiers">
                     <tr class="text-capitalize" *ngFor="let modifier of modifiers; let i = index">
-                        <td [routerLink]="'./'+modifier.id" class="table-name" > {{modifier.name}} </td>
+                        <td [routerLink]="'./'+modifier.id" class="table-name" > {{modifier.modifier.name}} </td>
                         <!-- <td>{{modifier.displayText}}</td> -->
-                        <td> {{stringHelperService.ArrayToConsolidatedString(modifier.items, 2, nameAccessor)}}</td>
-                        <td> Lamb yirous </td>
+                        <td> {{modifier.itemsString}}</td>
+                        <td> {{modifier.optionsString}} </td>
                         <td style="text-align: right;outline: none;">
                             <div class="dropdown">
                                 <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
@@ -31,15 +31,14 @@
                                         <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                         Edit
                                     </li>
-                                    <li title="Delete" class="herf-class" (click)="modifierIndexToBeDeleted = i; modalService.open(deleteComform, { centered: true, size: 'sm' });">
+                                    <!-- <li title="Delete" class="herf-class" (click)="modifierIndexToBeDeleted = i; modalService.open(deleteComform, { centered: true, size: 'sm' });">
                                         <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                         Delete
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </td>
                     </tr>
-
                 </tbody>
                 <ng-template #noModifiers>
                     <tbody>
@@ -53,7 +52,9 @@
     </div>
 </div>
 
-<ng-template #deleteComform let-deleteConf>
+<app-modifier-selector></app-modifier-selector>
+
+<!-- <ng-template #deleteComform let-deleteConf>
     <div class="modal-body text-center">
         <h4 class="std-heading-4 mb-2"> Deleting modifier group "{{modifiers[modifierIndexToBeDeleted].name}}" </h4>
       <p class="mb-2"> 
@@ -63,4 +64,4 @@
       <hr style="margin: 0;">
       <button class="std-button std-button--plane" (click)="deleteConf.dismiss('Cross click')"> Cancel </button>
     </div>
-</ng-template>
+</ng-template> -->

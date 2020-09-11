@@ -8,27 +8,18 @@ export class StoreMenuModifier {
     selectionRequired: boolean;
     maxItemsSelectable: number;
     items: Array<StoreMenuModifierItem>
+    options: Array<StoreMenuOption>
+
     constructor(id: number, name: string) {
         this.id = id;
         this.name = name;
     }
-
-    itemsToString(): string {
-        let result = "";
-
-        if (!this.items || this.items.length == 0) return "";
-        result += this.items[0].name;
-
-        if (!this.items[1]) return result;
-        result += ', ' + this.items[1]
-
-        if (!this.items[2]) return result;
-        result += ', ' + this.items[2]
-
-        if (this.items[3])
-            result += `, +${this.items.length - 2}`
-    }
 };
+
+export class StoreMenuOption{
+    name: string;
+    price: number;
+}
 
 export class StoreMenuModifierItem extends StoreMenuItem {
     modifierPrice: number;
