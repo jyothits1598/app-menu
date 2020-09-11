@@ -35,7 +35,6 @@ export class StoreBasicDetailsComponent implements OnInit {
 
   patchData(data: StoreBasicDetails){
     this.basicDetails.patchValue(data);
-    console.log(this.basicDetails);
     this.imageUrl = data.imageUrl;
   }
 

@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.storeDataService.GetStoreBasicData(this.storeService.activeStore$.value.id).subscribe(
       (data) => {
+        console.log(data);
         this.storeBasicDetials = data;
         this.storeDetails.patchData(this.storeBasicDetials)
       }

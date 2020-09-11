@@ -1,13 +1,12 @@
-<form [formGroup]="basicDetails" (ngSubmit)="onSubmit()" class="row">
-   
+<form [formGroup]="basicDetails" (ngSubmit)="onSubmit()" class="row">  
         <div class="col-md-12">
-            <h4 class="std-heading-3" style="margin-bottom:32px;" *ngIf="normalMode"> Store profile &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" ></h4>
-            <h4 class="std-heading-3" style="margin-bottom:32px;" *ngIf="!normalMode">
+            <h3 class="std-heading-3" style="margin-bottom:32px;" *ngIf="normalMode"> Store profile &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" ></h3>
+            <h3 class="std-heading-3" style="margin-bottom:32px;" *ngIf="!normalMode">
                 <span>
                     <img src="../../../../../../assets/images/ico_back.png" (click)="toggleEdit()" style="cursor: pointer;">&nbsp;
                      Edit store profile
                 </span>
-            </h4>
+            </h3>
         </div>
     
     <div *ngIf="normalMode; else editOption" class="col-md-12">
