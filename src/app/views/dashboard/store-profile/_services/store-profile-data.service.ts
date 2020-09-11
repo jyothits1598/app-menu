@@ -1,6 +1,6 @@
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { Injectable } from '@angular/core';
-import { URL_StoreBasicData, URL_StoreImage, URL_StoreBankData } from 'src/environments/api/api-store-administration';
+import { URL_StoreBasicData, URL_StoreImage, URL_StoreBankData, URL_StoreOwnershipData } from 'src/environments/api/api-store-administration';
 import { tap, map, flatMap } from 'rxjs/operators';
 import { Observable, of, throwError, Subscriber } from 'rxjs';
 import { StoreBasicDetails } from '../_model/store-basic-details';
@@ -8,6 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { StringHelperService } from 'src/app/services/string-helper.service';
 import { StoreBankDetails } from '../_model/store-bank-details';
+import { StoreOwnershipDetails } from '../_model/store-ownership-details';
 
 @Injectable()
 export class StoreProfileDataService {
@@ -51,15 +52,49 @@ export class StoreProfileDataService {
     return this.restApiService.getDataObs(URL_StoreBankData(storeId)).pipe(
       map((resp)=>{
         let data = resp.data[0];
-        let bankDetail : StoreBankDetails = {
-          name : data.bank,
-          accountName : data.bank_account_name,
-          accountNumber : data.bank_account_number,
-          bsbNumber : data.bsb_number,
-        };
+        let bankDetail = new StoreBankDetails();
+        bankDetail.name = data.bank;
+        bankDetail.accountName = data.bank_account_name;
+        bankDetail.bsbNumber = data.bsb_number;
+        bankDetail.accountNumber = data.bank_account_number;
         return bankDetail;
       })
     );
+  }
+
+  SaveStoreBankData(bankDetails: StoreBankDetails): Observable<any> {
+    let data = {
+      'bank':bankDetails.name,
+      'bank_account_name':bankDetails.accountName,
+      'bsb_number':bankDetails.bsbNumber,
+      'bank_account_number':bankDetails.accountNumber
+    };
+    return this.restApiService.putData(URL_StoreBankData(bankDetails.id), data);
+  }
+
+  GetStoreOwnershipData(storeId): Observable<StoreOwnershipDetails>{
+    return this.restApiService.getDataObs(URL_StoreOwnershipData(storeId)).pipe(
+      map((resp)=>{
+        console.log(resp);
+        let data = resp.data[0];
+        let StoreOwnershipDetail = new StoreOwnershipDetails();
+        StoreOwnershipDetail.ownerName = data.legal_owner_name;
+        StoreOwnershipDetail.buinessName = data.legal_business_name;
+        StoreOwnershipDetail.registrationNumber = data.business_register_number;
+        StoreOwnershipDetail.legalFile = data.certificate_of_registration;
+        return StoreOwnershipDetail;
+      })
+    );
+  }
+
+  SaveownershipData(ownershipDetails: StoreOwnershipDetails): Observable<any> {
+    let data = {
+      'legal_owner_name':ownershipDetails.ownerName,
+      'legal_business_name':ownershipDetails.buinessName,
+      'business_register_number':ownershipDetails.registrationNumber,
+      'certificate_of_registration':ownershipDetails.legalFile
+    };
+    return this.restApiService.putData(URL_StoreOwnershipData(ownershipDetails.id), data);
   }
 
   SaveStoreLogo(file: File): Observable<any> {

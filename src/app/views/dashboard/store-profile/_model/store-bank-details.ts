@@ -3,4 +3,5 @@ export class StoreBankDetails{
     accountName: string;
     accountNumber: string;
     bsbNumber: string;
+    id: number;
 }

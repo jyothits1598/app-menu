@@ -1,23 +1,72 @@
-<div class="row" *ngIf="storeBankDetail">
+<form [formGroup]="bankDetails" (ngSubmit)="onbankdetailSubmit()" class="row"> 
+<!-- <div class="row" *ngIf="storeBankDetail"> -->
     <div class="col-md-12">
-        <h3 class="std-heading-3"> Bank details </h3>
+        <h3 class="std-heading-3" style="margin-bottom:32px;" *ngIf="activeMode" > Bank details </h3>
+        <h3 class="std-heading-3" style="margin-bottom:32px;" *ngIf="!activeMode" >
+            <span>
+                <img src="../../../../../../assets/images/ico_back.png" (click)="Editbtntoggle()" style="cursor: pointer;">&nbsp;
+                 Edit bank details
+            </span>
+        </h3>
     </div>
-    <div class="col-md-12">
-        <div class="std-heading-5" style="margin-bottom:16px;margin-top:44px"> Bank </div>
-        <p class="paragraph"> {{storeBankDetail.name}} </p>
+    <div *ngIf="activeMode; else editOption" class="col-md-12">
+        <div class="float-right" style="margin-bottom:32px;">
+            <button (click)="Editbtntoggle()" type="button" class="btn std-button std-button--primary"> <img
+                    src="../../../../../assets/images/ico_edit_white.png">&nbsp; Edit bank details </button>
+        </div>
+    </div>   
+    <ng-template #editOption >
+        <div class="col-md-12">
+            <div class="float-right" style="margin-bottom:16px;">
+                <button type="button" (click)="Editbtntoggle()" class="btn std-button std-button--transparency" style="margin-left:10px;"> Cancel </button>
+                <button  type="submit"  class="btn std-button std-button--primary" style="margin-left:10px;"> Save </button>
+            </div>
+        </div>
+    </ng-template>
+    <div class="col-md-12 col-sm-12 col-lg-6 col-xs-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="std-heading-5 mb-1" style="margin-top:44px"> Bank <b class="m-star" *ngIf="!activeMode">*</b></div>
+                <p class="paragraph" *ngIf="activeMode; else name"> {{bankDetails.value.name}} </p>
+                <ng-template #name>
+                    <input [ngClass]="{ 'is-invalid': displayError('name') }" class="form-control form-input" type="text" formControlName="name">
+                    <div *ngIf="displayError('name')" class="error-mez">
+                        <div> Please enter bank name </div>
+                    </div>
+                </ng-template>
+            </div>
+             <div class="col-md-12">
+                <div class="std-heading-5 mb-1" style="margin-top:44px"> Account Name <b class="m-star" *ngIf="!activeMode">*</b></div>
+                <p class="paragraph" *ngIf="activeMode; else accountName" > {{bankDetails.value.accountName}} </p>
+                <ng-template #accountName>
+                    <input [ngClass]="{ 'is-invalid': displayError('accountName') }" class="form-control form-input" type="text" formControlName="accountName">
+                    <div *ngIf="displayError('accountName')" class="error-mez">
+                        <div> Please enter account name </div>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="col-md-12">
+                <div class="std-heading-5 mb-1" style="margin-top:44px"> BSB Number <b class="m-star" *ngIf="!activeMode">*</b></div>
+                <p class="paragraph" *ngIf="activeMode; else bsbNumber" > {{bankDetails.value.bsbNumber}} </p>
+                <ng-template #bsbNumber>
+                    <input [ngClass]="{ 'is-invalid': displayError('bsbNumber') }" class="form-control form-input" type="text" formControlName="bsbNumber">
+                    <div *ngIf="displayError('bsbNumber')" class="error-mez">
+                        <div> Please enter BSB number </div>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="col-md-12">
+                <div class="std-heading-5 mb-1" style="margin-top:44px"> Account Number <b class="m-star" *ngIf="!activeMode">*</b></div>
+                <p class="paragraph" *ngIf="activeMode; else accountNumber" > {{bankDetails.value.accountNumber}} </p>
+                <ng-template #accountNumber>
+                    <input [ngClass]="{ 'is-invalid': displayError('accountNumber') }" class="form-control form-input" type="text" formControlName="accountNumber">
+                    <div *ngIf="displayError('accountNumber')" class="error-mez">
+                        <div> Please enter account number </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
     </div>
-    <div class="col-md-12">
-        <div class="std-heading-5" style="margin-bottom:16px;margin-top:44px"> Account Name </div>
-        <p class="paragraph"> {{storeBankDetail.accountName}} </p>
-    </div>
-    <div class="col-md-12">
-        <div class="std-heading-5" style="margin-bottom:16px;margin-top:44px"> BSB Number </div>
-        <p class="paragraph"> {{storeBankDetail.bsbNumber}} </p>
-    </div>
-    <div class="col-md-12">
-        <div class="std-heading-5" style="margin-bottom:16px;margin-top:44px"> Account Number </div>
-        <p class="paragraph"> {{storeBankDetail.accountNumber}} </p>
-    </div>
-</div>
+</form>
 
 

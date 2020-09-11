@@ -1,3 +1,6 @@
 <div loadingPlaceholder [loadStatus]="storeBankDetails">
-    <app-store-bank-details [storeBankDetail]="storeBankDetails"></app-store-bank-details>
+    <section>
+        <app-store-bank-details  (saved)="savebankDetails($event)" #bankDetails></app-store-bank-details>
+    </section>
 </div>
+<!-- [storeBankDetail]="storeBankDetails" -->
