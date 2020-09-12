@@ -11,6 +11,7 @@ import { BankComponent } from './bank/bank.component';
 import { StoreBankDetailsComponent } from './bank/store-bank-details/store-bank-details.component';
 import { OwnershipComponent } from './ownership/ownership.component';
 import { StoreOwnershipDetailsComponent } from './ownership/store-ownership-details/store-ownership-details.component';
+import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
         component: OwnershipComponent,
       },
       {
+        path: 'opening-hours',
+        component: OpeningHoursComponent
+      },
+      {
         path: '**',
         redirectTo: 'profile',
         pathMatch: 'full'
@@ -40,7 +45,7 @@ const routes: Routes = [
 const routingModule = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [StoreProfileComponent, StoreBankDetailsComponent, StoreOwnershipDetailsComponent, StoreBasicDetailsComponent, ProfileComponent, BankComponent, OwnershipComponent],
+  declarations: [StoreProfileComponent, StoreBankDetailsComponent, StoreOwnershipDetailsComponent, StoreBasicDetailsComponent, ProfileComponent, BankComponent, OwnershipComponent, OpeningHoursComponent],
   imports: [
     CommonModule,
     FormsModule,

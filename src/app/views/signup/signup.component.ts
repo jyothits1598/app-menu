@@ -65,10 +65,11 @@ export class SignupComponent implements OnInit {
       signupmobile:['', [Validators.required, Validators.pattern("^((\\+61-?)|0)?[0-9]{10}$")] ],
       // password: ['', [Validators.required,Validators.minLength(8)]],
       password: ['', Validators.compose([Validators.required, this.authenticateService.patternValidator()])],
-      confirmPassword: ['', Validators.required]
-    }, {
-      validator: MustMatch('password', 'confirmPassword')
+      // confirmPassword: ['', Validators.required]
     }
+    // , {
+    //   validator: MustMatch('password', 'confirmPassword')
+    // }
     );
 
     $(".toggle-password").click(function() {
@@ -81,7 +82,30 @@ export class SignupComponent implements OnInit {
       }
     });
 
-  }
+    $('input[type=password]').keyup(function() {
+      var password = $(this).val();      
+      if ( password.length < 8 ) {
+        $('#length').removeClass('valid').addClass('invalid');
+      } else {
+        $('#length').removeClass('invalid').addClass('valid');    
+      }
+      if ( password.match(/[a-z]/) ) {
+        $('#small').removeClass('invalid').addClass('valid');
+      } else {
+        $('#small').removeClass('valid').addClass('invalid');
+      }
+      if ( password.match(/[A-Z]/) ) {
+        $('#capital').removeClass('invalid').addClass('valid');
+      } else {
+        $('#capital').removeClass('valid').addClass('invalid');
+      }
+    }).focus(function() {
+        $('#pswd_info').show();
+    })
+      .blur(function() {
+          $('#pswd_info').hide();
+    });
+}
   
   get f() { return this.signupMenuzappform.controls;}
 
@@ -102,7 +126,7 @@ export class SignupComponent implements OnInit {
         'email':this.signupMenuzappform.value.signupemail,
         'mobile_number':this.signupMenuzappform.value.signupmobile,
         'password':this.signupMenuzappform.value.password,
-        'confirm_password':this.signupMenuzappform.value.password,
+        // 'confirm_password':this.signupMenuzappform.value.password,
         'success_redirect':environment['mail_url_success'],
         'failure_redirect':environment['mail_url_failure'],
         'login_link':environment['mail_url_login'],
