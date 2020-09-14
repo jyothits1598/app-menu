@@ -58,3 +58,22 @@
 .form-group--null {
     margin-bottom:0 !important;
 }
+.image-dashboard {
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+    width: 335px;
+    height: 280px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: column;
+    background: #fff;
+}
+.inside-bck {
+    color: var(--color-primary);
+    padding: 100px 80px;
+    background: #fafafa;
+}

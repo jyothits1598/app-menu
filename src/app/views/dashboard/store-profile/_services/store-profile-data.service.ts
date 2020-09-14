@@ -75,7 +75,6 @@ export class StoreProfileDataService {
   GetStoreOwnershipData(storeId): Observable<StoreOwnershipDetails>{
     return this.restApiService.getDataObs(URL_StoreOwnershipData(storeId)).pipe(
       map((resp)=>{
-        console.log(resp);
         let data = resp.data[0];
         let StoreOwnershipDetail = new StoreOwnershipDetails();
         StoreOwnershipDetail.ownerName = data.legal_owner_name;

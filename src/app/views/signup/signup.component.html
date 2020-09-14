@@ -61,20 +61,46 @@
                     <div class="col-md-12">
                         <div class="form-group form-group--margin">
                             <label class="label-inputs"> Password <b class="m-star">*</b> </label>
+                            <input type="password" id="password" class="form-control form-input custom-password-eye"  formControlName="password" placeholder="Must be at least 8 characters" [ngClass]="{ 'is-invalid': passwordSubmit && f.password.errors }">
+                            <span toggle="#password" class="fa fa-eye-slash field-icon toggle-password"></span>
+                            <div *ngIf="passwordSubmit && f.password.errors" class="error-mez">
+                                <div *ngIf="f.password.errors.required">Please enter password</div>
+                                <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+                                 <div *ngIf="f.password.errors?.invalidPassword">
+                                    Valid password must be 8 or more characters, lowercase & Uppercase letter
+                                </div>
+                            </div>
+                            <div id="pswd_info">
+                                <div class="popup-header"> Password must contain: </div>
+                                <ul class="list-type">
+                                    <li id="length" class="invalid sub-content"> 8 characters </li>
+                                    <li id="small" class="invalid sub-content"> Lowercase letter </li>
+                                    <li id="capital" class="invalid sub-content"> Uppercase letter </li>
+                                </ul>
+                                <p class="pwd-description"> Strong passwords are longer, avoid words or sequences, 
+                                    and mix random letters, numbers and symbols.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group form-group--margin">
+                            <label class="label-inputs"> Password <b class="m-star">*</b> </label>
                             <input type="password" id="password" class="form-control form-input custom-password-eye"  formControlName="password" placeholder="Must be at least 8 letters, numbers or symbols" [ngClass]="{ 'is-invalid': passwordSubmit && f.password.errors }">
                             <span toggle="#password" class="fa fa-eye-slash field-icon toggle-password"></span>
                             <div *ngIf="passwordSubmit && f.password.errors" class="error-mez">
                                 <div *ngIf="f.password.errors.required">Please enter password</div>
                                 <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
                                  <div *ngIf="f.password.errors?.invalidPassword">
-                                    <!-- Password must be at least 8 characters -->
                                     Valid password must be 8 or more letters, uppercase, numbers or symbols
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
+                </div> -->
+                <!-- <div class="row">
                     <div class="col-md-12">
                         <div class="form-group form-group--null">
                             <label class="label-inputs"> Confirm password <b class="m-star">*</b> </label>
@@ -86,7 +112,7 @@
                             </div>
                           </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group mtop mbottom">
