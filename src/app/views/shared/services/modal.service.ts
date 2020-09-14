@@ -1,4 +1,4 @@
-import { Injectable, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { Injectable, ComponentFactoryResolver, ViewContainerRef, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogConfig } from '../model/confirmation-dialog-config';
@@ -13,7 +13,7 @@ export class ModalService {
   constructor(
     private ngbModal: NgbModal) { }
 
-  GetConfirmation(config: ConfirmationDialogConfig): Observable<boolean> {
+  getConfirmation(config: ConfirmationDialogConfig): Observable<boolean> {
 
     let modal = this.ngbModal.open(ConfirmationDialogComponent, { centered: true });
     modal.componentInstance.config = config;
@@ -28,5 +28,9 @@ export class ModalService {
     return from(modal.result).pipe(
       take(1)
     );
+  }
+
+  openTemplate(template: TemplateRef<any>){
+    let modal = this.ngbModal.open(template);
   }
 }

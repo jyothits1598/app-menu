@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreMenuModifier, ReadStoreMenuModifier } from 'src/app/_models/store-menu-modifier';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -15,9 +14,7 @@ import { ModifierDisplay, ModifiersToModifierDisplay } from '../../_models/modif
   styleUrls: ['./restaurant-menu-modifier-groups.component.scss']
 })
 export class RestaurantMenuModifierGroupsComponent implements OnInit {
-  constructor(private restApiService: RestApiService,
-    private storeService: StoreService,
-    private alertService: AlertService,
+  constructor(private alertService: AlertService,
     private _modalService: NgbModal,
     public stringHelperService: StringHelperService,
     private storeMenuData: StoreMenuDataService
@@ -36,9 +33,7 @@ export class RestaurantMenuModifierGroupsComponent implements OnInit {
       finalize(() => { this.alertService.hideLoader() })
     ).subscribe((data) => {
       this.modifiers = ModifiersToModifierDisplay(data);
-      console.log(this.modifiers);
     })
-
   }
 
   nameAccessor: (item) => string = (item: any) => item.name;

@@ -17,17 +17,17 @@
                     </tr>
                 </thead>
                 <tbody *ngIf="modifiers.length > 0; else noModifiers">
-                    <tr class="text-capitalize" *ngFor="let modifier of modifiers; let i = index">
-                        <td [routerLink]="'./'+modifier.id" class="table-name" > {{modifier.modifier.name}} </td>
+                    <tr class="text-capitalize" *ngFor="let modifierDP of modifiers; let i = index">
+                        <td [routerLink]="'./'+modifierDP.modifier.id" class="table-name" > {{modifierDP.modifier.name}} </td>
                         <!-- <td>{{modifier.displayText}}</td> -->
-                        <td> {{modifier.itemsString}}</td>
-                        <td> {{modifier.optionsString}} </td>
+                        <td> {{modifierDP.optionsString}} </td>
+                        <td> {{modifierDP.itemsString}}</td>
                         <td style="text-align: right;outline: none;">
                             <div class="dropdown">
                                 <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
                                     data-toggle="dropdown" title="options" style="cursor:pointer;">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                    <li class="herf-class" title="Edit" [routerLink]="'../'+modifier.id">
+                                    <li class="herf-class" title="Edit" [routerLink]="'../'+modifierDP.modifier.id">
                                         <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                         Edit
                                     </li>
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-<app-modifier-selector></app-modifier-selector>
+<!-- <app-modifier-selector></app-modifier-selector> -->
 
 <!-- <ng-template #deleteComform let-deleteConf>
     <div class="modal-body text-center">

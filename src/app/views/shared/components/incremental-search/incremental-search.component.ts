@@ -75,6 +75,7 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
       this.overlayRef.dispose();
       this.overLayVisible = false;
     });
+
     let tempPortal = new TemplatePortal(template, this.vCRef);
     this.overlayRef.attach(tempPortal);
     this.overLayVisible = true;

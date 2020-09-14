@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
-import { StoreMenuModifier, StoreMenuModifierItem } from 'src/app/_models/store-menu-modifier';
+import { ModifierOption, StoreMenuModifier, StoreMenuModifierItem } from 'src/app/_models/store-menu-modifier';
+import { URL_CreateStoreMenuModfier, URL_StoreMenuModifier } from 'src/environments/api/api-store-menu';
 
 @Injectable({
   providedIn: 'root'
@@ -25,19 +26,43 @@ export class StoreMenuDataService {
     )
   }
 
+  modiferDetail(modifierId: number): Observable<StoreMenuModifier> {
+    return this.restApiService.getDataObs(URL_StoreMenuModifier(this.storeService.activeStore$.value.id, modifierId)).pipe(map(
+      resp => {
+        if (resp.data[0]) return this.readStoreMenuModifier(resp.data[0]);
+        else throwError('Data not complete');
+      }
+    ))
+  }
+
+  saveModifier(modifier: StoreMenuModifier ): Observable<boolean>{
+    let data: any = {};
+    if(modifier.id) data.modifier_id = modifier.id;
+    data.store_id = this.storeService.activeStore$.value.id;
+    data.modifier_name = modifier.name;
+    data.select_minimum = modifier.minimum;
+    data.select_maximum = modifier.maximum;
+    data.select_free = modifier.free;
+    data.modifier_options = [];
+    modifier.options.forEach((opt)=>{
+      let option = {name: opt.name, price: opt.price};
+      data.modifier_options.push(option);
+    })
+    return this.restApiService.postData(URL_CreateStoreMenuModfier, data).pipe(map(
+      (resp : any) => resp.success
+    ))
+  }
+
   readStoreMenuModifier(data: any): StoreMenuModifier {
     let mod = new StoreMenuModifier(data.modifier_id, data.modifier_name);
-    mod.displayText = data.display_text;
-    mod.selectionRequired = data.required_selection ? true : false;
-    mod.maxItemsSelectable = data.max_items_selected;
-    mod.items = [];
+    mod.maximum = data.select_maximum;
+    mod.minimum = data.select_minimum;
+    mod.free = data.select_free;
     mod.options = [];
-    data.item_details.forEach(item => {
-      mod.items.push(new StoreMenuModifierItem(item.item_id, item.item_name, item.item_base_price, null, item.modifier_price))
-    });
-    // data.option.forEach(item => {
+    // data.used_by.forEach(item => {
     //   mod.items.push(new StoreMenuModifierItem(item.item_id, item.item_name, item.item_base_price, null, item.modifier_price))
     // });
+    data.options_details.forEach(data => mod.options.push(new ModifierOption(data.modifier_option_id, data.name, data.price)));
     return mod;
   }
 
@@ -47,6 +72,6 @@ export class StoreMenuDataService {
     data.store_id = this.storeService.activeStore$.value.id;
     data.active_flag = 0;
 
-    return this.restApiService.postData('modifiers', data);
+    return this.restApiService.postData(URL_CreateStoreMenuModfier, data);
   }
 }

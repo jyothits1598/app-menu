@@ -29,7 +29,7 @@ export const environment = {
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
-export const API_URL_LINK = 'https://uat.api.menuzapp.com/';
+export const API_URL_LINK = 'http://54.252.119.115:8000/';
 
 //export const API_URL_LINK = 'http://3.7.155.134:81/';
 
