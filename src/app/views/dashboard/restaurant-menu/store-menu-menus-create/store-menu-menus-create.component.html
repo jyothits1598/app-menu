@@ -14,125 +14,8 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;"> Availability <img src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });"></h4>
-        <div class="label-inputs"> When will this menu will be available? </div>
-        <div class="menu-creator__days">
-            <div class="custom-radio">
-                <input type="radio" name="availabiltycheck" id="opening_hours" [formControl]="openigHours" value="0" >
-                <label class="custom-radio__label" for="opening_hours"> During opening hours </label>
-            </div>
-            <div class="custom-radio pd-left">
-                <input type="radio" name="availabiltycheck" id="custom_hours" #customTiming [formControl]="openigHours" value="1">
-                <label class="custom-radio__label" for="custom_hours"> Custom availability </label>
-            </div>
-        </div>
-    </div>
-</div>
-<ng-container *ngIf="customTiming.checked">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="std-heading-5 mb-1" style="margin-top:32px;">Days <b class="m-star">*</b></div>
-                <div class="menu-creator__days mb-2">
-                    <div class="custom-checkbox mr-3">
-                        <input type="checkbox" id="day_mon" value="monday"
-                            (change)="addRemvDay($event.target.value, $event.target.checked)">
-                        <label class="custom-checkbox__label std-heading-4" for="day_mon">Mon</label>
-                    </div>
-                    <div class="custom-checkbox mr-3">
-                        <input type="checkbox" id="day_tue" value="tuesday"
-                            (change)="addRemvDay($event.target.value, $event.target.checked)">
-                        <label class="custom-checkbox__label std-heading-4" for="day_tue">Tue</label>
-                    </div>
-                    <div class="custom-checkbox mr-3">
-                        <input type="checkbox" id="day_wed" value="wednesday"
-                            (change)="addRemvDay($event.target.value, $event.target.checked)">
-                        <label class="custom-checkbox__label std-heading-4" for="day_wed">Wed</label>
-                    </div>
-                    <div class="custom-checkbox mr-3">
-                        <input type="checkbox" id="day_thu" value="thursday"
-                            (change)="addRemvDay($event.target.value, $event.target.checked)">
-                        <label class="custom-checkbox__label std-heading-4" for="day_thu">Thu</label>
-                    </div>
-                    <div class="custom-checkbox mr-3">
-                        <input type="checkbox" id="day_fri" value="friday"
-                            (change)="addRemvDay($event.target.value, $event.target.checked)">
-                        <label class="custom-checkbox__label std-heading-4" for="day_fri">Fri</label>
-                    </div>
-                    <div class="custom-checkbox mr-3">
-                        <input type="checkbox" id="day_sat" value="saturday"
-                            (change)="addRemvDay($event.target.value, $event.target.checked)">
-                        <label class="custom-checkbox__label std-heading-4" for="day_sat">Sat</label>
-                    </div>
-                    <div class="custom-checkbox mr-3">
-                        <input type="checkbox" id="day_sun" value="sunday"
-                            (change)="addRemvDay($event.target.value, $event.target.checked)">
-                        <label class="custom-checkbox__label std-heading-4" for="day_sun">Sun</label>
-                    </div>
-                    <div class="error-mez" *ngIf="selectedDays.length == 0 && daysTouched">Please select at least one day.</div>
-                </div>
-            </div>
-    </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="menu-creator__time" [formGroup]="timing">
-            <div class="mr-3">
-                <div class="std-heading-5 mb-1">Start time <b class="m-star">*</b></div>
-                <select class="custom-select form-input" formControlName="startTime">
-                    <option> Select </option>
-                    <option *ngFor="let t of time" [value]="t">{{ t }}</option>
-                </select>
-            </div>
-            <div class="mr-3">
-                <div class="std-heading-5 mb-1">End time <b class="m-star">*</b></div>
-                <select class="custom-select form-input" formControlName="endTime">
-                    <option> Select </option>
-                    <option *ngFor="let t of time" [value]="t">{{ t }}</option>
-                </select>
-            </div>
-            <div class="mr-3">
-                <button class="btn std-button-active" style="cursor: pointer;padding: 12px 14px;"
-                (click)="addAvailability()"><img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;Add
-                time</button>
-            </div>
-        </div>
-        <div *ngIf="timing.controls.startTime.touched && timing.controls.endTime.touched">
-            <div class="error-mez" *ngIf="timing.errors?.sameSelection">{{timing.errors.sameSelection}}</div>
-            <div class="error-mez" *ngIf="timing.errors?.noSelection">{{timing.errors.noSelection}}</div>
-        </div>
-
-    </div>
-</div>
-
-<p class="paragraph" style="margin-top:32px">Select <strong>days</strong> and <strong>times</strong> above and press <strong>add time</strong> to add availability.
-<p *ngIf="availability.length == 0 && availabilityTouched" class="error-mez">Please provide atleast one availability</p>
-</ng-container>
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-border table-colors">
-            <tbody>
-                <tr class="text-capitalize" *ngFor="let a of availability; let i = index">
-                    <td><b>{{a.day}}</b></td>
-                    <td class="text-uppercase">
-                        {{a.startTime}}&nbsp;-&nbsp;{{a.endTime}}
-                    </td>
-                    <td>
-                        <div class="form-check">
-                            <input [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input checkbox-box" >
-                            <label class="form-check-label check-label-text" >&nbsp; Mark as closed </label>
-                        </div>
-                    </td>
-                    <td valign="middle" style="color:#353FA8;cursor: pointer;"
-                        (click)="a.id? deletedAvailability.push(availability.splice(i, 1)[0]) : availability.splice(i, 1)[0]">
-                        <img src="../../../../../assets/images/ico_delete.png">&nbsp; Delete
-                    </td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<time-availability-editor (onChange)="availability = $event" [availability]="availability" #availabilityEditor></time-availability-editor>
+<p *ngIf="availability.length == 0 && availabilityEditor && availabilityEditor.touched" class="error-mez">Please provide atleast one availability</p>
 
 <!-- Info modal -->
 <ng-template #content let-modal>
@@ -180,3 +63,5 @@
     </div>
 </ng-template>
 <!-- back save continue end-->
+
+<button (click)="debug()">debug()</button>

@@ -1,0 +1,64 @@
+<div class="modal-header header-info">
+    <div class="std-heading-4 std-heading-5--popheader"> Add modifier </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-8">
+            <input type="text" class="form-control form-input" placeholder="Search modifiers"
+                style="margin-top:32px;margin-bottom:32px;" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-border table-color" style="margin-top:24px;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th> Modifier </th>
+                            <!-- <th> Display </th> -->
+                            <th> Options </th>
+                            <th> Used by </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="modifierDisplay.length > 0; else noModifiers">
+                        <tr class="text-capitalize" *ngFor="let modifierDP of modifierDisplay; let i = index">
+                            <td class="table-name"> <input type="checkbox"
+                                    [checked]="isSelected(modifierDP.modifier)"
+                                    (click)="handleSelection($event.target.checked, modifierDP.modifier)"> </td>
+                            <td class="table-name"> {{modifierDP.modifier.name}} </td>
+                            <!-- <td>{{modifier.displayText}}</td> -->
+                            <td> {{modifierDP.optionsString}} </td>
+                            <td> {{modifierDP.itemsString}}</td>
+                        </tr>
+                    </tbody>
+                    <ng-template #noModifiers>
+                        <tbody>
+                            <tr class="text-center">
+                                <td colspan="5">No items have been added yet.</td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="float-right" style="margin-bottom:16px;margin-top:32px;">
+                <button class="btn std-button std-button--transparency" (click)="createNew.emit(true)">
+                    <img src="../../../../../assets/images/ico_add_blue.png">&nbsp;&nbsp;New modifier
+                </button>
+                <button class="btn std-button std-button--transparency" style="margin-left:10px;" type="button"
+                    (click)="canceled.emit(true)"> Cancel </button>
+                <button class="btn" style="margin-left:10px;"
+                    [disabled]="selectedModifers.length === 0"
+                    [ngClass]="selectedModifers.length > 0 ? 'std-button--primary' : 'std-button-active'"
+                    (click)="selection.emit(selectedModifers)">
+                    Add <span *ngIf="selectedModifers.length > 0">{{selectedModifers.length}}</span> modifiers
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,197 @@
+<ng-template #loading>
+    <processing-placeholder></processing-placeholder>
+</ng-template>
+<div [formGroup]="createItemForm">
+    <div class="row" style="margin-top:-24px;">
+        <div class="col-md-12">
+            <div style="text-align: center;" *ngIf="itemId && !formDataLoaded">
+                <ng-container *ngTemplateOutlet="loading"></ng-container>
+            </div>
+            <div class="float-right" style="margin-bottom:16px;">
+                <button class="btn std-button std-button--transparency" [disabled]="!itemId"
+                    > Delete </button>
+                <button class="btn std-button std-button--transparency" style="margin-left:10px;"> Duplicate </button>
+                <button appBtnIcon [valid]="createItemForm.valid" [loading]="saveBtnLoading"
+                    class="btn std-button-active" style="margin-left:10px;" (click)="saveData()"><span
+                        #span>Save</span></button>
+                <!-- <button class="btn std-button--blue" style="margin-left:10px;"  (click)="saveData()"><img src="../../../../../assets/images/tick.png">&nbsp; {{ saveBtnLoading ? "Loading" : "Save" }} </button> -->
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="input-container" style="margin-bottom:16px;">
+                <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1"
+                    (click)="createItemForm.dirty ? pagebackPopup(back) : navigateBack()">
+                <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="itemName"
+                    placeholder="Enter a name for this item">
+                <span class="error-mez"
+                    *ngIf="createItemForm.controls.itemName.invalid && createItemForm.controls.itemName.touched">Item
+                    name is required.</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="label-inputs" style="margin-top:56px;"> Categories this item will appear in: </div>
+                    <ng-container *ngIf="categoryIdMap; else loading">
+                        <div formArrayName="categories" class="menu-creator__days"
+                            (click)="createItemForm.controls.categories.markAsTouched({onlySelf: true});">
+                            <div class="custom-checkbox mr-2" *ngFor="let control of categoryForm(); let i = index;">
+                                <input type="checkbox" id="category_id_{{i}}" name="category_id_{{i}}"
+                                    [formControlName]="i">
+                                <label class="custom-checkbox__label std-heading-4"
+                                    for="category_id_{{i}}">{{categoryIdMap[i].name}}</label>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div *ngIf="categoryIdMap?.length==0">No categories found.</div>
+                </div>
+            </div>
+            <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;"> Item details </h4>
+            <div class="std-heading-5" style="margin-bottom:16px;"> Photo </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex flex-row">
+                        <div class="upload-image" (click)="imageUrl? '' : fileInput.click()">
+                            <img class="ud-image" *ngIf="imageUrl; else imageNotFound" [src]="imageUrl">
+                            <ng-template #imageNotFound>
+                                <img src="assets/images/ico_add_blue.png">
+                                <div class="std-heading-5" style="color:#353FA8;">Upload an image</div>
+                            </ng-template>
+                        </div>
+                        <div class="response-padding" style="margin-left:20px;">
+                            <span style="font-size:12px"> JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500
+                                pixels. </span>
+                            <div class="mt-3">
+                                <button class="btn std-button std-button--primary" (click)="fileInput.click()"> Browse
+                                </button>
+                                <button class="btn std-button std-button--transparency" style="margin-left:10px;"
+                                    *ngIf="imageUrl" (click)="imageUrl = null"> Remove </button>
+                                <input style="display: none" id="file" type="file" (change)="onFileChanged($event)"
+                                    #fileInput accept=".jpg,.jpeg,.png,.gif">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group" style="margin-top:32px">
+                        <div class="label-inputs"> Price </div>
+                        <div class="prefixed-input">
+                            <span class="prefixed-input__prefix">$</span>
+                            <input class="form-control form-input prefixed-input__input prefixed-input__input"
+                                type="number" formControlName="itemBasePrice" placeholder="09.11">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="form-group" style="margin-top:32px">
+                        <div class="std-heading-5" style="margin-bottom:16px;"> Description </div>
+                        <textarea class="form-control form-input" formControlName="itemDescription"
+                            placeholder="Enter description" style="height:96px;"></textarea>
+                    </div>
+                    <div class="form-group" style="margin-top:32px">
+                        <div class="std-heading-5" style="margin-bottom:16px;"> Keywords </div>
+                        <textarea class="form-control form-input" formControlName="itemKeyword"
+                            placeholder="Enter search keywords separated by comma e. g. italian, pasta"
+                            style="height:96px;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;"> Modifiers and options
+                        &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info"
+                            > </h4>
+                    <button class="btn std-button-active" style="cursor: pointer;padding: 12px 14px;"
+                        (click)="modiferEditId=null; showTemplate(addModifier)">
+                        <img src="../../../../../assets/images/ico_add_blue.png">&nbsp;&nbsp;Add modifier
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<app-modifier-summary [modifiers]="createItemForm.controls.modifiers.value" (edit)="initializeModifierEditor($event)" (remove)="removeSelectedMod($event)"></app-modifier-summary>
+
+
+<!-- Info modal -->
+<ng-template #category let-modal>
+    <div class="modal-header header-info">
+        <div class="std-heading-5 std-heading-5--popheader"> Categories </div>
+        <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p class="paragraph">
+            Items may appear in any number of categories or none at all.
+        </p>
+        <p class="paragraph">
+            Categories will only appear in the menu when they contain at least one item marked to <b>sell on it's
+                own</b>.
+        </p>
+    </div>
+</ng-template>
+<!-- Info modal end-->
+
+<!-- Info modal -->
+<ng-template #modifier let-modal>
+    <div class="modal-header header-info">
+        <div class="std-heading-5 std-heading-5--popheader"> Modifiers and options </div>
+        <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p class="paragraph">
+            A modifier is a group of options such as <b>side, size</b> or <b>Sauce</b>. Once you create a
+            modifier you may link it to this and any other items. Customers will be
+            presented with the options at purchase.
+        </p>
+    </div>
+</ng-template>
+<!-- Info modal end-->
+
+<!-- back save continue -->
+<ng-template #back let-modal2>
+    <div class="modal-body text-center">
+        <h5 class="std-heading-5 mb-2"> Unsaved changes </h5>
+        <p class="mb-2 paragraph">
+            If you continue you will lose any unsaved progress
+        </p>
+        <button class="std-button std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue
+        </button>
+        <hr style="margin:0">
+        <button class="std-button std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
+<!-- back save continue end-->
+
+<ng-template #deleteComform let-modal3>
+    <div class="modal-body text-center">
+        <h5 class="std-heading-5 mb-2"> Unsaved changes </h5>
+        <p class="mb-2 paragraph">
+            Are you sure?
+        </p>
+        <button class="std-button std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Continue
+        </button>
+        <hr style="margin:0">
+        <button class="std-button std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
+
+<ng-template #addModifier>
+    <app-modifier-selector [modifiers]="modifiers" [selected]="createItemForm.controls.modifiers.value"
+        (selection)="onModSelect($event)" (canceled)="modalRef.dismiss()" (createNew)="modalRef.dismiss(); showTemplate(createModifier)"></app-modifier-selector>
+</ng-template>
+
+<ng-template #createModifier>
+    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="modalRef.dismiss(); modifierRefresh()"></app-store-menu-modifier-group-create>
+</ng-template>

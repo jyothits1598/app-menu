@@ -1,0 +1,14 @@
+<section>
+    <ul>
+        <li *ngFor="let modifier of modifiers">
+            <h3>{{modifier.name}}</h3>
+            <ul style="border: 1px solid red;">
+                <li (click)="edit.emit(modifier)">Edit modifier</li>
+                <li (click)="remove.emit(modifier)">Remove modifier</li>
+            </ul>
+            <ul>
+                <li *ngFor="let option of modifier.options">{{option.name}}</li>
+            </ul>
+        </li>
+    </ul>
+</section>
