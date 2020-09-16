@@ -281,7 +281,6 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 .custom-checkbox {
     display: block;
     position: relative;
-    cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -303,6 +302,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
         color: #808080;
         font-weight: normal;
         font-size: 1rem;
+        cursor: pointer;
     }
 
     input:checked ~ .custom-checkbox__label {
@@ -348,7 +348,6 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 .custom-radio {
     display: block;
     position: relative;
-    cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -369,6 +368,7 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
         padding-right: 0.75rem;
         font-size: 1rem;
         color: #808080;
+        cursor: pointer;
     }
 
     input:checked ~ .custom-radio__label {

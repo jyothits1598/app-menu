@@ -131,7 +131,7 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
     });
     let menus = new Array<StoreMenu>();
     data.menu_details.forEach(menu => {
-      menus.push(new StoreMenu(menu.menu_id, menu.menu_name, null))
+      menus.push(new StoreMenu(menu.menu_id, menu.menu_name, menu.is_custom_availability, null))
     });
     let mods = new Array<StoreMenuModifier>();
     data.modifiers_details.forEach(mod => {

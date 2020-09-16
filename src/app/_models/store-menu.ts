@@ -1,10 +1,12 @@
 export class StoreMenu {
     id: number;
     name: string;
+    iscustomavailability: number;
     availability : Array<StoreMenuTime>;
-    constructor(id: number, name: string, availability){
+    constructor(id: number, name: string, iscustomavailability: number, availability){
         this.id = id;
         this.name = name;
+        this.iscustomavailability = iscustomavailability;
         this.availability = availability;
     }
 }

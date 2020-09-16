@@ -20,55 +20,60 @@
         <div class="label-inputs"> When will this menu will be available? </div>
         <div class="menu-creator__days">
             <div class="custom-radio">
-                <input type="radio" name="availabilty" value="opening_hours" >
-                <label class="custom-radio__label" > During opening hours </label>
+                <input type="radio" name="availabiltycheck" id="opening_hours" [formControl]="openigHours" value="0" >
+                <label class="custom-radio__label" for="opening_hours"> During opening hours </label>
             </div>
             <div class="custom-radio pd-left">
-                <input type="radio" name="availabilty" value="custom_availability" checked >
-                <label class="custom-radio__label" > Custom availability </label>
+                <input type="radio" name="availabiltycheck" id="custom_hours" #customTiming [formControl]="openigHours" value="1">
+                <label class="custom-radio__label" for="custom_hours"> Custom availability </label>
             </div>
-        </div>
-        <div class="std-heading-5 mb-1" style="margin-top:32px;">Days <b class="m-star">*</b></div>
-        <div class="menu-creator__days mb-2">
-            <div class="custom-checkbox mr-3">
-                <input type="checkbox" id="day_mon" value="monday"
-                    (change)="addRemvDay($event.target.value, $event.target.checked)">
-                <label class="custom-checkbox__label std-heading-4" for="day_mon">Mon</label>
-            </div>
-            <div class="custom-checkbox mr-3">
-                <input type="checkbox" id="day_tue" value="tuesday"
-                    (change)="addRemvDay($event.target.value, $event.target.checked)">
-                <label class="custom-checkbox__label std-heading-4" for="day_tue">Tue</label>
-            </div>
-            <div class="custom-checkbox mr-3">
-                <input type="checkbox" id="day_wed" value="wednesday"
-                    (change)="addRemvDay($event.target.value, $event.target.checked)">
-                <label class="custom-checkbox__label std-heading-4" for="day_wed">Wed</label>
-            </div>
-            <div class="custom-checkbox mr-3">
-                <input type="checkbox" id="day_thu" value="thursday"
-                    (change)="addRemvDay($event.target.value, $event.target.checked)">
-                <label class="custom-checkbox__label std-heading-4" for="day_thu">Thu</label>
-            </div>
-            <div class="custom-checkbox mr-3">
-                <input type="checkbox" id="day_fri" value="friday"
-                    (change)="addRemvDay($event.target.value, $event.target.checked)">
-                <label class="custom-checkbox__label std-heading-4" for="day_fri">Fri</label>
-            </div>
-            <div class="custom-checkbox mr-3">
-                <input type="checkbox" id="day_sat" value="saturday"
-                    (change)="addRemvDay($event.target.value, $event.target.checked)">
-                <label class="custom-checkbox__label std-heading-4" for="day_sat">Sat</label>
-            </div>
-            <div class="custom-checkbox mr-3">
-                <input type="checkbox" id="day_sun" value="sunday"
-                    (change)="addRemvDay($event.target.value, $event.target.checked)">
-                <label class="custom-checkbox__label std-heading-4" for="day_sun">Sun</label>
-            </div>
-            <div class="error-mez" *ngIf="selectedDays.length == 0 && daysTouched">Please select at least one day.</div>
         </div>
     </div>
 </div>
+<ng-container *ngIf="customTiming.checked">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="std-heading-5 mb-1" style="margin-top:32px;">Days <b class="m-star">*</b></div>
+                <div class="menu-creator__days mb-2">
+                    <div class="custom-checkbox mr-3">
+                        <input type="checkbox" id="day_mon" value="monday"
+                            (change)="addRemvDay($event.target.value, $event.target.checked)">
+                        <label class="custom-checkbox__label std-heading-4" for="day_mon">Mon</label>
+                    </div>
+                    <div class="custom-checkbox mr-3">
+                        <input type="checkbox" id="day_tue" value="tuesday"
+                            (change)="addRemvDay($event.target.value, $event.target.checked)">
+                        <label class="custom-checkbox__label std-heading-4" for="day_tue">Tue</label>
+                    </div>
+                    <div class="custom-checkbox mr-3">
+                        <input type="checkbox" id="day_wed" value="wednesday"
+                            (change)="addRemvDay($event.target.value, $event.target.checked)">
+                        <label class="custom-checkbox__label std-heading-4" for="day_wed">Wed</label>
+                    </div>
+                    <div class="custom-checkbox mr-3">
+                        <input type="checkbox" id="day_thu" value="thursday"
+                            (change)="addRemvDay($event.target.value, $event.target.checked)">
+                        <label class="custom-checkbox__label std-heading-4" for="day_thu">Thu</label>
+                    </div>
+                    <div class="custom-checkbox mr-3">
+                        <input type="checkbox" id="day_fri" value="friday"
+                            (change)="addRemvDay($event.target.value, $event.target.checked)">
+                        <label class="custom-checkbox__label std-heading-4" for="day_fri">Fri</label>
+                    </div>
+                    <div class="custom-checkbox mr-3">
+                        <input type="checkbox" id="day_sat" value="saturday"
+                            (change)="addRemvDay($event.target.value, $event.target.checked)">
+                        <label class="custom-checkbox__label std-heading-4" for="day_sat">Sat</label>
+                    </div>
+                    <div class="custom-checkbox mr-3">
+                        <input type="checkbox" id="day_sun" value="sunday"
+                            (change)="addRemvDay($event.target.value, $event.target.checked)">
+                        <label class="custom-checkbox__label std-heading-4" for="day_sun">Sun</label>
+                    </div>
+                    <div class="error-mez" *ngIf="selectedDays.length == 0 && daysTouched">Please select at least one day.</div>
+                </div>
+            </div>
+    </div>
 <div class="row">
     <div class="col-md-12">
         <div class="menu-creator__time" [formGroup]="timing">
@@ -102,7 +107,7 @@
 
 <p class="paragraph" style="margin-top:32px">Select <strong>days</strong> and <strong>times</strong> above and press <strong>add time</strong> to add availability.
 <p *ngIf="availability.length == 0 && availabilityTouched" class="error-mez">Please provide atleast one availability</p>
-
+</ng-container>
 <div class="row">
     <div class="col-md-12">
         <table class="table table-border table-colors">
@@ -128,6 +133,7 @@
         </table>
     </div>
 </div>
+
 <!-- Info modal -->
 <ng-template #content let-modal>
     <div class="modal-header header-info">
