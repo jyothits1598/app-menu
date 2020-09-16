@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { StoreMenuDataService } from './store-menu-data.service';
+import { StoreMenuModifierDataService } from './store-menu-modifier-data.service';
 
 describe('StoreMenuDataService', () => {
-  let service: StoreMenuDataService;
+  let service: StoreMenuModifierDataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(StoreMenuDataService);
+    service = TestBed.inject(StoreMenuModifierDataService);
   });
 
   it('should be created', () => {

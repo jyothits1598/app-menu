@@ -84,7 +84,7 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
         }, 1100);
         return;
       } else this.addOption();
-    }
+    }else this.addOption();
   }
 
   deleteOption(index: number) {

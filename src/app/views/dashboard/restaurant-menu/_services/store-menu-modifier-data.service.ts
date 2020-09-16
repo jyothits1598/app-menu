@@ -9,7 +9,7 @@ import { URL_CreateStoreMenuModfier, URL_StoreMenuModifier } from 'src/environme
 @Injectable({
   providedIn: 'root'
 })
-export class StoreMenuDataService {
+export class StoreMenuModifierDataService {
 
   constructor(private storeService: StoreService,
     private restApiService: RestApiService) { }
@@ -43,10 +43,10 @@ export class StoreMenuDataService {
     data.select_minimum = modifier.minimum;
     data.select_maximum = modifier.maximum;
     data.select_free = modifier.free;
-    data.modifier_options = [];
+    data.options = [];
     modifier.options.forEach((opt)=>{
       let option = {name: opt.name, price: opt.price};
-      data.modifier_options.push(option);
+      data.options.push(option);
     })
     return this.restApiService.postData(URL_CreateStoreMenuModfier, data).pipe(map(
       (resp : any) => resp.success
@@ -62,7 +62,7 @@ export class StoreMenuDataService {
     // data.used_by.forEach(item => {
     //   mod.items.push(new StoreMenuModifierItem(item.item_id, item.item_name, item.item_base_price, null, item.modifier_price))
     // });
-    data.options_details.forEach(data => mod.options.push(new ModifierOption(data.modifier_option_id, data.name, data.price)));
+    data.options.forEach(data => mod.options.push(new ModifierOption(data.modifier_option_id, data.name, data.price)));
     return mod;
   }
 

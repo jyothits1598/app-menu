@@ -3,14 +3,17 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, FormArray, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
-import { ThirdFormsComponent } from 'src/app/views/add-store-forms/third-forms/third-forms.component';
 import { AlertService } from 'src/app/services/alert.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, forkJoin } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
-import { API_URL_LINK } from 'src/environments/environment.prod';
 import { tap, map, finalize } from 'rxjs/operators';
 import { StringHelperService } from 'src/app/services/string-helper.service';
+import { ModalService } from 'src/app/views/shared/services/modal.service';
+import { ModalRef } from 'src/app/views/shared/_model/modal-ref';
+import { StoreMenuModifierDataService } from '../../_services/store-menu-modifier-data.service';
+import { StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
+import { StoreMenu } from 'src/app/_models/store-menu';
 
 @Component({
   selector: 'app-store-menu-items-create',
@@ -26,11 +29,11 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   errors: string;
   saveBtnLoading: boolean = false;
   fileUptoLoad: File;
-  width: number;
-  height: number;
+  modalRef: ModalRef
 
   categoryIdMap: Array<{ name: string, id: number }>;
   modifierIdMap: Array<{ name: string, id: number }>;
+  modifiers:Array<StoreMenuModifier>;
 
   createItemForm: FormGroup = new FormGroup({
     itemName: new FormControl(null, [Validators.required, removeSpaces]),
@@ -40,7 +43,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     itemStock: new FormControl('1'),
     sellitem: new FormControl('1'),
     categories: new FormArray([]),
-    modifier: new FormArray([])
+    modifiers: new FormControl([])
     // menus: new FormArray([], [this.minChecksValidator()])
   })
 
@@ -52,10 +55,13 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private dataService: DataService,
-    private stringHelper: StringHelperService
+    private stringHelper: StringHelperService,
+    private modalServ: ModalService,
+    private modifierData: StoreMenuModifierDataService
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
       //creating a new category
+      this.modifierData.allModifiers().subscribe(mods => this.modifiers = mods);
       if (params['id'] === undefined) {
         this.fetchData()
         return;
@@ -78,18 +84,6 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  // stock_item : {[key: string]: boolean} = {
-  //   "yes" : false,
-  //   "no" : false,
-  // };
-
-  // sell_item : {[key: string]: boolean} = {
-  //   "sellYes" : false,
-  //   "sellNo" : false
-  // };
-
-
-
   navigateBack() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
@@ -110,8 +104,9 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     this.modalService.open(back, { centered: true, size: 'sm' });
   }
 
-  addModifier(modifierAdd) {
-    this.modalService.open(modifierAdd, { centered: false, size: 'lg' });
+  showTemplate(modifierAdd) {
+    // this.modalService.open(modifierAdd, { centered: false, size: 'lg' });
+    this.modalRef = this.modalServ.openTemplate(modifierAdd);
   }
 
   minChecksValidator(): ValidatorFn {
@@ -122,6 +117,12 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       });
       return sum ? null : { 'MinimumSelection': "Please select atleast one menu" };
     };
+  }
+
+  onModSelect(mods: Array<StoreMenuModifier>){
+    this.modalRef.dismiss();
+    this.createItemForm.controls.modifiers.setValue(mods)
+    console.log(this.createItemForm);
   }
 
   fetchData() {
@@ -137,19 +138,19 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       }
     ));
 
-    let menus$ = this.restApiService.getDataObs('store/items/modifier/' + this.storeService.activeStore).pipe(tap(
-      menus => {
-        if (menus.success && menus.data) {
-          this.modifierIdMap = [];
-          menus.data.forEach(modifier => {
-            this.modifierIdMap.push({ id: modifier.modifier_id, name: modifier.modifier_name });
-            (<FormArray>this.createItemForm.controls.modifier).push(new FormControl(false));
-          });
-        }
-      }
-    ));
+    // let menus$ = this.restApiService.getDataObs('store/items/modifier/' + this.storeService.activeStore).pipe(tap(
+    //   menus => {
+    //     if (menus.success && menus.data) {
+    //       this.modifierIdMap = [];
+    //       menus.data.forEach(modifier => {
+    //         this.modifierIdMap.push({ id: modifier.modifier_id, name: modifier.modifier_name });
+    //         (<FormArray>this.createItemForm.controls.modifier).push(new FormControl(false));
+    //       });
+    //     }
+    //   }
+    // ));
 
-    let inputObservables = [categories$, menus$];
+    let inputObservables = [categories$];
 
     if (this.itemId) {
       let item$ = this.restApiService.getDataObs(`store/items/get/${this.storeService.activeStore}/${this.itemId}`).pipe(
@@ -159,7 +160,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     }
 
     forkJoin(inputObservables).pipe(
-      map(value => value[2])
+      map(value => value[1])
     ).subscribe((value)=>{if(value)this.updateForm(value)}, (error) => { console.log('errored out', error) });
   }
 
@@ -235,31 +236,9 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
           this.saveBtnLoading = false;
           // this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
           this.router.navigate(['../'], { relativeTo: this.route });
-        } else if (!resp.success) {         
-          this.saveBtnLoading = false;
-          let error_data = resp['error']['error']['item_name'][0];
-          this.alertService.showNotification(error_data, 'error');
-          // let i = 0;
-          // for (let key in resp['error']['error']) {
-          //   this.errors[key] = resp['error']['error'][key][0];
-          //   this.alertService.showNotification(this.errors[key], 'error');
-          // }
         }
         else this.alertService.showNotification("There was a problem, please try again.");
       }
-      // , (errResp) => {
-      //   this.saveBtnLoading = false;
-      //   // if(errResp){
-      //     // let i=0;
-      //     // for(let key in errResp['error']['error_msg']) {       
-      //     //   this.errors[key]=errResp['error']['error_msg'][key][0];
-      //     //   this.alertService.showNotification(this.errors[key],'error');
-      //     // }
-      //     console.log(errResp);
-      //   // } 
-      //   // else      
-      //   // this.alertService.showNotification("There was a problem, please try again.")
-      // }
     )
   }
 

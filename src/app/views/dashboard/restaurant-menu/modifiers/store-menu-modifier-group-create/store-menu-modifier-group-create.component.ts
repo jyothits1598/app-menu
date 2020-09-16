@@ -9,7 +9,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { Subscription, Observable, fromEvent, interval, of, merge } from 'rxjs';
 import { MinNumberValidator } from 'src/app/_helpers/validators';
-import { StoreMenuDataService } from '../../_services/store-menu-data.service';
+import { StoreMenuModifierDataService } from '../../_services/store-menu-modifier-data.service';
 import { ModifierOptionsComponent } from './modifier-options/modifier-options.component';
 import { ModalService } from 'src/app/views/shared/services/modal.service';
 
@@ -25,7 +25,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
     private alertService: AlertService,
     private router: Router,
     private route: ActivatedRoute,
-    private storeMenuData: StoreMenuDataService,
+    private storeMenuData: StoreMenuModifierDataService,
     private modalService: ModalService
   ) {
     this.routerSubs = this.route.params.subscribe(params => {

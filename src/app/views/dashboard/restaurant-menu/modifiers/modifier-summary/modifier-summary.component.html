@@ -1,0 +1,10 @@
+<section>
+    <ul>
+        <li *ngFor="let modifier of modifiers">
+            <h3>{{modifier.name}}</h3>
+            <ul>
+                <li *ngFor="let option of modifier.options">{{option.name}}</li>
+            </ul>
+        </li>
+    </ul>
+</section>

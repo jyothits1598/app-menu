@@ -5,7 +5,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { finalize } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StringHelperService } from 'src/app/services/string-helper.service';
-import { StoreMenuDataService } from '../../_services/store-menu-data.service';
+import { StoreMenuModifierDataService } from '../../_services/store-menu-modifier-data.service';
 import { ModifierDisplay, ModifiersToModifierDisplay } from '../../_models/modifier-display';
 
 @Component({
@@ -17,7 +17,7 @@ export class RestaurantMenuModifierGroupsComponent implements OnInit {
   constructor(private alertService: AlertService,
     private _modalService: NgbModal,
     public stringHelperService: StringHelperService,
-    private storeMenuData: StoreMenuDataService
+    private storeMenuData: StoreMenuModifierDataService
   ) { }
 
   modifiers: Array<ModifierDisplay> = [];

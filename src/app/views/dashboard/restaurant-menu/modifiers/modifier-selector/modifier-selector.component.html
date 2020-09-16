@@ -1,48 +1,64 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive">
-            <table class="table table-border table-color" style="margin-top:24px;">
-                <thead>
-                    <tr>
-                        <th> Modifier </th>
-                        <!-- <th> Display </th> -->
-                        <th> Options </th>
-                        <th> Used by </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <!-- <tbody *ngIf="modifiers && modifiers.length > 0; else noModifiers">
-                    <tr class="text-capitalize" *ngFor="let modifier of modifiers; let i = index">
-                        <td [routerLink]="'./'+modifier.id" class="table-name" > {{modifier.name}} </td>
-                        <td> {{stringHelperService.ArrayToConsolidatedString(modifier.items, 2, nameAccessor)}}</td>
-                        <td> Lamb yirous </td>
-                        <td style="text-align: right;outline: none;">
-                            <div class="dropdown">
-                                <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
-                                    data-toggle="dropdown" title="options" style="cursor:pointer;">
-                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                    <li class="herf-class" title="Edit" [routerLink]="'../'+modifier.id">
-                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
-                                        Edit
-                                    </li>
-                                    <li title="Delete" class="herf-class" (click)="modifierIndexToBeDeleted = i; modalService.open(deleteComform, { centered: true, size: 'sm' });">
-                                        <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
-                                        Delete
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-
-                </tbody> -->
-                <ng-template #noModifiers>
-                    <tbody>
-                        <tr class="text-center">
-                            <td colspan="5">No items have been added yet.</td>
+<div class="modal-header header-info">
+    <div class="std-heading-4 std-heading-5--popheader"> Add modifier </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-8">
+            <input type="text" class="form-control form-input" placeholder="Search modifiers"
+                style="margin-top:32px;margin-bottom:32px;" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-border table-color" style="margin-top:24px;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th> Modifier </th>
+                            <!-- <th> Display </th> -->
+                            <th> Options </th>
+                            <th> Used by </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="modifierDisplay.length > 0; else noModifiers">
+                        <tr class="text-capitalize" *ngFor="let modifierDP of modifierDisplay; let i = index">
+                            <td class="table-name"> <input type="checkbox"
+                                    [checked]="isSelected(modifierDP.modifier)"
+                                    (click)="handleSelection($event.target.checked, modifierDP.modifier)"> </td>
+                            <td class="table-name"> {{modifierDP.modifier.name}} </td>
+                            <!-- <td>{{modifier.displayText}}</td> -->
+                            <td> {{modifierDP.optionsString}} </td>
+                            <td> {{modifierDP.itemsString}}</td>
                         </tr>
                     </tbody>
-                </ng-template>
-            </table>
+                    <ng-template #noModifiers>
+                        <tbody>
+                            <tr class="text-center">
+                                <td colspan="5">No items have been added yet.</td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="float-right" style="margin-bottom:16px;margin-top:32px;">
+                <button class="btn std-button std-button--transparency">
+                    <img src="../../../../../assets/images/ico_add_blue.png">&nbsp;&nbsp;New modifier
+                </button>
+                <button class="btn std-button std-button--transparency" style="margin-left:10px;" type="button"
+                    (click)="canceled.emit(true)"> Cancel </button>
+                <button class="btn" style="margin-left:10px;"
+                    [disabled]="selectedModifers.length === 0"
+                    [ngClass]="selectedModifers.length > 0 ? 'std-button--primary' : 'std-button-active'"
+                    (click)="selection.emit(selectedModifers)">
+                    Add <span *ngIf="selectedModifers.length > 0">{{selectedModifers.length}}</span> modifiers
+                </button>
+            </div>
         </div>
     </div>
 </div>
