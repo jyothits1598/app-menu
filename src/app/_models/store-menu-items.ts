@@ -8,6 +8,7 @@ export class StoreMenuItem{
     name: string;
     basePrice: number;
     categories: Array<StoreMenuCategory>
+    image: string;
     menus: Array<StoreMenu>;
     modifiers: Array<StoreMenuModifier>
     

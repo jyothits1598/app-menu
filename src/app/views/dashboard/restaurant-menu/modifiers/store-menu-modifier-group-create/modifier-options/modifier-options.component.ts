@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, ElementRef, Renderer2, AfterViewInit, Self, OnDestroy, forwardRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, Renderer2, AfterViewInit, Self, OnDestroy, forwardRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormGroup, FormControl, Validators, AbstractControl, NG_VALUE_ACCESSOR, NgControl, NG_VALIDATORS } from '@angular/forms';
 import { ExcludeSpaceValidator, PriceValidator } from 'src/app/_helpers/validators';
 import { ModifierOption } from 'src/app/_models/store-menu-modifier';
@@ -22,15 +22,23 @@ import { Subscription } from 'rxjs';
     }
   ]
 })
-export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
+export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy, OnChanges {
   onChange: any;
   onTouched: any;
   formChangeSubs: Subscription;
   _options: FormArray = new FormArray([]);
 
   constructor(private renderer: Renderer2) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes inside of mod opt', changes);
+    if(this.control) this.control.markAsTouched = () => {
+      this._options.markAllAsTouched();
+    }
+  }
+  @Input() control: FormControl;
 
   ngAfterViewInit(): void {
+    if(this.formChangeSubs) this.formChangeSubs.unsubscribe();
     this.formChangeSubs = this._options.valueChanges.subscribe((val) => this.onChange(val));
   }
 
@@ -44,6 +52,10 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
     this.onChange = fn;
   }
 
+  markAsTouched(){
+    this._options.markAllAsTouched();
+  }
+
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
@@ -54,12 +66,13 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
     return this._options.valid ? null : { invalid: true }
   }
 
+
+
   @ViewChildren('optionElement') optElems: QueryList<ElementRef>;
 
   get options(): ModifierOption {
     return this._options.value;
   }
-
 
   addOption(option: ModifierOption = null) {
     let fgroup = new FormGroup({

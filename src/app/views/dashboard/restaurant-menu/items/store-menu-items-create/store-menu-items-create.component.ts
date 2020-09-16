@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, FormArray, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { RestApiService } from 'src/app/services/rest-api.service';
@@ -29,11 +29,15 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   errors: string;
   saveBtnLoading: boolean = false;
   fileUptoLoad: File;
-  modalRef: ModalRef
+  modalRef: ModalRef;
+
+  modiferEditId: number = null;
 
   categoryIdMap: Array<{ name: string, id: number }>;
   modifierIdMap: Array<{ name: string, id: number }>;
-  modifiers:Array<StoreMenuModifier>;
+  modifiers: Array<StoreMenuModifier>;
+
+  @ViewChild('createModifier', { read: TemplateRef }) creator: TemplateRef<any>;
 
   createItemForm: FormGroup = new FormGroup({
     itemName: new FormControl(null, [Validators.required, removeSpaces]),
@@ -88,24 +92,11 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true });
-  }
-
-  opencategoryCentered(category) {
-    this.modalService.open(category, { centered: true });
-  }
-
-  openmodifierCentered(modifier) {
-    this.modalService.open(modifier, { centered: true });
-  }
-
   pagebackPopup(back) {
     this.modalService.open(back, { centered: true, size: 'sm' });
   }
 
   showTemplate(modifierAdd) {
-    // this.modalService.open(modifierAdd, { centered: false, size: 'lg' });
     this.modalRef = this.modalServ.openTemplate(modifierAdd);
   }
 
@@ -119,10 +110,22 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     };
   }
 
-  onModSelect(mods: Array<StoreMenuModifier>){
+  onModSelect(mods: Array<StoreMenuModifier>) {
     this.modalRef.dismiss();
     this.createItemForm.controls.modifiers.setValue(mods)
     console.log(this.createItemForm);
+  }
+
+  removeSelectedMod(modifier: StoreMenuModifier) {
+    let value = this.createItemForm.controls.modifiers.value as Array<StoreMenuModifier>
+    let index = value.findIndex((mod) => mod.id == modifier.id);
+    value.splice(index, 1);
+  }
+
+  initializeModifierEditor(modifier: StoreMenuModifier) {
+    console.log('recieved edit model', modifier);
+    this.modiferEditId = modifier.id;
+    this.showTemplate(this.creator);
   }
 
   fetchData() {
@@ -150,7 +153,13 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     //   }
     // ));
 
-    let inputObservables = [categories$];
+    let modifiers$ = this.modifierData.allModifiers().pipe(tap(
+      modifiers => {
+        this.modifiers = modifiers;
+      }
+    ))
+
+    let inputObservables = [modifiers$, categories$];
 
     if (this.itemId) {
       let item$ = this.restApiService.getDataObs(`store/items/get/${this.storeService.activeStore}/${this.itemId}`).pipe(
@@ -160,8 +169,8 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     }
 
     forkJoin(inputObservables).pipe(
-      map(value => value[1])
-    ).subscribe((value)=>{if(value)this.updateForm(value)}, (error) => { console.log('errored out', error) });
+      map(value => value[2])
+    ).subscribe((value) => { if (value) this.updateForm(value) }, (error) => { console.log('errored out', error) });
   }
 
   updateForm = (data) => {
@@ -172,8 +181,8 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       this.createItemForm.controls.itemDescription.setValue(menuItem.item_description);
       this.createItemForm.controls.itemKeyword.setValue(menuItem.item_keyword);
       this.createItemForm.controls.itemBasePrice.setValue(menuItem.item_base_price);
-      this.createItemForm.controls.itemStock.setValue(menuItem.item_in_stock.toString());
-      this.createItemForm.controls.sellitem.setValue(menuItem.item_individual.toString());
+      // this.createItemForm.controls.itemStock.setValue(menuItem.item_in_stock.toString());
+      // this.createItemForm.controls.sellitem.setValue(menuItem.item_individual.toString());
       this.imageUrl = menuItem.item_image;
 
       menuItem.category_details.forEach(activeCategory => {
@@ -182,9 +191,8 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       });
 
       menuItem.modifiers_details.forEach(activeModifier => {
-        let index: number = this.modifierIdMap.findIndex(modifier => activeModifier.modifier_id == modifier.id);
-        // console.log(activeModifier, this.modifierIdMap);
-        if (index != -1) (<FormArray>this.createItemForm.controls.modifier).controls[index].setValue(true);
+        let index: number = this.modifiers.findIndex((mod) => activeModifier.modifier_id == mod.id);
+        if (index !== -1) this.createItemForm.controls.modifiers.value.push(this.modifiers[index]);
       });
     }
   }
@@ -217,16 +225,21 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     }
     data.item_category = selectedCategory;
     //selected modifier list 
-    let checkModifierValues: Array<boolean> = this.createItemForm.controls.modifier.value;
-    let selectedModifier: Array<{ "modifier_id": number }> = [];
-    for (let i = 0; i < checkModifierValues.length; i++) {
-      //if any checkbox is true
-      if (checkModifierValues[i]) {
-        //pull id from menu-to-id map
-        selectedModifier.push({ "modifier_id": this.modifierIdMap[i].id })
-      }
-    }
-    data.item_modifier = selectedModifier;
+    // let checkModifierValues: Array<boolean> = this.createItemForm.controls.modifiers.value;
+    // let selectedModifier: Array<{ "modifier_id": number }> = [];
+    // for (let i = 0; i < checkModifierValues.length; i++) {
+    //   //if any checkbox is true
+    //   if (checkModifierValues[i]) {
+    //     //pull id from menu-to-id map
+    //     selectedModifier.push({ "modifier_id": this.modifierIdMap[i].id })
+    //   }
+    // }
+    data.item_modifier = [];
+    let selectedMods = this.createItemForm.controls.modifiers.value as Array<StoreMenuModifier>;
+    selectedMods.forEach(mod => {
+      let backEndMod = { modifier_id: mod.id };
+      data.item_modifier.push(backEndMod);
+    });
     if (this.imageUrl) data.item_image = this.stringHelper.ExtractFileName(this.imageUrl);
     this.saveBtnLoading = true;
     this.restApiService.postAPI(`store/items/add/${this.storeService.activeStore}`
@@ -310,7 +323,20 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       this.alertService.showNotification('No file selected', 'error');
     }
   }
+
+  modifierRefresh() {
+    this.modifierData.allModifiers().subscribe(mods => {
+      this.modifiers = mods;
+      this.modifiers.forEach(mod => {
+        let index  =  this.createItemForm.controls.modifiers.value.findIndex(selectedMods => selectedMods.id == mod.id);
+        if(index > -1) this.createItemForm.controls.modifiers.value[index] = mod;
+        console.log('inside refresh foreach', mod, this.createItemForm.controls.modifiers.value, index);
+      })
+    })
+  }
 }
+
+
 
 export function removeSpaces(control: AbstractControl) {
   if (control && control.value && !control.value.replace(/\s/g, '').length) {

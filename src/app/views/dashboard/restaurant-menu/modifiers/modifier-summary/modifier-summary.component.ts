@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
 
 @Component({
@@ -11,7 +11,9 @@ export class ModifierSummaryComponent implements OnInit {
   constructor() { }
 
   @Input() modifiers: Array<StoreMenuModifier>;
-
+  @Output() edit = new EventEmitter<StoreMenuModifier>();
+  @Output() remove = new EventEmitter<StoreMenuModifier>();
+  
   ngOnInit(): void {
   }
 

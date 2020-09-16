@@ -25,6 +25,7 @@ export class ModifierSelectorComponent implements OnInit {
 
   @Output() selection: EventEmitter<Array<StoreMenuModifier>> = new EventEmitter();
   @Output() canceled: EventEmitter<boolean> = new EventEmitter();
+  @Output() createNew: EventEmitter<boolean> = new EventEmitter();
 
   modifierDisplay: Array<ModifierDisplay>;
 

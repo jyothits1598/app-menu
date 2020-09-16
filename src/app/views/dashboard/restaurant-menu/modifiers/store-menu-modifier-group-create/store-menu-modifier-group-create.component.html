@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-12">
             <div class="input-container">
-                <img routerLink="../" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
+                <img (click)="dismiss()" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
                 <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="name">
                 <span class="error-mez"
                     *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
@@ -60,7 +60,7 @@
     <!--------------------------- Rules start --------------------->
     <div class="row">
         <div class="col-md-12">
-            <app-modifier-options formControlName="options" #options></app-modifier-options>
+            <app-modifier-options formControlName="options" [control]="modifierForm.controls.options" #options></app-modifier-options>
             <!------------------- looping add option end ------------>
 
         </div>

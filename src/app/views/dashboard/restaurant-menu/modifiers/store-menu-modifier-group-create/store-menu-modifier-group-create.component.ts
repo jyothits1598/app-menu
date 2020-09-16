@@ -1,24 +1,22 @@
-import { Component, OnInit, TemplateRef, OnDestroy, ViewContainerRef, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray, FormControlDirective } from '@angular/forms';
-import { StoreMenuItem } from 'src/app/_models/store-menu-items';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RestApiService } from 'src/app/services/rest-api.service';
-import { map, finalize, filter, debounce, switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { finalize, switchMap } from 'rxjs/operators';
 import { StoreService } from 'src/app/services/store.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
-import { Subscription, Observable, fromEvent, interval, of, merge } from 'rxjs';
-import { MinNumberValidator } from 'src/app/_helpers/validators';
+import { Subscription } from 'rxjs';
 import { StoreMenuModifierDataService } from '../../_services/store-menu-modifier-data.service';
 import { ModifierOptionsComponent } from './modifier-options/modifier-options.component';
 import { ModalService } from 'src/app/views/shared/services/modal.service';
+import { StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
 
 @Component({
   selector: 'app-store-menu-modifier-group-create',
   templateUrl: './store-menu-modifier-group-create.component.html',
   styleUrls: ['./store-menu-modifier-group-create.component.scss'],
 })
-export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy, AfterViewInit {
+export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy {
 
   constructor(public restApiService: RestApiService,
     private storeService: StoreService,
@@ -38,24 +36,18 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
           this.router.navigate(['./not-found'], { relativeTo: this.route });
         }
       };
-
-      this.modifierForm = new FormGroup({
-        id: new FormControl(),
-        name: new FormControl('', Validators.required),
-        minimum: new FormControl('', Validators.required),
-        maximum: new FormControl('', Validators.required),
-        free: new FormControl('', Validators.required),
-        options: new FormControl(this.modifierId ? null : [{ name: null, price: null }]),
-      })
+      this.modifierForm = this.createNewForm();
     })
   }
 
-  @ViewChild('options', { read: ModifierOptionsComponent }) optionsRef: ModifierOptionsComponent;
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      // if (!this.modifierId) this.optionsRef.addOption();
-    }, 500);
+
+  @Input() set id(modId: number) {
+    this.modifierId = modId;
+    this.useOutputs = true;
   }
+
+  @Output() exit = new EventEmitter<boolean>();
+  useOutputs: boolean = false;
 
   numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   // ----------------------- search functionalify end ----------------------------
@@ -70,6 +62,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
   modifierForm: FormGroup;
 
   ngOnInit(): void {
+    console.log('called oninit in mod creator', this.modifierId);
     if (this.modifierId) this.getInitialData();
     this.storeId = this.storeService.activeStore$.value.id;
   }
@@ -83,17 +76,32 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
     });
   }
 
+  createNewForm(data: StoreMenuModifier = null): FormGroup {
+    return new FormGroup({
+      id: new FormControl(),
+      name: new FormControl('', Validators.required),
+      minimum: new FormControl('', Validators.required),
+      maximum: new FormControl('', Validators.required),
+      free: new FormControl('', Validators.required),
+      options: new FormControl(this.modifierId ? null : [{ name: null, price: null }]),
+    });
+  }
+
   saveModifer(formData: any) {
 
     if (this.modifierForm.invalid) {
       this.modifierForm.markAllAsTouched();
+      this.modifierForm.controls.options.markAsTouched();
       return;
     }
     this.submitting = true;
 
     this.storeMenuData.saveModifier(this.modifierForm.value).pipe(
       finalize(() => this.submitting = false)
-    ).subscribe(resp => this.router.navigate(['../'], { relativeTo: this.route }));
+    ).subscribe(resp => {
+      if (this.useOutputs) this.exit.emit(true);
+      else this.router.navigate(['../'], { relativeTo: this.route })
+    });
 
   }
 
@@ -101,6 +109,11 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy,
     this.modalService.getConfirmation({ heading: `Deleting modifier "${this.modifierForm.controls.name.value}"`, dialog: 'Are you sure?', confirmBtn: 'Delete', declineBtn: 'Cancel' }).pipe(
       switchMap(() => this.storeMenuData.deleteModifier(this.modifierId))
     ).subscribe((resp: any) => { if (resp && resp.success) this.router.navigate(['../'], { relativeTo: this.route }) });
+  }
+
+  dismiss() {
+    if (this.useOutputs) this.exit.emit(true);
+    else this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   navigateBack() {
