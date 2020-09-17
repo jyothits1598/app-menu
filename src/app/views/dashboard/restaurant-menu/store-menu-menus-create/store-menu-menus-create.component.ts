@@ -64,14 +64,12 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     this.alertService.showLoader();
     this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/${id}`
       , (response) => {
-        console.log(response);
         this.alertService.hideLoader();
         if (response.success) {
           this.menuName.setValue(response.data[0].menu_name);
+          this.openigHours.setValue(response.data[0].is_custom_availability.toString());
           this.menuId = response.data[0].menu_id;
           this.availability = this.storeService.readAvailability(response.data[0].availability);
-          console.log('read availability', this.availability);
-
         } else {
           this.router.navigate(['notfound'], { relativeTo: this.route });
         }
@@ -144,19 +142,14 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     let data: any = {}
     data.menu_name = this.menuName.value;
     data.menu_id = this.menuId;
-    data.active_flag = 1;
-
+    data.active_flag = 0;
+    data.is_custom_availability = 0;
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp) => {
       if (resp.success) {
         // this.alertService.showNotification('Menu successfully deleted');
         this.router.navigate(['.'], { relativeTo: this.route.parent });
       } else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
     })
-  }
-
-
-  debug(){
-    console.log(this.availability);
   }
 
 }

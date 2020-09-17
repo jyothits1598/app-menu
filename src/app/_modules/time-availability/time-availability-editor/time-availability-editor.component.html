@@ -37,25 +37,30 @@
     </div>
     <div class="error-mez" *ngIf="selectedDays.length == 0 && daysTouched">Please select at least one day.</div>
 </div>
-<div class="menu-creator__time" [formGroup]="timing">
-    <div class="mr-3">
+<div class="row" [formGroup]="timing">
+    <div class="col-md-3">
         <div class="std-heading-5 mb-1">Start time <b class="m-star">*</b></div>
         <select class="custom-select form-input" formControlName="startTime">
             <option> Select </option>
             <option *ngFor="let t of time" [value]="t">{{ t }}</option>
         </select>
     </div>
-    <div class="mr-3">
+    <div class="col-md-3">
         <div class="std-heading-5 mb-1">End time <b class="m-star">*</b></div>
         <select class="custom-select form-input" formControlName="endTime">
             <option> Select </option>
             <option *ngFor="let t of time" [value]="t">{{ t }}</option>
         </select>
     </div>
-    <div class="mr-3">
+    <div class="col-md-3" style="padding-top: 28px;">
         <button class="btn std-button std-button--primary" style="cursor: pointer;padding: 12px 14px;"
         (click)="addAvailability()"><img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;Add
         time</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" style="margin-top:32px;margin-bottom:32px;">
+        <p class="paragraph"> Select <b>days</b> and <b>times</b> above and press <b>add time</b> to add availability. </p>
     </div>
 </div>
 <div class="row">
@@ -70,7 +75,7 @@
                     <td>
                         <div class="form-check">
                             <input [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input checkbox-box" >
-                            <label class="form-check-label check-label-text" >&nbsp; Mark as closed </label>
+                            <label class="form-check-label check-label-text" >&nbsp;Mark as closed </label>
                         </div>
                     </td>
                     <td valign="middle" style="color:#353FA8;cursor: pointer;"

@@ -151,7 +151,6 @@ export class AuthenticationService {
   checkExpiryStatus() {
     if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
       let user_details = JSON.parse(localStorage.getItem('loggedUser'));
-      console.log('checkexpiry status', user_details);
       if (user_details && user_details.expires_at) {
         let expiry_date = new Date(user_details.expires_at).getTime();
         let today_date = new Date().getTime();
