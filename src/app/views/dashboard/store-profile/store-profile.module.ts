@@ -42,6 +42,7 @@ const routes: Routes = [
     ]
   },
 ]
+
 const routingModule = RouterModule.forChild(routes);
 
 @NgModule({

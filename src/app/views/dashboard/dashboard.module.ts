@@ -23,6 +23,10 @@ const routes: Routes = [
         path: 'profile',
         loadChildren: () => import('./store-profile/store-profile.module').then(m => m.StoreProfileModule)
       },
+      {
+        path: 'member',
+        loadChildren: () => import('./store-members/store-members.module').then(m => m.StoreMembersModule)
+      },
     ],
   },
 ]

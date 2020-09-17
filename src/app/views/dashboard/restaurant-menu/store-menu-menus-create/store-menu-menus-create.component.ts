@@ -22,7 +22,8 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   
   menuId: number = null;
   menuName: FormControl = new FormControl('', Validators.required);
-
+  openigHours: FormControl = new FormControl('0');
+  
   submitting: boolean = false;
 
   availability: Array<TimeAvailability> = [];
@@ -63,10 +64,11 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     this.alertService.showLoader();
     this.restApiService.getData(`store/menus/availability/get/${this.storeService.activeStore}/${id}`
       , (response) => {
+        console.log(response);
         this.alertService.hideLoader();
         if (response.success) {
-          this.menuName.setValue(response.data[0].menu_details.menu_name);
-          this.menuId = response.data[0].menu_details.menu_id;
+          this.menuName.setValue(response.data[0].menu_name);
+          this.menuId = response.data[0].menu_id;
           this.availability = this.storeService.readAvailability(response.data[0].availability);
           console.log('read availability', this.availability);
 
@@ -87,9 +89,9 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    if (this.availability.length == 0) {
-      return false;
-    }
+    // if (this.availability.length == 0) {
+    //   return false;
+    // }
 
     return true;
   }
@@ -103,9 +105,10 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     }
 
     let data: any = {}
-    data.opening_time = [];
+    data.availability = [];
 
     data.menu_name = this.menuName.value;
+    data.is_custom_availability = this.openigHours.value;
     if (this.menuId) data.menu_id = this.menuId;
 
 
@@ -116,7 +119,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       menuTime.end_time = a.endTime;
       menuTime.marked_as_closed = a.markedAsClose;
       // menuTime.active_flag = 0;
-      data.opening_time.push(menuTime);
+      data.availability.push(menuTime);
     })
 
     this.submitting = true;

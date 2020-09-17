@@ -55,7 +55,7 @@ export class StoreService {
     newStrCat.menus = [];
     newStrCat.items = [];
     Object.keys(data.menu_details).forEach(function (key, index) {
-      newStrCat.menus.push(new StoreMenu(data.menu_details[key].menu_id, data.menu_details[key].menu_name, null))
+      newStrCat.menus.push(new StoreMenu(data.menu_details[key].menu_id, data.menu_details[key].menu_name, data.menu_details[key].is_custom_availability, null))
     });
     Object.keys(data.item_details).forEach(function (key, index) {
       newStrCat.items.push(new StoreMenuItem(data.item_details[key].item_id, data.item_details[key].item_name, null))
