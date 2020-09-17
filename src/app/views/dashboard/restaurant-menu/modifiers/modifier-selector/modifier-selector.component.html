@@ -16,7 +16,6 @@
                         <tr>
                             <th></th>
                             <th> Modifier </th>
-                            <!-- <th> Display </th> -->
                             <th> Options </th>
                             <th> Used by </th>
                             <th></th>
@@ -28,7 +27,6 @@
                                     [checked]="isSelected(modifierDP.modifier)"
                                     (click)="handleSelection($event.target.checked, modifierDP.modifier)"> </td>
                             <td class="table-name"> {{modifierDP.modifier.name}} </td>
-                            <!-- <td>{{modifier.displayText}}</td> -->
                             <td> {{modifierDP.optionsString}} </td>
                             <td> {{modifierDP.itemsString}}</td>
                         </tr>

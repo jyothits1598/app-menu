@@ -105,8 +105,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;"> Modifiers and options
-                        &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info"
-                            > </h4>
+                        &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" 
+                            (click)="modalService.open(modifier, { centered: true })"> </h4>
                     <button class="btn std-button-active" style="cursor: pointer;padding: 12px 14px;"
                         (click)="modiferEditId=null; showTemplate(addModifier)">
                         <img src="../../../../../assets/images/ico_add_blue.png">&nbsp;&nbsp;Add modifier
@@ -187,11 +187,15 @@
     </div>
 </ng-template>
 
-<ng-template #addModifier>
+<ng-template #addModifier >
     <app-modifier-selector [modifiers]="modifiers" [selected]="createItemForm.controls.modifiers.value"
-        (selection)="onModSelect($event)" (canceled)="modalRef.dismiss()" (createNew)="modalRef.dismiss(); showTemplate(createModifier)"></app-modifier-selector>
-</ng-template>
+    (selection)="onModSelect($event)" (canceled)="modalRef.dismiss()" (createNew)="modalRef.dismiss(); showTemplate(createModifier)"></app-modifier-selector>
+</ng-template> 
 
 <ng-template #createModifier>
-    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="modalRef.dismiss(); modifierRefresh()"></app-store-menu-modifier-group-create>
+    <div class="modal-header" style="background:#353FA8;color:#fff;font-size:20px;font-weight: 600;">
+        New modifier
+    </div>
+    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="modalRef.dismiss(); modifierRefresh()">       
+    </app-store-menu-modifier-group-create>
 </ng-template>
