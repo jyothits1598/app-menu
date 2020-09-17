@@ -3,6 +3,8 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
+import { StoreMenuCategory } from 'src/app/_models/store-menu-category';
+import { StoreMenuItem } from 'src/app/_models/store-menu-items';
 import { ModifierOption, StoreMenuModifier, StoreMenuModifierItem } from 'src/app/_models/store-menu-modifier';
 import { URL_CreateStoreMenuModfier, URL_StoreMenuModifier } from 'src/environments/api/api-store-menu';
 
@@ -35,21 +37,21 @@ export class StoreMenuModifierDataService {
     ))
   }
 
-  saveModifier(modifier: StoreMenuModifier ): Observable<boolean>{
+  saveModifier(modifier: StoreMenuModifier): Observable<boolean> {
     let data: any = {};
-    if(modifier.id) data.modifier_id = modifier.id;
+    if (modifier.id) data.modifier_id = modifier.id;
     data.store_id = this.storeService.activeStore$.value.id;
     data.modifier_name = modifier.name;
     data.select_minimum = modifier.minimum;
     data.select_maximum = modifier.maximum;
     data.select_free = modifier.free;
     data.options = [];
-    modifier.options.forEach((opt)=>{
-      let option = {name: opt.name, price: opt.price};
+    modifier.options.forEach((opt) => {
+      let option = { name: opt.name, price: opt.price };
       data.options.push(option);
     })
     return this.restApiService.postData(URL_CreateStoreMenuModfier, data).pipe(map(
-      (resp : any) => resp.success
+      (resp: any) => resp.success
     ))
   }
 
@@ -59,10 +61,16 @@ export class StoreMenuModifierDataService {
     mod.minimum = data.select_minimum;
     mod.free = data.select_free;
     mod.options = [];
-    // data.used_by.forEach(item => {
-    //   mod.items.push(new StoreMenuModifierItem(item.item_id, item.item_name, item.item_base_price, null, item.modifier_price))
-    // });
+    mod.items = [];
     data.options.forEach(data => mod.options.push(new ModifierOption(data.modifier_option_id, data.name, data.price)));
+    data.used_by.forEach(item => {
+      let newItem = new StoreMenuItem(item.item_id, item.item_name, null, null, null);
+      newItem.categories = [];
+      item.categories.forEach(category => {
+        newItem.categories.push(new StoreMenuCategory(category.category_id, category.category_name))
+      });
+      mod.items.push(newItem);
+    });
     return mod;
   }
 

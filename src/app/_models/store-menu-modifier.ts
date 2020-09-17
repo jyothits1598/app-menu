@@ -1,5 +1,6 @@
 import { StoreMenuItem } from './store-menu-items';
 import { StoreMenuCategory } from './store-menu-category';
+import { StoreMenu } from './store-menu';
 
 export class StoreMenuModifier {
     id: number;
@@ -8,6 +9,7 @@ export class StoreMenuModifier {
     maximum: number;
     free: number;
     options: Array<ModifierOption>
+    items: Array<StoreMenuItem>
 
     constructor(id: number, name: string) {
         this.id = id;

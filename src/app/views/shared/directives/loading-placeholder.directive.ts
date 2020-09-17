@@ -1,4 +1,4 @@
-import { Directive, Input, ViewContainerRef, ElementRef, Renderer2, ComponentFactoryResolver, SimpleChanges } from '@angular/core';
+import { Directive, Input, ViewContainerRef, ElementRef, Renderer2, ComponentFactoryResolver, SimpleChanges, ComponentFactory } from '@angular/core';
 import { LoadingPlaceholderComponent } from '../components/loading-placeholder/loading-placeholder.component';
 
 @Directive({
@@ -7,6 +7,7 @@ import { LoadingPlaceholderComponent } from '../components/loading-placeholder/l
 export class LoadingPlaceholderDirective {
 
   @Input() loadStatus: any;
+  componentFactory: ComponentFactory<any>;
 
   constructor(private viewCR: ViewContainerRef,
     private elem: ElementRef,
@@ -14,15 +15,24 @@ export class LoadingPlaceholderDirective {
     private resolver: ComponentFactoryResolver) { }
 
   ngAfterViewInit(): void {
-    console.log('view in loading placedholder called');
-    this.renderer.setStyle(this.elem.nativeElement, 'display', 'none');
-    let componentFactory = this.resolver.resolveComponentFactory(LoadingPlaceholderComponent)
-    let componetRef = this.viewCR.createComponent(componentFactory);
+    // if(!this.loadStatus){
+    //   this.renderer.setStyle(this.elem.nativeElement, 'display', 'none');
+    //   let componentFactory = this.resolver.resolveComponentFactory(LoadingPlaceholderComponent)
+    //   let componetRef = this.viewCR.createComponent(componentFactory);
+    // }
   }
-
+  
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('recieved changes in placeholder', this.loadStatus);
     this.viewCR.clear();
-    if(this.loadStatus) this.renderer.setStyle(this.elem.nativeElement, 'display', 'block');
+    if(!this.loadStatus){
+      this.renderer.setStyle(this.elem.nativeElement, 'display', 'none');
+      let componentFactory = this.resolver.resolveComponentFactory(LoadingPlaceholderComponent);
+      let componetRef = this.viewCR.createComponent(componentFactory);
+    }else{
+      if(this.loadStatus) this.renderer.setStyle(this.elem.nativeElement, 'display', 'block');
+    }
+
   }
 
   ngOnInit(): void {
