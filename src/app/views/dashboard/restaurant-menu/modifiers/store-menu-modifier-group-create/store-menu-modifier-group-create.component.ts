@@ -10,6 +10,7 @@ import { StoreMenuModifierDataService } from '../../_services/store-menu-modifie
 import { ModifierOptionsComponent } from './modifier-options/modifier-options.component';
 import { ModalService } from 'src/app/views/shared/services/modal.service';
 import { StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
+import { ArrayToConsolidatedString } from 'src/app/_helpers/string-helpers';
 
 @Component({
   selector: 'app-store-menu-modifier-group-create',
@@ -20,11 +21,10 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
 
   constructor(public restApiService: RestApiService,
     private storeService: StoreService,
-    private alertService: AlertService,
     private router: Router,
     private route: ActivatedRoute,
     private storeMenuData: StoreMenuModifierDataService,
-    private modalService: ModalService
+    private modalService: ModalService,
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
       console.log('this router sub', params['id']);
@@ -36,7 +36,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
           this.router.navigate(['./not-found'], { relativeTo: this.route });
         }
       };
-      this.modifierForm = this.createNewForm();
+      // this.modifierForm = this.createNewForm();
     })
   }
 
@@ -56,23 +56,28 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   modifierId: number;
   storeId: number;
   submitting: boolean = false;
+  loaded: boolean = false;
 
   editedItemIndex: number;
 
   modifierForm: FormGroup;
 
   ngOnInit(): void {
-    console.log('called oninit in mod creator', this.modifierId);
+    this.modifierForm = this.createNewForm();
+    
     if (this.modifierId) this.getInitialData();
+    else this.loaded = true;
+
     this.storeId = this.storeService.activeStore$.value.id;
   }
 
   getInitialData() {
-    this.alertService.showLoader();
+    this.loaded = false;
     this.storeMenuData.modiferDetail(this.modifierId).pipe(
-      finalize(() => this.alertService.hideLoader())
+      finalize(() => this.loaded = true)
     ).subscribe(modifier => {
       this.modifierForm.patchValue(modifier)
+      console.log('after content loaded', this.modifierForm);
     });
   }
 
@@ -84,6 +89,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       maximum: new FormControl('', Validators.required),
       free: new FormControl('', Validators.required),
       options: new FormControl(this.modifierId ? null : [{ name: null, price: null }]),
+      items: new FormControl(null)
     });
   }
 
@@ -103,6 +109,11 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       else this.router.navigate(['../'], { relativeTo: this.route })
     });
 
+  }
+
+
+  categoriesToString(items){
+    return ArrayToConsolidatedString(items, 2, (item) => item.name)
   }
 
   deleteModifier() {

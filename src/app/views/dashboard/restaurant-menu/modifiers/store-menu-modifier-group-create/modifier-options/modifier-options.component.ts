@@ -30,7 +30,6 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
 
   constructor(private renderer: Renderer2) { }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes inside of mod opt', changes);
     if(this.control) this.control.markAsTouched = () => {
       this._options.markAllAsTouched();
     }
@@ -38,14 +37,18 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
   @Input() control: FormControl;
 
   ngAfterViewInit(): void {
-    if(this.formChangeSubs) this.formChangeSubs.unsubscribe();
-    this.formChangeSubs = this._options.valueChanges.subscribe((val) => this.onChange(val));
+    // if(this.formChangeSubs) this.formChangeSubs.unsubscribe();
+    // this.formChangeSubs = this._options.valueChanges.subscribe((val) => this.onChange(val));
   }
 
   writeValue(obj: Array<ModifierOption>): void {
     if (obj) {
+      if(this.formChangeSubs) this.formChangeSubs.unsubscribe();
+      this._options = new FormArray([]);
       obj.forEach(modOpt => this.addOption(modOpt))
-    }
+    }else this.addOption(null);
+
+    this.formChangeSubs = this._options.valueChanges.subscribe((val) => this.onChange(val));
   }
 
   registerOnChange(fn: any): void {
@@ -65,8 +68,6 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
   validate(c: FormControl) {
     return this._options.valid ? null : { invalid: true }
   }
-
-
 
   @ViewChildren('optionElement') optElems: QueryList<ElementRef>;
 

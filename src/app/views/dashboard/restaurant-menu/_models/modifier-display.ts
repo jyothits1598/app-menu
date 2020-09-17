@@ -8,7 +8,7 @@ export class ModifierDisplay{
 
     constructor(modifier: StoreMenuModifier){
         this.modifier = modifier;
-        this.itemsString = "Dummy"
+        this.itemsString = ArrayToConsolidatedString(modifier.items, 3, (item)=>item.name);
         this.optionsString = ArrayToConsolidatedString(modifier.options, 3, (option)=>option.name);
     }
 }
