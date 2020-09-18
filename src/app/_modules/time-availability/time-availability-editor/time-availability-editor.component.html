@@ -57,6 +57,7 @@
         (click)="addAvailability()"><img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;Add
         time</button>
     </div>
+    <div class="error-mez" *ngIf="timing.controls.startTime.value !== 'Select' && timing.controls.endTime.value !== 'Select' && timing.controls.startTime.value == timing.controls.endTime.value">Start time and end time should be different</div>
 </div>
 <div class="row">
     <div class="col-md-12">

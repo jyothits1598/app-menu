@@ -9,6 +9,8 @@ import { AlertService } from 'src/app/services/alert.service';
 import { StringHelperService } from 'src/app/services/string-helper.service';
 import { StoreBankDetails } from '../_model/store-bank-details';
 import { StoreOwnershipDetails } from '../_model/store-ownership-details';
+import { TimeAvailability } from 'src/app/_modules/time-availability/_model/time-availability';
+import { TimeAvailabilityModule } from 'src/app/_modules/time-availability/time-availability.module';
 
 @Injectable()
 export class StoreProfileDataService {
@@ -22,35 +24,54 @@ export class StoreProfileDataService {
     return this.restApiService.getDataObs(URL_StoreBasicData(storeId)).pipe(
       map((resp: any) => {
         let data = resp.data[0];
-        let store = new StoreBasicDetails();
-        store.name = data.store_name;
-        store.address = data.store_address;
-        store.cuisineType = data.type_of_cuisine;
-        store.description = data.description;
-        store.facebookUrl = data.facebook_url;
-        store.googleUrl = data.google_business_url;
-        store.imageUrl = data.store_logo;
+        let openingHr = [];
+        data.opening_hours.forEach(o => {
+          openingHr.push(new TimeAvailability(o.opening_hours_id, o.days.toLowerCase(), o.start_time, o.end_time, o.marked_as_closed ? true : false))
+        });
+        let store: StoreBasicDetails = {
+          id: data.store_id,
+          name: data.store_name,
+          address: data.store_address,
+          cuisineType: data.type_of_cuisine,
+          description: data.description,
+          facebookUrl: data.facebook_url,
+          googleUrl: data.google_business_url,
+          imageUrl: data.store_logo,
+          openingHours: openingHr
+        }
         return store;
       })
     )
   }
 
   SaveStoreBasicData(storeDetails: StoreBasicDetails): Observable<any> {
-    let data = {
-      'store_name': storeDetails.name,
-      'store_address': storeDetails.address,
-      'type_of_cuisine': storeDetails.cuisineType,
-      'description': storeDetails.description,
-      'google_business_url': storeDetails.googleUrl,
-      'facebook_url': storeDetails.facebookUrl,
-      'store_logo': storeDetails.imageUrl ? this.stringHelper.ExtractFileName(storeDetails.imageUrl) : null
+    let data: any = {
+      store_name: storeDetails.name,
+      store_address: storeDetails.address,
+      type_of_cuisine: storeDetails.cuisineType,
+      description: storeDetails.description,
+      google_business_url: storeDetails.googleUrl,
+      facebook_url: storeDetails.facebookUrl,
+      store_logo: (storeDetails.imageUrl ? this.stringHelper.ExtractFileName(storeDetails.imageUrl) : null),
+      opening_hours: []
     };
+    
+    storeDetails.openingHours.forEach(oh => {
+      let dataOh:any = {};
+      if(oh.id) dataOh.opening_hours_id = oh.id;
+      dataOh.days = oh.day;
+      dataOh.start_time = oh.startTime;
+      dataOh.end_time = oh.endTime;
+      dataOh.marked_as_closed = oh.markedAsClose? 1 : 0;
+
+      data.opening_hours.push(dataOh);
+    })
     return this.restApiService.putData(URL_StoreBasicData(storeDetails.id), data);
   }
 
-  GetStoreBankData(storeId): Observable<StoreBankDetails>{
+  GetStoreBankData(storeId): Observable<StoreBankDetails> {
     return this.restApiService.getDataObs(URL_StoreBankData(storeId)).pipe(
-      map((resp)=>{
+      map((resp) => {
         let data = resp.data[0];
         let bankDetail = new StoreBankDetails();
         bankDetail.name = data.bank;
@@ -64,17 +85,17 @@ export class StoreProfileDataService {
 
   SaveStoreBankData(bankDetails: StoreBankDetails): Observable<any> {
     let data = {
-      'bank':bankDetails.name,
-      'bank_account_name':bankDetails.accountName,
-      'bsb_number':bankDetails.bsbNumber,
-      'bank_account_number':bankDetails.accountNumber
+      'bank': bankDetails.name,
+      'bank_account_name': bankDetails.accountName,
+      'bsb_number': bankDetails.bsbNumber,
+      'bank_account_number': bankDetails.accountNumber
     };
     return this.restApiService.putData(URL_StoreBankData(bankDetails.id), data);
   }
 
-  GetStoreOwnershipData(storeId): Observable<StoreOwnershipDetails>{
+  GetStoreOwnershipData(storeId): Observable<StoreOwnershipDetails> {
     return this.restApiService.getDataObs(URL_StoreOwnershipData(storeId)).pipe(
-      map((resp)=>{
+      map((resp) => {
         let data = resp.data[0];
         let StoreOwnershipDetail = new StoreOwnershipDetails();
         StoreOwnershipDetail.ownerName = data.legal_owner_name;
@@ -88,10 +109,10 @@ export class StoreProfileDataService {
 
   SaveownershipData(ownershipDetails: StoreOwnershipDetails): Observable<any> {
     let data = {
-      'legal_owner_name':ownershipDetails.ownerName,
-      'legal_business_name':ownershipDetails.buinessName,
-      'business_register_number':ownershipDetails.registrationNumber,
-      'certificate_of_registration':ownershipDetails.legalFile
+      'legal_owner_name': ownershipDetails.ownerName,
+      'legal_business_name': ownershipDetails.buinessName,
+      'business_register_number': ownershipDetails.registrationNumber,
+      'certificate_of_registration': ownershipDetails.legalFile
     };
     return this.restApiService.putData(URL_StoreOwnershipData(ownershipDetails.id), data);
   }
