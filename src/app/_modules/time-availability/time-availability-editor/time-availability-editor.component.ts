@@ -7,7 +7,7 @@ import { TimeAvailability } from '../_model/time-availability';
   templateUrl: './time-availability-editor.component.html',
   styleUrls: ['./time-availability-editor.component.scss']
 })
-export class TimeAvailabilityEditorComponent implements OnInit {
+export class TimeAvailabilityEditorComponent {
   @Output() onChange = new EventEmitter<Array<TimeAvailability>>();
   constructor() { }
   
@@ -81,9 +81,6 @@ export class TimeAvailabilityEditorComponent implements OnInit {
     endTime: new FormControl('Select')
   }, this.timingValidator())
 
-  ngOnInit(): void {
-  }
-
   addRemvDay(day: string, add: boolean) {
     this.daysTouched = true;
     if (add) {
@@ -156,7 +153,6 @@ export class TimeAvailabilityEditorComponent implements OnInit {
 
   
   addAvailability() {
-    console.log('add availability called');
     if (this.timing.invalid || this.selectedDays.length == 0) {
       this.timing.markAllAsTouched();
       this.daysTouched = true;
@@ -175,6 +171,7 @@ export class TimeAvailabilityEditorComponent implements OnInit {
   }
 
   deleteAvailability(index: number){
+    this.touched = true;
     this._availability.splice(index, 1)[0];
     this.onChange.emit(this._availability);
   }
