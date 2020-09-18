@@ -13,7 +13,7 @@ export class AlertComponent implements OnInit {
   private unsubscribe$ = new Subject();
   showNotificationStatus = false;
   showNotificationMessage:string = '';
-  notification_color:any = 'blue';
+  notification_color:any = '#1A1A1A';
   showAlertBottomNotificationStatus = false;
   showAlertBottomNotificationMessage:string = '';
 
@@ -30,7 +30,7 @@ export class AlertComponent implements OnInit {
           }
           this.showNotificationMessage= message;
           this.showNotificationStatus = true;
-          setTimeout(()=>{this.showNotificationStatus = false; }, 5000)
+          setTimeout(()=>{this.showNotificationStatus = false; }, 7000)
       }
   });
 
@@ -39,7 +39,7 @@ export class AlertComponent implements OnInit {
       if(message){
           this.showAlertBottomNotificationMessage= message;
           this.showAlertBottomNotificationStatus = true;
-          setTimeout(()=>{this.showAlertBottomNotificationStatus = false; }, 5000)
+          setTimeout(()=>{this.showAlertBottomNotificationStatus = false; }, 7000)
       }
   });
 
@@ -61,4 +61,10 @@ export class AlertComponent implements OnInit {
   this.unsubscribe$.complete();
 }
 
+/*
+  * close notification
+  */
+  hideNotification(){
+    this.showNotificationStatus = false;
+  }
 }

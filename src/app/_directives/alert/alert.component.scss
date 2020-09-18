@@ -1,24 +1,35 @@
 .alert-info {    
-    display: table;
-    margin: 0 auto;
-    background:#FFFDE7;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+    display: flex;
+    background: #FAFAFA;
+    box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.2);
     z-index:9999999;
-    padding: 10px 15px;
+    padding: 16px;
     border-radius: 4px;
-    font-weight:500;
+    font-weight:bold;
+    font-size: 16px;
+  
 }
 .alert-message-popup {
-    width:100%;
-    position: fixed;
-    top:50px;
+   position: fixed;
+    bottom:32px;
     z-index: 99999;
+    left:32px;
+    animation: animate 0.8s ;
+    animation-direction: normal;
+   
 }
+
+@keyframes animate {
+    0%   {left: 0px;bottom:0px;}
+  
+    100% {left: 32px;bottom:32px;}
+  }
+
 
 /* Alert bottom left */
 .alert-bottom{
     position: fixed;
-    bottom:30px;
+    bottom:32px;
     left:2%;
     z-index: 99999;
     background: #464646;
