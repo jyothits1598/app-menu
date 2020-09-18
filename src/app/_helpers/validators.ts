@@ -5,3 +5,17 @@ export function MinNumberValidator(): ValidatorFn {
         return (<FormArray>control).length ? null : { 'MinimumSelection': "Minimum selection condition is not met" };
     };
 }
+
+export function ExcludeSpaceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+        return control.value && control.value.trim().length ? null : { 'OnlySpace': true };
+    };
+}
+
+export function PriceValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+        let value = parseFloat(control.value);
+        if(!value || value < 0) return { 'Invalid' : true };
+        else return null;
+    };
+}

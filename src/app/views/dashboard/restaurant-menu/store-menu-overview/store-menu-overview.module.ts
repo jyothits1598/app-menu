@@ -5,7 +5,7 @@ import { RestaurantMenuOverviewComponent } from './restaurant-menu-overview/rest
 import { StoreMenuOverviewDetailedComponent } from './store-menu-overview-detailed/store-menu-overview-detailed.component';
 import { SharedModule } from 'src/app/views/shared/shared.module';
 import { StoreMenuOverviewCategoryListComponent } from './store-menu-overview-category-list/store-menu-overview-category-list.component';
-import { StoreMenuItemsCreateComponent } from '../store-menu-items-create/store-menu-items-create.component';
+import { StoreMenuItemsCreateComponent } from '../items/store-menu-items-create/store-menu-items-create.component';
 import { SampleComponentComponent } from './sample-component/sample-component.component';
 import { StoreMenuCategoriesCreateComponent } from '../store-menu-categories-create/store-menu-categories-create.component';
 

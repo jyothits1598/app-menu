@@ -1,10 +1,12 @@
 export class StoreMenu {
     id: number;
     name: string;
+    iscustomavailability: number;
     availability : Array<StoreMenuTime>;
-    constructor(id: number, name: string, availability){
+    constructor(id: number, name: string, iscustomavailability: number, availability){
         this.id = id;
         this.name = name;
+        this.iscustomavailability = iscustomavailability;
         this.availability = availability;
     }
 }
@@ -50,5 +52,17 @@ export class Storedetails {
         this.logoUrl = logoUrl;
         this.activeStatus = activeStatus;
         this.nextStep = nextStep
+    }
+}
+
+export class Memberlist { 
+    id: number;
+    role: string;
+    constructor(
+        id: number,
+        role: string,
+    ){
+        this.id = id;
+        this.role = role;
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ConfirmationDialogConfig } from '../../model/confirmation-dialog-config';
+import { ConfirmationDialogConfig } from '../../_model/confirmation-dialog-config';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { config } from 'rxjs';
 

@@ -30,6 +30,9 @@ export class StoreBasicDetailsComponent implements OnInit {
     facebookUrl : new FormControl(''),
   })
 
+  basicDetailCache: any = null;
+  imageUrlCache: string = null;
+
   ngOnInit(): void {
   }
 
@@ -46,8 +49,19 @@ export class StoreBasicDetailsComponent implements OnInit {
     else return this.basicDetails.value;
   }
 
-  toggleEdit(){    
+  toggleEdit(){
+    //if going to edit-mode, save a copy of original values
+    if(this.normalMode) {
+      this.basicDetailCache = this.basicDetails.value;
+      this.imageUrlCache = this.imageUrl;
+    }
     this.normalMode = !this.normalMode;
+  }
+
+  cancelEdit(){
+    this.normalMode = !this.normalMode;
+    this.basicDetails.patchValue(this.basicDetailCache);
+    this.imageUrl = this.imageUrlCache;
   }
 
   onSubmit(){

@@ -65,7 +65,7 @@ export class StoreMenuOverviewDetailedComponent implements OnInit, OnDestroy {
         if (resp.success && resp.data) {
           let menus: Array<StoreMenu> = [];
           resp.data.forEach(menu => {
-            menus.push(new StoreMenu(menu.menu_id, menu.menu_name, null));
+            menus.push(new StoreMenu(menu.menu_id, menu.menu_name, menu.is_custom_availability, null));
           });
           return menus;
         }

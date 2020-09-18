@@ -1,9 +1,10 @@
-import { Injectable, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { Injectable, ComponentFactoryResolver, ViewContainerRef, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
-import { ConfirmationDialogConfig } from '../model/confirmation-dialog-config';
+import { ConfirmationDialogConfig } from '../_model/confirmation-dialog-config';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { of, throwError, Observable, from } from 'rxjs';
+import { ModalRef, NgbsModalRef } from '../_model/modal-ref';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ModalService {
   constructor(
     private ngbModal: NgbModal) { }
 
-  GetConfirmation(config: ConfirmationDialogConfig): Observable<boolean> {
+  getConfirmation(config: ConfirmationDialogConfig): Observable<boolean> {
 
     let modal = this.ngbModal.open(ConfirmationDialogComponent, { centered: true });
     modal.componentInstance.config = config;
@@ -28,5 +29,10 @@ export class ModalService {
     return from(modal.result).pipe(
       take(1)
     );
+  }
+
+  openTemplate(template: TemplateRef<any>): ModalRef{
+    let ngbRef = this.ngbModal.open(template, {size: 'xl'});
+    return new NgbsModalRef(ngbRef);
   }
 }

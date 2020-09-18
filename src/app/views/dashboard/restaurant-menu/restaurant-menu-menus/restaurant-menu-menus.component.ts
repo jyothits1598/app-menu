@@ -57,7 +57,7 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
         if (response['data'] && response['data'].length > 0) {
           let data = response['data'];
           data.forEach(menu => {
-            let newMenu = new StoreMenu(menu.menu_details.menu_id, menu.menu_details.menu_name, this.storeService.readAvailability(menu.availability));
+            let newMenu = new StoreMenu(menu.menu_id, menu.menu_name, menu.is_custom_availability, this.storeService.readAvailability(menu.availability));
             this.menus.push(newMenu);
           });
         }
@@ -73,10 +73,11 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
     let data: any = {}
     data.menu_name = menu.name;
     data.menu_id = menu.id;
+    data.is_custom_availability = 0;
     data.active_flag = 0;
-    
+
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp) => {
-      
+      console.log(data);
       if (resp.success) {
         this.alertService.showNotification('Menu successfully deleted');
         this.menus.splice(this.deletemenuIndex, 1);
