@@ -60,4 +60,11 @@
     border-right: 0.5rem solid transparent;
     border-top: 0.5rem solid var(--color-typography-primary);
 }
-
+.small-header {
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 8px;
+}

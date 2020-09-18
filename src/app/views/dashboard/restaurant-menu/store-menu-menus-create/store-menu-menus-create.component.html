@@ -14,9 +14,31 @@
         </div>
     </div>
 </div>
-<time-availability-editor (onChange)="availability = $event" [availability]="availability" #availabilityEditor></time-availability-editor>
-<p *ngIf="availability.length == 0 && availabilityEditor && availabilityEditor.touched" class="error-mez">Please provide atleast one availability</p>
-
+<div class="row">
+    <div class="col-md-12" >
+        <h3 class="std-heading-3" style="margin-top:56px;margin-bottom: 32px;"> Availability
+            <img src="../../../../../assets/images/ico_help.png"
+            style="cursor:pointer" title="info" (click)="modalService.open(times, { centered: true });">
+        </h3>
+        <div class="small-header">
+            When will this menu will be available?
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="custom-radio mr-3">
+            <input type="radio" id="duringCustom" value="0" [formControl]="openigHours" >
+            <label class="custom-radio__label std-heading-4" for="duringCustom"> During opening hours </label>
+        </div>
+        <div class="custom-radio mr-3">
+            <input type="radio" id="openingHour" value="1" [formControl]="openigHours" #customAvalability>
+            <label class="custom-radio__label std-heading-4" for="openingHour"> Custom availability </label>
+        </div>
+    </div>
+</div>
+<div *ngIf="customAvalability.checked" >
+    <time-availability-editor (onChange)="availability = $event" [availability]="availability" #availabilityEditor></time-availability-editor>
+    <p *ngIf="availability.length == 0 && availabilityEditor && availabilityEditor.touched" class="error-mez">Please provide atleast one availability</p>
+</div>
 <!-- Info modal -->
 <ng-template #content let-modal>
     <div class="modal-header header-info">
@@ -63,5 +85,29 @@
     </div>
 </ng-template>
 <!-- back save continue end-->
-
-<button (click)="debug()">debug()</button>
+<!-- Info modal -->
+<ng-template #times let-modal>
+    <div class="modal-header header-info">
+        <div class="std-heading-4 std-heading-5--popheader"> Availability </div>
+        <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p class="paragraph">
+            Select <b>during opening hours</b> to offer an all day menu and match your current
+            store opening hours.
+        </p>
+        <p class="paragraph">
+            Alternatively, select <b>custom availability</b> to set specific times for this menu. To
+            specify the days and times this item is available, simply select 1 or more <b>days</b>, a
+            <b>start time</b> and an <b>end time,</b> and then press the <b>add time</b>button.
+        </p>
+        <p class="paragraph">
+            Outside of the time periods entered here, customers will be able to browse but
+            not purchase from the menu. Select <b>mark as closed</b> to temporarily close a
+            specific time period.
+        </p>
+    </div>
+</ng-template>
+<!-- Info modal end-->

@@ -52,7 +52,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   })
 
   constructor(
-    private modalService: NgbModal,
+    private _modalService: NgbModal,
     private restApiService: RestApiService,
     private storeService: StoreService,
     private alertService: AlertService,
@@ -96,6 +96,10 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     this.modalService.open(back, { centered: true, size: 'sm' });
   }
 
+  get modalService(): NgbModal{
+    return this._modalService;
+  }
+  
   showTemplate(modifierAdd) {
     this.modalRef = this.modalServ.openTemplate(modifierAdd);
   }
