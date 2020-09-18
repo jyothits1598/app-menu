@@ -35,7 +35,7 @@
                 <option value=""> Select </option>
                 <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
             </select>
-            <div *ngIf="modifierForm.controls.minimum.invalid && modifierForm.controls.minimum.touched">Plese select
+            <div class="error-mez" *ngIf="modifierForm.controls.minimum.invalid && modifierForm.controls.minimum.touched">Plese select
                 minimum</div>
         </div>
         <div class="col-md-3">
@@ -44,7 +44,7 @@
                 <option value=""> Select </option>
                 <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
             </select>
-            <div *ngIf="modifierForm.controls.maximum.invalid && modifierForm.controls.maximum.touched">Plese select
+            <div class="error-mez" *ngIf="modifierForm.controls.maximum.invalid && modifierForm.controls.maximum.touched">Plese select
                 maximum</div>
         </div>
         <div class="col-md-3">
@@ -53,7 +53,7 @@
                 <option value=""> Select </option>
                 <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
             </select>
-            <div *ngIf="modifierForm.controls.free.invalid && modifierForm.controls.free.touched">Plese select free
+            <div class="error-mez" *ngIf="modifierForm.controls.free.invalid && modifierForm.controls.free.touched">Plese select free
             </div>
         </div>
     </div>
