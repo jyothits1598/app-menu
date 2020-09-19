@@ -1,4 +1,4 @@
-<section>
+<!-- <section>
     <ul>
         <li *ngFor="let modifier of modifiers">
             <h3>{{modifier.name}}</h3>
@@ -11,4 +11,74 @@
             </ul>
         </li>
     </ul>
-</section>
+</section> -->
+<br><br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive" style="overflow: inherit">
+            <div *ngFor="let modifier of modifiers">
+            <table class="table custom-table">
+                <!-------------------- parent box ---------------------------->              
+                    <tr>
+                        <td width="10px" align="left" >
+                            <img style="transition: all .2s;" src="/assets/images/ico_right.png" />
+                        </td>
+                        <td style="padding: 16px 0px;" class="std-heading-4"> {{modifier.name}} </td>
+                        <td align="right">         
+                            <div class="dropdown" style="cursor: pointer;">
+                            <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" class="dropdown-toggle"
+                                data-toggle="dropdown" title="Options">
+                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <li (click)="edit.emit(modifier)" class="herf-class" title="Edit">
+                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        Edit modifier
+                                    </li>
+                                    <li ((click)="remove.emit(modifier)" title="Delete" class="herf-class">
+                                        <img src="../../../../../assets/images/ico_cancel.png">&nbsp;&nbsp;
+                                        Remove modifier
+                                    </li>
+                                </ul>
+                            </div>                           
+                        </td>
+                    </tr>
+                    <!-- <tr *ngIf="modifier">
+                        <ng-template #noItems>
+                            <td colspan="3" > 
+                                <p class="paragraph text-center"> No items found </p>
+                            </td>
+                        </ng-template>                       
+                        <td colspan="3" class="tdsingle-row std-heading-5" *ngIf="options.modifier.options.length > 0;else noItems">
+                            <table class="inside-table" *ngFor="let option of modifier.options">
+                                <tr>
+                                    <td> {{option.name}} </td>
+                                    <td align="right"> ${{item.basePrice}} </td>
+                                   <td align="right" width="20px">
+                                        <div class="dropdown" style="cursor: pointer;">
+                                            <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png"
+                                                class="dropdown-toggle" data-toggle="dropdown" title="Options">
+                                            <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                                <li [routerLink]="['./item/', item.id]" class="herf-class" title="Edit">
+                                                    <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                                    Edit item
+                                                </li>
+                                                <li title="Delete" class="herf-class" 
+                                                    (click)="deleteCatIndex = i; deleteItemIndex = j; modal.open(itemdeleteComform, { centered: true });">
+                                                    <img src="../../../../../assets/images/ico_cancel.png">&nbsp;&nbsp;
+                                                    Remove items
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr> -->
+                
+                <!--------------------- parent box end --------------------------------------->
+                <!--------------------- children dropdown box ------------------------------->
+                
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
