@@ -35,8 +35,18 @@
         </div>
     </div>
 </div>
+<ng-template #availabilitysHeading>
+    <div class="row">
+        <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Availability </h4>
+        <div class="col-md-12" style="margin-top:32px;margin-bottom:32px;">
+            <p class="paragraph"> Select <b>days</b> and <b>times</b> above and press <b>add time</b> to add
+                availability.
+            </p>
+        </div>
+    </div>
+</ng-template>
 <div *ngIf="customAvalability.checked" >
-    <time-availability-editor (onChange)="availability = $event" [availability]="availability" #availabilityEditor></time-availability-editor>
+    <time-availability-editor (onChange)="availability = $event" [availability]="availability" [headingTempalte]="availabilitysHeading" #availabilityEditor></time-availability-editor>
     <p *ngIf="availability.length == 0 && availabilityEditor && availabilityEditor.touched" class="error-mez">Please provide atleast one availability</p>
 </div>
 <!-- Info modal -->

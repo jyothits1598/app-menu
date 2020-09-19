@@ -108,7 +108,7 @@
                         &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" 
                             (click)="modalService.open(modifier, { centered: true })"> </h4>
                     <button class="btn std-button-active" style="cursor: pointer;padding: 12px 14px;"
-                        (click)="modiferEditId=null; showTemplate(addModifier)">
+                        (click)="modalRef = modalServ.openTemplate(addModifier)">
                         <img src="../../../../../assets/images/ico_add_blue.png">&nbsp;&nbsp;Add modifier
                     </button>
                 </div>
@@ -118,7 +118,8 @@
 
 </div>
 
-<app-modifier-summary [modifiers]="createItemForm.controls.modifiers.value" (edit)="initializeModifierEditor($event)" (remove)="removeSelectedMod($event)"></app-modifier-summary>
+<!-- <app-modifier-summary [modifiers]="createItemForm.controls.modifiers.value" (edit)="initializeModifierEditor($event)" (remove)="removeSelectedMod($event)"></app-modifier-summary> -->
+<app-modifier-summary [modifiers]="createItemForm.controls.modifiers.value" (edit)="modiferEditId = $event.id; createModalRef = modalServ.openTemplate(createModifier);" (remove)="removeSelectedMod($event)"></app-modifier-summary>
 
 
 <!-- Info modal -->
@@ -189,13 +190,13 @@
 
 <ng-template #addModifier >
     <app-modifier-selector [modifiers]="modifiers" [selected]="createItemForm.controls.modifiers.value"
-    (selection)="onModSelect($event)" (canceled)="modalRef.dismiss()" (createNew)="modalRef.dismiss(); showTemplate(createModifier)"></app-modifier-selector>
+    (selection)="onModSelect($event)" (canceled)="modalRef.dismiss()" (createNew)="createModalRef = modalServ.openTemplate(createModifier);"></app-modifier-selector>
 </ng-template> 
 
 <ng-template #createModifier>
     <div class="modal-header" style="background:#353FA8;color:#fff;font-size:20px;font-weight: 600;">
         New modifier
     </div>
-    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="modalRef.dismiss(); modifierRefresh()">       
+    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="createModalRef.dismiss(); modifierRefresh()">       
     </app-store-menu-modifier-group-create>
 </ng-template>

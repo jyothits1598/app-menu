@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, TemplateRef, AfterViewInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { TimeAvailability } from '../_model/time-availability';
 
@@ -7,14 +7,23 @@ import { TimeAvailability } from '../_model/time-availability';
   templateUrl: './time-availability-editor.component.html',
   styleUrls: ['./time-availability-editor.component.scss']
 })
-export class TimeAvailabilityEditorComponent {
+export class TimeAvailabilityEditorComponent implements AfterViewInit {
   @Output() onChange = new EventEmitter<Array<TimeAvailability>>();
   constructor() { }
   
+  ngAfterViewInit(): void {
+    if(this.headingTempalte)
+    this.headingSlot.createEmbeddedView(this.headingTempalte);
+  }
+  
+  @Input() headingTempalte: TemplateRef<any>;
+
   @Input() set availability(a: Array<TimeAvailability>){
     if(a) this._availability = a;
   }
   
+  @ViewChild('headingSlot', { read: ViewContainerRef }) headingSlot: ViewContainerRef;
+
   _availability: Array<TimeAvailability> = [];
   selectedDays: Array<string> = [];
   

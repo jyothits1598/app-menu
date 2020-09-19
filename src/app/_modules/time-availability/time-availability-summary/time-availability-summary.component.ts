@@ -8,17 +8,18 @@ import { TimeAvailability } from 'src/app/_modules/time-availability/_model/time
 })
 export class TimeAvailabilitySummaryComponent implements OnInit {
 
-  monday: Array<TimeAvailability> = [];
-  tuesday: Array<TimeAvailability> = [];
-  wednesday: Array<TimeAvailability> = [];
-  thursday: Array<TimeAvailability> = [];
-  friday: Array<TimeAvailability> = [];
-  saturday: Array<TimeAvailability> = [];
-  sunday: Array<TimeAvailability> = [];
+  monday: Array<TimeAvailability>;
+  tuesday: Array<TimeAvailability>;
+  wednesday: Array<TimeAvailability>;
+  thursday: Array<TimeAvailability>;
+  friday: Array<TimeAvailability>;
+  saturday: Array<TimeAvailability>;
+  sunday: Array<TimeAvailability>;
 
   constructor() { }
   @Input() set availabilities(availabilities: Array<TimeAvailability>) {
     if (availabilities) {
+      this.dataRefresh();
       availabilities.forEach((avai) => {
         switch (avai.day.toLowerCase()) {
           case 'monday':
@@ -49,14 +50,18 @@ export class TimeAvailabilitySummaryComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  dataRefresh(){
+    this.monday = [];
+    this.tuesday = [];
+    this.wednesday = [];
+    this.thursday = [];
+    this.friday = [];
+    this.saturday = [];
+    this.sunday = [];
   }
 
-  
-  debug(){
-    console.log(this.monday);
-    console.log(this.tuesday);
-    console.log(this.wednesday);
+  ngOnInit(): void {
+    this.dataRefresh();  
   }
 
 }

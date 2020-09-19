@@ -30,6 +30,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   saveBtnLoading: boolean = false;
   fileUptoLoad: File;
   modalRef: ModalRef;
+  createModalRef: ModalRef;
 
   modiferEditId: number = null;
 
@@ -60,7 +61,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private dataService: DataService,
     private stringHelper: StringHelperService,
-    private modalServ: ModalService,
+    public modalServ: ModalService,
     private modifierData: StoreMenuModifierDataService
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
@@ -128,7 +129,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
 
   initializeModifierEditor(modifier: StoreMenuModifier) {
     console.log('recieved edit model', modifier);
-    this.modiferEditId = modifier.id;
+    
     this.showTemplate(this.creator);
   }
 
@@ -339,8 +340,6 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     })
   }
 }
-
-
 
 export function removeSpaces(control: AbstractControl) {
   if (control && control.value && !control.value.replace(/\s/g, '').length) {
