@@ -32,10 +32,10 @@
                 <tbody>
                     <tr class="text-capitalize" *ngFor="let item of items; let i = index">
                     <td [routerLink]="'./'+item.id" class="table-name"> {{item.name}} </td>
-                    <td> ${{item.basePrice}} </td>
-                    <td> {{stringHelper.ArrayToConsolidatedString(item.menus, 2, nameAccessor)}} </td>
-                    <td> {{stringHelper.ArrayToConsolidatedString(item.categories, 2, nameAccessor)}} </td>
-                    <td> {{stringHelper.ArrayToConsolidatedString(item.modifiers, 2, nameAccessor)}} </td>
+                    <td><span *ngIf="item.basePrice">$</span>{{ item.basePrice ? item.basePrice : '$0.00' }} </td>
+                    <td> {{stringHelper.ArrayToConsolidatedString(item.menus, 2, nameAccessor) ? stringHelper.ArrayToConsolidatedString(item.menus, 2, nameAccessor) : '-'}} </td>
+                    <td> {{stringHelper.ArrayToConsolidatedString(item.categories, 2, nameAccessor) ? stringHelper.ArrayToConsolidatedString(item.categories, 2, nameAccessor): '-'}} </td>
+                    <td> {{stringHelper.ArrayToConsolidatedString(item.modifiers, 2, nameAccessor) ? stringHelper.ArrayToConsolidatedString(item.modifiers, 2, nameAccessor): '-'}} </td>
                     <td style="text-align: right;outline: none;">
                         <div class="dropdown">
                             <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="options" style="cursor:pointer;">

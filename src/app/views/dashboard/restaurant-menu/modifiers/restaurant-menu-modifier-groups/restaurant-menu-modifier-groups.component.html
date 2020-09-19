@@ -20,8 +20,8 @@
                     <tr class="text-capitalize" *ngFor="let modifierDP of modifiers; let i = index">
                         <td [routerLink]="'./'+modifierDP.modifier.id" class="table-name" > {{modifierDP.modifier.name}} </td>
                         <!-- <td>{{modifier.displayText}}</td> -->
-                        <td> {{modifierDP.optionsString}} </td>
-                        <td> {{modifierDP.itemsString}}</td>
+                        <td> {{modifierDP.optionsString ? modifierDP.optionsString : '-'}} </td>
+                        <td> {{modifierDP.itemsString ? modifierDP.itemsString : '-'}}</td>
                         <td style="text-align: right;outline: none;">
                             <div class="dropdown">
                                 <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"

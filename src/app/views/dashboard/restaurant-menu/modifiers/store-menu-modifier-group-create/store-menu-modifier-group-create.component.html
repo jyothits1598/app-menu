@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <div class="input-container">
                 <img (click)="dismiss()" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
-                <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="name">
+                <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="name" placeholder="Enter a item for this modifier">
                 <span class="error-mez"
                     *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
                     required.</span>
@@ -76,7 +76,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="modifierForm.controls.items.value > 0;else noItems">
                     <tr class="text-capitalize" *ngFor="let item of modifierForm.controls.items.value">
                         <td class="table-name"> {{item.name}} </td>
                         <td> {{categoriesToString(item.categories)}} </td>
@@ -94,13 +94,13 @@
                         </td>
                     </tr>
                 </tbody>
-                <!-- <ng-template #noItems>
+                <ng-template #noItems>
                     <tbody>
                         <tr class="text-center">
-                            <td colspan="6">No items have been added yet.</td>
+                            <td colspan="3">No items have been added yet.</td>
                         </tr>
                     </tbody>
-                </ng-template> -->
+                </ng-template>
             </table>
         </div>
     </div>
