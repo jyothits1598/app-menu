@@ -12,7 +12,6 @@ import { StoreBankDetailsComponent } from './bank/store-bank-details/store-bank-
 import { OwnershipComponent } from './ownership/ownership.component';
 import { StoreOwnershipDetailsComponent } from './ownership/store-ownership-details/store-ownership-details.component';
 import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
-import { TimeAvailabilitySummaryComponent } from './opening-hours/time-availability-summary/time-availability-summary.component';
 import { TimeAvailabilityModule } from 'src/app/_modules/time-availability/time-availability.module';
 
 const routes: Routes = [
@@ -48,7 +47,7 @@ const routes: Routes = [
 const routingModule = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [StoreProfileComponent, StoreBankDetailsComponent, StoreOwnershipDetailsComponent, StoreBasicDetailsComponent, ProfileComponent, BankComponent, OwnershipComponent, OpeningHoursComponent, TimeAvailabilitySummaryComponent],
+  declarations: [StoreProfileComponent, StoreBankDetailsComponent, StoreOwnershipDetailsComponent, StoreBasicDetailsComponent, ProfileComponent, BankComponent, OwnershipComponent, OpeningHoursComponent],
   imports: [
     CommonModule,
     FormsModule,

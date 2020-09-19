@@ -20,10 +20,19 @@
 </div>
 <div *ngIf="storeBasicDetail?.openingHours.length === 0">Please add atleast one opening hour</div>
 
-
+<ng-template #openingHoursHeading>
+    <div class="row">
+        <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Opening hours </h4>
+        <div class="col-md-12" style="margin-top:32px;margin-bottom:32px;">
+            <p class="paragraph"> Select <b>days</b> and <b>times</b> above and press <b>add time</b> to add
+                availability.
+            </p>
+        </div>
+    </div>
+</ng-template>
 <ng-template #editor>
     <time-availability-editor (onChange)="storeBasicDetail.openingHours = $event"
-        [availability]="storeBasicDetail.openingHours" #editior></time-availability-editor>
+        [availability]="storeBasicDetail.openingHours" [headingTempalte]="openingHoursHeading" #editior></time-availability-editor>
 </ng-template>
 <!-- Info modal -->
 <ng-template #content let-modal>
