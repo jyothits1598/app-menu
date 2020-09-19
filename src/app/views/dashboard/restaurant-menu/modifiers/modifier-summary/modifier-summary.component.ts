@@ -10,7 +10,7 @@ export class ModifierSummaryComponent implements OnInit {
 
   constructor() { }
 
-  @Input() modifiers: Array<StoreMenuModifier>;
+  @Input() modifiers: Array<{expanded: boolean, StoreMenuModifier}>;
   @Output() edit = new EventEmitter<StoreMenuModifier>();
   @Output() remove = new EventEmitter<StoreMenuModifier>();
   

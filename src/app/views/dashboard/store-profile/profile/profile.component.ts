@@ -36,11 +36,13 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.log('inside on init', this.storeService.activeStore$.value.id)
   }
 
   saveStoreDetails(data: StoreBasicDetails) {
     this.alertService.showLoader();
     data.id = this.storeService.activeStore$.value.id;
+    data.openingHours = [];
     this.storeDataService.SaveStoreBasicData(data).pipe(finalize(()=>this.alertService.hideLoader())).subscribe((data)=>{
       this.storeDetails.toggleEdit();
       this.alertService.showNotification('Successfully updated', 'success');

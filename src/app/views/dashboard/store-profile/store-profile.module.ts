@@ -12,6 +12,7 @@ import { StoreBankDetailsComponent } from './bank/store-bank-details/store-bank-
 import { OwnershipComponent } from './ownership/ownership.component';
 import { StoreOwnershipDetailsComponent } from './ownership/store-ownership-details/store-ownership-details.component';
 import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
+import { TimeAvailabilityModule } from 'src/app/_modules/time-availability/time-availability.module';
 
 const routes: Routes = [
   {
@@ -52,7 +53,8 @@ const routingModule = RouterModule.forChild(routes);
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    routingModule
+    routingModule,
+    TimeAvailabilityModule
   ],
   providers: [StoreProfileDataService]
 })

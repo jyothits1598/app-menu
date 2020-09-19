@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
@@ -11,6 +11,9 @@ import { API_URL_LINK } from 'src/environments/environment.prod';
 import { StringHelperService } from 'src/app/services/string-helper.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StoreMenuTime } from 'src/app/_models/store-menu';
+import { AvailabilityToBackend, ReadAvailability, TimeAvailability } from 'src/app/_modules/time-availability/_model/time-availability';
+import { ModalService } from '../../shared/services/modal.service';
+import { ModalRef } from '../../shared/_model/modal-ref';
 
 declare let $: any;
 
@@ -48,99 +51,21 @@ export class SecondFormsComponent implements OnInit {
   height: number;
   errors = new Array();
   firstFormError = false;
-  daysTouched: boolean = false;
   claimCreation: boolean = false;
 
-  submitting: boolean = false;
-  availabilityTouched = false;
-
-  timing: FormGroup = new FormGroup({
-    startTime: new FormControl('Select'),
-    endTime: new FormControl('Select')
-  }, this.timingValidator())
-
-  time: Array<string> = [
-    '12:00AM'
-    , '12:30AM'
-    , '01:00AM'
-    , '01:30AM'
-    , '02:00AM'
-    , '02:30AM'
-    , '03:00AM'
-    , '03:30AM'
-    , '04:00AM'
-    , '04:30AM'
-    , '05:00AM'
-    , '05:30AM'
-    , '05:00AM'
-    , '05:30AM'
-    , '06:00AM'
-    , '06:30AM'
-    , '07:00AM'
-    , '07:30AM'
-    , '08:00AM'
-    , '08:30AM'
-    , '09:00AM'
-    , '09:30AM'
-    , '10:00AM'
-    , '10:30AM'
-    , '11:00AM'
-    , '11:30AM'
-    , '12:00PM'
-    , '12:30PM'
-    , '01:00PM'
-    , '01:30PM'
-    , '02:00PM'
-    , '02:30PM'
-    , '03:00PM'
-    , '03:30PM'
-    , '04:00PM'
-    , '04:30PM'
-    , '05:00PM'
-    , '05:30PM'
-    , '05:00PM'
-    , '05:30PM'
-    , '06:00PM'
-    , '06:30PM'
-    , '07:00PM'
-    , '07:30PM'
-    , '08:00PM'
-    , '08:30PM'
-    , '09:00PM'
-    , '09:30PM'
-    , '10:00PM'
-    , '10:30PM'
-    , '11:00PM'
-    , '11:30PM'
-  ]
-
-  selectedDays: Array<string> = [];
-  availability: Array<StoreMenuTime> = [];
-  finalAvailability: Array<StoreMenuTime> = [];
-
-  deletedAvailability: Array<StoreMenuTime> = [];
-
-  days: { [key: string]: boolean } = {
-    "monday": false,
-    "tuesday": false,
-    "wednesday": false,
-    "thursday": false,
-    "friday": false,
-    "saturday": false,
-    "sunday": false,
-  };
+  storeOpeningHours: Array<TimeAvailability> = [];
+  storeOpeningHoursCache: Array<TimeAvailability>;
+  modalRef: ModalRef;
 
   constructor(
     private router: Router,
-    private http: HttpClient,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private restApiservice: RestApiService,
     private alertservice: AlertService,
-    private authenticateService: AuthenticationService,
     private dataService: DataService,
     private stringHelper: StringHelperService,
-    private _modalService: NgbModal
+    public modalService: ModalService
   ) {
     this.store_id = +this.route.snapshot.paramMap.get('store-id');
     // if (!this.store_id) if (+localStorage.getItem('storeCreationId')) this.store_id = +localStorage.getItem('storeCreationId');
@@ -208,16 +133,8 @@ export class SecondFormsComponent implements OnInit {
       };
       // console.log('extracting logo url', this.imageUrl, this.stringHelper.ExtractFileName)
       if (this.imageUrl) data.store_logo = this.stringHelper.ExtractFileName(this.imageUrl);
-      data.opening_hours = [];
-      this.finalAvailability.forEach((a) => {
-        let menuTime: any = {};
-        menuTime.days = a.day;
-        menuTime.start_time = a.startTime;
-        menuTime.end_time = a.endTime;
-        menuTime.marked_as_closed = a.markedAsClose;
-        // menuTime.active_flag = 0;
-        data.opening_hours.push(menuTime);
-      })
+      data.opening_hours = AvailabilityToBackend(this.storeOpeningHours);
+      
       if (this.add_edit_type == 'add') {
         if (this.claimCreation) data.claim_store_id = this.store_id;
         this.alertservice.showLoader();
@@ -290,136 +207,22 @@ export class SecondFormsComponent implements OnInit {
             this.storeDetailform.get('google_business_url').setValue(this.getgoogleBussiness);
             this.storeDetailform.get('facebook_url').setValue(this.getfacebookBussiness);
             this.alertservice.hideLoader();
-            this.finalAvailability = this.readAvailability(element.opening_hours);
+            this.storeOpeningHours = ReadAvailability(element.opening_hours);
           })
+          console.log('just read availability', this.storeOpeningHours);
         }
       });
     }
   }
 
-  //fucntion to read availability aquired from the backend
-  readAvailability(availability: any): Array<StoreMenuTime> {
-    let result: Array<StoreMenuTime> = []
-    for (const a in availability) {
-      result.push(new StoreMenuTime(
-        availability[a].menu_timings_id
-        , availability[a].days
-        , availability[a].start_time
-        , availability[a].end_time
-        , availability[a].marked_as_closed ? true : false))
-    }
-    return result;
+  startEdit(editorTemplate: TemplateRef<any>){
+    this.storeOpeningHoursCache = [...this.storeOpeningHours];
+    this.modalRef = this.modalService.openTemplate(editorTemplate);
   }
 
   changeCuisine() {
     let typeCuisine = this.storeDetailform.value.typeCuisine;
   }
-
-  get modalService(): NgbModal {
-    return this._modalService;
-  }
-
-  addRemvDay(day: string, add: boolean) {
-    this.daysTouched = true;
-    if (add) {
-      this.selectedDays.push(day);
-    } else {
-      let index = this.selectedDays.findIndex((selectedDay) => { return selectedDay === day });
-      this.selectedDays.splice(index, 1);
-    }
-  }
-  addAvailability() {
-    if (this.timing.invalid || this.selectedDays.length == 0) {
-      this.timing.markAllAsTouched();
-      this.daysTouched = true;
-      return;
-    }
-    this.availabilityTouched = true;
-
-    let menuTime = null;
-    this.selectedDays.forEach(day => {
-      menuTime = new StoreMenuTime(null, day, this.timing.controls.startTime.value, this.timing.controls.endTime.value, false);
-      this.insertIntoAvailability(this.availability, menuTime);
-    });
-  }
-
-  insertIntoAvailability(availability: Array<StoreMenuTime>, menuTime: StoreMenuTime) {
-    for (let i = 0; i <= availability.length; i++) {
-
-      //case: menuTime is the largest in the array
-      if (i == availability.length) {
-        availability.push(menuTime);
-        break;
-      }
-
-      let compVal = this.menuTimeComp(menuTime, availability[i]);
-
-      if (compVal < 0) {
-        availability.splice(i, 0, menuTime);
-        break;
-      }
-
-      //donot insert if there is an identical StoreMenuTime
-      if (compVal == 0) break;
-    }
-  }
-
-  menuTimeComp(first: StoreMenuTime, second: StoreMenuTime) {
-    const dayValue = {
-      monday: 1
-      , tuesday: 2
-      , wednesday: 3
-      , thursday: 4
-      , friday: 5
-      , saturday: 6
-      , sunday: 7
-    }
-    //are first and second different days
-    if (dayValue[first.day] - dayValue[second.day]) return dayValue[first.day] - dayValue[second.day];
-
-    //compare start-times
-    let firstSTime = new Date('1/1/0001 ' + first.startTime.substr(0, 5) + ':00 ' + first.startTime.substr(5, 2)).getTime();
-    let secondSTime = new Date('1/1/0001 ' + second.startTime.substr(0, 5) + ':00 ' + second.startTime.substr(5, 2)).getTime();
-
-    if (firstSTime !== secondSTime) return firstSTime - secondSTime;
-
-    //compare end-times
-    let firstETime = new Date('1/1/0001 ' + first.endTime.substr(0, 5) + ':00 ' + first.endTime.substr(5, 2)).getTime();
-    let secondETime = new Date('1/1/0001 ' + second.endTime.substr(0, 5) + ':00 ' + second.endTime.substr(5, 2)).getTime();
-
-    return firstETime - secondETime;
-  }
-
-  readyToSave(): boolean {
-    if (this.availability.length == 0) {
-      return false;
-    }
-    return true;
-  }
-
-  // saveTiming() {
-  //   if (!this.readyToSave()) {
-  //     this.availabilityTouched = true;
-  //     this.alertservice.showNotification('Please complete the form below');
-  //     return;
-  //   }
-
-  //   let data: any = {}
-  //   data.opening_time = [];
-
-  //   this.availability.forEach((a) => {
-  //     let menuTime: any = {};
-  //     menuTime.days = a.day;
-  //     menuTime.start_time = a.startTime;
-  //     menuTime.end_time = a.endTime;
-  //     menuTime.marked_as_closed = a.markedAsClose;
-  //     // menuTime.active_flag = 0;
-  //     data.opening_time.push(menuTime);
-  //   })
-  //   this.submitting = true;
-
-  // }
-
   onFileChanged(event) {
     /* File upload Required function */
     this.fileUptoLoad = event.target.files[0];
@@ -468,6 +271,11 @@ export class SecondFormsComponent implements OnInit {
     } else {
       this.alertservice.showNotification('No file selected', 'error');
     }
+  }
+
+  finalizeOpeningHours(){
+    this.storeOpeningHours = [...this.storeOpeningHours];
+    this.modalRef.dismiss();
   }
 
   // debug() {

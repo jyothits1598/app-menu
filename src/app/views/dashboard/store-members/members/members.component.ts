@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RestApiService } from 'src/app/services/rest-api.service';
-import { StoreMembersModule } from '../store-members.module';
-import { Memberlist } from 'src/app/_models/store-menu';
-import { Subject } from 'rxjs';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { DataService } from 'src/app/services/data.service';
 import { REQUEST_A_ACTIVE } from 'src/environments/environment';
+import { StoreService } from 'src/app/services/store.service';
+import { ModalRef } from 'src/app/views/shared/_model/modal-ref';
+import { ModalService } from 'src/app/views/shared/services/modal.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-members',
@@ -23,24 +22,31 @@ export class MembersComponent implements OnInit {
   rolenameSubmitted = false;
   roleid:number;
   partnerId:number;
-  private unsubscribe$ = new Subject();
+  store_id: string;
+  closeResult: string;
+  modalRef: ModalRef;
+  errors = new Array();
+  members_array = new Array();
+
   constructor(
     private _modalService: NgbModal,
     private formBuilder: FormBuilder,
     private router:Router,
     private restApiService: RestApiService,
-    private authenticateService: AuthenticationService,
-    private dataService:DataService
+    private storeService: StoreService,
+    private modalServ: ModalService,
+    private alertservice: AlertService
   ) { 
   }
-
+  
   ngOnInit(): void {
     this.inviteMember = this.formBuilder.group({
       memberEmail: [null, [Validators.required, Validators.email]],
       roleName: ['', [Validators.required]]
     });
     var obj = this;
-    obj.getRoledetails(); 
+    obj.getRoledetails();
+    obj.getmemberDetails();
       if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
         let user_details = JSON.parse(localStorage.getItem('loggedUser'));
         if(user_details.user_details['store_partner_id']){
@@ -49,6 +55,7 @@ export class MembersComponent implements OnInit {
       }   
     }
 
+    
   get f() { return this.inviteMember.controls;}
 
   get modalService(): NgbModal{
@@ -56,6 +63,11 @@ export class MembersComponent implements OnInit {
   }
 
   mailRequestrole() {
+    this.invite_members_add_edit = 'add';
+  }
+
+  showinviteTemplate(invite) {
+    this.modalRef = this.modalServ.openTemplate(invite);
     this.invite_members_add_edit = 'add';
   }
 
@@ -74,6 +86,17 @@ export class MembersComponent implements OnInit {
     })
   }
 
+  getmemberDetails(){
+    this.alertservice.showLoader();
+    this.members_array.length = 0;
+    this.restApiService.getData(`api/stores/${this.storeService.activeStore}/members`,(response) => {
+      if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length>0){
+        this.members_array = response['data'];
+      }
+      this.alertservice.hideLoader();
+    })
+  }
+
   onSubmitinviteMember() {
     this.memberEmailSubmit = true;
     this.rolenameSubmitted = true;
@@ -85,7 +108,23 @@ export class MembersComponent implements OnInit {
           'store_partner_id':this.partnerId,
           'next_url':REQUEST_A_ACTIVE
         };
-        console.log(data)
+        this.alertservice.showLoader();
+        this.restApiService.postAPI(`api/stores/${this.storeService.activeStore}/members`, data, (response) => {
+          if(response && response['success'] && response['data']){
+            this.modalRef.dismiss();
+            this.inviteMember.reset();
+            this.alertservice.showNotification(response['data']);
+          } else if(response && !response['success'] && response['error']['error']){
+            let i = 0;
+            for (let key in response['error']['error']) {
+              this.errors[key] = response['error']['error'][key][0];
+              this.alertservice.showNotification(this.errors[key], 'error');
+            }
+          } else {
+            this.alertservice.showNotification('Something went wrong', 'error');
+          }
+          this.alertservice.hideLoader();
+        })
       }
     }
   }

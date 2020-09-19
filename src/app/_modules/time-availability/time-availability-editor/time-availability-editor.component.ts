@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, TemplateRef, AfterViewInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { TimeAvailability } from '../_model/time-availability';
 
@@ -7,14 +7,23 @@ import { TimeAvailability } from '../_model/time-availability';
   templateUrl: './time-availability-editor.component.html',
   styleUrls: ['./time-availability-editor.component.scss']
 })
-export class TimeAvailabilityEditorComponent implements OnInit {
+export class TimeAvailabilityEditorComponent implements AfterViewInit {
   @Output() onChange = new EventEmitter<Array<TimeAvailability>>();
   constructor() { }
   
+  ngAfterViewInit(): void {
+    if(this.headingTempalte)
+    this.headingSlot.createEmbeddedView(this.headingTempalte);
+  }
+  
+  @Input() headingTempalte: TemplateRef<any>;
+
   @Input() set availability(a: Array<TimeAvailability>){
     if(a) this._availability = a;
   }
   
+  @ViewChild('headingSlot', { read: ViewContainerRef }) headingSlot: ViewContainerRef;
+
   _availability: Array<TimeAvailability> = [];
   selectedDays: Array<string> = [];
   
@@ -80,9 +89,6 @@ export class TimeAvailabilityEditorComponent implements OnInit {
     startTime: new FormControl('Select'),
     endTime: new FormControl('Select')
   }, this.timingValidator())
-
-  ngOnInit(): void {
-  }
 
   addRemvDay(day: string, add: boolean) {
     this.daysTouched = true;
@@ -156,7 +162,6 @@ export class TimeAvailabilityEditorComponent implements OnInit {
 
   
   addAvailability() {
-    console.log('add availability called');
     if (this.timing.invalid || this.selectedDays.length == 0) {
       this.timing.markAllAsTouched();
       this.daysTouched = true;
@@ -175,6 +180,7 @@ export class TimeAvailabilityEditorComponent implements OnInit {
   }
 
   deleteAvailability(index: number){
+    this.touched = true;
     this._availability.splice(index, 1)[0];
     this.onChange.emit(this._availability);
   }

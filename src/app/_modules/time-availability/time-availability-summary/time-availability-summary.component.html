@@ -1,0 +1,48 @@
+<section>
+    <div>
+        Monday
+        <ul *ngIf="monday.length > 0; else closed">
+            <li *ngFor="let availability of monday">{{availability.startTime}}-{{availability.endTime}}</li>
+        </ul>
+    </div>
+    <div>
+        Tuesday
+        <ul *ngIf="tuesday.length > 0; else closed">
+            <li *ngFor="let availability of tuesday">{{availability.startTime}}-{{availability.endTime}}</li>
+        </ul>
+    </div>
+    <div>
+        Wednesday
+        <ul *ngIf="wednesday.length > 0; else closed">
+            <li *ngFor="let availability of wednesday">{{availability.startTime}}-{{availability.endTime}}</li>
+        </ul>
+    </div>
+    <div>
+        Thursday
+        <ul *ngIf="thursday.length > 0; else closed">
+            <li *ngFor="let availability of thursday">{{availability.startTime}}-{{availability.endTime}}</li>
+        </ul>
+    </div>
+    <div>
+        Friday
+        <ul *ngIf="friday.length > 0; else closed">
+            <li *ngFor="let availability of friday">{{availability.startTime}}-{{availability.endTime}}</li>
+        </ul>
+    </div>
+    <div>
+        Saturday
+        <ul *ngIf="saturday.length > 0; else closed">
+            <li *ngFor="let availability of saturday">{{availability.startTime}}-{{availability.endTime}}</li>
+        </ul>
+    </div>
+    <div>
+        Sunday
+        <ul *ngIf="sunday.length > 0; else closed">
+            <li *ngFor="let availability of sunday">{{availability.startTime}}-{{availability.endTime}}</li>
+        </ul>
+    </div>
+</section>
+
+<ng-template #closed>
+    Closed
+</ng-template>
