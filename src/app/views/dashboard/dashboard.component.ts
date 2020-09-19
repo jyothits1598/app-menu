@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   store_status: boolean = false;
   store_status_approve: boolean = false;
   store_status_setup: boolean = false;
-  logoUrl: string = 'assets/images/null.png';
+  logoUrl: string = 'assets/images/Area.png';
   storeName: string;
   
   @ViewChild('sideBarLinks', { read: TemplateRef }) sideBarLinks: TemplateRef<any>;
