@@ -28,4 +28,6 @@ export function URL_StoreOwnershipData(storeId){
 
 export const URL_StoreImage = 'store/logo';
 
-export const URL_StoreShellAllStores = 'api/stores/all/storedata'
+export const URL_StoreShellAllStores = 'api/stores/all/storedata';
+
+export const URL_ImportStoreShell = 'api/stores/importstoredata';
