@@ -14,6 +14,7 @@ import { AuthGuard } from './_guards';
 import { DatePipe } from '@angular/common';
 import { HttpAuthErrorInterceptor } from './_interceptors/http-auth-error.interceptor';
 import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
+import { MemberStoreInvitationComponent } from './views/member-store-invitation/member-store-invitation.component';
 // import { AdminDashboardComponent } from './views/admin-dashboard/admin-dashboard.component';
 // import { TopNavBarComponent } from './views/top-nav-bar/top-nav-bar.component';
 
@@ -27,6 +28,7 @@ import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
     ForgotPasswordComponent,
     SignupEmailRedirectComponent,
     AlertComponent,
+    MemberStoreInvitationComponent,
     // AdminDashboardComponent,
     // TopNavBarComponent
     // ResendEmailComponent,

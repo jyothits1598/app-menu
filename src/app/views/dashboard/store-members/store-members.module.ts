@@ -10,10 +10,10 @@ import { MemberContainerComponent } from './member-container/member-container.co
 const routes: Routes = [
   {
     path: '',
-    component: StoreMembersComponent,
+    component: MemberContainerComponent,
     children: [
       {
-        path: 'members',
+        path: '',
         component: MemberContainerComponent,
         children: [
           {
@@ -21,11 +21,12 @@ const routes: Routes = [
             component: MembersComponent
           },
           {
-            path: 'profile',
+            path: 'profile/:id',
             component: MemberProfileComponent
           }
         ]
       },
+    
       {
         path: '**',
         redirectTo: 'members',

@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
   showNotificationMessage:string = '';
   notification_color:any = 'red';
   showNotificationStatus = false;
+  member_invite_auth_token:string = '';
+  member_invite_email_token:string = '';
+  member_invite_store_token:string = '';
   
   constructor(
     private router: Router,
@@ -37,13 +40,23 @@ export class LoginComponent implements OnInit {
     private authenticateService: AuthenticationService
   ) { 
     // this.router.navigateByUrl('/login');
+    this.route.queryParams.subscribe(params => {
+      this.member_invite_auth_token = params['auth_token'];
+      this.member_invite_email_token = params['email_token'];
+      this.member_invite_store_token = params['store_token'];
+  });
   }
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     var obj = this;
+  
     if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
-      this.router.navigateByUrl('/dashboard');
+      if(this.member_invite_auth_token &&  this.member_invite_email_token){
+        this.router.navigateByUrl('store-invitation?member_auth_token='+this.member_invite_auth_token+'&member_email_token='+this.member_invite_email_token+'&store_token='+this.member_invite_store_token);
+      }else{
+        this.router.navigateByUrl('/dashboard');
+      }
       //obj.authenticateService.checkExpiryStatus();
     }
     this.alertservice.getNotification().subscribe(({message:message,alertType:alertType})=>{
@@ -80,7 +93,7 @@ export class LoginComponent implements OnInit {
   }
   var email_pattern=new RegExp('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}');
   if(this.email && this.email.trim() && email_pattern.test(this.email.trim()) && this.password && this.password.trim()){
-    this.authenticateService.login({email:this.email.trim(), password: this.password.trim()}, this.returnUrl);
+    this.authenticateService.login({email:this.email.trim(), password: this.password.trim()}, this.returnUrl, this.member_invite_auth_token, this.member_invite_email_token, this.member_invite_store_token);
   }else{
     !this.email ? this.email_error=true : this.email_error= false;
     !email_pattern.test(this.email) ? this.email_error=true : this.email_error= false;

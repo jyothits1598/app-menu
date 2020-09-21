@@ -1,4 +1,4 @@
-<div class="row" *ngIf="dasboard_empty">
+<div class="row" *ngIf="mutiple_stores_array?.length == 0 && invited_stores_array?.length == 0">
     <div class="col-md-12">
         <h1 class="std-heading-1" style="margin-bottom:56px;"> Stores </h1>
         <h4 class="std-heading-4" style="margin-bottom: 32px;"> Welcome to menuzapp </h4>
@@ -21,10 +21,10 @@
         </div>
     </div>
 </div>
-<div class="row" *ngIf="!dasboard_empty">
+<div class="row" *ngIf="mutiple_stores_array?.length > 0 || invited_stores_array?.length > 0">
     <div class="col-md-12">
         <h1 class="std-heading-1" style="margin-bottom:56px;"> Stores </h1>
-        <h4 class="std-heading-4" style="margin-bottom: 32px;"> Owned </h4>
+        <h4 class="std-heading-4" *ngIf="mutiple_stores_array?.length > 0" style="margin-bottom: 32px;"> Owned </h4>
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-4 col-xs-12" *ngFor="let stores of mutiple_stores_array">
                 <div class="well main-form draft-card-pending" (click)="navigate(stores)" style="outline: none;"
@@ -59,6 +59,48 @@
                         </div>
                         <div style="margin-top:26px;text-align: right;">
                             <img src="../../../assets/images/ico_chevron_right.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="invited_stores_array?.length > 0">
+            <h4 class="std-heading-4" style="margin-top:32px;margin-bottom: 32px;"> Invited To </h4>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xs-12" *ngFor="let stores of invited_stores_array">
+                    <div class="well main-form draft-card-pending" (click)="navigate(stores)" style="outline: none;"
+                        title="{{ stores.storeName }}">
+                        <div class="img-container-draft">
+                            <img [src]="stores.logoUrl">
+                        </div>
+                        <div class="form-padding">
+                            <h4 class="std-heading-4" style="height:60px;">
+                                {{stores.storeName ? stores.storeName : '' }}
+                            </h4>
+                            <div style="margin-bottom:16px;">
+                                <span class="google-rating google-rating--pad">
+                                    <i class="fa fa-facebook"></i>&nbsp;<b>You</b> & 125k others
+                                </span>
+                                <span class="google-rating" style="margin-left:5px">
+                                    4.5 <i class="fa fa-star"></i> Google (4.5)
+                                </span>
+                            </div>
+                            <div>
+                                <span class="google-rating google-rating--pending-color"
+                                *ngIf="stores.nextStep == ''">
+                                Pending approval
+                                </span>
+                                <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'approved'">
+                                    Trading
+                                </span>
+                                <span class="google-rating google-rating--incomplete-color"
+                                    *ngIf="stores.nextStep">
+                                    Setup
+                                </span>
+                            </div>
+                            <div style="margin-top:26px;text-align: right;">
+                                <img src="../../../assets/images/ico_chevron_right.png">
+                            </div>
                         </div>
                     </div>
                 </div>

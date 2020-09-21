@@ -8,6 +8,8 @@ import { StoreService } from 'src/app/services/store.service';
 import { ModalRef } from 'src/app/views/shared/_model/modal-ref';
 import { ModalService } from 'src/app/views/shared/services/modal.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { finalize } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-members',
@@ -18,8 +20,10 @@ export class MembersComponent implements OnInit {
   invite_members_add_edit:string;
   memberRole = new Array();
   inviteMember: FormGroup;
+  changeRoleForm:FormGroup;
   memberEmailSubmit = false;
   rolenameSubmitted = false;
+  changeRolenameSubmitted = false;
   roleid:number;
   partnerId:number;
   store_id: string;
@@ -27,11 +31,13 @@ export class MembersComponent implements OnInit {
   modalRef: ModalRef;
   errors = new Array();
   members_array = new Array();
+  updateStoreMemberId:number;
 
   constructor(
     private _modalService: NgbModal,
     private formBuilder: FormBuilder,
-    private router:Router,
+    private router: Router,
+    private route: ActivatedRoute,
     private restApiService: RestApiService,
     private storeService: StoreService,
     private modalServ: ModalService,
@@ -40,10 +46,7 @@ export class MembersComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.inviteMember = this.formBuilder.group({
-      memberEmail: [null, [Validators.required, Validators.email]],
-      roleName: ['', [Validators.required]]
-    });
+  
     var obj = this;
     obj.getRoledetails();
     obj.getmemberDetails();
@@ -57,6 +60,7 @@ export class MembersComponent implements OnInit {
 
     
   get f() { return this.inviteMember.controls;}
+  get g() { return this.changeRoleForm.controls;}
 
   get modalService(): NgbModal{
     return this._modalService;
@@ -67,13 +71,26 @@ export class MembersComponent implements OnInit {
   }
 
   showinviteTemplate(invite) {
+    this.inviteMember = this.formBuilder.group({
+      memberEmail: [null, [Validators.required, Validators.email]],
+      roleName: ['4', [Validators.required]]
+    });
     this.modalRef = this.modalServ.openTemplate(invite);
     this.invite_members_add_edit = 'add';
+    this.rolenameSubmitted = false;
+  }
+
+  showChangeRoleTemplate(memberRoleId,storeMemberId,templateName){
+    this.updateStoreMemberId = storeMemberId;
+    this.changeRoleForm = this.formBuilder.group({
+      changeRoleName: [memberRoleId, [Validators.required]]
+    });
+    this.modalRef = this.modalServ.openTemplate(templateName);
+    this.changeRolenameSubmitted = false;
   }
 
   changeRole() {
     let roleDetails = this.inviteMember.value.roleName;
-    console.log(roleDetails);
   }
 
   getRoledetails(){
@@ -104,21 +121,20 @@ export class MembersComponent implements OnInit {
       if(this.inviteMember.valid) {
         let data={
           'email':this.inviteMember.value.memberEmail,
-          'store_member_role_id': this.inviteMember.value.roleName.store_member_role_id,
-          'store_partner_id':this.partnerId,
+          'store_member_role_id': this.inviteMember.value.roleName,
           'next_url':REQUEST_A_ACTIVE
         };
         this.alertservice.showLoader();
         this.restApiService.postAPI(`api/stores/${this.storeService.activeStore}/members`, data, (response) => {
           if(response && response['success'] && response['data']){
             this.modalRef.dismiss();
-            this.inviteMember.reset();
-            this.alertservice.showNotification(response['data']);
+            this.rolenameSubmitted = false;
+            this.getmemberDetails();
+            this.alertservice.showNotification('Member Invited.','success');
           } else if(response && !response['success'] && response['error']['error']){
             let i = 0;
             for (let key in response['error']['error']) {
               this.errors[key] = response['error']['error'][key][0];
-              this.alertservice.showNotification(this.errors[key], 'error');
             }
           } else {
             this.alertservice.showNotification('Something went wrong', 'error');
@@ -127,5 +143,69 @@ export class MembersComponent implements OnInit {
         })
       }
     }
+  }
+
+  onSubmitChangeRole(){
+    this.changeRolenameSubmitted = true;
+    if(this.changeRoleForm.valid) {
+      let data={
+        'store_member_role_id': this.changeRoleForm.value.changeRoleName,
+      };
+      this.alertservice.showLoader();
+     this.restApiService.patchData(`api/stores/${this.storeService.activeStore}/members/${this.updateStoreMemberId}`, data).pipe(
+        finalize(() => this.alertservice.hideLoader())
+      ).subscribe(
+        (resp : any)=>{
+          if(resp && resp.success){
+            this.modalRef.dismiss();
+            this.alertservice.showNotification('Role Updated.', 'success');
+            this.getmemberDetails();
+          }
+        }
+      )
+    }
+  }
+
+  resendInvite(emailId,storeMemberRoleId){
+    if(emailId && storeMemberRoleId) {
+      let data={
+        'email': emailId,
+        'store_member_role_id':storeMemberRoleId,
+        'next_url':REQUEST_A_ACTIVE
+      };
+      this.alertservice.showLoader();
+     this.restApiService.patchData(`api/stores/members/${this.storeService.activeStore}/resend`, data).pipe(
+        finalize(() => this.alertservice.hideLoader())
+      ).subscribe(
+        (resp : any)=>{
+          if(resp && resp.success){
+           this.alertservice.showNotification('Invite Resented.', 'success');
+           
+          }
+        }
+      )
+    }
+  }
+
+  searchMemberbyName(event){
+    if(event.target.value){
+      this.alertservice.showLoader();
+      this.members_array.length = 0;
+      this.restApiService.getData('api/stores/partners?q='+event.target.value,(response) => {
+        if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length>0){
+          this.members_array = response['data'];
+        }
+        this.alertservice.hideLoader();
+      })
+    }else{
+      this.getmemberDetails();
+    }
+  }
+  viewMemberProfile(storeMemberId){
+    this.router.navigate(['./profile/'+storeMemberId], {relativeTo: this.route});
+  }
+
+  removeErrorMsg(msg_id){
+    this.errors[msg_id]='';
   }
 }
