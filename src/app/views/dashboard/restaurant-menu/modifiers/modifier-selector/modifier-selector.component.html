@@ -27,8 +27,8 @@
                                     [checked]="isSelected(modifierDP.modifier)"
                                     (click)="handleSelection($event.target.checked, modifierDP.modifier)"> </td>
                             <td class="table-name"> {{modifierDP.modifier.name}} </td>
-                            <td> {{modifierDP.optionsString}} </td>
-                            <td> {{modifierDP.itemsString}}</td>
+                            <td> {{modifierDP.optionsString ? modifierDP.optionsString : '-'}} </td>
+                            <td> {{modifierDP.itemsString ? modifierDP.itemsString : '-'}}</td>
                         </tr>
                     </tbody>
                     <ng-template #noModifiers>
