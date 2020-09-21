@@ -12,6 +12,7 @@ export class StoreOwnershipDetailsComponent implements OnInit {
   selectedFile: File;
   selectedFileName: string;
   legalFile: string;
+  ownershipDetailCache: any = null;
 
   @Input() storeOwnerDetail: StoreOwnershipDetails;
   @Output() saved = new EventEmitter<StoreOwnershipDetails>();
@@ -22,15 +23,23 @@ export class StoreOwnershipDetailsComponent implements OnInit {
   ownershipDetails: FormGroup = new FormGroup({
     ownerName: new FormControl('', Validators.required),
     buinessName: new FormControl('', Validators.required),
-    registrationNumber: new FormControl('', Validators.required),
+    registrationNumber: new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$")]),
     legalFile: new FormControl('', Validators.required)
   })
 
   ngOnInit(): void {
   }
 
-  Editbtntoggle(){    
+  Editbtntoggle(){ 
+    if(this.activeMode) {
+      this.ownershipDetailCache = this.ownershipDetails.value;
+    }     
     this.activeMode = !this.activeMode;
+  }
+
+  cancelForm() {
+    this.activeMode = !this.activeMode;
+    this.ownershipDetails.patchValue(this.ownershipDetailCache);
   }
 
   patchData(data: StoreOwnershipDetails){

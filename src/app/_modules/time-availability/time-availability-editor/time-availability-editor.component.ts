@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, TemplateRef, AfterViewInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { TimeAvailability } from '../_model/time-availability';
+declare let $: any;
 
 @Component({
   selector: 'time-availability-editor',
@@ -29,6 +30,9 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
   
   daysTouched: boolean = false;
   touched: boolean = false;
+  activeBtn:boolean = false;
+  active_add_image:string = "assets/images/ico_add.png";
+  inactive_add_image:string = "assets/images/ico_add_light.png";
 
   time: Array<string> = [
     '12:00AM'
@@ -102,12 +106,15 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
 
   timingValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-
+      
       if ((<FormGroup>control).controls.startTime.value == 'Select'
         || (<FormGroup>control).controls.endTime.value == 'Select') return { 'noSelection': 'Start and end time are required' };
 
       if ((<FormGroup>control).controls.startTime.value == (<FormGroup>control).controls.endTime.value) return { 'sameSelection': 'Start and end time can not be the same' };
-
+      if ((<FormGroup>control).controls.startTime.value && (<FormGroup>control).controls.endTime.value) {
+        $('#active_button').addClass('primary-color');
+        this.activeBtn = true;
+      }
       return null;
     };
   }

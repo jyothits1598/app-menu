@@ -221,6 +221,9 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   .form-control.is-invalid {
     border-color:var(--color-failure) !important;
   }
+  .custom-select.is-invalid {
+      border:2px solid var(--color-failure) !important;
+  }
   .form-control.is-invalid {
     background-image: none !important;
   }
@@ -425,6 +428,9 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     background-repeat: no-repeat, repeat;
     background-position: right 0.8rem top 50%, 0 0;
     background-size: 0.65em auto, 100%;
+    &::focus {
+        background: var(--color-background-secondary);
+    }
 }
 
 .prefixed-input {
@@ -551,10 +557,10 @@ ul .herf-class {
         text-decoration: none;
     }
   }
-  .table td, .table th {
-    padding: 16px 24px;
-    color:var(--color-boldlevelcolor);
-  }
+//   .table td, .table th {
+//     padding: 16px 24px;
+//     color:var(--color-boldlevelcolor);
+//   }
   .table-name {
     outline: none;
     color:var(--color-primary) !important;

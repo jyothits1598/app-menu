@@ -1,15 +1,20 @@
 <div loadingPlaceholder [loadStatus]="storeBasicDetail">
     <div class="row">
         <div class="col-md-12">
-            <h3 class="std-heading-3" style="margin-bottom:32px;"> Opening hours &nbsp;<img
-                    src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info"
-                    (click)="modalService.open(content, { centered: true });"></h3>
-            <button *ngIf="!editMode; else editButtons" type="button" (click)="toggleEdit()">
-                Edit
-            </button>
+            <h3 class="std-heading-3 b32" > 
+                <img *ngIf="editMode" (click)="toggleEdit(); storeBasicDetail.openingHours = availabilityCache" src="../../../../../../assets/images/ico_back.png" style="cursor: pointer;">
+                &nbsp;Opening hours &nbsp;<img
+            src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info"
+            (click)="modalService.open(content, { centered: true });"></h3>
+            <div class="float-right" style="margin-bottom:16px;" *ngIf="!editMode; else editButtons">
+                <button (click)="toggleEdit()" type="button" class="btn std-button std-button--primary"> <img
+                    src="../../../../../assets/images/ico_edit_white.png">&nbsp; Edit opening hours </button>
+            </div>
             <ng-template #editButtons>
-                <button (click)="toggleEdit(); storeBasicDetail.openingHours = availabilityCache" type="button">Cancel</button>
-                <button type="button" (click)="initiateSave()" [disabled]="!editior?.touched">Save</button>
+                <div class="float-right" style="margin-bottom:16px;">
+                    <button type="button" (click)="toggleEdit(); storeBasicDetail.openingHours = availabilityCache" class="btn std-button std-button--transparency" style="margin-left:10px;"> Cancel </button>
+                    <button  type="button" (click)="initiateSave()" [disabled]="!editior?.touched"  class="btn std-button-active" style="margin-left:10px;"> Save </button>
+                </div>
             </ng-template>
         </div>
     </div>
@@ -22,7 +27,9 @@
 
 <ng-template #openingHoursHeading>
     <div class="row">
-        <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Opening hours </h4>
+        <div class="col-md-12">
+            <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Opening hours </h4>
+        </div>
         <div class="col-md-12" style="margin-top:32px;margin-bottom:32px;">
             <p class="paragraph"> Select <b>days</b> and <b>times</b> above and press <b>add time</b> to add
                 availability.
