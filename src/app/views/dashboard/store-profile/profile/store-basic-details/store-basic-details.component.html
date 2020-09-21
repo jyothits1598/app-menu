@@ -1,7 +1,7 @@
 <form [formGroup]="basicDetails" (ngSubmit)="onSubmit()" class="row">  
         <div class="col-md-12">
-            <h3 class="std-heading-3" style="margin-bottom:32px;" *ngIf="normalMode"> Store profile &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" ></h3>
-            <h3 class="std-heading-3" style="margin-bottom:32px;" *ngIf="!normalMode">
+            <h3 class="std-heading-3 b32" *ngIf="normalMode"> Store profile &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" ></h3>
+            <h3 class="std-heading-3 b32" *ngIf="!normalMode">
                 <span>
                     <img src="../../../../../../assets/images/ico_back.png" (click)="toggleEdit()" style="cursor: pointer;">&nbsp;
                      Edit store profile
@@ -17,16 +17,16 @@
     </div>   
     <ng-template #editOption >
         <div class="col-md-12">
-            <div class="float-right" style="margin-bottom:16px;">
+            <div class="float-right" style="margin-bottom:52px;">
                 <button type="button" (click)="cancelEdit()" class="btn std-button std-button--transparency" style="margin-left:10px;"> Cancel </button>
-                <button  type="submit"  class="btn std-button-active" style="margin-left:10px;"> Save </button>
+                <button  type="submit"  class="btn std-button std-button--primary" style="margin-left:10px;"><span >Save</span> </button>
             </div>
         </div>
     </ng-template>
     <div class="col-md-12 col-sm-12 col-lg-6 col-xs-12">
         <div class="row"> 
             <div class="col-md-12">
-                <h4 class="std-heading-4" style="margin-bottom:32px;"> Store details </h4>
+                <h4 class="std-heading-4 b32"> Store details </h4>
                 <h5 class="std-heading-5" style="margin-bottom:16px;"> Photo </h5>
                 <div class="d-flex justify-content-start">
                     <div>
@@ -47,8 +47,8 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <h5 class="std-heading-5" style="margin-top:32px;"> Store name </h5>
-                <p *ngIf="normalMode; else name" class="paragraph"> {{basicDetails.value.name}} </p>
+                <h5 class="std-heading-5 t40"> Store name </h5>
+                <div *ngIf="normalMode; else name" class="paragraph"> {{basicDetails.value.name}} </div>
                 <ng-template #name>
                     <input [ngClass]="{ 'is-invalid': displayError('name') }" class="form-control form-input" type="text" formControlName="name">
                     <div *ngIf="displayError('name')" class="error-mez">
@@ -57,8 +57,8 @@
                 </ng-template>
             </div>
             <div class="col-md-12">
-                <h5 class="std-heading-5" style="margin-top:32px;"> Store address </h5>
-                <p *ngIf="normalMode; else address" class="paragraph"> {{basicDetails.value.address}} </p>
+                <h5 class="std-heading-5 t40"> Store address </h5>
+                <div *ngIf="normalMode; else address" class="paragraph"> {{basicDetails.value.address}} </div>
                 <ng-template #address>
                     <input [ngClass]="{ 'is-invalid': displayError('address') }" class="form-control form-input" type="text" formControlName="address">
                     <div  *ngIf="displayError('address')" class="error-mez">
@@ -67,8 +67,8 @@
                 </ng-template>
             </div>
             <div class="col-md-12">
-                <h5 class="std-heading-5" style="margin-top:32px;"> Type of cuisine </h5>
-                <p class="paragraph" *ngIf="normalMode; else cuisineType"> {{basicDetails.value.cuisineType}} </p>
+                <h5 class="std-heading-5 t40"> Type of cuisine </h5>
+                <div class="paragraph" *ngIf="normalMode; else cuisineType"> {{basicDetails.value.cuisineType}} </div>
                 <ng-template #cuisineType>
                     <select [ngClass]="{ 'is-invalid': displayError('cuisineType') }" class="custom-select form-control form-input form-input--select-input" formControlName="cuisineType">
                         <option [ngValue]="null" selected> Select </option>
@@ -80,8 +80,8 @@
                 </ng-template>
             </div>
             <div class="col-md-12">
-                <h5 class="std-heading-5" style="margin-bottom:16px;margin-top:32px;"> Description </h5>
-                <p *ngIf="normalMode; else description" class="paragraph"> {{basicDetails.value.description}} </p>
+                <h5 class="std-heading-5 t40"> Description </h5>
+                <div *ngIf="normalMode; else description" class="paragraph"> {{basicDetails.value.description}} </div>
                 <ng-template #description>
                     <input [ngClass]="{ 'is-invalid': displayError('description') }" class="form-control form-input" type="text" formControlName="description">
                     <div  *ngIf="displayError('description')" class="error-mez">
@@ -90,8 +90,8 @@
                 </ng-template>
             </div>
             <div class="col-md-12">
-                <h5 class="std-heading-5" style="margin-top:32px;"> Google business URL </h5>
-                <p *ngIf="normalMode; else googleUrl" class="paragraph"> {{basicDetails.value.googleUrl}} </p>
+                <h5 class="std-heading-5 t40"> Google business URL </h5>
+                <div *ngIf="normalMode; else googleUrl" class="paragraph"> {{basicDetails.value.googleUrl}} </div>
                 <ng-template #googleUrl>
                     <input [ngClass]="{ 'is-invalid': displayError('description') }" class="form-control form-input" type="text" formControlName="googleUrl">
                     <div  *ngIf="displayError('googleUrl')" class="error-mez">
@@ -100,8 +100,8 @@
                 </ng-template>
             </div>
             <div class="col-md-12">
-                <h5 class="std-heading-5" style="margin-top:32px;"> Facebook URL </h5>
-                <p *ngIf="normalMode; else facebookUrl" class="paragraph"> {{basicDetails.value.facebookUrl}} </p>
+                <h5 class="std-heading-5 t40"> Facebook URL </h5>
+                <div *ngIf="normalMode; else facebookUrl" class="paragraph"> {{basicDetails.value.facebookUrl}} </div>
                 <ng-template #facebookUrl>
                     <input [ngClass]="{ 'is-invalid': displayError('facebookUrl') }" class="form-control form-input" type="text" formControlName="facebookUrl">
                     <div  *ngIf="displayError('facebookUrl')" class="error-mez">

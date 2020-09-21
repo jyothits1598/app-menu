@@ -1,48 +1,91 @@
 <section>
-    <div>
-        Monday
-        <ul *ngIf="monday.length > 0; else closed">
-            <li *ngFor="let availability of monday">{{availability.startTime}}-{{availability.endTime}}</li>
-        </ul>
-    </div>
-    <div>
-        Tuesday
-        <ul *ngIf="tuesday.length > 0; else closed">
-            <li *ngFor="let availability of tuesday">{{availability.startTime}}-{{availability.endTime}}</li>
-        </ul>
-    </div>
-    <div>
-        Wednesday
-        <ul *ngIf="wednesday.length > 0; else closed">
-            <li *ngFor="let availability of wednesday">{{availability.startTime}}-{{availability.endTime}}</li>
-        </ul>
-    </div>
-    <div>
-        Thursday
-        <ul *ngIf="thursday.length > 0; else closed">
-            <li *ngFor="let availability of thursday">{{availability.startTime}}-{{availability.endTime}}</li>
-        </ul>
-    </div>
-    <div>
-        Friday
-        <ul *ngIf="friday.length > 0; else closed">
-            <li *ngFor="let availability of friday">{{availability.startTime}}-{{availability.endTime}}</li>
-        </ul>
-    </div>
-    <div>
-        Saturday
-        <ul *ngIf="saturday.length > 0; else closed">
-            <li *ngFor="let availability of saturday">{{availability.startTime}}-{{availability.endTime}}</li>
-        </ul>
-    </div>
-    <div>
-        Sunday
-        <ul *ngIf="sunday.length > 0; else closed">
-            <li *ngFor="let availability of sunday">{{availability.startTime}}-{{availability.endTime}}</li>
-        </ul>
-    </div>
+    <table class="table table-borderless">
+        <tr>
+            <td width="150px"> <b>Monday</b>  </td>
+            <td>
+                <table style="margin: -10px;" *ngIf="monday.length > 0; else closed">
+                    <tr *ngFor="let availability of monday">
+                        <td> 
+                            {{availability.startTime}}-{{availability.endTime}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Tuesday</b></td>
+            <td>
+                <table style="margin: -10px;" *ngIf="tuesday.length > 0; else closed">
+                    <tr *ngFor="let availability of tuesday">
+                        <td> 
+                            {{availability.startTime}}-{{availability.endTime}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Wednesday</b></td>
+            <td>
+                <table style="margin: -10px;" *ngIf="wednesday.length > 0; else closed">
+                    <tr *ngFor="let availability of wednesday">
+                        <td> 
+                            {{availability.startTime}}-{{availability.endTime}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Thursday</b></td>
+            <td>
+                <table style="margin: -10px;" *ngIf="thursday.length > 0; else closed">
+                    <tr *ngFor="let availability of thursday">
+                        <td> 
+                            {{availability.startTime}}-{{availability.endTime}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Friday</b></td>
+            <td>
+                <table style="margin: -10px;" *ngIf="friday.length > 0; else closed">
+                    <tr *ngFor="let availability of friday">
+                        <td> 
+                            {{availability.startTime}}-{{availability.endTime}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Saturday</b></td>
+            <td>
+                <table style="margin: -10px;" *ngIf="saturday.length > 0; else closed">
+                    <tr *ngFor="let availability of saturday">
+                        <td> 
+                            {{availability.startTime}}-{{availability.endTime}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Sunday</b></td>
+            <td>
+                <table style="margin: -10px;" *ngIf="sunday.length > 0; else closed">
+                    <tr *ngFor="let availability of sunday">
+                        <td> 
+                            {{availability.startTime}}-{{availability.endTime}}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </section>
-
 <ng-template #closed>
     Closed
 </ng-template>

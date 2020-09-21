@@ -16,13 +16,14 @@ export class StoreBankDetailsComponent implements OnInit {
 
   constructor() { }
 
+  bankDetailCache: any = null;
   activeMode: boolean = true;
 
   bankDetails: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     accountName: new FormControl('', Validators.required),
-    bsbNumber: new FormControl('', Validators.required),
-    accountNumber: new FormControl('', Validators.required)
+    bsbNumber: new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$")]),
+    accountNumber: new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$")])
   })
 
   ngOnInit(): void {
@@ -41,7 +42,10 @@ export class StoreBankDetailsComponent implements OnInit {
     else return this.bankDetails.value;
   }
 
-  Editbtntoggle(){    
+  Editbtntoggle(){  
+    if(this.activeMode) {
+      this.bankDetailCache = this.bankDetails.value;
+    }  
     this.activeMode = !this.activeMode;
   }
 
@@ -55,6 +59,11 @@ export class StoreBankDetailsComponent implements OnInit {
 
   }
 
+  cancelForm() {
+    this.activeMode = !this.activeMode;
+    this.bankDetails.patchValue(this.bankDetailCache);
+  }
+  
   displayError(cntlName: string): boolean{
     return this.bankDetails.controls[cntlName].invalid && this.bankDetails.controls[cntlName].touched;
   } 
