@@ -10,8 +10,10 @@
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-3 mb-2">
-        <a routerLink="/store/step1/create" type="button" class="btn std-button std-button--transparency1"> <img
-            src="../../../../../assets/images/ico_upload.png"> &nbsp; Import via CSV </a>       
+        <app-file-upload loadingPlaceholder [loadStatus]="importComplete" [validators]="csvFileValidators" [accept]="validFileFormats" validFileFormats (file)="handleFileUpload($event)" (error)="handleFileError($event)">
+            <a type="button" class="btn std-button std-button--transparency1"> <img
+                src="../../../../../assets/images/ico_upload.png"> &nbsp; Import via CSV </a>  
+        </app-file-upload>
     </div>
     <div class="col-md-3 mb-2 pd-mq">
         <a routerLink="/store/step1/create" type="button" class="btn std-button std-button--blue"> <img
