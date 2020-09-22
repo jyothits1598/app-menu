@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RestApiService } from 'src/app/services/rest-api.service';
-import { StoreService } from 'src/app/services/store.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { finalize } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

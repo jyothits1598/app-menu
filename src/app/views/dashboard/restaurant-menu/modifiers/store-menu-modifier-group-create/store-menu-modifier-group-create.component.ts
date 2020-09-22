@@ -40,7 +40,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     })
   }
 
-
+  minVal = 5;
   @Input() set id(modId: number) {
     this.modifierId = modId;
     this.useOutputs = true;
@@ -57,18 +57,24 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   storeId: number;
   submitting: boolean = false;
   loaded: boolean = false;
-
   editedItemIndex: number;
 
   modifierForm: FormGroup;
+  
+  minValueChangesSubs: Subscription;
 
   ngOnInit(): void {
     this.modifierForm = this.createNewForm();
-    
     if (this.modifierId) this.getInitialData();
     else this.loaded = true;
-
     this.storeId = this.storeService.activeStore$.value.id;
+
+    this.minValueChangesSubs = this.modifierForm.controls.minimum.valueChanges.subscribe(
+      (val) => {
+        if(val) this.modifierForm.controls.maximum.setValidators([Validators.required, Validators.min(val)])
+        else this.modifierForm.controls.maximum.setValidators([Validators.required])
+      }
+    );
   }
 
   getInitialData() {
@@ -77,7 +83,6 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       finalize(() => this.loaded = true)
     ).subscribe(modifier => {
       this.modifierForm.patchValue(modifier)
-      console.log('after content loaded', this.modifierForm);
     });
   }
 
@@ -86,7 +91,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       id: new FormControl(),
       name: new FormControl('', Validators.required),
       minimum: new FormControl('', Validators.required),
-      maximum: new FormControl('', Validators.required),
+      maximum: new FormControl(''),
       free: new FormControl('', Validators.required),
       options: new FormControl(this.modifierId ? null : [{ name: null, price: null }]),
       items: new FormControl(null)
@@ -112,7 +117,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   }
 
 
-  categoriesToString(items){
+  categoriesToString(items) {
     return ArrayToConsolidatedString(items, 2, (item) => item.name)
   }
 
@@ -133,6 +138,9 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
 
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();
+    this.minValueChangesSubs.unsubscribe();
   }
+
+
 
 }
