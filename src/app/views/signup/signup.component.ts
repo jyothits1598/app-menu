@@ -126,7 +126,7 @@ export class SignupComponent implements OnInit {
     this.passwordSubmit = true;
     let member_invite_link;
     if(this.member_invite_auth_token && this.member_invite_email_token && this.member_invite_store_token){
-      member_invite_link = 'member_auth_token='+this.member_invite_auth_token+'&member_email_token='+this.member_invite_email_token+'&store_token='+this.member_invite_store_token;
+      member_invite_link = 'auth_token='+this.member_invite_auth_token+'&email_token='+this.member_invite_email_token+'&store_token='+this.member_invite_store_token;
      }
     if (this.signupMenuzappform.invalid) {
       return;
@@ -141,19 +141,18 @@ export class SignupComponent implements OnInit {
         'mobile_number':this.signupMenuzappform.value.signupmobile,
         'password':this.signupMenuzappform.value.password,
         // 'confirm_password':this.signupMenuzappform.value.password,
-        'success_redirect':environment['mail_url_success'],
+        'success_redirect':environment['mail_url_success']+'?'+member_invite_link,
         'failure_redirect':environment['mail_url_failure'],
         'login_link':environment['mail_url_login'],
         'contactus_link':environment['mail_url_contactus'],
-        'member_invite_link':member_invite_link
-      }; 
+       }; 
       this.alertservice.showLoader();
       this.restApiservice.postAPI('signup-partner',data,(response)=>{
         if(response && response['success'] && response['data']){         
           localStorage.setItem('email', this.signupMenuzappform.value.signupemail);
           // this.alertservice.Success(response['data']);
           this.alertservice.hideLoader();
-          return this.router.navigateByUrl('/confirm-singup');
+          return this.router.navigateByUrl('/confirm-singup?'+member_invite_link);
         } else if(response && !response['success'] && response['error']['error']) {
           let i = 0;
             for(let key in response['error']['error']) {

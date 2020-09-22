@@ -22,6 +22,9 @@ export class ConfirmationSignupComponent implements OnInit {
   resendemailSubmit = false;
   ResendemailError = false;
   errors = new Array();
+  member_invite_auth_token:string = '';
+  member_invite_email_token:string = '';
+  member_invite_store_token:string = '';
 
   constructor(
     private router: Router,
@@ -31,7 +34,13 @@ export class ConfirmationSignupComponent implements OnInit {
     private restApiservice: RestApiService,
     private alertservice: AlertService,
     private authenticateService: AuthenticationService
-  ) { }
+  ) {
+    this.route.queryParams.subscribe(params => {
+      this.member_invite_auth_token = params['member_auth_token'];
+      this.member_invite_email_token = params['member_email_token'];
+      this.member_invite_store_token = params['store_token'];
+    });
+   }
 
   ngOnInit(): void {
     let Email=localStorage.getItem("email");
@@ -53,6 +62,9 @@ export class ConfirmationSignupComponent implements OnInit {
   //   if (this.resendSignupEmail.invalid) {
   //     return;
   //   }
+  // if(this.member_invite_auth_token && this.member_invite_email_token && this.member_invite_store_token){
+  //   member_invite_link = 'member_auth_token='+this.member_invite_auth_token+'&member_email_token='+this.member_invite_email_token+'&store_token='+this.member_invite_store_token;
+  //  }
   //   if(this.resendSignupEmail.valid){
   //     let data={
   //       'email':this.resendSignupEmail.value.resendemail,
@@ -60,6 +72,7 @@ export class ConfirmationSignupComponent implements OnInit {
   //       'failure_redirect':environment['mail_url_failure'],
   //       'login_link':environment['mail_url_login'],
   //       'contactus_link':environment['mail_url_contactus'],
+  //        'member_invite_link':member_invite_link
   //     }; 
   //     this.alertservice.showLoader();
   //     this.restApiservice.postAPI('resend/partner/confirm-email',data,(response)=>{
