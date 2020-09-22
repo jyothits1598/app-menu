@@ -32,6 +32,8 @@ export class MembersComponent implements OnInit {
   errors = new Array();
   members_array = new Array();
   updateStoreMemberId:number;
+  searchByName:string='';
+  searchByType:string='';
 
   constructor(
     private _modalService: NgbModal,
@@ -188,18 +190,22 @@ export class MembersComponent implements OnInit {
   }
 
   searchMemberbyName(event){
-    if(event.target.value){
-      this.alertservice.showLoader();
+    this.searchByName=event.target.value;
+    this.searchMemberList();
+  }
+  searchMemberbyType(event){
+    this.searchByType=event.target.value;
+    this.searchMemberList();
+  }
+  searchMemberList(){
+     this.alertservice.showLoader();
       this.members_array.length = 0;
-      this.restApiService.getData('api/stores/partners?q='+event.target.value,(response) => {
+      this.restApiService.getData(`api/stores/${this.storeService.activeStore}/members?name=`+this.searchByName+'&role='+this.searchByType,(response) => {
         if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length>0){
           this.members_array = response['data'];
         }
         this.alertservice.hideLoader();
       })
-    }else{
-      this.getmemberDetails();
-    }
   }
   viewMemberProfile(storeMemberId){
     this.router.navigate(['./profile/'+storeMemberId], {relativeTo: this.route});

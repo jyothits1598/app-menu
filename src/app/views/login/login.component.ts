@@ -108,4 +108,11 @@ export class LoginComponent implements OnInit {
   this.unsubscribe$.complete();
 }
 
+navigateToSignUp(){
+    if(this.member_invite_auth_token && this.member_invite_email_token && this.member_invite_store_token){
+      this.router.navigateByUrl('/signup?member_auth_token='+this.member_invite_auth_token+'&member_email_token='+this.member_invite_email_token+'&store_token='+this.member_invite_store_token);
+    }else{
+      this.router.navigateByUrl('/signup');
+    }
+  }
 }

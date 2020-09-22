@@ -40,8 +40,10 @@ export class MemberProfileComponent implements OnInit {
 
   getMemberProfileDetails(){
     // this.memberProfileDetails = [];
+    this.alertService.showLoader();
     this.restApiService.getData(`api/stores/${this.storeService.activeStore}/members/${this.memberId}`, (response) => {
       if (response && response['success'] && response['data']) {
+        this.alertService.hideLoader();
         let data = response['data'][0];
         this.memberProfileDetails = data;
       }

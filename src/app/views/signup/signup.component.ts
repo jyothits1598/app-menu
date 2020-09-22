@@ -28,6 +28,9 @@ export class SignupComponent implements OnInit {
   returnUrl: string;
   errors = new Array();
   SignupcodeError = false;
+  member_invite_auth_token:string = '';
+  member_invite_email_token:string = '';
+  member_invite_store_token:string = '';
 
   constructor(
     private router: Router,
@@ -38,7 +41,13 @@ export class SignupComponent implements OnInit {
     private alertservice: AlertService,
     private authenticateService: AuthenticationService,
     
-  ) { }
+  ) { 
+    this.route.queryParams.subscribe(params => {
+      this.member_invite_auth_token = params['member_auth_token'];
+      this.member_invite_email_token = params['member_email_token'];
+      this.member_invite_store_token = params['store_token'];
+    });
+  }
     
   //only number will be add
   keyPress(event: any) {
@@ -115,10 +124,15 @@ export class SignupComponent implements OnInit {
     this.emailSubmit = true;
     this.mobileSubmit = true;
     this.passwordSubmit = true;
-
+    let member_invite_link;
+    if(this.member_invite_auth_token && this.member_invite_email_token && this.member_invite_store_token){
+      member_invite_link = 'member_auth_token='+this.member_invite_auth_token+'&member_email_token='+this.member_invite_email_token+'&store_token='+this.member_invite_store_token;
+     }
     if (this.signupMenuzappform.invalid) {
       return;
     }
+    
+    
     if(this.signupMenuzappform.valid){
       let data={
         'first_name':this.signupMenuzappform.value.fname,
@@ -131,6 +145,7 @@ export class SignupComponent implements OnInit {
         'failure_redirect':environment['mail_url_failure'],
         'login_link':environment['mail_url_login'],
         'contactus_link':environment['mail_url_contactus'],
+        'member_invite_link':member_invite_link
       }; 
       this.alertservice.showLoader();
       this.restApiservice.postAPI('signup-partner',data,(response)=>{
