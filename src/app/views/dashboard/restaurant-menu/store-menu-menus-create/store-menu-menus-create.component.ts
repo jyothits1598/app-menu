@@ -29,7 +29,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
   availability: Array<TimeAvailability> = [];
   availabilityTouched = true;
   notifier = new Subject();
-
+  formSubmitted = false;
   selectedDays: Array<string> = [];
 
   constructor(
@@ -126,8 +126,11 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       (resp) => {
         if (resp.success) {
           this.submitting = false;
+          this.formSubmitted = true;
           // this.alertService.showNotification(`Menu successfully ${this.menuId ? 'updated' : 'created'}`);
-          this.router.navigate(['.'], { relativeTo: this.route.parent });
+          setTimeout(() => {
+            this.router.navigate(['.'], { relativeTo: this.route.parent });
+          }, 0);
         } else if (!resp.success) { 
           this.submitting = false;
           let error_data = resp['error']['error']['menu_name'][0];
@@ -152,8 +155,14 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     })
   }
 
+  shouldPreventNavigation(){
+    if(!this.menuName.dirty) return false;
+    else {
+      if(this.formSubmitted) return false;
+      else return true;
+    }
+  }
 }
-
 
 export function removeSpaces(control: AbstractControl) {
   if (control && control.value && !control.value.replace(/\s/g, '').length) {

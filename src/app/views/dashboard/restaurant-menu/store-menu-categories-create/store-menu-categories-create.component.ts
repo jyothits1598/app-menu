@@ -21,6 +21,7 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
   routerSubs: Subscription;
 
   saveBtnLoading: boolean = false;
+  formSubmitted = false;
 
   menuIdMap: Array<{ name: string, id: number }>;
   categoryContentLoaded: boolean = false;
@@ -139,8 +140,11 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
       , (resp) => {
         if (resp.success) {
           this.saveBtnLoading = false;
+          this.formSubmitted = true;
           // this.alertService.showNotification(`Category was successfully ${this.categoryId ? "Updated" : "Created"}`);
-          this.navigateBack();
+          setTimeout(() => {
+            this.navigateBack();
+          }, 0);
         } else if (!resp.success) {  
           this.saveBtnLoading = false;
           let error_data = resp['error']['error']['category_name'][0];
@@ -178,6 +182,14 @@ export class StoreMenuCategoriesCreateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();
+  }
+
+  shouldPreventNavigation(){
+    if(!this.createCatForm.dirty) return false;
+    else {
+      if(this.formSubmitted === true) return false;
+      else return true;
+    }
   }
 }
 export function removeSpaces(control: AbstractControl) {

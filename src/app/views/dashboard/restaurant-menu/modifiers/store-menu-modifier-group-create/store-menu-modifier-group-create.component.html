@@ -1,5 +1,5 @@
 <div class="modal-body">
-<form protectUnsaved [changed]="modifierForm.dirty" loadingPlaceholder [loadStatus]="loaded" [formGroup]="modifierForm" (ngSubmit)="saveModifer(modifierForm.value)">
+<form protectUnsaved [changed]="shouldPreventNavigation()" loadingPlaceholder [loadStatus]="loaded" [formGroup]="modifierForm" (ngSubmit)="saveModifer(modifierForm.value)">
     <div class="row">
         <div class="col-md-12">
             <div class="float-right">
@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-12">
             <div class="input-container">
-                <img (click)="modifierForm.dirty ? pagebackPopup(back) : navigateBack()" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
+                <img (click)="navigateBack()" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
                 <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="name" placeholder="Enter a item for this modifier">
                 <span class="error-mez"
                     *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is

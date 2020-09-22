@@ -42,7 +42,6 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     })
   }
 
-  minVal = 5;
   @Input() set id(modId: number) {
     this.modifierId = modId;
     this.useOutputs = true;
@@ -61,9 +60,18 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   loaded: boolean = false;
   editedItemIndex: number;
 
+  formSubmitted = false;
   modifierForm: FormGroup;
   
   minValueChangesSubs: Subscription;
+
+  shouldPreventNavigation(){
+    if(!this.modifierForm.dirty) return false;
+    else {
+      if(this.formSubmitted === true) return false;
+      else return true;
+    }
+  }
 
   ngOnInit(): void {
     this.modifierForm = this.createNewForm();
@@ -89,6 +97,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   }
 
   navigateBack() {
+    this.exit.emit(true);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
@@ -120,8 +129,13 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     this.storeMenuData.saveModifier(this.modifierForm.value).pipe(
       finalize(() => this.submitting = false)
     ).subscribe(resp => {
+      this.formSubmitted = true;
       if (this.useOutputs) this.exit.emit(true);
-      else this.router.navigate(['../'], { relativeTo: this.route })
+      else {
+        setTimeout(() => {
+          this.router.navigate(['../'], { relativeTo: this.route })
+        }, 0);
+      }
     });
 
   }
