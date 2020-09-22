@@ -11,6 +11,7 @@ import { ModifierOptionsComponent } from './modifier-options/modifier-options.co
 import { ModalService } from 'src/app/views/shared/services/modal.service';
 import { StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
 import { ArrayToConsolidatedString } from 'src/app/_helpers/string-helpers';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-store-menu-modifier-group-create',
@@ -25,6 +26,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     private route: ActivatedRoute,
     private storeMenuData: StoreMenuModifierDataService,
     private modalService: ModalService,
+    private _modalService: NgbModal,
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
       console.log('this router sub', params['id']);
@@ -40,7 +42,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     })
   }
 
-
+  minVal = 5;
   @Input() set id(modId: number) {
     this.modifierId = modId;
     this.useOutputs = true;
@@ -57,18 +59,24 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   storeId: number;
   submitting: boolean = false;
   loaded: boolean = false;
-
   editedItemIndex: number;
 
   modifierForm: FormGroup;
+  
+  minValueChangesSubs: Subscription;
 
   ngOnInit(): void {
     this.modifierForm = this.createNewForm();
-    
     if (this.modifierId) this.getInitialData();
     else this.loaded = true;
-
     this.storeId = this.storeService.activeStore$.value.id;
+
+    this.minValueChangesSubs = this.modifierForm.controls.minimum.valueChanges.subscribe(
+      (val) => {
+        if(val) this.modifierForm.controls.maximum.setValidators([Validators.required, Validators.min(val)])
+        else this.modifierForm.controls.maximum.setValidators([Validators.required])
+      }
+    );
   }
 
   getInitialData() {
@@ -77,8 +85,15 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       finalize(() => this.loaded = true)
     ).subscribe(modifier => {
       this.modifierForm.patchValue(modifier)
-      console.log('after content loaded', this.modifierForm);
     });
+  }
+
+  navigateBack() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  pagebackPopup(back) {
+    this._modalService.open(back, { centered: true, size: 'sm' });
   }
 
   createNewForm(data: StoreMenuModifier = null): FormGroup {
@@ -86,7 +101,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       id: new FormControl(),
       name: new FormControl('', Validators.required),
       minimum: new FormControl('', Validators.required),
-      maximum: new FormControl('', Validators.required),
+      maximum: new FormControl(''),
       free: new FormControl('', Validators.required),
       options: new FormControl(this.modifierId ? null : [{ name: null, price: null }]),
       items: new FormControl(null)
@@ -112,7 +127,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   }
 
 
-  categoriesToString(items){
+  categoriesToString(items) {
     return ArrayToConsolidatedString(items, 2, (item) => item.name)
   }
 
@@ -127,12 +142,12 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     else this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  navigateBack() {
-    this.router.navigate(['../'], { relativeTo: this.route });
-  }
 
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();
+    this.minValueChangesSubs.unsubscribe();
   }
+
+
 
 }

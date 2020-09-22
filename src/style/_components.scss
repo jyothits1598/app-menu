@@ -620,4 +620,13 @@ input[type=number] {
 .upload-image-border .ud-image { 
     border-radius: 200px !important;
 }
-  
+input[type=search] {
+    background-image: url('/assets/images/ico_search.png');
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 24px 24px;
+}
+input[type=search]:focus {
+    background-image:none;
+}

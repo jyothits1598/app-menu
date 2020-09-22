@@ -21,6 +21,7 @@ import { TimeAvailabilityModule } from 'src/app/_modules/time-availability/time-
 import { ModifierOptionsComponent } from './modifiers/store-menu-modifier-group-create/modifier-options/modifier-options.component';
 import { ModifierSelectorComponent } from './modifiers/modifier-selector/modifier-selector.component';
 import { ModifierSummaryComponent } from './modifiers/modifier-summary/modifier-summary.component';
+import { CustomFormsModule } from 'src/app/_modules/custom-forms/custom-forms.module';
 
 const routes: Routes = [
   {
@@ -131,7 +132,8 @@ const restaurantMenuRouting = RouterModule.forChild(routes);
     SharedModule,
     NgbModalModule,
     restaurantMenuRouting,
-    TimeAvailabilityModule
+    TimeAvailabilityModule,
+    CustomFormsModule
   ],
   providers: [StoreMenuResolver]
 })

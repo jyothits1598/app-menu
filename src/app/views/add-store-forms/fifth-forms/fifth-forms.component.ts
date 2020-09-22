@@ -11,14 +11,22 @@ import { UserRole } from 'src/app/_models/user';
 })
 export class FifthFormsComponent implements OnInit {
   isAdmin: boolean = false;
+  store_id: string;
+
   constructor(
-    private authService: AuthenticationService
-  ) {}
+    private authService: AuthenticationService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.store_id = this.route.snapshot.paramMap.get('store-id');
+  }
 
   ngOnInit(): void {
     this.isAdmin = this.authService.userObjectSubject.value.role == UserRole.Admin;
   }
 
+  gotoMenu() {
+    return this.router.navigate([`/dashboard/partner/stores/${this.store_id}/menu/menus`]) 
   // storeDetail() {
   //   this.alertService.showLoader();
   //   this.restapiService.getData('store/get',(response)=>{
@@ -40,5 +48,6 @@ export class FifthFormsComponent implements OnInit {
   //     }
   //   });
   // }
+  }
 
 }

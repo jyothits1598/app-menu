@@ -49,4 +49,8 @@ export class MemberProfileComponent implements OnInit {
       }
     })
   }
+
+  goBack(){
+    this.alertService.goBack();
+  }
 }
