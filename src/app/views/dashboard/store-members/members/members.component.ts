@@ -109,6 +109,7 @@ export class MembersComponent implements OnInit {
     this.restApiService.getData(`api/stores/${this.storeService.activeStore}/members`,(response) => {
       if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length>0){
         this.members_array = response['data'];
+        console.log(this.members_array);
       }
       this.alertservice.hideLoader();
     })
@@ -194,6 +195,7 @@ export class MembersComponent implements OnInit {
       this.restApiService.getData('api/stores/partners?q='+event.target.value,(response) => {
         if(response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length>0){
           this.members_array = response['data'];
+          console.log(this.members_array);
         }
         this.alertservice.hideLoader();
       })
