@@ -18,7 +18,7 @@ export class MemberStoreInvitationComponent implements OnInit {
   member_invite_email_token:string = '';
   member_invite_store_token:string = '';
   errors = new Array();
- invitedStoreDetails:any = {};
+  invitedStoreDetails:any = {};
   constructor(
     private _modalService: NgbModal,
     private route: ActivatedRoute,
