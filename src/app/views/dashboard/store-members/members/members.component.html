@@ -5,9 +5,9 @@
         <input type="search" placeholder="Search" (keyup)="searchMemberbyName($event)" class="form-control form-input search" />
     </div>
     <div class="col-md-3 mb-1 pd-mq">
-        <select class="custom-select form-control form-input form-input--select-input">
-            <option> All </option>
-            <option *ngFor="let role of memberRole" [value]="role.store_member_role_id"> {{role.role_name}} </option>
+        <select class="custom-select form-control form-input form-input--select-input" (change)="searchMemberbyType($event)">
+            <option value=''> All </option>
+            <option *ngFor="let role of memberRole"  [value]="role.store_member_role_id"> {{role.role_name}} </option>
         </select>
     </div>
     <div class="col-md-6">
@@ -35,7 +35,7 @@
                                 <span >
                                     <img src="../../../../../assets/images/Frame 98.png" class="profile-image" />
                                     <!-- <label *ngIf="!user.staticDpImg" class="profile-name-navbar uppercase" > {{ userProfilename ? (userProfilename | slice:0:1) : ''}} </label> -->
-                                    <span style="line-height: 40px;"> &nbsp; {{ members?.first_name ? members?.first_name : ''}} </span>
+                                    <span style="line-height: 40px;"  [ngStyle]="{'color':members?.active_flag == 0  ? '#B3B3B3' : '' }"> &nbsp; {{ members?.first_name ? members?.first_name : ''}} {{ members?.last_name ? members?.last_name : ''}}</span>
                                 </span>
                                 <!-- <div class="custom-profile-image-text uppercase" *ngIf="!stories.staticDpImg">{{stories?.createrFirstName | slice:0:1}}{{stories?.createrLastName | slice:0:1}}</div> -->
                             </div>
