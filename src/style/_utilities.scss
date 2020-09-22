@@ -96,10 +96,15 @@
     background: var(--color-background-secondary);
     padding:32px !important;
 }
-
 .rotate-right{
     transform: rotateZ(90deg);
 }
 .dropdown-menu-right li {
     cursor: pointer;
+}
+.t40 {
+    margin-top:40px;
+}
+.b32 {
+    margin-bottom: 32px;
 }

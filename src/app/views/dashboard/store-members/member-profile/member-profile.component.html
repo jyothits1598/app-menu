@@ -1,118 +1,41 @@
 <form class="row">  
-    <div class="col-md-12">
-        <!-- <h3 class="std-heading-3" style="margin-bottom:32px;" *ngIf="normalMode"> Store profile &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" ></h3> -->
-        <h3 class="std-heading-3" style="margin-bottom:32px;">
-            <span>
-                <img src="../../../../../../assets/images/ico_back.png"  style="cursor: pointer;">&nbsp;
-                 Edit store profile
-            </span>
-        </h3>
-    </div>
-
 <div class="col-md-12">
-    <div class="float-right" style="margin-bottom:52px;">
-        <button type="button" class="btn std-button std-button--primary"> <img
-                src="../../../../../assets/images/ico_edit_white.png">&nbsp; Edit store profile </button>
-    </div>
-</div>   
-<!-- <ng-template #editOption >
-    <div class="col-md-12">
-        <div class="float-right" style="margin-bottom:16px;">
-            <button type="button" (click)="cancelEdit()" class="btn std-button std-button--transparency" style="margin-left:10px;"> Cancel </button>
-            <button  type="submit"  class="btn std-button-active" style="margin-left:10px;"> Save </button>
-        </div>
-    </div>
-</ng-template> -->
+    <h3 class="std-heading-3 text-capitalize b32">
+        <span>
+            <img src="../../../../../../assets/images/ico_back.png"  (click)="goBack()" style="cursor: pointer;">&nbsp;
+            {{memberProfileDetails?.first_name ? memberProfileDetails?.first_name : ''}} {{memberProfileDetails?.last_name ? memberProfileDetails?.last_name : ''}}
+        </span>
+    </h3>
+</div>
 <div class="col-md-12 col-sm-12 col-lg-6 col-xs-12">
     <div class="row"> 
         <div class="col-md-12">
-            <h4 class="std-heading-4" style="margin-bottom:32px;"> Store details </h4>
+            <h4 class="std-heading-4 b32"> Personal details </h4>
             <h5 class="std-heading-5" style="margin-bottom:16px;"> Photo </h5>
             <div class="d-flex justify-content-start">
                 <div>
                     <div class="upload-image upload-image-border">
-                        <!-- <img class="ud-image" [src]="imageUrl ? imageUrl : 'assets/images/null.png'"> -->
+                        <img class="ud-image" [src]="imageUrl ? imageUrl : 'assets/images/null.png'">
                     </div>
                 </div>
-                <!-- <div style="padding-left: 32px;">
-                    <div *ngIf="!normalMode" class="response-padding">
-                        <span style="font-size:12px"> JPG, PNG or GIF up to 5mb.<br> Minimum size 500&times;500 pixels. </span>
-                        <div class="mt-3">
-                            <button type="button" class="btn std-button std-button--primary" (click)="fileInput.click()" > Browse </button> 
-                            <button class="btn std-button std-button--transparency" style="margin-left:10px;" *ngIf="imageUrl"  (click)="imageUrl = null"> Remove </button>
-                            <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput accept=".jpg,.jpeg,.png,.gif">
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
-        <!-- <div class="col-md-12">
-            <h5 class="std-heading-5" style="margin-top:32px;"> Store name </h5>
-            <p *ngIf="normalMode; else name" class="paragraph"> {{basicDetails.value.name}} </p>
-            <ng-template #name>
-                <input [ngClass]="{ 'is-invalid': displayError('name') }" class="form-control form-input" type="text" formControlName="name">
-                <div *ngIf="displayError('name')" class="error-mez">
-                    <div> Please enter store name </div>
-                </div>
-            </ng-template>
-        </div> -->
-        <!-- <div class="col-md-12">
-            <h5 class="std-heading-5" style="margin-top:32px;"> Store address </h5>
-            <p *ngIf="normalMode; else address" class="paragraph"> {{basicDetails.value.address}} </p>
-            <ng-template #address>
-                <input [ngClass]="{ 'is-invalid': displayError('address') }" class="form-control form-input" type="text" formControlName="address">
-                <div  *ngIf="displayError('address')" class="error-mez">
-                    <div> Please enter store address </div>
-                </div>
-            </ng-template>
-        </div> -->
-        <!-- <div class="col-md-12">
-            <h5 class="std-heading-5" style="margin-top:32px;"> Type of cuisine </h5>
-            <p class="paragraph" *ngIf="normalMode; else cuisineType"> {{basicDetails.value.cuisineType}} </p>
-            <ng-template #cuisineType>
-                <select [ngClass]="{ 'is-invalid': displayError('cuisineType') }" class="custom-select form-control form-input form-input--select-input" formControlName="cuisineType">
-                    <option [ngValue]="null" selected> Select </option>
-                    <option *ngFor="let cuisine of cuisines" [ngValue]="cuisine"> {{ cuisine }} </option>
-                </select>
-                <div  *ngIf="displayError('cuisineType')" class="error-mez">
-                    <div> Please select type of cuisine  </div>
-                </div>
-            </ng-template>
-        </div> -->
-        <!-- <div class="col-md-12">
-            <h5 class="std-heading-5" style="margin-bottom:16px;margin-top:32px;"> Description </h5>
-            <p *ngIf="normalMode; else description" class="paragraph"> {{basicDetails.value.description}} </p>
-            <ng-template #description>
-                <input [ngClass]="{ 'is-invalid': displayError('description') }" class="form-control form-input" type="text" formControlName="description">
-                <div  *ngIf="displayError('description')" class="error-mez">
-                    <div> Please enter description </div>
-                </div>
-            </ng-template>
-        </div> -->
-        <!-- <div class="col-md-12">
-            <h5 class="std-heading-5" style="margin-top:32px;"> Google business URL </h5>
-            <p *ngIf="normalMode; else googleUrl" class="paragraph"> {{basicDetails.value.googleUrl}} </p>
-            <ng-template #googleUrl>
-                <input [ngClass]="{ 'is-invalid': displayError('description') }" class="form-control form-input" type="text" formControlName="googleUrl">
-                <div  *ngIf="displayError('googleUrl')" class="error-mez">
-                    <div> Please enter Google business URL </div>
-                </div>
-            </ng-template>
+        <div class="col-md-12">
+            <h5 class="std-heading-5 t40"> Full name </h5>
+            <div  class="paragraph text-capitalize"> {{memberProfileDetails?.first_name ? memberProfileDetails?.first_name : ''}} {{memberProfileDetails?.last_name ? memberProfileDetails?.last_name : ''}} </div>          
         </div>
         <div class="col-md-12">
-            <h5 class="std-heading-5" style="margin-top:32px;"> Facebook URL </h5>
-            <p *ngIf="normalMode; else facebookUrl" class="paragraph"> {{basicDetails.value.facebookUrl}} </p>
-            <ng-template #facebookUrl>
-                <input [ngClass]="{ 'is-invalid': displayError('facebookUrl') }" class="form-control form-input" type="text" formControlName="facebookUrl">
-                <div  *ngIf="displayError('facebookUrl')" class="error-mez">
-                    <div> Please enter facebook URL </div>
-                </div>
-            </ng-template>
-        </div> -->
-        <!-- <div class="col-md-12" *ngIf="normalMode">
-            <button class="btn std-button std-button--redtransparency" style="margin-bottom:16px;margin-top:32px;"> <img
-                src="../../../../../assets/images/ico_delete_red.png"> Delete store </button>
-        </div> -->
+            <h5 class="std-heading-5 t40"> Role </h5>
+            <div  class="paragraph text-capitalize">  {{memberProfileDetails?.role_name ? memberProfileDetails?.role_name : ''}}</div>
+        </div>
+        <div class="col-md-12">
+            <h5 class="std-heading-5 t40"> Email</h5>
+            <div class="paragraph"> {{memberProfileDetails?.email ? memberProfileDetails?.email : ''}} </div>
+        </div>
+        <div class="col-md-12">
+            <h5 class="std-heading-5 t40"> Phone </h5>
+            <div class="paragraph"> {{memberProfileDetails?.mobile_number}} </div>
+        </div>
     </div>
 </div>
 </form>

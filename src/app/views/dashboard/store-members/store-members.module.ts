@@ -21,11 +21,12 @@ const routes: Routes = [
             component: MembersComponent
           },
           {
-            path: 'profile',
+            path: 'profile/:id',
             component: MemberProfileComponent
           }
         ]
       },
+    
       {
         path: '**',
         redirectTo: 'members',

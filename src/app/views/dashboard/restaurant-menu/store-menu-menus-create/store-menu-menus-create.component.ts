@@ -87,9 +87,9 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    if (this.availability.length == 0) {
-      return false;
-    }
+    // if (this.availability.length == 0) {
+    //   return false;
+    // }
 
     return true;
   }

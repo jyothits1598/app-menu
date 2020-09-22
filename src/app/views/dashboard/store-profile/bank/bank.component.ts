@@ -40,6 +40,10 @@ export class BankComponent implements OnInit {
     this.storeProfileDataService.SaveStoreBankData(data).pipe(finalize(()=>this.alertService.hideLoader())).subscribe((data)=>{
       this.bankDetails.Editbtntoggle();
       this.alertService.showNotification('Successfully updated', 'success');
+    },
+    (error) => {
+      console.log('error in savebank details', error);
+      this.alertService.showNotification(error.error.error.bsb_number[0], 'error');
     })
   }
 }

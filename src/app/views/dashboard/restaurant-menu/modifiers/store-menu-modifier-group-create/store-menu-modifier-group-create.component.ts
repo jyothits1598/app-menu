@@ -11,6 +11,7 @@ import { ModifierOptionsComponent } from './modifier-options/modifier-options.co
 import { ModalService } from 'src/app/views/shared/services/modal.service';
 import { StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
 import { ArrayToConsolidatedString } from 'src/app/_helpers/string-helpers';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-store-menu-modifier-group-create',
@@ -25,6 +26,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     private route: ActivatedRoute,
     private storeMenuData: StoreMenuModifierDataService,
     private modalService: ModalService,
+    private _modalService: NgbModal,
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
       console.log('this router sub', params['id']);
@@ -86,6 +88,14 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     });
   }
 
+  navigateBack() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  pagebackPopup(back) {
+    this._modalService.open(back, { centered: true, size: 'sm' });
+  }
+
   createNewForm(data: StoreMenuModifier = null): FormGroup {
     return new FormGroup({
       id: new FormControl(),
@@ -132,9 +142,6 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     else this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  navigateBack() {
-    this.router.navigate(['../'], { relativeTo: this.route });
-  }
 
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();

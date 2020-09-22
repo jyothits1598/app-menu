@@ -1,3 +1,21 @@
 .checkbox-box{
     cursor: pointer !important;
 }
+.primary-color {
+    background:#353FA8 !important;
+    color:#fff !important;
+}
+.btn-disable {
+    border-radius: 0;
+    border: none;
+    outline: none!important;
+    font-size: 16px;
+    font-family: DM Sans;
+    font-style: normal;
+    font-weight: 700;
+    margin: 0 auto;
+    display: inline-block;
+    padding: 12px 16px;
+    color:#B3B3B3;
+    background:#f2f2f2;
+}

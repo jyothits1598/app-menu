@@ -42,7 +42,7 @@ export class AuthenticationService {
   /*
   * Login function to authenticate
   */
-  login({ email, password }, returnUrl) {
+  login({ email, password }, returnUrl,member_invite_auth_token,member_invite_email_token,member_invite_store_token) {
     if (email && password) {
       let login_details = {
         "email": email,
@@ -75,7 +75,11 @@ export class AuthenticationService {
             }
             this.alertservice.hideLoader();
             console.log('navigating to login');
-            return this.router.navigateByUrl('/dashboard');
+            if(member_invite_auth_token && member_invite_email_token) {
+              return this.router.navigateByUrl('store-invitation?member_auth_token='+member_invite_auth_token+'&member_email_token='+member_invite_email_token+'&store_token='+member_invite_store_token);
+            }else{
+              return this.router.navigateByUrl('/dashboard');
+            }
           } else {
             this.alertservice.hideLoader();
             localStorage.clear();

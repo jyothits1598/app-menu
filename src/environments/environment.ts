@@ -35,4 +35,8 @@ export const API_URL_LINK = 'http://54.252.119.115:8000/';
 
 export const REQUEST_A_ACTIVE = 'http://54.252.119.115/login';
 
+// export const REQUEST_A_ACTIVE = 'http://localhost:4200/login';
+
+
+
 // export const REQUEST_A_ACTIVE = 'https://uat.menuzapp.com.au/email-verify';

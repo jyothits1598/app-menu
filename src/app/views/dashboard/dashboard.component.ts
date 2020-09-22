@@ -20,10 +20,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   active_status = false;
   dasboard_empty: boolean = false;
   mutiple_stores_array: Array<Storedetails> = [];
+  invited_stores_array: Array<Storedetails> = [];
   store_status: boolean = false;
   store_status_approve: boolean = false;
   store_status_setup: boolean = false;
-  logoUrl: string = 'assets/images/null.png';
+  logoUrl: string = 'assets/images/Area.png';
   storeName: string;
   
   @ViewChild('sideBarLinks', { read: TemplateRef }) sideBarLinks: TemplateRef<any>;
@@ -55,6 +56,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
       // obj.authenticateService.checkExpiryStatus();
       obj.storeDetail();
+      obj.invitedStoreDetail();
     }
   }
 
@@ -77,6 +79,44 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
             newstoreDetails.storeName = newstoreDetails.storeName.substring(0, 45) + (newstoreDetails.storeName.length > 45 ? '...' : '');
           }
           this.mutiple_stores_array.push(newstoreDetails);
+
+          this.alertService.hideLoader();
+        });
+
+        // response['data'].forEach(element => {
+        //   if(element.store_id) {
+        //     this.storename = element.store_name;
+        //     console.log(this.storename);
+        //   }  
+        //   this.alertService.hideLoader();
+        // });
+      } else if (response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length === 0) {
+        this.dasboard_empty = true;
+      }
+
+      this.alertService.hideLoader();
+    });
+  }
+
+  invitedStoreDetail() {
+    this.invited_stores_array = [];
+    this.alertService.showLoader();
+    this.restapiService.getData('api/stores/invitedto', (response) => {
+      if (response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length > 0) {
+        let data = response['data'];
+        data.forEach(storelist => {
+          let newstoreDetails = new Storedetails(storelist.store_id
+            , storelist.store_name
+            , storelist.store_logo
+            , storelist.status
+            , storelist.next_step);
+          if (!newstoreDetails.logoUrl) {
+            newstoreDetails.logoUrl = this.logoUrl;
+          }
+          if (newstoreDetails.storeName) {
+            newstoreDetails.storeName = newstoreDetails.storeName.substring(0, 45) + (newstoreDetails.storeName.length > 45 ? '...' : '');
+          }
+          this.invited_stores_array.push(newstoreDetails);
 
           this.alertService.hideLoader();
         });

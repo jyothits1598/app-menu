@@ -17,7 +17,8 @@ export class StoreBasicDetailsComponent implements OnInit {
 
   //normalMode is false while editing of details
   normalMode: boolean = true;
-  imageUrl : string;
+  imageUrl: string;
+  address: string;
 
   constructor() { }
 
@@ -34,6 +35,20 @@ export class StoreBasicDetailsComponent implements OnInit {
   imageUrlCache: string = null;
 
   ngOnInit(): void {
+  }
+
+  options = {
+    componentRestrictions: {
+      country: ["AU"]
+    }
+  }
+  public AddressChange(address: any) {
+    //setting address from API to local variable 
+    if (address) {
+      this.address = address.name + "," + address.formatted_address;
+    }
+
+    this.basicDetails.controls.address.patchValue(this.address);
   }
 
   patchData(data: StoreBasicDetails){

@@ -1,0 +1,36 @@
+ <nav class="nav-bars">
+    <div class="d-flex justify-content-between">
+        <a [routerLink]="['/dashboard']"><img src="../../../assets/svg/Logo.svg"></a>
+        <!-- <a class="btns-navbar" [routerLink]="['/signup']" title="signup" >Don't have an account? Register now </a> -->
+    </div> 
+</nav>
+<div class="container h-100" *ngIf="invitedStoreDetails?.active_flag == 0">
+    <div class="row m-class text-center">
+        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                <h1 class="form-header" style="margin-bottom: 24px;">{{invitedStoreDetails?.store_name ? invitedStoreDetails?.store_name : '' }} invited you to collaborate. </h1>
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" style="margin-top:40px;">
+                            <a [routerLink]="['/dashboard']"><input type="button" class="btn std-button std-button--transparency" value="Go To Dashboard" title="Go To Dashboard"></a>
+                            <input type="button" class="btn std-button std-button--primary" value="Accept Invitation" (click)="acceptInvitation()" style="margin-left:15px;">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="container h-100" *ngIf="invitedStoreDetails?.active_flag == 1">
+    <div class="row m-class text-center">
+        <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                <h1 class="form-header" style="margin-bottom: 24px;">{{invitedStoreDetails?.store_name ? invitedStoreDetails?.store_name : '' }} invite Accepted. </h1>
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" style="margin-top:40px;">
+                            <a [routerLink]="['/dashboard']"><input type="button" class="btn std-button std-button--transparency" value="Go To Dashboard" title="Go To Dashboard"></a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

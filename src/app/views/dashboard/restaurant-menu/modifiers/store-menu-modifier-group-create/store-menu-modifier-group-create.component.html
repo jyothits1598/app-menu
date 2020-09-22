@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-12">
             <div class="input-container">
-                <img (click)="dismiss()" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
+                <img (click)="modifierForm.dirty ? pagebackPopup(back) : navigateBack()" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
                 <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="name" placeholder="Enter a item for this modifier">
                 <span class="error-mez"
                     *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
@@ -108,7 +108,20 @@
 </form>
 </div>
 
-
+<!-- back save continue -->
+<ng-template #back let-modal2>
+    <div class="modal-body text-center">
+        <h5 class="std-heading-5 mb-2"> Unsaved changes </h5>
+        <p class="mb-2 paragraph">
+            If you continue you will lose any unsaved progress
+        </p>
+        <button class="std-button std-button--plane" (click)="navigateBack(); modal2.dismiss('Cross click')"> Continue
+        </button>
+        <hr style="margin:0">
+        <button class="std-button std-button--plane" (click)="modal2.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>
+<!-- back save continue end-->
 
 
 <!-- <ng-template #popup let-editPopup>

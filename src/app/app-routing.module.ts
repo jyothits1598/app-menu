@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { SignupEmailRedirectComponent } from './views/signup-email-redirect/signup-email-redirect.component';
+import { MemberStoreInvitationComponent } from './views/member-store-invitation/member-store-invitation.component';
 
 const routes: Routes = [
   { path: 'login', loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule)},
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'email-verify', component: SignupEmailRedirectComponent},
   { path: 'store', loadChildren: () => import('./views/add-store-forms/add-store-forms.module').then(m => m.AddStoreFormsModule)},
   { path: 'dashboard', loadChildren: () => import('./views/containers/containers.module').then(m => m.ContainersModule)},
+  { path: 'store-invitation', component: MemberStoreInvitationComponent},
   {
     path: '**',
     redirectTo: 'dashboard',

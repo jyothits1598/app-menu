@@ -30,10 +30,10 @@
             <div class="col-md-6">
                 <div class="form-group form-group--margin">
                     <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
-                    <select class="custom-select form-control form-input form-input--select-input"
+                    <select class="form-control custom-select form-input form-input--select-input"
                         formControlName="typeCuisine" (ngModelChange)="changeCuisine()"
                         [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
-                        <option [ngValue]="null" selected> Select </option>
+                        <option value=""> Select </option>
                         <option *ngFor="let cuisine of Cuisines" [ngValue]="cuisine"> {{ cuisine }} </option>
                     </select>
                     <div *ngIf="typeCuisineSubmit && f.typeCuisine.errors" class="error-mez">
@@ -72,26 +72,15 @@
         </div>
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Opening hours </label>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between" (click)="startEdit(editor)" style="cursor: pointer;" title=" {{storeOpeningHours.length == 0 ? 'Add opening hours' : 'Edit opening hours'}}">
                 <div class="content-label"> {{storeOpeningHours.length == 0 ? 'Add' : 'Edit'}} opening hours </div>
-                <div (click)="startEdit(editor)" style="cursor: pointer;"
-                    title=" {{storeOpeningHours.length == 0 ? 'Add opening hours' : 'Edit opening hours'}}">
-                    <img [src]="storeOpeningHours.length == 0 ? add_image : edit_image">
-                </div>
+                <img [src]="storeOpeningHours.length == 0 ? add_image : edit_image">
             </div>
-            <div class="row" id="">
+            <div class="row">
                 <div class="col-md-12">
-                    <!-- <div class="table-responsive">
-                        <table class="table tble-custom">
-                            <tr class="text-capitalize" *ngFor="let a of storeOpeningHours; let i = index">
-                                <td><b>{{a.day}}</b></td>
-                                <td class="text-uppercase">
-                                    {{a.startTime}}&nbsp;-&nbsp;{{a.endTime}}
-                                </td>
-                            </tr>
-                        </table>
-                    </div> -->
-                    <app-time-availability-summary [availabilities]="storeOpeningHours"></app-time-availability-summary>
+                    <div style="margin-top:32px">
+                        <app-time-availability-summary [availabilities]="storeOpeningHours"></app-time-availability-summary>
+                    </div>
                 </div>
             </div>
         </div>
@@ -139,8 +128,8 @@
 
 <ng-template #openingHoursHeading>
     <div class="row">
-        <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Opening hours </h4>
         <div class="col-md-12" style="margin-top:32px;margin-bottom:32px;">
+            <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Opening hours </h4>
             <p class="paragraph"> Select <b>days</b> and <b>times</b> above and press <b>add time</b> to add
                 availability.
             </p>
