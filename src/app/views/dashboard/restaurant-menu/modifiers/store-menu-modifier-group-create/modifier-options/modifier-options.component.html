@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-3">
             <h5 class="std-heading-5" style="margin-bottom: 4px;"> Price </h5>
-            <input type="text" formControlName="price" class="form-control form-input error-highlight"
+            <input type="number" formControlName="price" class="form-control form-input error-highlight"
                 placeholder="+$" (blur)="onTouched()"/>
             <div class="error-mez" *ngIf="option.controls.price.touched && option.controls.price.invalid">{{getPriceError(option.controls.price)}}</div>
         </div>

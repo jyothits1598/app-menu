@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Location } from '@angular/common';
 // import 'rxjs/add/operator/filter';
 
 declare var alert:any;
@@ -13,7 +14,10 @@ export class AlertService {
   private notification = new Subject();
   private keepAfterRouteChange = false;
   private bottomNotification = new Subject();
-  constructor() {
+  constructor(
+    private location: Location
+  ) {
+    
    }
   
    showNotification(message: string, alertType?: string){
@@ -44,5 +48,11 @@ export class AlertService {
     return this.loader.asObservable();
   }
 
- 
+  /*
+    * Function to return to particular location
+    */
+  goBack(){
+    this.location.back();
+  }
+
 }

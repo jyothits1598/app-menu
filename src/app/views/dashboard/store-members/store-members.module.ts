@@ -10,10 +10,10 @@ import { MemberContainerComponent } from './member-container/member-container.co
 const routes: Routes = [
   {
     path: '',
-    component: MemberContainerComponent,
+    component: StoreMembersComponent,
     children: [
       {
-        path: '',
+        path: 'members',
         component: MemberContainerComponent,
         children: [
           {
