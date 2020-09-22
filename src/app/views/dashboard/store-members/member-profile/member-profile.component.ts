@@ -13,8 +13,9 @@ import { StoreService } from 'src/app/services/store.service';
 export class MemberProfileComponent implements OnInit {
   routerSubs: Subscription;
   memberId:number;
-  memberProfileDetails = new Array();
+  memberProfileDetails:any = {};
   normalMode=true;
+  imageUrl:string='';
   constructor(
     private restApiService: RestApiService,
     private alertService: AlertService,
@@ -25,18 +26,20 @@ export class MemberProfileComponent implements OnInit {
     this.routerSubs = this.route.params.subscribe(params => {
        this.memberId = +params['id'];
     });
-     this.getMemberProfileDetails()
-;    
+     
    }
 
   ngOnInit(): void {
+    var obj = this;
+    obj.getMemberProfileDetails(); 
   }
   ngOnDestroy(): void {
     this.routerSubs.unsubscribe();
+       
   }
 
-  getMemberProfileDetails() {
-     this.memberProfileDetails = [];
+  getMemberProfileDetails(){
+    // this.memberProfileDetails = [];
     this.restApiService.getData(`api/stores/${this.storeService.activeStore}/members/${this.memberId}`, (response) => {
       if (response && response['success'] && response['data']) {
         let data = response['data'][0];

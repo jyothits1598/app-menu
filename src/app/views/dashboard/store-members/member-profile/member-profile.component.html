@@ -1,7 +1,5 @@
 <form class="row">  
-    
-
-<!-- <div class="col-md-12">
+ <!-- <div class="col-md-12">
     <div class="float-right" style="margin-bottom:52px;">
         <button type="button" class="btn std-button std-button--primary"> <img
                 src="../../../../../assets/images/ico_edit_white.png">&nbsp; Edit store profile </button>
@@ -49,7 +47,7 @@
         </div>
         <div class="col-md-12">
             <h5 class="std-heading-5" style="margin-top:32px;"> Full name </h5>
-            <p *ngIf="normalMode; else name" class="paragraph text-capitalize"> {{memberProfileDetails?.first_name ? memberProfileDetails?.first_name : ''}} {{memberProfileDetails?.last_name ? memberProfileDetails?.last_name : ''}} </p>
+            <p  class="paragraph text-capitalize"> {{memberProfileDetails?.first_name ? memberProfileDetails?.first_name : ''}} {{memberProfileDetails?.last_name ? memberProfileDetails?.last_name : ''}} </p>
             <!-- <ng-template #name>
                 <input [ngClass]="{ 'is-invalid': displayError('name') }" class="form-control form-input" type="text" formControlName="name">
                 <div *ngIf="displayError('name')" class="error-mez">
@@ -59,7 +57,7 @@
         </div>
         <div class="col-md-12">
             <h5 class="std-heading-5" style="margin-top:32px;"> Role </h5>
-            <p *ngIf="normalMode; else role_name" class="paragraph text-capitalize">  {{memberProfileDetails?.role_name ? memberProfileDetails?.role_name : ''}}</p>
+            <p  class="paragraph text-capitalize">  {{memberProfileDetails?.role_name ? memberProfileDetails?.role_name : ''}}</p>
             <!-- <ng-template #address>
                 <input [ngClass]="{ 'is-invalid': displayError('address') }" class="form-control form-input" type="text" formControlName="address">
                 <div  *ngIf="displayError('address')" class="error-mez">
@@ -69,11 +67,11 @@
         </div>
         <div class="col-md-12">
             <h5 class="std-heading-5" style="margin-top:32px;"> Email</h5>
-            <p class="paragraph" *ngIf="normalMode; else email"> {{memberProfileDetails?.email ? memberProfileDetails?.email : ''}} </p>
+            <p class="paragraph"> {{memberProfileDetails?.email ? memberProfileDetails?.email : ''}} </p>
         </div>
         <div class="col-md-12">
             <h5 class="std-heading-5" style="margin-bottom:16px;margin-top:32px;"> Phone </h5>
-            <p *ngIf="normalMode; else description" class="paragraph"> {{memberProfileDetails?.mobile_number}} </p>
+            <p class="paragraph"> {{memberProfileDetails?.mobile_number}} </p>
             <!-- <ng-template #description>
                 <input [ngClass]="{ 'is-invalid': displayError('description') }" class="form-control form-input" type="text" formControlName="description">
                 <div  *ngIf="displayError('description')" class="error-mez">
