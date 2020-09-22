@@ -1,7 +1,7 @@
 <ng-template #loading>
     <processing-placeholder></processing-placeholder>
 </ng-template>
-<div protectUnsaved [changed]="createItemForm.dirty" [formGroup]="createItemForm">
+<div protectUnsaved [changed]="shouldPreventNavigation()" [formGroup]="createItemForm">
     <div class="row" style="margin-top:-24px;">
         <div class="col-md-12">
             <div style="text-align: center;" *ngIf="itemId && !formDataLoaded">
@@ -20,7 +20,7 @@
         <div class="col-md-12">
             <div class="input-container" style="margin-bottom:16px;">
                 <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1"
-                    (click)="createItemForm.dirty ? pagebackPopup(back) : navigateBack()">
+                    (click)="navigateBack()">
                 <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="itemName"
                     placeholder="Enter a name for this item">
                 <span class="error-mez"
@@ -197,6 +197,6 @@
     <div class="modal-header" style="background:#353FA8;color:#fff;font-size:20px;font-weight: 600;">
         New modifier
     </div>
-    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="createModalRef.dismiss(); modifierRefresh()">       
+    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="closeCreateModal()">       
     </app-store-menu-modifier-group-create>
 </ng-template>

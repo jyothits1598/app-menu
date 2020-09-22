@@ -37,6 +37,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   categoryIdMap: Array<{ name: string, id: number }>;
   modifierIdMap: Array<{ name: string, id: number }>;
   modifiers: Array<StoreMenuModifier>;
+  formSubmitted: boolean = false;
 
   @ViewChild('createModifier', { read: TemplateRef }) creator: TemplateRef<any>;
 
@@ -252,8 +253,11 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       , (resp) => {
         if (resp.success) {
           this.saveBtnLoading = false;
+          this.formSubmitted = true;
           // this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
-          this.router.navigate(['../'], { relativeTo: this.route });
+          setTimeout(() => {
+            this.router.navigate(['../'], { relativeTo: this.route });
+          }, 0);
         }
         else this.alertService.showNotification("There was a problem, please try again.");
       }
@@ -339,7 +343,22 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       })
     })
   }
+
+  shouldPreventNavigation(){
+    if(!this.createItemForm.dirty) return false;
+    else {
+      if(this.formSubmitted) return false;
+      else return true;
+    }
+  }
+
+  closeCreateModal(){
+    console.log('exit event');
+    this.createModalRef.dismiss(); this.modifierRefresh()
+  }
+
 }
+
 
 export function removeSpaces(control: AbstractControl) {
   if (control && control.value && !control.value.replace(/\s/g, '').length) {

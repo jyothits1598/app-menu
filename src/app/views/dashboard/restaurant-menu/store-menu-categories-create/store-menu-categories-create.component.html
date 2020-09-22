@@ -3,7 +3,7 @@
 </ng-template>
 
 <!-- create category -->
-<div class="row" protectUnsaved [changed]="createCatForm.dirty" [formGroup]="createCatForm" style="margin-top:-24px;">
+<div class="row" protectUnsaved [changed]="shouldPreventNavigation()" [formGroup]="createCatForm" style="margin-top:-24px;">
     <div class="col-md-12">
         <div *ngIf="categoryId && !categoryContentLoaded">
             <processing-placeholder></processing-placeholder>
