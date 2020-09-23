@@ -76,7 +76,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody *ngIf="modifierForm.controls.items.value > 0;else noItems">
+                <tbody *ngIf="modifierForm.controls.items.value?.length > 0;else noItems">
                     <tr class="text-capitalize" *ngFor="let item of modifierForm.controls.items.value">
                         <td class="table-name"> {{item.name}} </td>
                         <td> {{categoriesToString(item.categories)}} </td>
