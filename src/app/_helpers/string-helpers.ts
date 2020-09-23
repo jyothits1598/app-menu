@@ -14,3 +14,9 @@ export function ArrayToConsolidatedString(items: Array < any >, maxLenght: numbe
 
   return result;
 }
+
+export function ExtractFileName(path: string): string {
+  let index = path.lastIndexOf('/');
+  let result = path.slice(index + 1, path.length);
+  return result;
+}

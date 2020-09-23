@@ -13,12 +13,18 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse) => {
-                console.log('caught error', error)
-                if(error.error && error.error.error && error.error.error.error_msg){
-                    this.alertService.showNotification(error.error.error.error_msg[0], 'error')
+                if(error.error && error.error.error){
+                    this.alertService.showNotification(this.readErrorMessage(error.error.error), 'error')
                 }
                 return throwError(error);
             })
         )
+    }
+
+    readErrorMessage(error: any){
+        console.log('inside error');
+        for(var err in error){
+            return `${error[err]}` 
+        }
     }
 }

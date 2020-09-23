@@ -352,11 +352,6 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeCreateModal(){
-    console.log('exit event');
-    this.createModalRef.dismiss(); this.modifierRefresh()
-  }
-
 }
 
 
