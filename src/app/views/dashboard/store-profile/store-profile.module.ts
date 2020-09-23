@@ -14,6 +14,8 @@ import { StoreOwnershipDetailsComponent } from './ownership/store-ownership-deta
 import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 import { TimeAvailabilityModule } from 'src/app/_modules/time-availability/time-availability.module';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { FileUploadComponent } from 'src/app/_modules/fileupload/file-upload/file-upload.component';
+import { FileuploadModule } from 'src/app/_modules/fileupload/fileupload.module';
 
 const routes: Routes = [
   {
@@ -56,7 +58,8 @@ const routingModule = RouterModule.forChild(routes);
     SharedModule,
     routingModule,
     TimeAvailabilityModule,
-    GooglePlaceModule
+    GooglePlaceModule,
+    FileuploadModule
   ],
   providers: [StoreProfileDataService]
 })

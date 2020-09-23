@@ -36,20 +36,6 @@ export class StoreService {
     return this._activeStore;
   }
 
-  //fucntion to read availability aquired from the backend
-  readAvailability(availability: any): Array<TimeAvailability> {
-    let result: Array<TimeAvailability> = []
-    for (const a in availability) {
-      result.push(new TimeAvailability(
-        availability[a].menu_timings_id
-        , availability[a].days
-        , availability[a].start_time
-        , availability[a].end_time
-        , availability[a].marked_as_closed ? true : false))
-    }
-    return result;
-  }
-
   ReadStoreMenuCategory(data: any) : StoreMenuCategory {
     let newStrCat = new StoreMenuCategory(data.category_details.category_id, data.category_details.category_name, null);
     newStrCat.menus = [];

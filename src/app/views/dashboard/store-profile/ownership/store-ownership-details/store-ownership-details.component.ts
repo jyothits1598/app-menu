@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ExtractFileName } from 'src/app/_helpers/string-helpers';
 import { StoreOwnershipDetails } from '../../_model/store-ownership-details';
 
 @Component({
@@ -16,7 +17,7 @@ export class StoreOwnershipDetailsComponent implements OnInit {
 
   @Input() storeOwnerDetail: StoreOwnershipDetails;
   @Output() saved = new EventEmitter<StoreOwnershipDetails>();
-  @Output() fileOpened = new EventEmitter<File>();
+  @Output() fileUpload = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -30,7 +31,7 @@ export class StoreOwnershipDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  Editbtntoggle(){ 
+  toggleEdit(){ 
     if(this.activeMode) {
       this.ownershipDetailCache = this.ownershipDetails.value;
     }     
@@ -62,12 +63,15 @@ export class StoreOwnershipDetailsComponent implements OnInit {
       let ownershipdata = this.ownershipDetails.value;
       this.saved.emit(ownershipdata);
     }
-
   }
 
   displayError(cntlName: string): boolean{
     return this.ownershipDetails.controls[cntlName].invalid && this.ownershipDetails.controls[cntlName].touched;
-  } 
+  }
+  
+  fileName(fullName: string){
+    return ExtractFileName(fullName);
+  }
    
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
