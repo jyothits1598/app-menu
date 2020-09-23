@@ -15,7 +15,7 @@
                             <td>
                                 <h1 class="form-header" style="margin-bottom: 24px;"> Thank you, your email has been confirmed. </h1> 
                                 <p style="margin-bottom: 40px;"> Please login to continue. </p>
-                                <a [routerLink]="['/']" ><input type="button" class="btn std-button std-button--primary" value="Login" ></a>
+                                <input type="button" (click)="navigateToLogin()"class="btn std-button std-button--primary" value="Login" >
                             </td>
                         </tr>
                     </table>

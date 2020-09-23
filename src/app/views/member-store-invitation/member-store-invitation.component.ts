@@ -48,8 +48,10 @@ export class MemberStoreInvitationComponent implements OnInit {
 
   getStoreDetails(){
     // this.invitedStoreDetails = [];
-    this.restApiService.getData('api/stores/members/'+this.member_invite_store_token+'/'+this.member_invite_auth_token, (response) => {
+    this.alertService.showLoader();
+    this.restApiService.getDataReturn('api/stores/members/'+this.member_invite_store_token+'/'+this.member_invite_auth_token, (response) => {
       if (response && response['success'] && response['data']) {
+        this.alertService.hideLoader();
         let data = response['data'];
         this.invitedStoreDetails = data;
       }else{

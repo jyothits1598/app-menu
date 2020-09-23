@@ -1,7 +1,7 @@
 <ng-template #loading>
     <processing-placeholder></processing-placeholder>
 </ng-template>
-<div [formGroup]="createItemForm">
+<div protectUnsaved [changed]="shouldPreventNavigation()" [formGroup]="createItemForm">
     <div class="row" style="margin-top:-24px;">
         <div class="col-md-12">
             <div style="text-align: center;" *ngIf="itemId && !formDataLoaded">
@@ -20,7 +20,7 @@
         <div class="col-md-12">
             <div class="input-container" style="margin-bottom:16px;">
                 <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1"
-                    (click)="createItemForm.dirty ? pagebackPopup(back) : navigateBack()">
+                    (click)="navigateBack()">
                 <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="itemName"
                     placeholder="Enter a name for this item">
                 <span class="error-mez"
@@ -190,7 +190,7 @@
 
 <ng-template #addModifier >
     <app-modifier-selector [modifiers]="modifiers" [selected]="createItemForm.controls.modifiers.value"
-    (selection)="onModSelect($event)" (canceled)="modalRef.dismiss()" (createNew)="createModalRef = modalServ.openTemplate(createModifier);"></app-modifier-selector>
+    (selection)="onModSelect($event)" (canceled)="modalRef.dismiss()" (createNew)="modiferEditId = null; createModalRef = modalServ.openTemplate(createModifier);"></app-modifier-selector>
 </ng-template> 
 
 <ng-template #createModifier>
@@ -200,9 +200,6 @@
             <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
         </button>
     </div>
-   <!-- <div class="cancel-btn" (click)="createModalRef.dismiss()" style="cursor: pointer;">
-        Cancel
-   </div> -->
-    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="createModalRef.dismiss(); modifierRefresh()">              
-    </app-store-menu-modifier-group-create>    
+    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="closeCreateModal()">       
+    </app-store-menu-modifier-group-create>
 </ng-template>
