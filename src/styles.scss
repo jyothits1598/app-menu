@@ -105,8 +105,15 @@
                 50% 50% no-repeat #fff0;
     
   } 
+
+.pending-tab-margin{
+    margin-top:70px;
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .pending-tab-margin{
+    margin-top:160px;
+  }
   .m-class {
     margin-top:60px;
     margin-bottom:52px;
@@ -126,6 +133,7 @@
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+ 
   .m-class {
     margin-top:80px;
     margin-bottom:72px;

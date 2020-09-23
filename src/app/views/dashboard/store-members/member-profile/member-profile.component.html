@@ -1,12 +1,18 @@
 <form class="row">  
 <div class="col-md-12">
-    <h3 class="std-heading-3 text-capitalize b32">
+    <div class="float-right" style="margin-bottom:52px;">
+        <button type="button" (click)="modalService.open(deleteComform, { centered: true, size: 'md' })" class="btn std-button std-button--transparency" style="margin-left:10px;"> Remove Member </button>
+    </div>
+</div>
+<div class="col-md-12">
+    <h3 class="std-heading-3 text-capitalize b32" style="margin-bottom: 68px;">
         <span>
             <img src="../../../../../../assets/images/ico_back.png"  (click)="goBack()" style="cursor: pointer;">&nbsp;
             {{memberProfileDetails?.first_name ? memberProfileDetails?.first_name : ''}} {{memberProfileDetails?.last_name ? memberProfileDetails?.last_name : ''}}
         </span>
     </h3>
 </div>
+
 <div class="col-md-12 col-sm-12 col-lg-6 col-xs-12">
     <div class="row"> 
         <div class="col-md-12">
@@ -39,3 +45,16 @@
     </div>
 </div>
 </form>
+
+<!-- openVerticallyCentered(deleteComform,item.id,item.name)"  -->
+<ng-template #deleteComform let-modal3>
+    <div class="modal-body text-center">
+        <h4 class="std-heading-4 mb-2"> Delete member <span class="text-capitalize">"{{memberProfileDetails?.first_name ? memberProfileDetails?.first_name : ''}} {{memberProfileDetails?.last_name ? memberProfileDetails?.last_name : ''}}"</span></h4>
+      <p class="mb-2"> 
+          Are you sure? 
+      </p>
+      <button class="std-button std-button--plane" (click)="deleteData(); modal3.dismiss('Cross click')"> Delete </button>
+      <hr style="margin: 0;">
+      <button class="std-button std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
+    </div>
+</ng-template>

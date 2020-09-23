@@ -4,6 +4,8 @@ import { AlertService } from 'src/app/services/alert.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, forkJoin } from 'rxjs';
 import { StoreService } from 'src/app/services/store.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-member-profile',
@@ -11,12 +13,14 @@ import { StoreService } from 'src/app/services/store.service';
   styleUrls: ['./member-profile.component.scss']
 })
 export class MemberProfileComponent implements OnInit {
+  deleteIndexlist: number;
   routerSubs: Subscription;
   memberId:number;
   memberProfileDetails:any = {};
   normalMode=true;
   imageUrl:string='';
   constructor(
+    private _modalService: NgbModal,
     private restApiService: RestApiService,
     private alertService: AlertService,
     private storeService: StoreService,
@@ -52,5 +56,24 @@ export class MemberProfileComponent implements OnInit {
 
   goBack(){
     this.alertService.goBack();
+  }
+ deleteData() {
+    let data: any = {};
+    data.active_flag = 2;
+    this.alertService.showLoader();
+      this.restApiService.patchData(`api/stores/${this.storeService.activeStore}/members/${this.memberId}`, data).pipe(
+        finalize(() => this.alertService.hideLoader())
+      ).subscribe(
+        (resp : any)=>{
+          if(resp && resp.success){
+            this.alertService.showNotification('Member deleted.','success');
+            this.router.navigate(['../'], { relativeTo: this.route });
+          }
+        }
+      )
+  }
+
+  get modalService(): NgbModal{
+    return this._modalService;
   }
 }

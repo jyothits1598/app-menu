@@ -51,7 +51,7 @@ export class RestaurantMenuCategoriesComponent implements OnInit {
       (resp: any) => {
         console.log(resp);
                 if (resp.success) {
-          this.alertService.showNotification('Category successfully deleted.');
+          this.alertService.showNotification('Category deleted.','success');
           this.categories.splice(this.deleteIndex, 1);
         }
       },

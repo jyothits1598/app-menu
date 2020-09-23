@@ -90,8 +90,8 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
   ]
 
   timing: FormGroup = new FormGroup({
-    startTime: new FormControl('Select'),
-    endTime: new FormControl('Select')
+    startTime: new FormControl('09:00AM'),
+    endTime: new FormControl('05:00PM')
   }, this.timingValidator())
 
   addRemvDay(day: string, add: boolean) {

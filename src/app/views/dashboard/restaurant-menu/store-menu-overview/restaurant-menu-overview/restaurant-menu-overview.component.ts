@@ -6,6 +6,8 @@ import { AlertService } from 'src/app/services/alert.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Route, Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Store } from 'src/app/_models/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-restaurant-menu-overview',
@@ -27,6 +29,10 @@ export class RestaurantMenuOverviewComponent implements OnInit {
     private alertservice: AlertService,
   ) {
   }
+  displayBanner: boolean = true;
+    get activeStore(): Observable<Store> {
+      return this.storeService.activeStore$;
+    }
 
   ngOnInit(): void {
     this.alertservice.showLoader();
