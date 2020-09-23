@@ -195,7 +195,10 @@
 
 <ng-template #createModifier>
     <div class="modal-header" style="background:#353FA8;color:#fff;font-size:20px;font-weight: 600;">
-        New modifier
+        <div> New modifier </div>
+        <button type="button" class="close info-q" aria-label="Close" (click)="createModalRef.dismiss();">
+            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+        </button>
     </div>
     <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="this.createModalRef.dismiss(); this.modifierRefresh();">       
     </app-store-menu-modifier-group-create>

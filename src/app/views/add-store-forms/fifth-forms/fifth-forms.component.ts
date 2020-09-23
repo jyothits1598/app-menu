@@ -26,7 +26,7 @@ export class FifthFormsComponent implements OnInit {
   }
 
   gotoMenu() {
-    return this.router.navigate([`/dashboard/partner/stores/${this.store_id}/menu/menus`]) 
+    return this.router.navigate([`/dashboard/partner/stores/${this.store_id}/menu/overview`]) 
   // storeDetail() {
   //   this.alertService.showLoader();
   //   this.restapiService.getData('store/get',(response)=>{
