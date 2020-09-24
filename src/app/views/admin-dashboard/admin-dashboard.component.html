@@ -29,10 +29,12 @@
                 src="../../../assets/images/ico_add_blue.png">
             <span> Add store shell </span>
         </li>
-        <li class="sidenav__link sidenav--hover color-primary"
-            style="border-bottom: 1px solid var(--color-lines-primary);" title="Add store shell">
-            <img class="sidenav__link__img" src="../../../assets/images/ico_upload.png">
-            <span> Import via CSV </span>
-        </li>
+        <app-file-upload #fileUpload [uploadApiFunction]="uploadApi" [accept]="validFileFormats" [validators]="csvFileValidators" (url)="alertService.showNotification('Successfully Imported')" (error)="alertService.showNotification($event, 'error')">
+            <li class="sidenav__link sidenav--hover color-primary"
+                style="border-bottom: 1px solid var(--color-lines-primary);" title="Add store shell">
+                <img class="sidenav__link__img" src="../../../assets/images/ico_upload.png">
+                <span> Import via CSV </span>
+            </li>
+        </app-file-upload>
     </ul>
 </ng-template>
