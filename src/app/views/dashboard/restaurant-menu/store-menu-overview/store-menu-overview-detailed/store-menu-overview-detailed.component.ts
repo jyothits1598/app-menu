@@ -21,6 +21,7 @@ export class StoreMenuOverviewDetailedComponent implements OnInit, OnDestroy {
   storeId: number;
   menus$: Observable<Array<StoreMenu>>;
   selectedMenuId: number;
+  contentLoaded: boolean = false;
 
   routerSub$: Subscription;
   
@@ -62,6 +63,7 @@ export class StoreMenuOverviewDetailedComponent implements OnInit, OnDestroy {
     this.storeId = this.storeService.activeStore$.value.id;
     this.menus$ = this.restApiService.getDataObs(consolidatedMenuListUrl(this.storeId)).pipe(
       map((resp: any) => {
+        this.contentLoaded = true;
         if (resp.success && resp.data) {
           let menus: Array<StoreMenu> = [];
           resp.data.forEach(menu => {
