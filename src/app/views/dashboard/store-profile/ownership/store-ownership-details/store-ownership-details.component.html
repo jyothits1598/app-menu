@@ -22,6 +22,7 @@
             </div>
         </div>
     </ng-template>
+    <div class="row" style="padding:0 15px">
     <div class="col-md-12 col-sm-12 col-lg-6 col-xs-12">
         <div class="row">
             <div class="col-md-12">
@@ -54,18 +55,24 @@
                     </div>
                 </ng-template>
             </div>
-            <div class="col-md-12">
-                <h5 class="std-heading-5 t40"> Certificate of registration <b class="m-star" *ngIf="!activeMode">*</b></h5>
-                <a class="paragraph" style="display: block;margin-bottom: 15px;" target="_blank" [href]="ownershipDetails.value.legalFile"> {{fileName(ownershipDetails.value.legalFile)}} </a>
-                    <!-- <input [ngClass]="{ 'is-invalid': displayError('legalFile') }" class="form-control form-input" type="text" formControlName="legalFile">
-                    <div *ngIf="displayError('legalFile')" class="error-mez">
-                        <div> Please enter account number </div>
-                    </div> -->
-                    <div *ngIf="!activeMode" class="select-file" (click)="fileUpload.emit(true)" title="Upload file"  style="border-color:none !important;float: left;">
-                        <img src="../../../../assets/images/ico_upload.png" style="margin-right:5px;"> Upload file 
-                    </div>
-                    <button *ngIf="!activeMode && ownershipDetails.value.legalFile" (click)="deleteFile.emit(true)">Delete</button>
-            </div>
         </div>
     </div>
+</div>
+<div class="row" style="padding:0 15px">
+        <div class="col-md-12">
+            <h5 class="std-heading-5 t40"> Certificate of registration <b class="m-star" *ngIf="!activeMode">*</b></h5>
+             <div>
+                <a class="paragraph mt-2" style="margin-bottom: 15px;" target="_blank" [href]="ownershipDetails.value.legalFile"> {{fileName(ownershipDetails.value.legalFile)}} </a>
+                <!-- <input [ngClass]="{ 'is-invalid': displayError('legalFile') }" class="form-control form-input" type="text" formControlName="legalFile">
+                <div *ngIf="displayError('legalFile')" class="error-mez">
+                    <div> Please enter account number </div>
+                </div> -->
+                <div *ngIf="!activeMode" class="select-file btn std-button hidden-sm mr-3 ml-4" (click)="fileUpload.emit(true)" title="Upload file"  style="border-color:none !important;background: var(--color-background-secondary);">
+                    <img src="../../../../assets/images/ico_upload.png" style="margin-right:5px;"> Upload file 
+                </div>
+                <button  class="btn std-button std-button--redtransparency"  *ngIf="!activeMode && ownershipDetails.value.legalFile" (click)="deleteFile.emit(true)">Delete</button>
+            </div>  
+        </div>
+</div>
+   
 </form>
