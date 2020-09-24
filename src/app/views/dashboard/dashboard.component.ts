@@ -66,6 +66,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.restapiService.getData('api/stores/all/storedata', (response) => {
       if (response && response['success'] && response['data'] && Array.isArray(response['data']) && response['data'].length > 0) {
         let data = response['data'];
+        console.log(data);
         data.forEach(storelist => {
           let newstoreDetails = new Storedetails(storelist.store_id
             , storelist.store_name

@@ -70,3 +70,27 @@
     border-radius: 0;
     border: 2px solid #F2F2F2;
   }
+  .mobile-response { 
+    background:#fff;
+    color:#353FA8;
+    z-index: 2;
+    width: 320px;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+  }
+  .right-side-popup {
+    position: fixed;
+    top: 56px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    overflow: hidden;
+    outline: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+  }
+  

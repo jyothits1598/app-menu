@@ -112,6 +112,12 @@
     margin-bottom:52px;
   }
   .sidebar-div {
+    display:none;
+  }
+  .sm-block {
+    display: block;
+  }
+  .lg-none {
     display: none;
   }
   .main-panel {
@@ -122,6 +128,9 @@
   }
   .std-button {
     font-size:14px !important;
+  }
+  .response-sidebar {
+    display: block;
   }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -139,6 +148,12 @@
   .std-button {
     font-size:14px !important;
   }
+  .sm-block {
+    display: none;
+  }
+  .response-sidebar {
+    display: none;
+  }
 }
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
 @media (min-width: 768px) {  
@@ -150,9 +165,8 @@
   .sidebar {
     margin-left: 0;
   }
-  .main-panel {
-    min-width: 0;
-    width: 100%;
+  .sm-block {
+    display: none;
   }
   .wrapper.toggled .sidebar {
     margin-left: -15rem;
@@ -166,6 +180,9 @@
   }
   .std-button {
     font-size:14px !important;
+  }
+  .response-sidebar {
+    display: none;
   }
 }
  
@@ -194,6 +211,12 @@
   .std-button {
     font-size:16px !important;
   }
+  .sm-block {
+    display: none;
+  }
+  .response-sidebar {
+    display: none;
+  }
 }
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1400px) {  
@@ -219,6 +242,12 @@
     }
     .std-button {
       font-size:16px !important;
+    }
+    .sm-block {
+      display: none;
+    }
+    .response-sidebar {
+      display: none;
     }
 }
 
