@@ -32,7 +32,12 @@ export class ModalService {
   }
 
   openTemplate(template: TemplateRef<any>): ModalRef{
-    let ngbRef = this.ngbModal.open(template, {size: 'xl'});
+    let ngbRef = this.ngbModal.open(template, {size: 'lg'});
+    return new NgbsModalRef(ngbRef);
+  }
+
+  openTemplateSizemd(template: TemplateRef<any>): ModalRef{
+    let ngbRef = this.ngbModal.open(template, {size: 'md'});
     return new NgbsModalRef(ngbRef);
   }
 }
