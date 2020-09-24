@@ -1,6 +1,6 @@
 <div loadingPlaceholder [loadStatus]="storeOwnershipDetails">
     <section>
-        <app-store-ownership-details  (saved)="saveownerDetails($event)" (fileUpload)="fileUpload.initiateFileUpload()" #ownershipDetails></app-store-ownership-details>
+        <app-store-ownership-details (deleteFile)="deleteFile()" (saved)="saveownerDetails($event)" (fileUpload)="fileUpload.initiateFileUpload()" #ownershipDetails></app-store-ownership-details>
     </section>
 </div>
 <app-file-upload #fileUpload (url)="handleUrl($event)">

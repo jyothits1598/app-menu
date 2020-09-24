@@ -18,6 +18,7 @@ export class StoreOwnershipDetailsComponent implements OnInit {
   @Input() storeOwnerDetail: StoreOwnershipDetails;
   @Output() saved = new EventEmitter<StoreOwnershipDetails>();
   @Output() fileUpload = new EventEmitter<boolean>();
+  @Output() deleteFile = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -47,14 +48,6 @@ export class StoreOwnershipDetailsComponent implements OnInit {
     this.ownershipDetails.patchValue(data);
   }
 
-  getDetails(): StoreOwnershipDetails | false{
-    if(this.ownershipDetails.invalid) {
-      this.ownershipDetails.markAllAsTouched()
-      return null;
-    }
-    else return this.ownershipDetails.value;
-  }
-
   onownershipdetailSubmit() {
     if(!this.legalFile && !this.selectedFile) return;
     if(this.ownershipDetails.invalid) {
@@ -71,14 +64,6 @@ export class StoreOwnershipDetailsComponent implements OnInit {
   
   fileName(fullName: string){
     return ExtractFileName(fullName);
-  }
-   
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0];
-    if (this.selectedFile) {
-      this.selectedFileName = this.selectedFile.name;
-      this.legalFile = '';
-    }
   }
 
 }

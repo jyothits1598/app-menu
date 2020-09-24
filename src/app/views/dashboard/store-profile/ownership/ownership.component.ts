@@ -35,6 +35,11 @@ export class OwnershipComponent implements OnInit {
     this.fileUpload.uploadApiFunction = (file: File) => this.storeProfileDataService.SaveOwnershipFile(this.storeOwnershipDetails.id, file);
   }
 
+  deleteFile(){
+    this.storeOwnershipDetails.legalFile = '';
+    this.ownershipDetails.patchData(this.storeOwnershipDetails);
+  }
+
   // handleFileUpload(event){
   //   this.;
   // }
