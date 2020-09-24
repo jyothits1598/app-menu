@@ -13,11 +13,10 @@ export class StoreMenuResolver implements Resolve<Store> {
         private storeService: StoreService,
         private restApiService: RestApiService,
         private router: Router,
-        private route: ActivatedRoute
     ) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Store | Observable<Store> {
-        return this.restApiService.getDataObs('store/' + route.paramMap.get('id')).pipe(
+        return this.restApiService.getDataObs(`api/stores/${route.paramMap.get('id')}/storedata`).pipe(
             map((resp) => {
                 if (resp.data && resp.data[0]) {
                     let store = new Store(resp.data[0].store_id, resp.data[0].store_name, resp.data[0].active_flag ? true : false);

@@ -1,8 +1,8 @@
 <!-- <ng-template #loading>
     <processing-placeholder></processing-placeholder>
 </ng-template> -->
-<div class="row" *ngIf="categories">
-    <div class="col-md-12">
+<div class="row" loadingPlaceholder [loadStatus]="categories">
+    <div class="col-md-12" *ngIf="categories">
         <div class="table-responsive" style="overflow: inherit">
             <div *ngFor="let category of categories; let i = index;">
             <table class="table custom-table">

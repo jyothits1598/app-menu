@@ -6,43 +6,38 @@
         </h3>
     </div>
 </div>
-<!-- <div class="row">
-    <div class="col-md-12">
-        <ng-template #loading>
-            <processing-placeholder></processing-placeholder>
-        </ng-template>
-    </div>
-</div> -->
 
-        <div class="row" *ngIf="(menus$ | async) as menus;">
-            <div class="col-md-3">
-                <select (change)="onSelect($event.target.value)"
-                    class="custom-select form-control form-input form-input--select-input"
-                    style="margin-top:28px;margin-bottom: 24px;">
-                    <option *ngFor="let menu of menus;" [value]="menu.id"> {{menu.name}} </option>
-                </select>
-            </div>
+<div loadingPlaceholder [loadStatus]="contentLoaded">
+    <div class="row" *ngIf="(menus$ | async) as menus;">
+        <div class="col-md-3">
+            <select (change)="onSelect($event.target.value)"
+                class="custom-select form-control form-input form-input--select-input"
+                style="margin-top:28px;margin-bottom: 24px;">
+                <option *ngFor="let menu of menus;" [value]="menu.id"> {{menu.name}} </option>
+            </select>
+        </div>
+        <div class="col-md-12">
+            <app-store-menu-overview-category-list *ngIf="menus.length > 0" #categoryList>
+            </app-store-menu-overview-category-list>
+        </div>
+    </div>
+</div>
+
+<!-- Edit details popup -->
+<ng-template #childOutlets>
+    <div class="modal-header header-info" style="margin-bottom:32px;">
+        <div class="std-heading-4 std-heading-5--popheader"> {{childOutletName}} </div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
             <div class="col-md-12">
-                <app-store-menu-overview-category-list *ngIf="menus.length > 0" #categoryList>
-                </app-store-menu-overview-category-list>
+                <router-outlet></router-outlet>
             </div>
         </div>
-        
-        <!-- Edit details popup -->
-        <ng-template #childOutlets>
-            <div class="modal-header header-info" style="margin-bottom:32px;">
-                <div class="std-heading-4 std-heading-5--popheader"> {{childOutletName}} </div>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <router-outlet></router-outlet>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-        <!-- Edit details popup end -->
-      
+    </div>
+</ng-template>
+<!-- Edit details popup end -->
+
 
 
 
