@@ -62,13 +62,13 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
 
   formSubmitted = false;
   modifierForm: FormGroup;
-  
+
   minValueChangesSubs: Subscription;
 
-  shouldPreventNavigation(){
-    if(!this.modifierForm.dirty) return false;
+  shouldPreventNavigation() {
+    if (!this.modifierForm.dirty) return false;
     else {
-      if(this.formSubmitted === true) return false;
+      if (this.formSubmitted === true) return false;
       else return true;
     }
   }
@@ -81,7 +81,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
 
     this.minValueChangesSubs = this.modifierForm.controls.minimum.valueChanges.subscribe(
       (val) => {
-        if(val) this.modifierForm.controls.maximum.setValidators([Validators.required, Validators.min(val)])
+        if (val) this.modifierForm.controls.maximum.setValidators([Validators.required, Validators.min(val)])
         else this.modifierForm.controls.maximum.setValidators([Validators.required])
       }
     );
@@ -97,8 +97,12 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   }
 
   navigateBack() {
-    this.exit.emit(true);
-    this.router.navigate(['../'], { relativeTo: this.route });
+    if (this.useOutputs) this.exit.emit(true);
+    else {
+      setTimeout(() => {
+        this.router.navigate(['../'], { relativeTo: this.route })
+      }, 0);
+    }
   }
 
   pagebackPopup(back) {

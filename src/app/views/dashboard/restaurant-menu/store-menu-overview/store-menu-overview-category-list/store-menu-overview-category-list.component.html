@@ -1,8 +1,8 @@
 <!-- <ng-template #loading>
     <processing-placeholder></processing-placeholder>
 </ng-template> -->
-<div class="row" *ngIf="categories">
-    <div class="col-md-12">
+<div class="row" loadingPlaceholder [loadStatus]="categories">
+    <div class="col-md-12" *ngIf="categories">
         <div class="table-responsive" style="overflow: inherit">
             <div *ngFor="let category of categories; let i = index;">
             <table class="table custom-table">
@@ -11,7 +11,7 @@
                         <td width="10px" align="left" (click)="categories[i].expanded = !categories[i].expanded">
                             <img style="transition: all .2s;" [class.rotate-right]="category.expanded" src="/assets/images/ico_right.png" style="cursor: pointer" />
                         </td>
-                        <td style="padding: 16px 0px;" class="std-heading-4"> {{category.category.name}} </td>
+                        <td style="padding: 16px 0px;" class="std-heading-4" style="text-transform: capitalize;"> {{category.category.name}} </td>
                         <td align="right">         
                             <div class="dropdown" style="cursor: pointer;">
                             <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" class="dropdown-toggle"
@@ -38,7 +38,7 @@
                         <td colspan="3" class="tdsingle-row std-heading-5" *ngIf="category.category.items.length > 0;else noItems">
                             <table class="inside-table" *ngFor="let item of category.category.items; let j = index">
                                 <tr>
-                                    <td> {{item.name}} </td>
+                                    <td style="text-transform: capitalize;"> {{item.name}} </td>
                                     <td align="right"><span *ngIf="item.basePrice">$</span>{{ item.basePrice ? item.basePrice : '$0.00' }}</td>
                                     <td align="right" width="20px">
                                         <div class="dropdown" style="cursor: pointer;">

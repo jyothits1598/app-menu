@@ -72,11 +72,11 @@
             </div>
             <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Type of cuisine </h5>
-                <div class="paragraph" *ngIf="normalMode; else cuisineType"> {{basicDetails.value.cuisineType}} </div>
+                <div class="paragraph" *ngIf="normalMode; else cuisineType"> <span *ngFor="let cuisine of cuisines"><span *ngIf="basicDetails.value.cuisineType == cuisine.cuisine_id">{{ cuisine.cuisine_name }} </span> </span> </div>
                 <ng-template #cuisineType>
                     <select [ngClass]="{ 'is-invalid': displayError('cuisineType') }" class="custom-select form-control form-input form-input--select-input" formControlName="cuisineType">
                         <option [ngValue]="null" selected> Select </option>
-                        <option *ngFor="let cuisine of cuisines" [ngValue]="cuisine"> {{ cuisine }} </option>
+                        <option *ngFor="let cuisine of cuisines" value="{{cuisine.cuisine_id}}"> {{ cuisine.cuisine_name }} </option>
                     </select>
                     <div  *ngIf="displayError('cuisineType')" class="error-mez">
                         <div> Please select type of cuisine  </div>
@@ -113,10 +113,10 @@
                     </div>
                 </ng-template>
             </div>
-            <div class="col-md-12" *ngIf="normalMode">
+            <!-- <div class="col-md-12" *ngIf="normalMode">
                 <button class="btn std-button std-button--redtransparency" style="margin-bottom:16px;margin-top:32px;"> <img
                     src="../../../../../assets/images/ico_delete_red.png"> Delete store </button>
-            </div>
+            </div> -->
         </div>
     </div>
 </form>

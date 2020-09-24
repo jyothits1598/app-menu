@@ -5,6 +5,7 @@ import { Observable, Subject, } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { SideNavbarService } from 'src/app/services/side-navbar.service';
+import { Store } from 'src/app/_models/store';
 
 @Component({
   selector: 'app-restaurant-menu',
@@ -21,6 +22,10 @@ export class RestaurantMenuComponent implements AfterViewInit, OnInit, OnDestroy
     , private storeService: StoreService
     , private restApiService: RestApiService
     , private sideNavServ: SideNavbarService) {
+  }
+  displayBanner: boolean = true;
+  get activeStore(): Observable<Store> {
+    return this.storeService.activeStore$;
   }
   ngAfterViewInit(): void {
     this.storeService.activeStore$.subscribe((store)=>{

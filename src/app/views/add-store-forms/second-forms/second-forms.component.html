@@ -34,7 +34,7 @@
                         formControlName="typeCuisine" (ngModelChange)="changeCuisine()"
                         [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
                         <option value=""> Select </option>
-                        <option *ngFor="let cuisine of Cuisines" [ngValue]="cuisine"> {{ cuisine }} </option>
+                        <option *ngFor="let cuisine of Cuisines" value="{{cuisine.cuisine_id}}"> {{ cuisine.cuisine_name }} </option>
                     </select>
                     <div *ngIf="typeCuisineSubmit && f.typeCuisine.errors" class="error-mez">
                         <div *ngIf="f.typeCuisine.errors.required"> Please select type of cuisine </div>

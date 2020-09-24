@@ -4,6 +4,8 @@ import { DashboardComponent } from './dashboard.component'
 import { Routes, RouterModule } from '@angular/router';
 import { StoreMenuResolver } from 'src/app/_guards/store-menu-resolver';
 import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
+import { not } from '@angular/compiler/src/output/output_ast';
+import { NotFoundComponent } from '../shared/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,10 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'not-found',
+    component: NotFoundComponent
+  }
 ]
 const dashboardRouting = RouterModule.forChild(routes);
 

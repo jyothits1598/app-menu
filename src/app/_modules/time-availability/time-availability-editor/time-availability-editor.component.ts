@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input, TemplateRef, AfterViewInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
-import { TimeAvailability } from '../_model/time-availability';
+import { TimeAvailability, TimeAvailabilityComp } from '../_model/time-availability';
 declare let $: any;
 
 @Component({
@@ -90,8 +90,8 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
   ]
 
   timing: FormGroup = new FormGroup({
-    startTime: new FormControl('Select'),
-    endTime: new FormControl('Select')
+    startTime: new FormControl('09:00AM'),
+    endTime: new FormControl('05:00PM')
   }, this.timingValidator())
 
   addRemvDay(day: string, add: boolean) {
@@ -119,32 +119,6 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
     };
   }
 
-  timeAvailabilityComp(first: TimeAvailability, second: TimeAvailability) {
-    const dayValue = {
-      monday: 1
-      , tuesday: 2
-      , wednesday: 3
-      , thursday: 4
-      , friday: 5
-      , saturday: 6
-      , sunday: 7
-    }
-
-    //are first and second different days
-    if (dayValue[first.day] - dayValue[second.day]) return dayValue[first.day] - dayValue[second.day];
-
-    //compare start-times
-    let firstSTime = new Date('1/1/0001 ' + first.startTime.substr(0, 5) + ':00 ' + first.startTime.substr(5, 2)).getTime();
-    let secondSTime = new Date('1/1/0001 ' + second.startTime.substr(0, 5) + ':00 ' + second.startTime.substr(5, 2)).getTime();
-
-    if (firstSTime !== secondSTime) return firstSTime - secondSTime;
-
-    //compare end-times
-    let firstETime = new Date('1/1/0001 ' + first.endTime.substr(0, 5) + ':00 ' + first.endTime.substr(5, 2)).getTime();
-    let secondETime = new Date('1/1/0001 ' + second.endTime.substr(0, 5) + ':00 ' + second.endTime.substr(5, 2)).getTime();
-
-    return firstETime - secondETime;
-  }
 
   insertIntoAvailability(availability: Array<TimeAvailability>, timeAvai: TimeAvailability) {
     for (let i = 0; i <= availability.length; i++) {
@@ -155,7 +129,7 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
         break;
       }
 
-      let compVal = this.timeAvailabilityComp(timeAvai, availability[i]);
+      let compVal = TimeAvailabilityComp(timeAvai, availability[i]);
 
       if (compVal < 0) {
         availability.splice(i, 0, timeAvai);

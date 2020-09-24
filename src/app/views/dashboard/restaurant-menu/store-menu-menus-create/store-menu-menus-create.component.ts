@@ -9,7 +9,7 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TimeAvailability } from 'src/app/_modules/time-availability/_model/time-availability';
+import { ReadAvailability, TimeAvailability } from 'src/app/_modules/time-availability/_model/time-availability';
 import { TimeAvailabilityEditorComponent } from 'src/app/_modules/time-availability/time-availability-editor/time-availability-editor.component';
 
 @Component({
@@ -69,7 +69,7 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
           this.menuName.setValue(response.data[0].menu_name);
           this.openigHours.setValue(response.data[0].is_custom_availability.toString());
           this.menuId = response.data[0].menu_id;
-          this.availability = this.storeService.readAvailability(response.data[0].availability);
+          this.availability = ReadAvailability(response.data[0].availability);
         } else {
           this.router.navigate(['notfound'], { relativeTo: this.route });
         }

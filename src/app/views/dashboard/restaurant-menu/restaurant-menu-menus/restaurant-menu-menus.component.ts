@@ -8,6 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Pipe, PipeTransform } from '@angular/core';
+import { ReadAvailability } from 'src/app/_modules/time-availability/_model/time-availability';
 
 @Component({
   selector: 'app-restaurant-menu-menus',
@@ -57,7 +58,7 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
         if (response['data'] && response['data'].length > 0) {
           let data = response['data'];
           data.forEach(menu => {
-            let newMenu = new StoreMenu(menu.menu_id, menu.menu_name, menu.is_custom_availability, this.storeService.readAvailability(menu.availability));
+            let newMenu = new StoreMenu(menu.menu_id, menu.menu_name, menu.is_custom_availability, ReadAvailability(menu.availability));
             this.menus.push(newMenu);
           });
         }
@@ -79,7 +80,7 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp) => {
       console.log(data);
       if (resp.success) {
-        this.alertService.showNotification('Menu successfully deleted');
+        this.alertService.showNotification('Menu deleted','success');
         this.menus.splice(this.deletemenuIndex, 1);
       } else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
     })

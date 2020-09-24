@@ -1,6 +1,6 @@
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { Injectable } from '@angular/core';
-import { URL_StoreBasicData, URL_StoreImage, URL_StoreBankData, URL_StoreOwnershipData } from 'src/environments/api/api-store-administration';
+import { URL_StoreBasicData, URL_StoreImage, URL_StoreBankData, URL_StoreOwnershipData, URL_StoreOwnerShipFile } from 'src/environments/api/api-store-administration';
 import { tap, map, flatMap } from 'rxjs/operators';
 import { Observable, of, throwError, Subscriber } from 'rxjs';
 import { StoreBasicDetails } from '../_model/store-basic-details';
@@ -115,6 +115,14 @@ export class StoreProfileDataService {
       'certificate_of_registration': ownershipDetails.legalFile
     };
     return this.restApiService.putData(URL_StoreOwnershipData(ownershipDetails.id), data);
+  }
+
+  SaveOwnershipFile(storeId: number, file: File) : Observable<string>{
+    let data = new FormData();
+    data.append('document', file);
+    return this.restApiService.postData(URL_StoreOwnerShipFile(storeId), data).pipe(
+      map((resp:any) => resp.data)
+    );
   }
 
   SaveStoreLogo(file: File): Observable<any> {

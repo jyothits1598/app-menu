@@ -111,13 +111,13 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
       , data
       , (resp) => {
         if (resp.success) {
-          this.alertService.showNotification('Items successfully deleted.');
+          this.alertService.showNotification('Items deleted.','success');
           this.fetchItems();
           this.items.splice(this.deleteIndexlist, 1);
         }
       }
       , (err) => {
-        this.alertService.showNotification('There was an error while deleting the item, please try again.');
+        this.alertService.showNotification('There was an error while deleting the item, please try again.','error');
       })
   }
 

@@ -26,6 +26,11 @@ export function URL_StoreOwnershipData(storeId){
     return `api/stores/${storeId}/ownership`
 }
 
+//post
+export function URL_StoreOwnerShipFile(storeId: number){
+    return `store/update/${storeId}/file/upload`;
+}
+
 export const URL_StoreImage = 'store/logo';
 
 export const URL_StoreShellAllStores = 'api/stores/all/storedata';

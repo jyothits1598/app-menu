@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { StoreBasicDetails } from '../../_model/store-basic-details';
+import { RestApiService } from 'src/app/services/rest-api.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-store-basic-details',
@@ -13,14 +15,16 @@ export class StoreBasicDetailsComponent implements OnInit {
   @Output() saved = new EventEmitter<StoreBasicDetails>();
   @Output() imageOpened = new EventEmitter<File>();
 
-  cuisines: any = ['African: Ethiopian', 'African: other', 'Alcohol', 'American', 'New York', 'Asian fusion', 'Asian: other', 'BBQ', 'Bakery']
-
+  cuisines = new Array();
   //normalMode is false while editing of details
   normalMode: boolean = true;
   imageUrl: string;
   address: string;
 
-  constructor() { }
+  constructor(
+    private restApiservice: RestApiService,
+    private alertservice: AlertService,
+  ) { }
 
   basicDetails: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -35,6 +39,8 @@ export class StoreBasicDetailsComponent implements OnInit {
   imageUrlCache: string = null;
 
   ngOnInit(): void {
+    var obj = this;
+    obj.getTypeOfCusine();
   }
 
   options = {
@@ -63,6 +69,16 @@ export class StoreBasicDetailsComponent implements OnInit {
     }
     else return this.basicDetails.value;
   }
+
+  getTypeOfCusine() {
+    this.alertservice.showLoader();
+    this.restApiservice.getData(`api/stores/cuisines`, (response) => {
+     this.alertservice.hideLoader();
+     if (response && response['success'] && response['data']) {
+       this.cuisines=response['data'];
+     }
+   });
+}
 
   toggleEdit(){
     //if going to edit-mode, save a copy of original values

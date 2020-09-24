@@ -46,14 +46,14 @@
                         </div>
                         <div>
                             <span class="google-rating google-rating--pending-color"
-                            *ngIf="stores.nextStep == ''">
+                            *ngIf="stores.activeStatus == 'pending'">
                             Pending approval
                             </span>
-                            <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'approved'">
+                            <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'approve'">
                                 Trading
                             </span>
                             <span class="google-rating google-rating--incomplete-color"
-                                *ngIf="stores.nextStep">
+                            *ngIf="stores.activeStatus == 'setup' || stores.activeStatus == 'Set up'">
                                 Setup
                             </span>
                         </div>
@@ -87,14 +87,14 @@
                             </div>
                             <div>
                                 <span class="google-rating google-rating--pending-color"
-                                *ngIf="stores.nextStep == ''">
+                                *ngIf="stores.activeStatus == 'pending'">
                                 Pending approval
                                 </span>
-                                <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'approved'">
+                                <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'approve'">
                                     Trading
                                 </span>
                                 <span class="google-rating google-rating--incomplete-color"
-                                    *ngIf="stores.nextStep">
+                                *ngIf="stores.activeStatus == 'setup' || stores.activeStatus == 'Set up'">
                                     Setup
                                 </span>
                             </div>

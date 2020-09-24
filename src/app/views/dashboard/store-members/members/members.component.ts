@@ -77,7 +77,7 @@ export class MembersComponent implements OnInit {
       memberEmail: [null, [Validators.required, Validators.email]],
       roleName: ['4', [Validators.required]]
     });
-    this.modalRef = this.modalServ.openTemplate(invite);
+    this.modalRef = this.modalServ.openTemplateSizemd(invite);
     this.invite_members_add_edit = 'add';
     this.rolenameSubmitted = false;
   }
@@ -87,7 +87,7 @@ export class MembersComponent implements OnInit {
     this.changeRoleForm = this.formBuilder.group({
       changeRoleName: [memberRoleId, [Validators.required]]
     });
-    this.modalRef = this.modalServ.openTemplate(templateName);
+    this.modalRef = this.modalServ.openTemplateSizemd(templateName);
     this.changeRolenameSubmitted = false;
   }
 
