@@ -87,7 +87,7 @@ export class SecondFormsComponent implements OnInit {
   }
 
 
-  Cuisines: any = ['African: Ethiopian', 'African: other', 'Alcohol', 'American', 'New York', 'Asian fusion', 'Asian: other', 'BBQ', 'Bakery']
+  Cuisines = new Array(); 
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
@@ -95,6 +95,7 @@ export class SecondFormsComponent implements OnInit {
     if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
       // obj.authenticateService.checkExpiryStatus();
       obj.getstoreDetails();
+      obj.getTypeOfCusine();
     }
 
     this.storeDetailform = this.formBuilder.group({
@@ -186,6 +187,15 @@ export class SecondFormsComponent implements OnInit {
 
   }
 
+  getTypeOfCusine() {
+     this.alertservice.showLoader();
+     this.restApiservice.getData(`api/stores/cuisines`, (response) => {
+      this.alertservice.hideLoader();
+      if (response && response['success'] && response['data']) {
+        this.Cuisines=response['data'];
+      }
+    });
+ }
   getstoreDetails() {
     // this.alertservice.showLoader();
     if (this.store_id) {
