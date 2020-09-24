@@ -18,6 +18,7 @@ export class ContainersComponent implements OnInit {
 
   dashboard_status:boolean = false;
   menu_status:boolean = false;
+  showVar:boolean = false;
 
   constructor(
     private authenticateService: AuthenticationService,
@@ -25,7 +26,7 @@ export class ContainersComponent implements OnInit {
     private alertservice: AlertService,
     private router:Router,
     private route: ActivatedRoute,
-  ) { 
+  ) {  
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
@@ -42,10 +43,25 @@ export class ContainersComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-   
+  ngOnInit(): void {  
+    this.menuBarResponsiveFunction();
   }
-  
+
+  menuBarResponsiveFunction(){
+    $(document).ready(function(){
+      $(document).on('click', '#showMenu', function(){
+        $('.response-sidebar').css('display', 'block');
+        $('#showMenu, #hideMenu').html('<img src="../../../assets/images/alert-close.png">');
+        $('#showMenu').attr('id', 'hideMenu');
+      });
+    
+      $(document).on('click', '#hideMenu', function(){
+        $('.response-sidebar').css('display', 'none');
+        $('#showMenu, #hideMenu').html('<img src="../../../assets/images/ico_menu.png">');
+        $('#hideMenu').attr('id', 'showMenu');
+      });
+    });
+  }
 /*
   * default Angular Destroy Method
   */
@@ -53,4 +69,5 @@ export class ContainersComponent implements OnInit {
   this.unsubscribe$.next();
   this.unsubscribe$.complete();
 }
+
 }
