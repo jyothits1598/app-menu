@@ -12,7 +12,7 @@
         <div class="col-md-3">
             <select (change)="onSelect($event.target.value)"
                 class="custom-select form-control form-input form-input--select-input"
-                style="margin-top:28px;margin-bottom: 24px;">
+                style="margin-top:28px;margin-bottom: 24px; text-transform: capitalize;">
                 <option *ngFor="let menu of menus;" [value]="menu.id"> {{menu.name}} </option>
             </select>
         </div>
