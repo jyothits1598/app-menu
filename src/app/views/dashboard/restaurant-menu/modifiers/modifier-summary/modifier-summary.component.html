@@ -17,17 +17,18 @@
     <div class="col-md-12">
         <div class="table-responsive" style="overflow: inherit">
             <div *ngFor="let modifier of modifiers; let i = index;">
-            <table class="table custom-table">
-                <!-------------------- parent box ---------------------------->              
+                <table class="table custom-table">
+                    <!-------------------- parent box ---------------------------->
                     <tr>
                         <td width="10px" align="left" (click)="modifiers[i].expanded = !modifiers[i].expanded">
-                            <img style="transition: all .2s;" [class.rotate-right]="modifier.expanded" src="/assets/images/ico_right.png" style="cursor: pointer"/>
+                            <img style="transition: all .2s;" [class.rotate-right]="modifier.expanded"
+                                src="/assets/images/ico_right.png" style="cursor: pointer" />
                         </td>
-                        <td style="padding: 16px 0px;" class="std-heading-4"> {{modifier.name}} </td>
-                        <td align="right">         
+                        <td style="padding: 16px 0px; text-transform: capitalize;" class="std-heading-4"> {{modifier.name}} </td>
+                        <td align="right">
                             <div class="dropdown" style="cursor: pointer;">
-                            <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" class="dropdown-toggle"
-                                data-toggle="dropdown" title="Options">
+                                <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png"
+                                    class="dropdown-toggle" data-toggle="dropdown" title="Options">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                     <li (click)="edit.emit(modifier)" class="herf-class" title="Edit">
                                         <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
@@ -38,29 +39,32 @@
                                         Remove modifier
                                     </li>
                                 </ul>
-                            </div>                           
+                            </div>
                         </td>
                     </tr>
                     <tr *ngIf="modifier.expanded">
                         <ng-template #noItems>
-                            <td colspan="3" > 
+                            <td colspan="3">
                                 <p class="paragraph text-center"> No items found </p>
                             </td>
-                        </ng-template>                       
-                        <td colspan="3" class="tdsingle-row std-heading-5" *ngIf="modifier.options.length > 0;else noItems">
+                        </ng-template>
+                        <td colspan="3" class="tdsingle-row std-heading-5"
+                            *ngIf="modifier.options.length > 0;else noItems">
                             <table class="inside-table" *ngFor="let option of modifier.options; let j = index">
                                 <tr>
-                                    <td> {{option.name}} </td>
+                                    <td style="text-transform: capitalize;"> {{option.name}} </td>
+                                    <td _ngcontent-due-c150="" align="right"><span
+                                            _ngcontent-due-c150="">$</span>{{option.price}}</td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
-                
-                <!--------------------- parent box end --------------------------------------->
-                <!--------------------- children dropdown box ------------------------------->
-                
-            </table>
-        </div>
+
+                    <!--------------------- parent box end --------------------------------------->
+                    <!--------------------- children dropdown box ------------------------------->
+
+                </table>
+            </div>
         </div>
     </div>
 </div>
