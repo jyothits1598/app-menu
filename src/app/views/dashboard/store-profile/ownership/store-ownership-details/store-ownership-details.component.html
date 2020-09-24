@@ -56,7 +56,7 @@
             </div>
             <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Certificate of registration <b class="m-star" *ngIf="!activeMode">*</b></h5>
-                <a class="paragraph" target="_blank" [href]="ownershipDetails.value.legalFile"> {{fileName(ownershipDetails.value.legalFile)}} </a>
+                <a class="paragraph" style="display: block;margin-bottom: 15px;" target="_blank" [href]="ownershipDetails.value.legalFile"> {{fileName(ownershipDetails.value.legalFile)}} </a>
                     <!-- <input [ngClass]="{ 'is-invalid': displayError('legalFile') }" class="form-control form-input" type="text" formControlName="legalFile">
                     <div *ngIf="displayError('legalFile')" class="error-mez">
                         <div> Please enter account number </div>

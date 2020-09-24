@@ -26,7 +26,11 @@ export class AlertComponent implements OnInit {
       this.showNotificationMessage='';
       if(message){
           if(alertType=='error'){
-              this.notification_color = 'red';
+            this.notification_color = 'red';
+          }else if(alertType=='success'){
+            this.notification_color = '#1A1A1A';
+          }else{
+            this.notification_color = '#1A1A1A';
           }
           this.showNotificationMessage= message;
           this.showNotificationStatus = true;
