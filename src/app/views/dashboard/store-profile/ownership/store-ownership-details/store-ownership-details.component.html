@@ -64,6 +64,7 @@
                     <div *ngIf="!activeMode" class="select-file" (click)="fileUpload.emit(true)" title="Upload file"  style="border-color:none !important;float: left;">
                         <img src="../../../../assets/images/ico_upload.png" style="margin-right:5px;"> Upload file 
                     </div>
+                    <button *ngIf="!activeMode && ownershipDetails.value.legalFile" (click)="deleteFile.emit(true)">Delete</button>
             </div>
         </div>
     </div>

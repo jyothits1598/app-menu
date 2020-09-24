@@ -23,7 +23,6 @@ export class LoadingPlaceholderDirective {
   }
   
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('recieved changes in placeholder', this.loadStatus);
     this.viewCR.clear();
     if(!this.loadStatus){
       this.renderer.setStyle(this.elem.nativeElement, 'display', 'none');
