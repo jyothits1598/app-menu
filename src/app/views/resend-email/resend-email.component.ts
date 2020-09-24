@@ -64,7 +64,7 @@ export class ResendEmailComponent implements OnInit {
       this.alertservice.showLoader();
       this.restApiservice.postAPI('resend/partner/confirm-email',data,(response)=>{
         if(response && response['success'] && response['data']){
-          this.alertservice.showAlertBottomNotification('Successfully sent mail. Please check your mailbox');
+          this.alertservice.showNotification('Successfully sent mail. Please check your mailbox','success');
           this.alertservice.hideLoader();
           return this.router.navigateByUrl('/confirm-singup');
         } else if(response && !response['success'] && response['error']['error']) { 
