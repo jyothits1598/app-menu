@@ -65,7 +65,7 @@ export class MemberStoreInvitationComponent implements OnInit {
           'email_token': this.member_invite_email_token,
         };
         this.alertService.showLoader();
-       this.restApiService.patchData('/api/stores/members/invitation/confirm', data).pipe(
+       this.restApiService.patchData('api/stores/members/invitation/confirm', data).pipe(
           finalize(() => this.alertService.hideLoader())
         ).subscribe(
           (resp : any)=>{

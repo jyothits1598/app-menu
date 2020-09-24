@@ -9,7 +9,7 @@ import { URL_AdminApprovedStores } from 'src/environments/api-endpoint';
 })
 export class StoreApprovedListComponent implements OnInit {
 
-  approvedStores: Array<{id: number, name: string, claimType: string}>;
+  approvedStores: Array<{id: number, name: string, claimType: string, applicant: string}>;
   constructor(private restApiService: RestApiService) { }
 
   ngOnInit(): void {
@@ -18,7 +18,7 @@ export class StoreApprovedListComponent implements OnInit {
         if (resp && resp.data) {
           this.approvedStores = [];
           resp.data.forEach(store => {
-            this.approvedStores.push({ id: store.store_id, name: store.store_name, claimType: store.type_of_creation })
+            this.approvedStores.push({ id: store.store_id, name: store.store_name, claimType: store.type_of_creation,applicant:store.legal_owner_name })
           });
         }
       }
