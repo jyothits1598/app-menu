@@ -5,6 +5,8 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-containers',
@@ -21,13 +23,10 @@ export class ContainersComponent implements OnInit {
   showVar:boolean = false;
 
   constructor(
-    private authenticateService: AuthenticationService,
-    private restapiService: RestApiService,
-    private alertservice: AlertService,
     private router:Router,
-    private route: ActivatedRoute,
+    public layoutService: LayoutService
   ) {  
-    this.router.events.subscribe(
+    this.router.events.pipe(takeUntil(this.unsubscribe$)).subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
           this.dashboard_status = false;
@@ -44,7 +43,6 @@ export class ContainersComponent implements OnInit {
   }
 
   ngOnInit(): void {  
-    this.menuBarResponsiveFunction();
   }
 
   menuBarResponsiveFunction(){
