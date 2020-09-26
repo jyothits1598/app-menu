@@ -1,4 +1,6 @@
 import { Injectable, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Subject } from 'rxjs';
+import { SideNavBarComponent } from '../views/side-nav-bar/side-nav-bar.component';
 import { SidebarTemplate } from '../_models/sidebar-template';
 
 @Injectable({
@@ -7,8 +9,20 @@ import { SidebarTemplate } from '../_models/sidebar-template';
 export class SideNavbarService {
   templates: Array<SidebarTemplate> = [];
   archived: Array<SidebarTemplate> = [];
+  
+  _sideBarComp: SideNavBarComponent;
+  
+  linkClicked = new Subject<boolean>();
+
+  onLinkClick(){
+    this.linkClicked.next(true);
+  }
 
   constructor() { }
+
+  registerSideBarComponent(comp: SideNavBarComponent){
+    this._sideBarComp = comp;
+  }
 
   AddTemplate(template: TemplateRef<any>, context: any, fromComponent: string) {
     this.templates.push(new SidebarTemplate(template, { $implicit: context }, fromComponent));

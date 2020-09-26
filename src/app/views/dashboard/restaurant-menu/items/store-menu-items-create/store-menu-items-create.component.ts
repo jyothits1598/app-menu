@@ -123,6 +123,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   }
 
   removeSelectedMod(modifier: StoreMenuModifier) {
+    console.log('remove mod activated');
     let value = this.createItemForm.controls.modifiers.value as Array<StoreMenuModifier>
     let index = value.findIndex((mod) => mod.id == modifier.id);
     value.splice(index, 1);

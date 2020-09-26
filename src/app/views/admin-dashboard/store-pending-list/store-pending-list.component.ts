@@ -12,7 +12,7 @@ import { ConfirmationDialogConfig } from '../../shared/_model/confirmation-dialo
 })
 export class StorePendingListComponent implements OnInit {
 
-  pendingStores: Array<{ id: number, name: string, claimType: string }>;
+  pendingStores: Array<{ id: number, name: string, claimType: string, applicant: string }>;
 
   constructor(private restApiService: RestApiService,
     private modalService: ModalService,
@@ -25,7 +25,7 @@ export class StorePendingListComponent implements OnInit {
         if (resp && resp.data) {
           this.pendingStores = [];
           resp.data.forEach(store => {
-            this.pendingStores.push({ id: store.store_id, name: store.store_name, claimType: store.type_of_creation })
+            this.pendingStores.push({ id: store.store_id, name: store.store_name, claimType: store.type_of_creation, applicant:store.legal_owner_name })
           });
         }
       }
