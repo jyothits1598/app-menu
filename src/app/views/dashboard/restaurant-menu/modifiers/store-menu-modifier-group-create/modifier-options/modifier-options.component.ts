@@ -4,6 +4,7 @@ import { ExcludeSpaceValidator, PriceValidator } from 'src/app/_helpers/validato
 import { ModifierOption } from 'src/app/_models/store-menu-modifier';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-modifier-options',
@@ -22,31 +23,27 @@ import { Subscription } from 'rxjs';
     }
   ]
 })
-export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy, OnChanges {
+export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, OnDestroy, OnChanges {
   onChange: any;
   onTouched: any;
   formChangeSubs: Subscription;
-  _options: FormArray = new FormArray([]);
+  _options: FormArray = new FormArray(new Array<FormGroup>());
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2,
+    private currFormat: CurrencyPipe) { }
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.control) this.control.markAsTouched = () => {
+    if (this.control) this.control.markAsTouched = () => {
       this._options.markAllAsTouched();
     }
   }
   @Input() control: FormControl;
 
-  ngAfterViewInit(): void {
-    // if(this.formChangeSubs) this.formChangeSubs.unsubscribe();
-    // this.formChangeSubs = this._options.valueChanges.subscribe((val) => this.onChange(val));
-  }
-
   writeValue(obj: Array<ModifierOption>): void {
     if (obj) {
-      if(this.formChangeSubs) this.formChangeSubs.unsubscribe();
+      if (this.formChangeSubs) this.formChangeSubs.unsubscribe();
       this._options = new FormArray([]);
       obj.forEach(modOpt => this.addOption(modOpt))
-    }else this.addOption(null);
+    } else this.addOption(null);
 
     this.formChangeSubs = this._options.valueChanges.subscribe((val) => this.onChange(val));
   }
@@ -55,7 +52,11 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
     this.onChange = fn;
   }
 
-  markAsTouched(){
+  transform(val) {
+    // <FormGroup>(this._options.at(25)).
+  }
+
+  markAsTouched() {
     this._options.markAllAsTouched();
   }
 
@@ -71,8 +72,15 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
 
   @ViewChildren('optionElement') optElems: QueryList<ElementRef>;
 
-  get options(): ModifierOption {
-    return this._options.value;
+  // optionAt(index: number): FormGroup {
+  //   return this._options.at(index) as FormGroup
+  // }
+
+  setFormat(index: number) {
+    let priceControl: AbstractControl = (<FormGroup>(this._options.at(index))).controls.price;
+    if (priceControl.valid) {
+      priceControl.patchValue(this.currFormat.transform(priceControl.value.replace(',', ''), '', ''));
+    }
   }
 
   addOption(option: ModifierOption = null) {
@@ -98,7 +106,7 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
         }, 1100);
         return;
       } else this.addOption();
-    }else this.addOption();
+    } else this.addOption();
   }
 
   deleteOption(index: number) {
@@ -124,7 +132,7 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, A
   ngOnInit(): void {
   }
 
-    
+
   ngOnDestroy(): void {
     this.formChangeSubs.unsubscribe();
   }

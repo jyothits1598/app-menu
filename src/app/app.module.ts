@@ -11,7 +11,7 @@ import { AlertService } from './services/alert.service';
 import { AuthenticationService } from './services/authentication.service';
 import { AlertComponent } from './_directives/alert/alert.component';
 import { AuthGuard } from './_guards';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { HttpAuthErrorInterceptor } from './_interceptors/http-auth-error.interceptor';
 import { HttpErrorInterceptor } from './_interceptors/http-error.interceptor';
 import { MemberStoreInvitationComponent } from './views/member-store-invitation/member-store-invitation.component';
@@ -55,7 +55,8 @@ import { MemberStoreInvitationComponent } from './views/member-store-invitation/
     provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
       multi: true
-  }
+  },
+  CurrencyPipe
   ],
   bootstrap: [AppComponent],
   exports: [FormsModule]
