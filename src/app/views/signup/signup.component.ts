@@ -150,7 +150,6 @@ export class SignupComponent implements OnInit {
       this.restApiservice.postAPI('signup-partner',data,(response)=>{
         if(response && response['success'] && response['data']){         
           localStorage.setItem('email', this.signupMenuzappform.value.signupemail);
-          // this.alertservice.Success(response['data']);
           this.alertservice.hideLoader();
           return this.router.navigateByUrl('/confirm-singup?'+member_invite_link);
         } else if(response && !response['success'] && response['error']['error']) {

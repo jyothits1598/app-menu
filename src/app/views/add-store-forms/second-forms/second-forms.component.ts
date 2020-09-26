@@ -140,7 +140,6 @@ export class SecondFormsComponent implements OnInit {
         if (this.claimCreation) data.claim_store_id = this.store_id;
         this.alertservice.showLoader();
         this.restApiservice.postAPI('api/stores/storedata', data, (response) => {
-          console.log('store post called', response);
           if (response && response['success'] && response['data']) {
             this.alertservice.hideLoader();
             // localStorage.setItem('storeCreationId', response['data']['store_id']);
