@@ -17,10 +17,9 @@ import { ReadAvailability } from 'src/app/_modules/time-availability/_model/time
 })
 export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
   menus: Array<StoreMenu> = [];
-  routerSub$: Subscription;
 
   modifierIndexToBeDeleted: number;
-  deletemenuIndex : number; 
+  deletemenuIndex: number;
   constructor(
     public route: ActivatedRoute
     , private router: Router
@@ -28,23 +27,19 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
     , private restApiService: RestApiService
     , private alertService: AlertService
     , private _modalService: NgbModal
-     
-  ) {
 
-    this.routerSub$ = this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd && this.route.children.length == 0)
-    ).subscribe((event) => {
-      this.fetchMenus();
-    });
+  ) { }
 
+
+  ngOnInit(): void {
+    this.fetchMenus();
   }
 
-  get modalService(): NgbModal{
+  get modalService(): NgbModal {
     return this._modalService;
   }
 
   ngOnDestroy(): void {
-    this.routerSub$.unsubscribe();
   }
 
   fetchMenus() {
@@ -64,11 +59,11 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
         }
         this.alertService.hideLoader();
       }
-      , (error)=>{
+      , (error) => {
         this.alertService.hideLoader();
       });
   }
-  
+
   deleteMenu() {
     let menu: StoreMenu = this.menus[this.deletemenuIndex];
     let data: any = {}
@@ -80,14 +75,10 @@ export class RestaurantMenuMenusComponent implements OnInit, OnDestroy {
     this.restApiService.postAPI(`store/menus/add/${this.storeService.activeStore}`, data, (resp) => {
       console.log(data);
       if (resp.success) {
-        this.alertService.showNotification('Menu deleted','success');
+        this.alertService.showNotification('Menu deleted', 'success');
         this.menus.splice(this.deletemenuIndex, 1);
       } else this.alertService.showNotification(`There was an error deleting the menu. Please try again.`);
     })
-  }
-
-  ngOnInit(): void {
-
   }
 
 }
