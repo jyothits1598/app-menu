@@ -10,9 +10,9 @@ import { AlertService } from 'src/app/services/alert.service';
 import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
-  selector: 'app-store-pending-details',
-  templateUrl: './store-pending-details.component.html',
-  styleUrls: ['./store-pending-details.component.scss']
+  selector: 'app-admin-store-details',
+  templateUrl: './admin-store-details.component.html',
+  styleUrls: ['./admin-store-details.component.scss']
 })
 export class StorePendingDetailsComponent implements OnInit {
   // data
@@ -70,7 +70,7 @@ export class StorePendingDetailsComponent implements OnInit {
       (resp : any)=>{
         if(resp && resp.success){
           this.alertService.showNotification('Store Approved', 'success');
-          this.router.navigate(['../'], {relativeTo: this.route});
+          this.router.navigate(['../../'], {relativeTo: this.route});
         }
       }
     )

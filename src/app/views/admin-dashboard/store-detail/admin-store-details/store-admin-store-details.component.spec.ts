@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StorePendingDetailsComponent } from './store-pending-details.component';
+import { StorePendingDetailsComponent } from './admin-store-details.component';
 
 describe('StorePendingDetailsComponent', () => {
   let component: StorePendingDetailsComponent;

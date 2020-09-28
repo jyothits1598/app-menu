@@ -2,8 +2,8 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { URL_AdminPendingStores } from 'src/environments/api-endpoint';
 import { take } from 'rxjs/operators';
-import { ModalService } from '../../shared/services/modal.service';
-import { ConfirmationDialogConfig } from '../../shared/_model/confirmation-dialog-config';
+import { ModalService } from 'src/app/views/shared/services/modal.service';
+import { ConfirmationDialogConfig } from 'src/app/views/shared/_model/confirmation-dialog-config';
 
 @Component({
   selector: 'app-store-pending-list',

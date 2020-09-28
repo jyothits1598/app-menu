@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminStoreDataService } from '../../_services/admin-store-data.service';
+import { AdminStoreDataService } from '../../../_services/admin-store-data.service';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 import { FileExtentionValidator } from 'src/app/_modules/fileupload/file-validators';

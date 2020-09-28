@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit, OnDestroy } f
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from 'src/app/services/store.service';
 import { SideNavbarService } from 'src/app/services/side-navbar.service';
-import { AdminStoreDataService } from './_services/admin-store-data.service';
+import { AdminStoreDataService } from '../_services/admin-store-data.service';
 import { FileExtentionValidator } from 'src/app/_modules/fileupload/file-validators';
 import { AlertService } from 'src/app/services/alert.service';
 

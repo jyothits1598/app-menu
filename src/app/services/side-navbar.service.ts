@@ -9,27 +9,31 @@ import { SidebarTemplate } from '../_models/sidebar-template';
 export class SideNavbarService {
   templates: Array<SidebarTemplate> = [];
   archived: Array<SidebarTemplate> = [];
-  
+
   _sideBarComp: SideNavBarComponent;
-  
+
   linkClicked = new Subject<boolean>();
 
-  onLinkClick(){
+  onLinkClick() {
     this.linkClicked.next(true);
   }
 
   constructor() { }
 
-  registerSideBarComponent(comp: SideNavBarComponent){
+  registerSideBarComponent(comp: SideNavBarComponent) {
     this._sideBarComp = comp;
   }
 
   AddTemplate(template: TemplateRef<any>, context: any, fromComponent: string) {
+    if (this.templates.length > 0) {
+      this.archived.push(this.templates[0]);
+    }
     this.templates.push(new SidebarTemplate(template, { $implicit: context }, fromComponent));
   }
 
   RemoveTemplate(fromComponent: string) {
     let index = this.templates.findIndex((templ) => { return templ.fromComponent === fromComponent })
     if (index > -1) this.templates.splice(index, 1);
+    if(this.archived.length > 0) this.templates.push(this.archived[0]);
   }
 }

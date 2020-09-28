@@ -1,3 +1,4 @@
+<h3 class="u-margin-bottom-small std-heading-3"> Pending approval </h3>
 <div class="row">
     <div class="col-md-3 mb-1">
         <input type="search" placeholder="Search" class="form-control form-input search" />
@@ -21,9 +22,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngIf="pendingStores && pendingStores.length == 0"><td>No stores are pending.</td></tr>
+                    <tr *ngIf="pendingStores && pendingStores.length == 0">
+                        <td>No stores are pending.</td>
+                    </tr>
                     <tr class="text-capitalize" *ngFor="let store of pendingStores">
-                        <td class="table-name" [routerLink]="'./'+store.id"> {{store.name}} </td>
+                        <td class="table-name" [routerLink]="'../../stores/'+store.id"> {{store.name}} </td>
                         <td>{{store.applicant}}</td>
                         <td> {{store.claimType}} </td>
                         <td style="text-align: right;cursor:pointer;outline: none;">

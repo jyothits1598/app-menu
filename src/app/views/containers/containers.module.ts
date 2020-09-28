@@ -26,7 +26,7 @@ const routes: Routes = [
       // },
       { path: 'admin', 
         canActivate: [AdminRoleGuard],
-        loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)},
+        loadChildren: () => import('../admin-dashboard/manage/admin-dashboard.module').then(m => m.AdminDashboardModule)},
       { path: 'unauthorized', component: UnautherisedComponent },
     ],
     data: {
