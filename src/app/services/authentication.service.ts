@@ -131,7 +131,7 @@ export class AuthenticationService {
   logout() {
     //call API balance
     this.alertservice.showLoader();
-    this.restapiService.postAPI('/signout-partner', {}, (response) => {
+    this.restapiService.postAPI('signout-partner', {}, (response) => {
       if (response && response['data'] && response['success']) {
         this.alertservice.hideLoader();
       }

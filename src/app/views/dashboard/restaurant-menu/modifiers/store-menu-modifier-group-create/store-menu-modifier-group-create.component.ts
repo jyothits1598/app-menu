@@ -114,7 +114,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       id: new FormControl(),
       name: new FormControl('', Validators.required),
       minimum: new FormControl('', Validators.required),
-      maximum: new FormControl(''),
+      maximum: new FormControl('', Validators.required),
       free: new FormControl('', Validators.required),
       options: new FormControl(this.modifierId ? null : [{ name: null, price: null }]),
       items: new FormControl(null)

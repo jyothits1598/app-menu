@@ -18,12 +18,11 @@ import { StringHelperService } from 'src/app/services/string-helper.service';
   templateUrl: './restaurant-menu-items.component.html',
   styleUrls: ['./restaurant-menu-items.component.scss']
 })
-export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
+export class RestaurantMenuItemsComponent implements OnInit {
   deleteIndexlist: number;
   items = new Array<StoreMenuItem>();
-  routerSub$ : Subscription;
-  item_id:string;
-  item_name:string;
+  item_id: string;
+  item_name: string;
   constructor(
     private _modalService: NgbModal,
     public route: ActivatedRoute,
@@ -32,72 +31,31 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
     private restApiService: RestApiService,
     private alertService: AlertService,
     public stringHelper: StringHelperService
-    
-  ) { 
-    this.routerSub$ = this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd && this.route.children.length == 0)
-    ).subscribe((event) => {
-      this.fetchItems();
-    });
+  ) {
+
   }
 
-  nameAccessor: (any) => string = (data)=>data.name;
-
-  ngOnDestroy(): void {
-    this.routerSub$.unsubscribe();
-  }
+  nameAccessor: (any) => string = (data) => data.name;
 
   ngOnInit(): void {
+    this.fetchItems();
   }
 
-  fetchItems(){
-     this.items = [];
+  fetchItems() {
+    this.items = [];
     this.alertService.showLoader();
-    if(!this.storeService.activeStore) { return this.router.navigate(['../notfound'], {relativeTo: this.route});}
+    if (!this.storeService.activeStore) { return this.router.navigate(['../notfound'], { relativeTo: this.route }); }
 
     this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/all`, (response) => {
       if (response['data'] && response['data'].length > 0) {
         let data = response['data'];
         data.forEach(item => {
-           this.items.push(this.readItems(item));
+          this.items.push(this.readItems(item));
         });
         this.alertService.hideLoader();
       }
     });
-    this.alertService.hideLoader();
   }
-  
-  // openVerticallyCentered(content,id,name) {
-  //   this.modalService.open(content, { centered: true, size: 'sm' });
-  //   this.item_id = id;
-  //   this.item_name = name;
-  // }
-
-  // deleteData() {
-  //   let menuItems = this.items[this.deleteIndex];
-
-  //   if (!this.item_id) return;
-  //   this.alertService.showLoader();
-  //   let data: any = {};
-  //   data.item_id = menuItems.id;
-  //   data.item_name = menuItems.name;
-  //   data.active_flag = 1;
-
-  //   if (this.item_id) data.item_id = this.item_id;
-  //   this.restApiService.postAPI(`store/items/add/${this.storeService.activeStore}`
-  //     , data
-  //     , (resp) => {
-  //       if (resp.success) {
-  //         this.alertService.showNotification('Item successfully deleted.');
-  //         this.fetchItems();
-  //         this.alertService.hideLoader();
-  //       }
-  //     }
-  //     , (err) => {
-  //       this.alertService.showNotification('There was an error while deleting the category, please try again.');
-  //     })
-  //     this.alertService.showLoader();
-  // }
 
   deleteData() {
     let menuItems = this.items[this.deleteIndexlist];
@@ -111,20 +69,17 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
       , data
       , (resp) => {
         if (resp.success) {
-          this.alertService.showNotification('Items deleted.','success');
+          this.alertService.showNotification('Items deleted.', 'success');
           this.fetchItems();
           this.items.splice(this.deleteIndexlist, 1);
         }
       }
       , (err) => {
-        this.alertService.showNotification('There was an error while deleting the item, please try again.','error');
+        this.alertService.showNotification('There was an error while deleting the item, please try again.', 'error');
       })
   }
 
-
-
-
-  readItems(data: any): StoreMenuItem{
+  readItems(data: any): StoreMenuItem {
     let cats = new Array<StoreMenuCategory>();
     data.category_details.forEach(cat => {
       cats.push(new StoreMenuCategory(cat.category_id, cat.category_name, null))
@@ -140,7 +95,7 @@ export class RestaurantMenuItemsComponent implements OnInit, OnDestroy {
     return new StoreMenuItem(data.item_id, data.item_name, data.item_base_price, cats, menus, mods);
   }
 
-  get modalService(): NgbModal{
+  get modalService(): NgbModal {
     return this._modalService;
   }
 

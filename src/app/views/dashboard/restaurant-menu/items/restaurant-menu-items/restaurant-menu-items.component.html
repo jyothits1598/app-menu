@@ -61,6 +61,7 @@
     </div> 
 </div>
 <!-- openVerticallyCentered(deleteComform,item.id,item.name)"  -->
+
 <ng-template #deleteComform let-modal3>
     <div class="modal-body text-center">
         <h4 class="std-heading-4 mb-2"> Delete item "{{items[deleteIndexlist].name}}"</h4>
@@ -72,5 +73,5 @@
       <button class="std-button std-button--plane" (click)="modal3.dismiss('Cross click')"> Cancel </button>
     </div>
 </ng-template>
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
 
