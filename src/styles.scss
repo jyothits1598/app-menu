@@ -107,28 +107,25 @@
   } 
 
 .pending-tab-margin{
-    margin-top:70px;
+    padding-top:48px;
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .pending-tab-margin{
-    margin-top:160px;
+    padding-top:100px;
   }
   .m-class {
     margin-top:60px;
     margin-bottom:52px;
   }
-  .sidebar-div {
-    // display:none;
+  .hide-div{
+    display:block;
   }
   .sm-block {
-    display: block;
+    display: none;
   }
   .lg-none {
     display: none;
-  }
-  .main-panel {
-    width: 100%;
   }
   .upload-text {
     display: none;
@@ -139,28 +136,47 @@
   .response-sidebar {
     display: block;
   }
+  .pending-tab {
+    padding: 16px;
+    background: var(--color-pending);
+    position: absolute;
+    top: 0;
+    left:  -15px;
+    right: -15px;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: bold;
+    z-index: 1;
+    color: var(--color-boldlevelcolor);
+  }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
- 
   .m-class {
     margin-top:80px;
     margin-bottom:72px;
   }
-  .sidebar-div {
-    width: 200px;
-  }
-  .main-panel {
-    width: calc(100% - 200px);
-  }
   .std-button {
     font-size:14px !important;
   }
-  .sm-block {
-    display: none;
-  }
   .response-sidebar {
     display: none;
+  }
+  .hide-div{
+    display:none;
+  }
+  .pending-tab {
+    padding: 16px;
+    background: var(--color-pending);
+    position: absolute;
+    top: -48px;
+    left:  -63px;
+    right: -62px;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: bold;
+    z-index: 1;
+    color: var(--color-boldlevelcolor);
   }
 }
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
@@ -173,18 +189,8 @@
   .sidebar {
     margin-left: 0;
   }
-  .sm-block {
-    display: none;
-  }
   .wrapper.toggled .sidebar {
     margin-left: -15rem;
-  }
-  /*side bar end*/
-  .sidebar-div {
-    width: 240px;
-  }
-  .main-panel {
-    width: calc(100% - 240px);
   }
   .std-button {
     font-size:14px !important;
@@ -192,6 +198,22 @@
   .response-sidebar {
     display: none;
   }
+  .hide-div{
+    display:none;
+  }
+  .pending-tab {
+    padding: 16px;
+    background: var(--color-pending);
+    position: absolute;
+    top: -48px;
+    left:  -63px;
+    right: -62px;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: bold;
+    z-index: 1;
+    color: var(--color-boldlevelcolor);
+}
 }
  
 /* Large devices (desktops, 992px and up) */
@@ -200,11 +222,7 @@
     margin-top:80px;
     margin-bottom:72px;
   }
-  .sidebar-div {
-    width: 260px;
-  }
-  .main-panel {
-    width: calc(100% - 260px);
+  .main-body {
     padding: 48px;
   }
   .pd-mq {
@@ -219,12 +237,25 @@
   .std-button {
     font-size:16px !important;
   }
-  .sm-block {
-    display: none;
-  }
   .response-sidebar {
     display: none;
   }
+  .hide-div{
+    display:none;
+  }
+  .pending-tab {
+    padding: 16px;
+    background: var(--color-pending);
+    position: absolute;
+    top: -48px;
+    left:  -63px;
+    right: -62px;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: bold;
+    z-index: 1;
+    color: var(--color-boldlevelcolor);
+}
 }
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1400px) {  
@@ -232,11 +263,7 @@
       margin-top:80px;
       margin-bottom:72px;
     }
-    .sidebar-div {
-      width: 320px;
-    }
-    .main-panel {
-      width: calc(100% - 320px);
+    .main-body {
       padding: 48px;
     }
     .pd-mq {
@@ -251,12 +278,25 @@
     .std-button {
       font-size:16px !important;
     }
-    .sm-block {
-      display: none;
-    }
     .response-sidebar {
       display: none;
     }
+    .hide-div{
+      display:none;
+    }
+    .pending-tab {
+      padding: 16px;
+      background: var(--color-pending);
+      position: absolute;
+      top: -48px;
+      left:  -63px;
+      right: -62px;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: bold;
+      z-index: 1;
+      color: var(--color-boldlevelcolor);
+  }
 }
 
 

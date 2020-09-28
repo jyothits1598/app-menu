@@ -520,21 +520,6 @@ ul .herf-class {
 .pd-right {
     margin-right: 10px;
 }
-
-.pending-tab {
-    padding: 16px;
-    background: var(--color-pending);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: bold;
-    z-index: 1;
-    color: var(--color-boldlevelcolor);
-}
-
 .nav-bars {
     padding:12px 16px;
     background: var(--color-primary);  
