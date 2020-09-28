@@ -1,0 +1,19 @@
+.sidebar-shadow {
+    width: 260px;
+    box-shadow: 0 16px 38px -35px rgba(0,0,0,.1), 0 4px 25px -5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2); 
+    height: 100%;
+}
+.sidebar-shadow .bottom-logout {
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0
+}
+.sidebar-heading {
+    padding:10px;
+    background:#353FA8;
+    color:#fff;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 1px;
+}

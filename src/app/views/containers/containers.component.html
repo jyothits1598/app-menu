@@ -1,34 +1,20 @@
 <div style="display: flex; flex-direction: column; height: 100vh;">
-   <!-- <div class="sidebar-heading" [routerLink]="['/dasboard']" style="outline: none;cursor: pointer;height:56px;"
-      title="Dashboard"><img class="mt-1" style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"></div> -->
-   <div class="sidebar-heading" [routerLink]="['/dasboard']" style="outline: none;cursor: pointer;height:56px;"
-      title="Dashboard"><img class="mt-1" style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"> <button (click)="layoutService.toggleSideBar()">click here</button></div>
+    <div class="sidebar-heading hide-div"style="outline: none;cursor: pointer;height:56px;">
+      <img [routerLink]="['/dasboard']"  title="Dashboard" style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"> 
+      <img class="mt-1" [src]= "layoutService.sideMenuVisible ? close_image : menu_image" (click)="layoutService.toggleSideBar()" style="float: right;">
+   </div>
    <div id="wrapper">
-
-      <!-- <div class="sidebar-heading sm-block" style="outline: none;cursor: pointer;height:56px;" title="Dashboard"><img
-            class="mt-1" style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"> <span
-            style="float:right" id="showMenu"><img src="../../../assets/images/ico_menu.png"></span></div> -->
-      <!-- <div class="sidebar sidebar-div" id="sidebar-wrapper" style="height: calc(100vh - 56px); margin-top: 56px;"> -->
       <div *ngIf="layoutService.sideMenuVisible"
-      [ngStyle]="{'position':layoutService.isMobile ? 'absolute' : 'relative' }" class=" sidebar sidebar-div"
+         [ngStyle]="{'position':layoutService.isMobile ? 'absolute' : 'relative' }" class="sidebar"
          id="sidebar-wrapper">
          <app-side-nav-bar></app-side-nav-bar>
       </div>
-
-      <!---------------- mobile response ----------------->
-      <!-- <div class="right-side-popup response-sidebar" [hidden]="showVar">
-         <div class="mobile-response">
-            <app-side-nav-bar></app-side-nav-bar>
-         </div>
-      </div> -->
-      <!---------------- mobile response end ----------------->
-
-
       <div style="flex-grow: 1; overflow-y: auto;">
          <div class="container-fluid">
-            <router-outlet></router-outlet>
+            <div class="main-body">
+               <router-outlet></router-outlet>
+            </div>
          </div>
       </div>
-
    </div>
 </div>

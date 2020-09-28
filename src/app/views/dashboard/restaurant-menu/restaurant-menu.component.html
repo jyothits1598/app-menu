@@ -7,21 +7,23 @@
 </div> -->
 <!-- [ngClass]="isActive ? 't-class' : '' " -->
 <ng-container *ngIf="(activeStore | async) as store">
-    <div class="pending-tab" *ngIf="store.isActive && displayBanner">
-        <table>
-            <tr>
-                <td valign="top"> <img src="../../../../assets/images/ico_alert.png"> </td>
-                <td style="padding-left: 18px;">
-                    Pending approval -
-                    <span> {{store.name}} </span> <span
-                        class="norml-text-class">Before you start trading we need to review your application. We will be in
-                        touch shortly. </span>
-                </td>
-                <td (click)="displayBanner = !displayBanner" valign="top" style="padding-left: 18px;cursor: pointer;" title="hide">
-                    <img src="../../../../assets/images/ico_close.png">
-                </td>
-            </tr>
-        </table>
+    <div style="position: relative;">
+        <div class="pending-tab" *ngIf="store.isActive && displayBanner">
+            <table>
+                <tr>
+                    <td valign="top"> <img src="../../../../assets/images/ico_alert.png"> </td>
+                    <td style="padding-left: 18px;">
+                        Pending approval -
+                        <span> {{store.name}} </span> <span
+                            class="norml-text-class">Before you start trading we need to review your application. We will be in
+                            touch shortly. </span>
+                    </td>
+                    <td (click)="displayBanner = !displayBanner" valign="top" style="float:right;cursor: pointer;" title="hide">
+                        <img src="../../../../assets/images/ico_close.png">
+                    </td>
+                </tr>
+            </table>
+        </div> 
     </div>
 </ng-container>
 <ng-container *ngIf="(activeStore | async) as store">
