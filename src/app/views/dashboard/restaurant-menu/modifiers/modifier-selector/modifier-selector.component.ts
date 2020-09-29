@@ -9,7 +9,7 @@ import { ModifierDisplay } from '../../_models/modifier-display';
 })
 export class ModifierSelectorComponent implements OnInit {
   selectedModifers: Array<StoreMenuModifier> = [];
-  letter: string = 'abc';
+  filterTerm: string = '';
 
   @Input('modifiers') set modifiers(modifiers: Array<StoreMenuModifier>) {
     let modsDisp: Array<ModifierDisplay> = [];
@@ -29,6 +29,11 @@ export class ModifierSelectorComponent implements OnInit {
 
   modifierDisplay: Array<ModifierDisplay>;
 
+  accessorFunction = (modDisp: ModifierDisplay) => modDisp.modifier.name;
+
+  handleEvent(val){
+    this.filterTerm = val;
+  }
   constructor() { }
 
   handleSelection(add: boolean, modifier: StoreMenuModifier) {
