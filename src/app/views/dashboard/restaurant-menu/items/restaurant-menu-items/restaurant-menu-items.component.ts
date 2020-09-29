@@ -54,6 +54,7 @@ export class RestaurantMenuItemsComponent implements OnInit {
         });
         this.alertService.hideLoader();
       }
+      this.alertService.hideLoader();
     });
   }
 
