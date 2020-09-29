@@ -94,8 +94,8 @@ export class SecondFormsComponent implements OnInit {
     var obj = this;
     if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
       // obj.authenticateService.checkExpiryStatus();
-      obj.getstoreDetails();
       obj.getTypeOfCusine();
+      obj.getstoreDetails();
     }
 
     this.storeDetailform = this.formBuilder.group({
@@ -140,7 +140,6 @@ export class SecondFormsComponent implements OnInit {
         if (this.claimCreation) data.claim_store_id = this.store_id;
         this.alertservice.showLoader();
         this.restApiservice.postAPI('api/stores/storedata', data, (response) => {
-          console.log('store post called', response);
           if (response && response['success'] && response['data']) {
             this.alertservice.hideLoader();
             // localStorage.setItem('storeCreationId', response['data']['store_id']);

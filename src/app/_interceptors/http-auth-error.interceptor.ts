@@ -3,17 +3,18 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()
 export class HttpAuthErrorInterceptor implements HttpInterceptor {
 
-    constructor(private router: Router){ }
+    constructor(private router: Router, private authenticateService: AuthenticationService){ }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse) => {
                 if (error.error == 'Unauthorized.') {
-                    this.router.navigate(['/login']);
+                    this.authenticateService.logout();
                 }
                 return throwError(error);
             })

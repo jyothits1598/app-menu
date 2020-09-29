@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
 
-  // UAT server APIs
+  /* UAT server APIs */
 
   // mail_url_success:'https://uat.menuzapp.com.au/email-verify',
   // mail_url_failure:'https://uat.menuzapp.com.au/email-token-expired',
   // mail_url_login:'https://uat.menuzapp.com.au/login',
   // mail_url_contactus:'https://uat.menuzapp.com.au/page-under-progress'
 
-  // test server APIs
+  /* test server APIs */
 
   mail_url_success:'http://54.252.119.115/email-verify',
   mail_url_failure:'http://54.252.119.115/email-token-expired',
@@ -29,14 +29,18 @@ export const environment = {
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
+
+/* UAT server APIs */
 // export const API_URL_LINK = 'https://uat.api.menuzapp.com/';
-
-export const API_URL_LINK = 'http://54.252.119.115:8000/';
-
-export const REQUEST_A_ACTIVE = 'http://54.252.119.115/login';
-
-// export const REQUEST_A_ACTIVE = 'http://localhost:4200/login';
-
-
-
 // export const REQUEST_A_ACTIVE = 'https://uat.menuzapp.com.au/login';
+// export const REQUEST_RESET_EMAIL = 'https://uat.menuzapp.com.au/reset-password';
+
+
+
+/* test server APIs */
+export const API_URL_LINK = 'http://54.252.119.115:8000/';
+export const REQUEST_A_ACTIVE = 'http://54.252.119.115/login';
+export const REQUEST_RESET_EMAIL = 'http://54.252.119.115/reset-password';
+
+
+

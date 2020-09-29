@@ -5,19 +5,23 @@
         <div class="col-md-3">
             <h5 class="std-heading-5" style="margin-bottom: 4px;"> Name </h5>
             <input type="text" formControlName="name" class="form-control form-input error-highlight"
-                placeholder="Enter name" (blur)="onTouched()"/>
-            <div class="error-mez" *ngIf="option.controls.name.touched && option.controls.name.invalid">{{getNameError(option.controls.name)}}</div>
+                placeholder="Enter name" />
+            <div class="error-mez" *ngIf="option.controls.name.touched && option.controls.name.invalid">
+                {{getNameError(option.controls.name)}}</div>
         </div>
         <div class="col-md-3">
             <h5 class="std-heading-5" style="margin-bottom: 4px;"> Price </h5>
             <div class="prefixed-input">
                 <span class="prefixed-input__prefix">+ $</span>
-                    <input type="text" formControlName="price" style="padding-left: 2.1rem;" class="form-control form-input error-highlight prefixed-input__input"
-                        (blur)="onTouched()"/>
+                <input type="text" formControlName="price"
+                    style="padding-left: 2.2rem;"
+                    (blur)="setFormat(i)"
+                    class="form-control form-input error-highlight prefixed-input__input" />
             </div>
-            <div class="error-mez" *ngIf="option.controls.price.touched && option.controls.price.invalid">{{getPriceError(option.controls.price)}}</div>
+            <div class="error-mez" *ngIf="option.controls.price.touched && option.controls.price.invalid">
+                {{getPriceError(option.controls.price)}}</div>
         </div>
-        <div class="col-md-3" style="padding-top: 36px;" >
+        <div class="col-md-3" style="padding-top: 36px;">
             <span class="blue-text" (click)="deleteOption(i)" style="cursor: pointer;">
                 <img src="../../../../../assets/images/ico_delete.png">&nbsp; Delete </span>
         </div>

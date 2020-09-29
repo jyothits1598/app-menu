@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ContainersComponent } from './containers.component';
 import { AuthGuard } from 'src/app/_guards';
-import { SideNavBarComponent } from '../side-nav-bar/side-nav-bar.component'
 import { UnautherisedComponent } from '../shared/components/unautherised/unautherised.component';
 import { OwnerRoleGuard, AdminRoleGuard } from 'src/app/_guards/user-role.guard';
+import { SideNavBarModule } from '../side-nav-bar/side-nav-bar.module';
 
 const routes: Routes = [
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
       // },
       { path: 'admin', 
         canActivate: [AdminRoleGuard],
-        loadChildren: () => import('../admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule)},
+        loadChildren: () => import('../admin-dashboard/manage/admin-dashboard.module').then(m => m.AdminDashboardModule)},
       { path: 'unauthorized', component: UnautherisedComponent },
     ],
     data: {
@@ -37,10 +37,11 @@ const routes: Routes = [
 const routingModule = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [ContainersComponent, SideNavBarComponent],
+  declarations: [ContainersComponent],
   imports: [
     CommonModule,
-    routingModule
+    routingModule,
+    SideNavBarModule
   ]
 })
 export class ContainersModule { }

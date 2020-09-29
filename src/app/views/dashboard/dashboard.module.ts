@@ -6,6 +6,7 @@ import { StoreMenuResolver } from 'src/app/_guards/store-menu-resolver';
 import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
 import { not } from '@angular/compiler/src/output/output_ast';
 import { NotFoundComponent } from '../shared/not-found/not-found.component';
+import { SideNavBarModule } from '../side-nav-bar/side-nav-bar.module';
 
 const routes: Routes = [
   {
@@ -42,7 +43,8 @@ const dashboardRouting = RouterModule.forChild(routes);
   declarations: [DashboardComponent, DashboardContainerComponent],
   imports: [
     CommonModule,
-    dashboardRouting
+    dashboardRouting,
+    SideNavBarModule
   ],
   providers: [StoreMenuResolver]
 })
