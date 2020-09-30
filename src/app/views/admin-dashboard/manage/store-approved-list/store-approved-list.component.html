@@ -1,14 +1,5 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Approved </h3>
-<div class="row">
-    <div class="col-md-3 mb-1">
-        <input type="search" placeholder="Search" class="form-control form-input search" />
-    </div>
-    <div class="col-md-3 mb-1 pd-mq">
-        <select class="custom-select form-control form-input form-input--select-input">
-            <option> All </option>
-        </select>
-    </div>
-</div>
+<search-query-generator termName="name" typeName="status" [types]="['Claim', 'New']" #queryGen></search-query-generator>
 <div loadingPlaceholder [loadStatus]="approvedStores">
     <div class="row">
         <div class="col-md-12">
@@ -32,7 +23,7 @@
                                 <div class="dropdown">
                                     <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
                                         data-toggle="dropdown" title="Options">
-                                    <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <!-- <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                         <li class="herf-class" title="Edit">
                                             <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                             Edit
@@ -41,7 +32,7 @@
                                             <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                             Delete
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </div>
                             </td>
                         </tr>

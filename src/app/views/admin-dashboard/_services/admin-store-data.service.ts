@@ -3,14 +3,15 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 import { URL_ImportStoreShell, URL_StoreShellAllStores } from 'src/environments/api/api-store-administration';
 import { map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { URL_AdminPendingStores } from 'src/environments/api-endpoint';
 
 @Injectable()
 export class AdminStoreDataService {
 
   constructor(private restApiService: RestApiService) { }
 
-  storeShellAllStores(): Observable<{ store_id: number, store_name: string, status: string }> {
-    return this.restApiService.getDataObs(URL_StoreShellAllStores).pipe(map((resp: any) => resp.data))
+  storeShellAllStores(querystring: string = null): Observable<Array<{ store_id: number, store_name: string, status: string }>> {
+    return this.restApiService.getDataObs(URL_StoreShellAllStores + (querystring ? querystring : '')).pipe(map((resp: any) => resp.data))
   }
 
   importCSV(file: File): Observable<boolean> {
@@ -21,5 +22,31 @@ export class AdminStoreDataService {
       else throwError('Could not complete impoting');
     }))
   }
+
+  allPendingStores(queryString: string = null) {
+    return this.restApiService.getDataObs(URL_AdminPendingStores + (queryString ? queryString : '')).pipe(map(
+      (resp) => {
+        let pendingStores = [];
+        resp.data.forEach(store => {
+          pendingStores.push({ id: store.store_id, name: store.store_name, claimType: store.type_of_creation, applicant: store.legal_owner_name })
+        });
+        return pendingStores;
+      }
+    ))
+  }
+
+  allApprovedStores(queryString: string = null) {
+    return this.restApiService.getDataObs(URL_AdminPendingStores + (queryString ? queryString : '')).pipe(map(
+      (resp) => {
+        let approvedStores = [];
+        resp.data.forEach(store => {
+          approvedStores.push({ id: store.store_id, name: store.store_name, claimType: store.type_of_creation, applicant: store.legal_owner_name })
+        });
+        return approvedStores;
+      }
+    ))
+  }
+
+
 
 }
