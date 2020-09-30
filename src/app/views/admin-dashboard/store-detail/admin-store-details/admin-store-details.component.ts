@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { Store, ReadStore } from 'src/app/_models/store';
 import { URL_StoreDetail, URL_ApproveStore, URL_RejectStore } from 'src/environments/api/api-store-administration';
@@ -7,14 +7,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { StringHelperService } from 'src/app/services/string-helper.service';
 import { AlertService } from 'src/app/services/alert.service';
-import { identifierModuleUrl } from '@angular/compiler';
+import { SideNavbarService } from 'src/app/services/side-navbar.service';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-admin-store-details',
   templateUrl: './admin-store-details.component.html',
   styleUrls: ['./admin-store-details.component.scss']
 })
-export class StorePendingDetailsComponent implements OnInit {
+export class StorePendingDetailsComponent implements OnInit, OnDestroy {
   // data
   storeId: number;
   approvalData: {
@@ -30,9 +31,9 @@ export class StorePendingDetailsComponent implements OnInit {
     fileName: string
   };
 
-  
+
   // other
-  routerSubs: Subscription;
+  activeStoreSubs: Subscription;
   approvalStatus: boolean = false;
   denialStatus: boolean = false;
 
@@ -40,19 +41,17 @@ export class StorePendingDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private stringHelper: StringHelperService,
-    private alertService: AlertService) {
-    this.routerSubs = this.route.params.subscribe(params => {
-      this.storeId = +params['id'];
-      if (!this.storeId) {
-      } else this.fetchData();
-    })
+    private alertService: AlertService,
+    private storeService: StoreService) {
   }
 
   ngOnInit(): void {
+    this.activeStoreSubs = this.storeService.activeStore$.subscribe(store => this.fetchData(store.id));
   }
 
-  fetchData() {
-    this.restApiService.getDataObs(URL_StoreDetail(this.storeId)).subscribe(
+
+  fetchData(storeId) {
+    this.restApiService.getDataObs(URL_StoreDetail(storeId)).subscribe(
       (resp) => {
         if (resp && resp.data) {
           this.approvalData = resp.data;
@@ -67,10 +66,10 @@ export class StorePendingDetailsComponent implements OnInit {
     this.restApiService.patchData(URL_ApproveStore(storeId), {}).pipe(
       finalize(() => this.alertService.hideLoader())
     ).subscribe(
-      (resp : any)=>{
-        if(resp && resp.success){
+      (resp: any) => {
+        if (resp && resp.success) {
           this.alertService.showNotification('Store Approved', 'success');
-          this.router.navigate(['../../'], {relativeTo: this.route});
+          this.router.navigate(['../../'], { relativeTo: this.route });
         }
       }
     )
@@ -81,13 +80,16 @@ export class StorePendingDetailsComponent implements OnInit {
     this.restApiService.patchData(URL_RejectStore(storeId), {}).pipe(
       finalize(() => this.alertService.hideLoader())
     ).subscribe(
-      (resp : any)=>{
-        if(resp && resp.success){
+      (resp: any) => {
+        if (resp && resp.success) {
           this.alertService.showNotification('Store Denyed', 'success');
-          this.router.navigate(['../'], {relativeTo: this.route});
+          this.router.navigate(['../'], { relativeTo: this.route });
         }
       }
     )
   }
 
+  ngOnDestroy(): void {
+    this.activeStoreSubs.unsubscribe();
+  }
 } 

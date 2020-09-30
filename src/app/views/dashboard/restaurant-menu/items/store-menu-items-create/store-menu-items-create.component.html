@@ -8,9 +8,7 @@
                 <ng-container *ngTemplateOutlet="loading"></ng-container>
             </div>
             <div class="float-right" style="margin-bottom:16px;">
-                <!-- <button class="btn std-button std-button--transparency" [disabled]="!itemId"
-                    > Delete </button> -->
-                <button class="btn std-button std-button--transparency" style="margin-left:10px;"> Duplicate </button>
+                <button class="btn std-button std-button--transparency" style="margin-left:10px;" *ngIf="itemId" (click)="duplicateItem()"> Duplicate </button>
                 <button appBtnIcon [valid]="createItemForm.valid" [loading]="saveBtnLoading"
                     class="btn std-button-active" style="margin-left:10px;" (click)="saveData()"><span
                         #span>Save</span></button>

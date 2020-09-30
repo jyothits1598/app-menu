@@ -11,15 +11,16 @@ import { LoadingPlaceholderDirective } from './directives/loading-placeholder.di
 import { UnautherisedComponent } from './components/unautherised/unautherised.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
+import { SearchQueryGeneratorComponent } from './components/search-query-generator/search-query-generator.component';
 
 
 @NgModule({
   entryComponents: [LoadingPlaceholderComponent, ConfirmationDialogComponent],
-  declarations: [NotFoundComponent, BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderComponent, LoadingPlaceholderDirective, UnautherisedComponent, ConfirmationDialogComponent],
+  declarations: [NotFoundComponent, BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderComponent, LoadingPlaceholderDirective, UnautherisedComponent, ConfirmationDialogComponent, SearchQueryGeneratorComponent],
   imports: [
     CommonModule,
     OverlayModule
   ],
-  exports: [BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderDirective]
+  exports: [BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderDirective, SearchQueryGeneratorComponent]
 })
 export class SharedModule { }

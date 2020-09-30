@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-md-3 mb-1">
+        <input #termInput type="search" placeholder="Search"
+            class="form-control form-input search" />
+    </div>
+    <div class="col-md-3 mb-1 pd-mq">
+        <select (input)="type = $event.target.value; query.emit(selectionToQuery())" #typeSelect class="custom-select form-control form-input form-input--select-input">
+            <option value=""> All </option>
+            <option [value]="type" *ngFor="let type of types">{{type}}</option>
+        </select>
+    </div>
+</div>

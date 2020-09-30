@@ -8,6 +8,7 @@ import { StoreApprovedDetailsComponent } from './store-approved-details/store-ap
 import { SharedModule } from '../../shared/shared.module';
 import { AdminStoreDataService } from '../_services/admin-store-data.service';
 import { FileuploadModule } from 'src/app/_modules/fileupload/fileupload.module';
+import { StoreMenuResolver } from 'src/app/_guards/store-menu-resolver';
 
 const routes: Routes = [
   {
@@ -57,6 +58,6 @@ const adminDashboardRouting = RouterModule.forChild(routes);
     adminDashboardRouting,
     FileuploadModule
   ],
-  providers: [AdminStoreDataService]
+  providers: [AdminStoreDataService, StoreMenuResolver]
 })
 export class AdminDashboardModule { }

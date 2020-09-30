@@ -5,7 +5,7 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreMenuCategory } from 'src/app/_models/store-menu-category';
 import { StoreMenuItem } from 'src/app/_models/store-menu-items';
-import { ModifierOption, StoreMenuModifier, StoreMenuModifierItem } from 'src/app/_models/store-menu-modifier';
+import { ModifierOption, StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
 import { URL_CreateStoreMenuModfier, URL_StoreMenuModifier } from 'src/environments/api/api-store-menu';
 
 @Injectable({
