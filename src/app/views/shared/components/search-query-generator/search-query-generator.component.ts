@@ -19,7 +19,6 @@ export class SearchQueryGeneratorComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    console.log('this is the search', this.types.length, this.types);
     this.keyupSubs = fromEvent(this.termInput.nativeElement, 'keyup')
       .pipe(
         map((event: any) => event.target.value),
