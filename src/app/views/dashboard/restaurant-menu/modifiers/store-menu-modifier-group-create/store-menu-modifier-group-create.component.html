@@ -1,111 +1,121 @@
 <div class="modal-body">
-<form protectUnsaved [changed]="shouldPreventNavigation()" loadingPlaceholder [loadStatus]="loaded" [formGroup]="modifierForm" (ngSubmit)="saveModifer(modifierForm.value)">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="float-right">
-                <button class="btn std-button std-button--redtransparency" type="button" *ngIf="modifierId"
-                    (click)="deleteModifier()"> Delete </button>
-                <button class="btn std-button std-button--transparency" style="margin-left:10px;" type="button">
-                    Duplicate
-                </button>
-                <button appBtnIcon [valid]="modifierForm.valid && modifierForm.dirty" [loading]="submitting"
-                    class="btn std-button-active" style="margin-left:10px;"> <span #span>Save</span> </button>
+    <form protectUnsaved [changed]="shouldPreventNavigation()" loadingPlaceholder [loadStatus]="loaded"
+        [formGroup]="modifierForm" (ngSubmit)="saveModifer(modifierForm.value)">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="float-right">
+                    <button class="btn std-button std-button--redtransparency" type="button" *ngIf="modifierId"
+                        (click)="deleteModifier()"> Delete </button>
+                    <button *ngIf="modifierId" class="btn std-button std-button--transparency"
+                        style="margin-left:10px;" type="button" (click)="duplicateModifier()">
+                        Duplicate
+                    </button>
+                    <button appBtnIcon [valid]="modifierForm.valid && modifierForm.dirty" [loading]="submitting"
+                        class="btn std-button-active" style="margin-left:10px;"> <span #span>Save</span> </button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="input-container">
+                    <img (click)="navigateBack()" src="../../../../../assets/images/ico_back.png"
+                        class="input-img mt-1">
+                    <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="name"
+                        placeholder="Enter a item for this modifier">
+                    <span class="error-mez"
+                        *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
+                        required.</span>
+                </div>
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="input-container">
-                <img (click)="navigateBack()" src="../../../../../assets/images/ico_back.png" class="input-img mt-1">
-                <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="name" placeholder="Enter a item for this modifier">
-                <span class="error-mez"
-                    *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
-                    required.</span>
+        <!--------------------------- Rules start --------------------->
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Rules <img
+                        src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info"></h4>
+                <!-- (click)="openDisplyinfo(displaytext)"></h4> -->
+            </div>
+            <div class="col-md-3">
+                <h5 class="std-heading-5" style="margin-bottom: 4px;"> Select minimum </h5>
+                <select class="custom-select form-input" formControlName="minimum">
+                    <option value=""> Select </option>
+                    <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
+                </select>
+                <div class="error-mez"
+                    *ngIf="modifierForm.controls.minimum.invalid && modifierForm.controls.minimum.touched">Plese select
+                    minimum</div>
+            </div>
+            <div class="col-md-3">
+                <h5 class="std-heading-5" style="margin-bottom: 4px;"> Select maximum </h5>
+                <select class="custom-select form-input" formControlName="maximum">
+                    <option value=""> Select </option>
+                    <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
+                </select>
+                <div class="error-mez"
+                    *ngIf="modifierForm.controls.maximum.errors?.required && modifierForm.controls.maximum.touched">
+                    Plese select maximum</div>
+                <div class="error-mez"
+                    *ngIf="modifierForm.controls.maximum.errors?.min && modifierForm.controls.maximum.touched">Maximum
+                    should be greater or equal to minimum</div>
+            </div>
+            <div class="col-md-3">
+                <h5 class="std-heading-5" style="margin-bottom: 4px;"> Select free </h5>
+                <select class="custom-select form-input" formControlName="free">
+                    <option value=""> Select </option>
+                    <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
+                </select>
+                <div class="error-mez" *ngIf="modifierForm.controls.free.invalid && modifierForm.controls.free.touched">
+                    Plese select free
+                </div>
             </div>
         </div>
-    </div>
-    <!--------------------------- Rules start --------------------->
-    <div class="row">
-        <div class="col-md-12">
-            <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Rules <img
-                    src="../../../../../assets/images/ico_help.png" style="cursor:pointer" title="info"></h4>
-            <!-- (click)="openDisplyinfo(displaytext)"></h4> -->
-        </div>
-        <div class="col-md-3">
-            <h5 class="std-heading-5" style="margin-bottom: 4px;"> Select minimum </h5>
-            <select class="custom-select form-input" formControlName="minimum">
-                <option value=""> Select </option>
-                <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
-            </select>
-            <div class="error-mez" *ngIf="modifierForm.controls.minimum.invalid && modifierForm.controls.minimum.touched">Plese select
-                minimum</div>
-        </div>
-        <div class="col-md-3">
-            <h5 class="std-heading-5" style="margin-bottom: 4px;"> Select maximum </h5>
-            <select class="custom-select form-input" formControlName="maximum">
-                <option value=""> Select </option>
-                <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
-            </select>
-            <div class="error-mez" *ngIf="modifierForm.controls.maximum.errors?.required && modifierForm.controls.maximum.touched">Plese select maximum</div>
-            <div class="error-mez" *ngIf="modifierForm.controls.maximum.errors?.min && modifierForm.controls.maximum.touched">Maximum should be greater or equal to minimum</div>
-        </div>
-        <div class="col-md-3">
-            <h5 class="std-heading-5" style="margin-bottom: 4px;"> Select free </h5>
-            <select class="custom-select form-input" formControlName="free">
-                <option value=""> Select </option>
-                <option [value]="number" *ngFor="let number of numbers">{{number}}</option>
-            </select>
-            <div class="error-mez" *ngIf="modifierForm.controls.free.invalid && modifierForm.controls.free.touched">Plese select free
-            </div>
-        </div>
-    </div>
-    <!--------------------------- Rules start end --------------------->
-    <!--------------------------- Rules start --------------------->
-    <div class="row">
-        <div class="col-md-12">
-            <app-modifier-options formControlName="options" [control]="modifierForm.controls.options" #options>
-            </app-modifier-options>
-            <!------------------- looping add option end ------------>
+        <!--------------------------- Rules start end --------------------->
+        <!--------------------------- Rules start --------------------->
+        <div class="row">
+            <div class="col-md-12">
+                <app-modifier-options formControlName="options" [control]="modifierForm.controls.options" #options>
+                </app-modifier-options>
+                <!------------------- looping add option end ------------>
 
-        </div>
-        <div class="col-md-12">
-            <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Used by </h4>
-            <table class="table table-border table-color">
-                <thead>
-                    <tr>
-                        <th> Item </th>
-                        <th> Category </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody *ngIf="modifierForm.controls.items.value?.length > 0;else noItems">
-                    <tr class="text-capitalize" *ngFor="let item of modifierForm.controls.items.value">
-                        <td class="table-name"> {{item.name}} </td>
-                        <td> {{categoriesToString(item.categories)}} </td>
-                        <td style="text-align: right;outline: none;">
-                            <div class="dropdown">
-                                <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
-                                    style="cursor:pointer;" data-toggle="dropdown" title="Options">
-                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                    <li title="Delete" class="herf-class">
-                                        <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
-                                        Delete
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                <ng-template #noItems>
-                    <tbody>
-                        <tr class="text-center">
-                            <td colspan="3">No items have been added yet.</td>
+            </div>
+            <div class="col-md-12">
+                <h4 class="std-heading-4" style="margin-bottom: 32px;margin-top: 56px;"> Used by </h4>
+                <table class="table table-border table-color">
+                    <thead>
+                        <tr>
+                            <th> Item </th>
+                            <th> Category </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="modifierForm.controls.items.value?.length > 0;else noItems">
+                        <tr class="text-capitalize" *ngFor="let item of modifierForm.controls.items.value">
+                            <td class="table-name"> {{item.name}} </td>
+                            <td> {{categoriesToString(item.categories)}} </td>
+                            <td style="text-align: right;outline: none;">
+                                <div class="dropdown">
+                                    <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
+                                        style="cursor:pointer;" data-toggle="dropdown" title="Options">
+                                    <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                        <li title="Delete" class="herf-class">
+                                            <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                            Delete
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
-                </ng-template>
-            </table>
+                    <ng-template #noItems>
+                        <tbody>
+                            <tr class="text-center">
+                                <td colspan="3">No items have been added yet.</td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                </table>
+            </div>
         </div>
-    </div>
-    <!--------------------------- Rules start end --------------------->
-</form>
+        <!--------------------------- Rules start end --------------------->
+    </form>
 </div>
 
 <!-- back save continue -->

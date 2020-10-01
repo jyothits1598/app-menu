@@ -46,12 +46,12 @@ export class StorePendingDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.activeStoreSubs = this.storeService.activeStore$.subscribe(store => this.fetchData(store.id));
+    this.activeStoreSubs = this.storeService.activeStore$.subscribe(store => this.fetchData());
   }
 
 
-  fetchData(storeId) {
-    this.restApiService.getDataObs(URL_StoreDetail(storeId)).subscribe(
+  fetchData() {
+    this.restApiService.getDataObs(URL_StoreDetail(this.storeService.activeStore$.value.id)).subscribe(
       (resp) => {
         if (resp && resp.data) {
           this.approvalData = resp.data;
@@ -61,29 +61,27 @@ export class StorePendingDetailsComponent implements OnInit, OnDestroy {
     )
   }
 
-  approveStore(storeId) {
+  approveStore() {
     this.alertService.showLoader();
-    this.restApiService.patchData(URL_ApproveStore(storeId), {}).pipe(
+    this.restApiService.patchData(URL_ApproveStore(this.storeService.activeStore$.value.id), {}).pipe(
       finalize(() => this.alertService.hideLoader())
     ).subscribe(
       (resp: any) => {
-        if (resp && resp.success) {
-          this.alertService.showNotification('Store Approved', 'success');
-          this.router.navigate(['../../'], { relativeTo: this.route });
-        }
+        this.alertService.showNotification('Store Approved', 'success');
+        this.router.navigate(['../../../'], { relativeTo: this.route });
       }
     )
   }
 
-  rejectStore(storeId) {
+  rejectStore() {
     this.alertService.showLoader();
-    this.restApiService.patchData(URL_RejectStore(storeId), {}).pipe(
+    this.restApiService.patchData(URL_RejectStore(this.storeService.activeStore$.value.id), {}).pipe(
       finalize(() => this.alertService.hideLoader())
     ).subscribe(
       (resp: any) => {
         if (resp && resp.success) {
           this.alertService.showNotification('Store Denyed', 'success');
-          this.router.navigate(['../'], { relativeTo: this.route });
+          this.router.navigate(['../../../'], { relativeTo: this.route });
         }
       }
     )

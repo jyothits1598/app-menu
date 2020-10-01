@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
 import { ReadItems, StoreMenuItem } from 'src/app/_models/store-menu-items';
@@ -24,6 +24,16 @@ export class StoreMenuItemDataService {
         return items;
       }
     ));
+  }
+
+  duplicateItem(itemId: number) {
+    return this.restApiService.getDataObs(`store/items/get/${this.storeService.activeStore}/${itemId}`).pipe(
+      switchMap((resp) => {
+        let data = resp.data[0];
+        delete data.item_id;
+        return this.restApiService.postData(`store/items/add/${this.storeService.activeStore$.value.id}`, data);
+      })
+    )
   }
 
 }

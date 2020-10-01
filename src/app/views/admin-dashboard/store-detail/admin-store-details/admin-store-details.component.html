@@ -3,10 +3,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="float-right" style="margin-bottom:16px;">
-                <button class="btn std-button std-button--redtransparency" (click)="rejectStore(storeId)">
+                <button class="btn std-button std-button--redtransparency" (click)="rejectStore()">
                     {{denialStatus ? 'Denyed' : 'Deny'}} </button>
                 <button class="btn std-button std-button--green" style="margin-left:10px;"
-                    (click)="approveStore(storeId)">{{approvalStatus ? 'Approved' : 'Approve'}} </button>
+                    (click)="approveStore()">{{approvalStatus ? 'Approved' : 'Approve'}} </button>
             </div>
         </div>
     </div>
