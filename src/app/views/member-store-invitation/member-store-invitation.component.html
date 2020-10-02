@@ -7,15 +7,17 @@
 <div class="container h-100" *ngIf="invitedStoreDetails?.active_flag == 0">
     <div class="row m-class text-center">
         <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                <h1 class="form-header" style="margin-bottom: 24px;">{{invitedStoreDetails?.store_name ? invitedStoreDetails?.store_name : '' }} invited you to collaborate. </h1>
-                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group" style="margin-top:40px;">
-                            <a [routerLink]="['/dashboard']"><input type="button" class="btn std-button std-button--transparency" value="Go To Dashboard" title="Go To Dashboard"></a>
-                            <input type="button" class="btn std-button std-button--primary" value="Accept Invitation" (click)="acceptInvitation()" style="margin-left:15px;">
-                        </div>
+            <h1 class="form-header32" style="margin-bottom: 24px;">{{invitedStoreDetails?.first_name ? invitedStoreDetails?.first_name : '' }} {{invitedStoreDetails?.last_name ? invitedStoreDetails?.last_name : '' }}
+                has invited you to join the team at {{ invitedStoreDetails?.store_name ? invitedStoreDetails?.store_name : '' }} on menuzapp. </h1>
+            <p> Menuzapp is the best way for restaurants to manage menus online and take orders for pick-up or dine-in. </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="margin-top:40px;">
+                        <a [routerLink]="['/dashboard']"><input type="button" class="btn std-button std-button--transparency" value="Back to menuzapp" title="Back to menuzapp"></a>
+                        <input type="button" class="btn std-button std-button--primary" value="Accept invitation" (click)="acceptInvitation()" style="margin-left:15px;">
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </div>
@@ -23,14 +25,21 @@
 <div class="container h-100" *ngIf="invitedStoreDetails?.active_flag == 1">
     <div class="row m-class text-center">
         <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                <h1 class="form-header" style="margin-bottom: 24px;">{{invitedStoreDetails?.store_name ? invitedStoreDetails?.store_name : '' }} invite Accepted. </h1>
-                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group" style="margin-top:40px;">
-                            <a [routerLink]="['/dashboard']"><input type="button" class="btn std-button std-button--transparency" value="Go To Dashboard" title="Go To Dashboard"></a>
+            <table>
+                <tr>
+                    <td width="24px" valign="top"> <img src="../../../assets/images/ico_check.png" ></td>
+                    <td> 
+                        <h1 class="form-header32" style="margin-bottom: 24px;"> Congratulations, you are now a member of {{invitedStoreDetails?.store_name ? invitedStoreDetails?.store_name : '' }} </h1>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="margin-top:40px;">
+                                    <a [routerLink]="['/dashboard']"><input type="button" class="btn std-button std-button--primary" value="Continue to dashboard" title="Go to dashboard"></a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </td>
+                </tr>
+            </table>        
         </div>
     </div>
 </div>

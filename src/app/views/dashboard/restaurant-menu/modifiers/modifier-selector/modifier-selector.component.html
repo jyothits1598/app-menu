@@ -23,9 +23,11 @@
                     </thead>
                     <tbody *ngIf="modifierDisplay.length > 0; else noModifiers">
                         <tr class="text-capitalize" *ngFor="let modifierDP of modifierDisplay; let i = index">
-                            <td class="table-name"> <input type="checkbox"
+                            <td class="table-name">
+                                    <input type="checkbox"
                                     [checked]="isSelected(modifierDP.modifier)"
-                                    (click)="handleSelection($event.target.checked, modifierDP.modifier)"> </td>
+                                    (click)="handleSelection($event.target.checked, modifierDP.modifier)"> 
+                                 </td>
                             <td class="table-name"> {{modifierDP.modifier.name}} </td>
                             <td> {{modifierDP.optionsString ? modifierDP.optionsString : '-'}} </td>
                             <td> {{modifierDP.itemsString ? modifierDP.itemsString : '-'}}</td>

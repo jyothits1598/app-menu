@@ -43,16 +43,17 @@ export class RestaurantMenuItemsComponent implements OnInit {
 
   fetchItems() {
     this.items = [];
-    this.alertService.showLoader();
-    if (!this.storeService.activeStore) { return this.router.navigate(['../notfound'], { relativeTo: this.route }); }
-
+    if (!this.storeService.activeStore) { 
+      return this.router.navigate(['../notfound'], { relativeTo: this.route });
+    }
+    // this.alertService.showLoader();
     this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/all`, (response) => {
       if (response['data'] && response['data'].length > 0) {
         let data = response['data'];
         data.forEach(item => {
           this.items.push(this.readItems(item));
+          this.alertService.hideLoader();
         });
-        this.alertService.hideLoader();
       }
     });
   }
