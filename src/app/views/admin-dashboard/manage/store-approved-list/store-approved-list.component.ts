@@ -13,7 +13,7 @@ import { AdminStoreDataService } from '../../_services/admin-store-data.service'
 })
 export class StoreApprovedListComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  approvedStores: Array<{ id: number, name: string, claimType: string, applicant: string }>;
+  approvedStores: Array<{ id: number, name: string, status: string, applicant: string }>;
   constructor(private adminStoreData: AdminStoreDataService) { }
 
   @ViewChild('queryGen', { read: SearchQueryGeneratorComponent }) queryGen: SearchQueryGeneratorComponent
@@ -26,7 +26,7 @@ export class StoreApprovedListComponent implements OnInit, AfterViewInit, OnDest
   ngAfterViewInit(): void {
     this.querySubs = this.queryGen.query.pipe(
       tap(change => this.approvedStores = null),
-      switchMap((val) => this.adminStoreData.allPendingStores(val))).subscribe(stores => this.approvedStores = stores);
+      switchMap((val) => this.adminStoreData.allApprovedStores(val))).subscribe(stores => this.approvedStores = stores);
   }
 
   ngOnDestroy(): void {

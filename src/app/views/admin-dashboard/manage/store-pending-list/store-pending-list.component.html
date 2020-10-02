@@ -1,5 +1,5 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Pending approval </h3>
-<search-query-generator termName="name" typeName="status" [types]="['Claim', 'New']" #queryGen></search-query-generator>
+<search-query-generator termName="name" typeName="type" [types]="['claim', 'new']" #queryGen></search-query-generator>
 <div class="row" loadingPlaceholder [loadStatus]="pendingStores">
     <div class="col-md-12">
         <div class="table-responsive">

@@ -49,6 +49,7 @@ export class StoreBasicDetailsComponent implements OnInit {
     }
   }
   public AddressChange(address: any) {
+    this.basicDetails.markAsDirty();
     //setting address from API to local variable 
     if (address) {
       this.address = address.name + "," + address.formatted_address;
@@ -107,7 +108,11 @@ export class StoreBasicDetailsComponent implements OnInit {
   }
 
   onFileChanged(event : any){
-    if(event.target.files[0]) this.imageOpened.emit(event.target.files[0]);
+    if(event.target.files[0]) {
+      this.basicDetails.markAsDirty(); 
+      this.imageOpened.emit(event.target.files[0]); 
+      event.target.value = '';
+    }
   }
 
   displayError(cntlName: string): boolean{

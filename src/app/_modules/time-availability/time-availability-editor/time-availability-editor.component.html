@@ -53,19 +53,23 @@
         </select>
     </div>
     <div class="col-md-3" style="padding-top: 28px;">
-        <button class="btn btn-disable" style="cursor: pointer;padding: 12px 14px;" id="active_button"
-            (click)="addAvailability()"><img [src]="activeBtn ? active_add_image : inactive_add_image">&nbsp;&nbsp;Add
+        <button class="btn btn-disable" [ngStyle]="{'cursor': (timing.valid && selectedDays.length > 0 ? 'pointer':'not-allowed')}" id="active_button"
+            (click)="addAvailability()"><img src="assets/images/ico_add.png">&nbsp;&nbsp;Add
             time</button>
     </div>
     <div class="col-md-12">
         <div class="error-mez"
         *ngIf="timing.controls.startTime.value !== 'Select' && timing.controls.endTime.value !== 'Select' && timing.controls.startTime.value == timing.controls.endTime.value">
         Start time and end time should be different</div>
+        <div class="error-mez" *ngIf="timing.errors">
+            <div *ngIf="timing.errors.noSelection"> Start and end time are required </div>
+        </div>
     </div>
-</div>
-<ng-container #headingSlot>
 
-</ng-container>
+</div>
+
+<ng-container #headingSlot></ng-container>
+
 <div class="row">
     <div class="col-md-12">
         <table class="table table-border table-colors">
@@ -77,7 +81,7 @@
                     </td>
                     <td>
                         <div class="form-check">
-                            <input [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input checkbox-box">
+                            <input (ngModelChange)="dirty = true; touched = true" [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input checkbox-box">
                             <label class="form-check-label check-label-text">&nbsp;Mark as closed </label>
                         </div>
                     </td>

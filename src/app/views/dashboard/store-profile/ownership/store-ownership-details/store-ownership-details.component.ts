@@ -48,6 +48,8 @@ export class StoreOwnershipDetailsComponent implements OnInit {
     this.ownershipDetails.patchValue(data);
   }
 
+  
+
   onownershipdetailSubmit() {
     if(!this.legalFile && !this.selectedFile) return;
     if(this.ownershipDetails.invalid) {

@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="float-right b32">
                 <button type="button" (click)="cancelForm()" class="btn std-button std-button--transparency" style="margin-left:10px;"> Cancel </button>
-                <button  type="submit"  class="btn std-button std-button--primary" style="margin-left:10px;"> Save </button>
+                <button  type="submit"  class="btn std-button std-button--primary" style="margin-left:10px;" [disabled]="!bankDetails.dirty"> Save </button>
             </div>
         </div>
     </ng-template>
@@ -49,9 +49,10 @@
                 <h5 class="std-heading-5 t40"> BSB Number <b class="m-star" *ngIf="!activeMode">*</b></h5>
                 <div class="paragraph" *ngIf="activeMode; else bsbNumber" > {{bankDetails.value.bsbNumber}} </div>
                 <ng-template #bsbNumber>
-                    <input [ngClass]="{ 'is-invalid': displayError('bsbNumber') }" class="form-control form-input" type="number" formControlName="bsbNumber" minlength="6">
+                    <input [ngClass]="{ 'is-invalid': displayError('bsbNumber') }" class="form-control form-input" type="text" formControlName="bsbNumber">
                     <div *ngIf="displayError('bsbNumber')" class="error-mez">
-                        <div> Please enter BSB number </div>
+                        <div *ngIf="bankDetails.controls.bsbNumber.errors.required"> Please enter account number </div>
+                        <div *ngIf="bankDetails.controls.bsbNumber.errors.pattern"> Please enter a valid account number </div>
                     </div>
                 </ng-template>
             </div>
@@ -59,14 +60,13 @@
                 <h5 class="std-heading-5 t40"> Account Number <b class="m-star" *ngIf="!activeMode">*</b></h5>
                 <div class="paragraph" *ngIf="activeMode; else accountNumber" > {{bankDetails.value.accountNumber}} </div>
                 <ng-template #accountNumber>
-                    <input [ngClass]="{ 'is-invalid': displayError('accountNumber') }" class="form-control form-input" type="number" formControlName="accountNumber">
+                    <input [ngClass]="{ 'is-invalid': displayError('accountNumber') }" class="form-control form-input" type="text" formControlName="accountNumber">
                     <div *ngIf="displayError('accountNumber')" class="error-mez">
-                        <div> Please enter account number </div>
+                        <div *ngIf="bankDetails.controls.accountNumber.errors.required"> Please enter account number </div>
+                        <div *ngIf="bankDetails.controls.accountNumber.errors.pattern"> Please enter a valid account number </div>
                     </div>
                 </ng-template>
             </div>
         </div>
     </div>
 </form>
-
-

@@ -40,9 +40,6 @@ export class OwnershipComponent implements OnInit {
     this.ownershipDetails.patchData(this.storeOwnershipDetails);
   }
 
-  // handleFileUpload(event){
-  //   this.;
-  // }
   handleUrl(url) {
     this.storeOwnershipDetails.legalFile = url;
     this.ownershipDetails.patchData(this.storeOwnershipDetails);
