@@ -3,9 +3,10 @@
         <input #termInput type="search" placeholder="Search"
             class="form-control form-input search" />
     </div>
-    <div class="col-md-6 mb-1 pd-mq">
-        <select (input)="type = $event.target.value; query.emit(selectionToQuery())" #typeSelect class="custom-select form-control form-input form-input--select-input">
-            <option value=""> All </option>
+
+    <div *ngIf="types" class="col-md-3 mb-1 pd-mq">
+        <select style="text-transform: capitalize;" (input)="type = $event.target.value; query.emit(selectionToQuery())" #typeSelect class="custom-select form-control form-input form-input--select-input">
+>           <option value=""> All </option>
             <option [value]="type" *ngFor="let type of types">{{type}}</option>
         </select>
     </div>

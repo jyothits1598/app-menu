@@ -1,7 +1,7 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Approved </h3>
 <div class="row">
     <div class="col-md-6">
-        <search-query-generator termName="name" typeName="status" [types]="['Trading', 'NotTrading']" #queryGen></search-query-generator>
+        <search-query-generator termName="name" typeName="type" [types]="['trading', 'notTrading']" #queryGen></search-query-generator>
     </div>
 </div>
 <div loadingPlaceholder [loadStatus]="approvedStores">
@@ -22,7 +22,7 @@
                         <tr class="text-capitalize" *ngFor="let store of approvedStores">
                             <td class="table-name" [routerLink]="'../../stores/'+store.id"> {{store.name}}</td>
                             <td> {{store.applicant}}</td>
-                            <td> {{store.claimType}} </td>
+                            <td> {{store.status}} </td>
                             <td style="text-align: right;cursor:pointer;outline: none;">
                                 <div class="dropdown">
                                     <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"

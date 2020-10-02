@@ -11,39 +11,39 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './bank.component.html',
   styleUrls: ['./bank.component.scss']
 })
-export class BankComponent implements OnInit {
+export class BankComponent implements OnInit, AfterViewInit {
 
   storeBankDetails: StoreBankDetails;
 
   @ViewChild('bankDetails', { read: StoreBankDetailsComponent, static: false }) bankDetails: StoreBankDetailsComponent;
 
-  constructor(private storeProfileDataService: StoreProfileDataService, 
+  constructor(private storeProfileDataService: StoreProfileDataService,
     private storeService: StoreService,
     private alertService: AlertService,) { }
 
-    ngAfterViewInit(): void {
-      this.storeProfileDataService.GetStoreBankData(this.storeService.activeStore$.value.id).subscribe(
-        (data) => {
-          this.storeBankDetails = data;
-          this.bankDetails.patchData(this.storeBankDetails)
-        }
-      ); 
-    }
+  ngAfterViewInit(): void {
+    this.storeProfileDataService.GetStoreBankData(this.storeService.activeStore$.value.id).subscribe(
+      (data) => {
+        this.storeBankDetails = data;
+        this.bankDetails.patchData(this.storeBankDetails)
+      }
+    );
+  }
 
-  ngOnInit(): void {   
-   
+  ngOnInit(): void {
+
   }
 
   savebankDetails(data: StoreBankDetails) {
     this.alertService.showLoader();
     data.id = this.storeService.activeStore$.value.id;
-    this.storeProfileDataService.SaveStoreBankData(data).pipe(finalize(()=>this.alertService.hideLoader())).subscribe((data)=>{
+    this.storeProfileDataService.SaveStoreBankData(data).pipe(finalize(() => this.alertService.hideLoader())).subscribe((data) => {
       this.bankDetails.Editbtntoggle();
       this.alertService.showNotification('Successfully updated', 'success');
     },
-    (error) => {
-      console.log('error in savebank details', error);
-      this.alertService.showNotification(error.error.error.bsb_number[0], 'error');
-    })
+      (error) => {
+        console.log('error in savebank details', error);
+        this.alertService.showNotification(error.error.error.bsb_number[0], 'error');
+      })
   }
 }

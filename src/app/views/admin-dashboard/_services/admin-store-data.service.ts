@@ -40,7 +40,7 @@ export class AdminStoreDataService {
       (resp) => {
         let approvedStores = [];
         resp.data.forEach(store => {
-          approvedStores.push({ id: store.store_id, name: store.store_name, claimType: store.type_of_creation, applicant: store.legal_owner_name })
+          approvedStores.push({ id: store.store_id, name: store.store_name, status: store.status, applicant: store.legal_owner_name })
         });
         return approvedStores;
       }

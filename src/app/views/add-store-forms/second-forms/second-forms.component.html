@@ -34,7 +34,8 @@
                         formControlName="typeCuisine" (ngModelChange)="changeCuisine()"
                         [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
                         <option value=""> Select </option>
-                        <option *ngFor="let cuisine of Cuisines" value="{{cuisine.cuisine_id}}"> {{ cuisine.cuisine_name }} </option>
+                        <option *ngFor="let cuisine of Cuisines" value="{{cuisine.cuisine_id}}">
+                            {{ cuisine.cuisine_name }} </option>
                     </select>
                     <div *ngIf="typeCuisineSubmit && f.typeCuisine.errors" class="error-mez">
                         <div *ngIf="f.typeCuisine.errors.required"> Please select type of cuisine </div>
@@ -72,14 +73,16 @@
         </div>
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Opening hours </label>
-            <div class="d-flex justify-content-between" (click)="startEdit(editor)" style="cursor: pointer;" title=" {{storeOpeningHours.length == 0 ? 'Add opening hours' : 'Edit opening hours'}}">
+            <div class="d-flex justify-content-between" (click)="startEdit(editor)" style="cursor: pointer;"
+                title=" {{storeOpeningHours.length == 0 ? 'Add opening hours' : 'Edit opening hours'}}">
                 <div class="content-label"> {{storeOpeningHours.length == 0 ? 'Add' : 'Edit'}} opening hours </div>
                 <img [src]="storeOpeningHours.length == 0 ? add_image : edit_image">
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div style="margin-top:32px">
-                        <app-time-availability-summary [availabilities]="storeOpeningHours"></app-time-availability-summary>
+                        <app-time-availability-summary [availabilities]="storeOpeningHours">
+                        </app-time-availability-summary>
                     </div>
                 </div>
             </div>
@@ -130,8 +133,8 @@
     <div class="row">
         <div class="col-md-12" style="margin-top:32px;margin-bottom:32px;">
             <h4 class="std-heading-4" style="margin-top:64px;margin-bottom:32px;"> Opening hours </h4>
-            <p class="paragraph"> Select <b>days</b> and <b>times</b> above and press <b>add time</b> to add
-                availability.
+            <p class="paragraph"> Select <b>days</b> and <b>times</b> above and press <b>add time</b> to add opening
+                hours.
             </p>
         </div>
     </div>
@@ -151,7 +154,8 @@
                     availability</p>
             </div>
         </div> -->
-        <time-availability-editor #editorComponent (onChange)="storeOpeningHours = $event" [availability]="storeOpeningHours" [headingTempalte]="openingHoursHeading">
+        <time-availability-editor #editorComponent (onChange)="storeOpeningHours = $event"
+            [availability]="storeOpeningHours" [headingTempalte]="openingHoursHeading">
         </time-availability-editor>
         <div class="row">
             <div class="col-md-12">
@@ -159,7 +163,8 @@
                     <div class="float-right" style="margin-bottom:16px;">
                         <button class="btn std-button std-button--transparency mr-sm-3"
                             (click)="storeOpeningHours = storeOpeningHoursCache; modalRef.dismiss()"> Cancel </button>
-                        <button class="btn std-button-active" (click)="finalizeOpeningHours()" [disabled]="!editorComponent.touched">Save</button>
+                        <button class="btn std-button std-button--primary" (click)="finalizeOpeningHours()"
+                            [disabled]="!editorComponent.dirty">Save</button>
                     </div>
                 </div>
             </div>
