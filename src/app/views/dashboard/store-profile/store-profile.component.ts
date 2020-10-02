@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserRole } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-store-profile',
@@ -6,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./store-profile.component.scss']
 })
 export class StoreProfileComponent implements OnInit {
+  isAdmin: boolean = false;
 
-  constructor() { 
+  constructor(private authService: AuthenticationService) { 
   }
 
   ngOnInit(): void {
+    if(this.authService.userObjectSubject.value.role == UserRole.Admin) this.isAdmin = true;
   }
 
 }

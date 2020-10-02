@@ -1,8 +1,8 @@
-import { Component, OnInit, ContentChild, ElementRef, AfterViewInit, EmbeddedViewRef, ViewContainerRef, Renderer2, ViewChild, Input, TemplateRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ContentChild, ElementRef, AfterViewInit, EmbeddedViewRef, ViewContainerRef, Renderer2, ViewChild, Input, TemplateRef, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { tap, map, distinctUntilChanged, debounce, switchMap, finalize } from 'rxjs/operators';
-import { interval, Observable } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 import { OverlayRef, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 
@@ -11,9 +11,12 @@ import { TemplatePortal } from '@angular/cdk/portal';
   templateUrl: './incremental-search.component.html',
   styleUrls: ['./incremental-search.component.scss']
 })
-export class IncrementalSearchComponent implements OnInit, AfterViewInit {
+export class IncrementalSearchComponent implements AfterViewInit, OnDestroy {
   listLoading: boolean = false;
   overLayVisible: boolean = false;
+
+  focusSubs: Subscription;
+  keyupSubs: Subscription;
 
   constructor(private overlay: Overlay,
     private vCRef: ViewContainerRef) { }
@@ -23,13 +26,13 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
     this.onSelect.emit(item);
   }
   ngAfterViewInit(): void {
-    fromEvent(this.searchBox.nativeElement, 'focus').pipe(
+    this.focusSubs = fromEvent(this.searchBox.nativeElement, 'focus').pipe(
       tap(() => {
         if (this.searchData.length > 0) this.openTemplateOverlay(this.overlayTemplate, this.searchBox);
       })
     ).subscribe();
 
-    fromEvent(this.searchBox.nativeElement, 'keyup')
+    this.keyupSubs = fromEvent(this.searchBox.nativeElement, 'keyup')
       .pipe(
         map((event: any) => event.target.value),
         distinctUntilChanged(),
@@ -41,7 +44,7 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
         switchMap((val) => this.apiFunction(this.searchBox.nativeElement.value).pipe(finalize(() => this.listLoading = false)))
       ).subscribe((resp: any) => this.searchData = resp);
   }
-  
+
   @Output() onSelect = new EventEmitter<any>();
   @Input() apiFunction: (term) => Observable<any>;
   @Input() accessorFunction: (any) => string;
@@ -90,9 +93,10 @@ export class IncrementalSearchComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngOnInit(): void {
-    // console.log('recieved function as', this.params);
-    // this.apiFunction(this.params, 'sam').subscribe((val) => { this.searchData = val; console.log('resp from api fucntion', val) })
+  ngOnDestroy(): void {
+    this.focusSubs.unsubscribe();
+    this.keyupSubs.unsubscribe();
   }
+
 
 }

@@ -29,7 +29,7 @@ export class LoadingPlaceholderDirective {
       let componentFactory = this.resolver.resolveComponentFactory(LoadingPlaceholderComponent);
       let componetRef = this.viewCR.createComponent(componentFactory);
     }else{
-      if(this.loadStatus) this.renderer.setStyle(this.elem.nativeElement, 'display', 'block');
+      if(this.loadStatus) this.renderer.setStyle(this.elem.nativeElement, 'display', '');
     }
 
   }

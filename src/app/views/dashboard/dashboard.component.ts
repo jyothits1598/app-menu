@@ -26,23 +26,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   store_status_setup: boolean = false;
   logoUrl: string = 'assets/images/Area.png';
   storeName: string;
-  
+
   @ViewChild('sideBarLinks', { read: TemplateRef }) sideBarLinks: TemplateRef<any>;
-  
+
   constructor(
     private restapiService: RestApiService,
     private router: Router,
     private alertService: AlertService,
     private route: ActivatedRoute,
     private sideBarServ: SideNavbarService
-  ) {
-    // this.tab_acive['dashboard']='active';
-    // if(this.dataService.hasRoleId()){
-    //   this.userRole = this.dataService.hasRoleId();
-    // }
-    // this.store_id = this.route.snapshot.paramMap.get('id');
-    // console.log(this.store_id);
-  }
+  ) { }
   ngOnDestroy(): void {
     this.sideBarServ.RemoveTemplate('Dashboard');
   }
@@ -139,14 +132,14 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   navigate(storeDetail: Storedetails) {
     console.log("navigate called", storeDetail);
-    if (storeDetail.activeStatus=="setup" || storeDetail.activeStatus == 'Set up') {
+    if (storeDetail.activeStatus == "setup" || storeDetail.activeStatus == 'Set up') {
       // if(storeDetail.activeFlag)  return this.router.navigate(['./stores', storeDetail.id], {relativeTo: this.route});
       if (storeDetail.nextStep == '') return this.router.navigate(['./stores', storeDetail.id, 'menu'], { relativeTo: this.route });
       if (storeDetail.nextStep = 'ownership') return this.router.navigate([`../store/step2/${storeDetail.id}/ownership`])
       if (storeDetail.nextStep = 'bankaccount') return this.router.navigate([`../store/step3/${storeDetail.id}/bankaccount`])
-    }else if(storeDetail.activeStatus=="pending"){
-       return this.router.navigate(['./stores', storeDetail.id, 'menu'], { relativeTo: this.route });
-    }else if(storeDetail.activeStatus=="approve"){
+    } else if (storeDetail.activeStatus == "pending") {
+      return this.router.navigate(['./stores', storeDetail.id, 'menu'], { relativeTo: this.route });
+    } else if (storeDetail.activeStatus == "approve") {
       return this.router.navigate(['./stores', storeDetail.id, 'menu'], { relativeTo: this.route });
     }
     // else(storeDetail.nextStep) {

@@ -94,8 +94,8 @@ export class SecondFormsComponent implements OnInit {
     var obj = this;
     if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
       // obj.authenticateService.checkExpiryStatus();
-      obj.getstoreDetails();
       obj.getTypeOfCusine();
+      obj.getstoreDetails();
     }
 
     this.storeDetailform = this.formBuilder.group({

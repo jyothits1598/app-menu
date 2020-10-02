@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { StoreService } from 'src/app/services/store.service';
 import { StoreMenuCategory } from 'src/app/_models/store-menu-category';
 import { StoreMenuItem } from 'src/app/_models/store-menu-items';
-import { ModifierOption, StoreMenuModifier, StoreMenuModifierItem } from 'src/app/_models/store-menu-modifier';
+import { ModifierOption, StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
 import { URL_CreateStoreMenuModfier, URL_StoreMenuModifier } from 'src/environments/api/api-store-menu';
 
 @Injectable({
@@ -81,5 +81,21 @@ export class StoreMenuModifierDataService {
     data.active_flag = 0;
 
     return this.restApiService.postData(URL_CreateStoreMenuModfier, data);
+  }
+
+  duplicateModifier(modifierId: number) {
+    return this.restApiService.getDataObs(`modifiers/${this.storeService.activeStore$.value.id}/${modifierId}`).pipe(
+      switchMap((resp) => {
+        let data = resp.data[0];
+        data.store_id = this.storeService.activeStore$.value.id;
+        delete data.modifier_id;
+        delete data.used_by;
+        delete data.active_flag;
+        data.options.forEach(optn => {
+          delete optn.modifier_option_id;
+        });
+        return this.restApiService.postData(`modifiers`, data);
+      })
+    )
   }
 }

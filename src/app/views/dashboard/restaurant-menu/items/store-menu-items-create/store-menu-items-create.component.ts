@@ -7,7 +7,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription, forkJoin } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
-import { tap, map, finalize } from 'rxjs/operators';
+import { tap, map, finalize, switchMap, mergeMap } from 'rxjs/operators';
 import { StringHelperService } from 'src/app/services/string-helper.service';
 import { ModalService } from 'src/app/views/shared/services/modal.service';
 import { ModalRef } from 'src/app/views/shared/_model/modal-ref';
@@ -63,7 +63,8 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private stringHelper: StringHelperService,
     public modalServ: ModalService,
-    private modifierData: StoreMenuModifierDataService
+    private modifierData: StoreMenuModifierDataService,
+    private customModal: ModalService
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
       //creating a new category
@@ -98,10 +99,10 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     this.modalService.open(back, { centered: true, size: 'sm' });
   }
 
-  get modalService(): NgbModal{
+  get modalService(): NgbModal {
     return this._modalService;
   }
-  
+
   showTemplate(modifierAdd) {
     this.modalRef = this.modalServ.openTemplate(modifierAdd);
   }
@@ -123,15 +124,25 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   }
 
   removeSelectedMod(modifier: StoreMenuModifier) {
-    console.log('remove mod activated');
+    this.customModal.getConfirmation({
+      heading: `Deleting modifier ${modifier.name}`,
+      dialog: 'Are you sure',
+      confirmBtn: 'Delete',
+      declineBtn: 'Cancel'
+    }).subscribe(() => {
+      this.removeModifer(modifier.id);
+    })
+  }
+
+  removeModifer(modifierId) {
     let value = this.createItemForm.controls.modifiers.value as Array<StoreMenuModifier>
-    let index = value.findIndex((mod) => mod.id == modifier.id);
+    let index = value.findIndex((mod) => mod.id == modifierId);
     value.splice(index, 1);
   }
 
   initializeModifierEditor(modifier: StoreMenuModifier) {
     console.log('recieved edit model', modifier);
-    
+
     this.showTemplate(this.creator);
   }
 
@@ -266,26 +277,41 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
   }
 
   deleteData() {
-
-    if (!this.itemId) return;
-
-    let data: any = {};
-    data.item_id = this.itemId;
-    data.item_name = this.createItemForm.value.itemName;
-    data.active_flag = 1;
-
-    if (this.itemId) data.item_id = this.itemId;
-    this.restApiService.postAPI(`store/items/add/${this.storeService.activeStore}`
-      , data
-      , (resp) => {
-        if (resp.success) {
-          // this.alertService.showNotification('Item successfully deleted.');
-          this.navigateBack();
-        }
-      }
-      , (err) => {
-        this.alertService.showNotification('There was an error while deleting the category, please try again.');
+    this.customModal.getConfirmation({
+      heading: `Delete item "${this.createItemForm.value.itemName}"`,
+      dialog: 'Do you sure?',
+      confirmBtn: 'Delete',
+      declineBtn: 'Delete'
+    }).pipe(
+      switchMap(() => {
+        let data: any = {};
+        data.item_id = this.itemId;
+        data.item_name = this.createItemForm.value.itemName;
+        data.active_flag = 0;
+        data.item_id = this.itemId;
+        return this.restApiService.postData(`store/items/add/${this.storeService.activeStore}`, data);
       })
+    ).subscribe(() => {
+      this.alertService.showNotification('Item successfully deleted.');
+      this.navigateBack();
+    })
+
+    // let data: any = {};
+    // data.item_id = this.itemId;
+    // data.item_name = this.createItemForm.value.itemName;
+    // data.active_flag = 1;
+    // data.item_id = this.itemId;
+    // this.restApiService.postAPI(`store/items/add/${this.storeService.activeStore}`
+    //   , data
+    //   , (resp) => {
+    //     if (resp.success) {
+    //       this.alertService.showNotification('Item successfully deleted.');
+    //       this.navigateBack();
+    //     }
+    //   }
+    //   , (err) => {
+    //     this.alertService.showNotification('There was an error while deleting the category, please try again.');
+    //   })
   }
 
   categoryForm() {
@@ -338,17 +364,39 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
     this.modifierData.allModifiers().subscribe(mods => {
       this.modifiers = mods;
       this.modifiers.forEach(mod => {
-        let index  =  this.createItemForm.controls.modifiers.value.findIndex(selectedMods => selectedMods.id == mod.id);
-        if(index > -1) this.createItemForm.controls.modifiers.value[index] = mod;
+        let index = this.createItemForm.controls.modifiers.value.findIndex(selectedMods => selectedMods.id == mod.id);
+        if (index > -1) this.createItemForm.controls.modifiers.value[index] = mod;
         console.log('inside refresh foreach', mod, this.createItemForm.controls.modifiers.value, index);
       })
     })
   }
 
-  shouldPreventNavigation(){
-    if(!this.createItemForm.dirty) return false;
+  duplicateItem() {
+    this.customModal.getConfirmation({ heading: 'Item duplication', dialog: "Are you sure?", confirmBtn: 'Continue', declineBtn: 'Cancel' }).pipe(
+      tap(() => this.alertService.showLoader()),
+      switchMap(() => {
+        return this.restApiService.getDataObs(`store/items/get/${this.storeService.activeStore}/${this.itemId}`).pipe(
+          switchMap((resp) => {
+            let data = resp.data[0];
+            let category = data.category_details;
+            let modifier = data.modifiers_details;
+            delete data.item_id;
+            delete data.modifiers_details;
+            delete data.category_details;
+
+            data.item_category = category;
+            data.item_modifier = modifier;
+            return this.restApiService.postData(`store/items/add/${this.storeService.activeStore$.value.id}`, data);
+          })
+        )
+      })
+    ).subscribe(() => { this.alertService.showNotification('A duplicate of this has been created'); this.alertService.hideLoader() });
+  }
+
+  shouldPreventNavigation() {
+    if (!this.createItemForm.dirty) return false;
     else {
-      if(this.formSubmitted) return false;
+      if (this.formSubmitted) return false;
       else return true;
     }
   }

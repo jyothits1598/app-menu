@@ -1,24 +1,26 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, ParamMap, Router, NavigationEnd, RouterEvent } from '@angular/router';
 import { StoreService } from 'src/app/services/store.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
 
-import { filter, catchError } from 'rxjs/operators';
+import { filter, catchError, finalize, switchMap, tap } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { StoreMenuItem } from 'src/app/_models/store-menu-items';
 import { StoreMenuCategory } from 'src/app/_models/store-menu-category';
 import { StoreMenu } from 'src/app/_models/store-menu';
 import { StoreMenuModifier } from 'src/app/_models/store-menu-modifier';
 import { StringHelperService } from 'src/app/services/string-helper.service';
+import { StoreMenuItemDataService } from '../../_services/store-menu-item-data.service';
+import { SearchQueryGeneratorComponent } from 'src/app/views/shared/components/search-query-generator/search-query-generator.component';
 
 @Component({
   selector: 'app-restaurant-menu-items',
   templateUrl: './restaurant-menu-items.component.html',
   styleUrls: ['./restaurant-menu-items.component.scss']
 })
-export class RestaurantMenuItemsComponent implements OnInit {
+export class RestaurantMenuItemsComponent implements OnInit, AfterViewInit, OnDestroy {
   deleteIndexlist: number;
   items = new Array<StoreMenuItem>();
   item_id: string;
@@ -26,16 +28,31 @@ export class RestaurantMenuItemsComponent implements OnInit {
   constructor(
     private _modalService: NgbModal,
     public route: ActivatedRoute,
-    private router: Router,
     private storeService: StoreService,
     private restApiService: RestApiService,
     private alertService: AlertService,
-    public stringHelper: StringHelperService
+    public stringHelper: StringHelperService,
+    private itemDataService: StoreMenuItemDataService
   ) {
 
   }
+  ngOnDestroy(): void {
+    this.querySubs.unsubscribe();
+  }
+  ngAfterViewInit(): void {
+    this.querySubs = this.queryGen.query.pipe(
+      tap(() => this.alertService.showLoader()),
+      switchMap((query) => this.itemDataService.allItems(query))).subscribe(
+        items => {
+          this.items = items
+          this.alertService.hideLoader();
+        }
+      )
+  }
 
   nameAccessor: (any) => string = (data) => data.name;
+  @ViewChild('queryGen', { read: SearchQueryGeneratorComponent }) queryGen: SearchQueryGeneratorComponent
+  querySubs: Subscription;
 
   ngOnInit(): void {
     this.fetchItems();
@@ -43,19 +60,23 @@ export class RestaurantMenuItemsComponent implements OnInit {
 
   fetchItems() {
     this.items = [];
-    if (!this.storeService.activeStore) { 
-      return this.router.navigate(['../notfound'], { relativeTo: this.route });
-    }
-    // this.alertService.showLoader();
-    this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/all`, (response) => {
-      if (response['data'] && response['data'].length > 0) {
-        let data = response['data'];
-        data.forEach(item => {
-          this.items.push(this.readItems(item));
-          this.alertService.hideLoader();
-        });
-      }
-    });
+    // if (!this.storeService.activeStore) { 
+    //   return this.router.navigate(['../notfound'], { relativeTo: this.route });
+    // }
+    // // this.alertService.showLoader();
+    // this.restApiService.getData(`store/items/get/${this.storeService.activeStore}/all`, (response) => {
+    //   if (response['data'] && response['data'].length > 0) {
+    //     let data = response['data'];
+    //     data.forEach(item => {
+    //       this.items.push(this.readItems(item));
+    //       this.alertService.hideLoader();
+    //     });
+    //   }
+    // });
+    this.alertService.showLoader();
+    this.itemDataService.allItems().pipe(finalize(() => this.alertService.hideLoader())).subscribe(
+      items => this.items = items
+    )
   }
 
   deleteData() {

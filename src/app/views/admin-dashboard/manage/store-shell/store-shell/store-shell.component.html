@@ -1,25 +1,21 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Shells </h3>
 <div class="row">
-    <div class="col-md-3 mb-2">
-        <input type="search" placeholder="Search" class="form-control form-input search" />
-    </div>
-    <div class="col-md-2 mb-2 pd-mq">
-        <select class="custom-select form-control form-input form-input--select-input">
-            <option> All </option>
-        </select>
-    </div>
+    <search-query-generator termName="name" typeName="status" [types]="['Claimed', 'Unclaimed']" #queryGen>
+    </search-query-generator>
     <div class="col-md-1"></div>
     <div class="col-md-3 mb-2">
-        <app-file-upload loadingPlaceholder [loadStatus]="importComplete" [validators]="csvFileValidators" [accept]="validFileFormats" validFileFormats (file)="handleFileUpload($event)" (error)="handleFileError($event)">
+        <app-file-upload loadingPlaceholder [loadStatus]="importComplete" [validators]="csvFileValidators"
+            [accept]="validFileFormats" validFileFormats (file)="handleFileUpload($event)"
+            (error)="handleFileError($event)">
             <a type="button" class="btn std-button std-button--transparency1"> <img
-                src="../../../../../assets/images/ico_upload.png"> &nbsp; Import via CSV </a>  
+                    src="../../../../../assets/images/ico_upload.png"> &nbsp; Import via CSV </a>
         </app-file-upload>
     </div>
     <div class="col-md-3 mb-2 pd-mq">
         <a routerLink="/store/step1/create" type="button" class="btn std-button std-button--blue"> <img
-            src="../../../../../assets/images/ico_add.png"> &nbsp; Add Store Shell </a>
+                src="../../../../../assets/images/ico_add.png"> &nbsp; Add Store Shell </a>
     </div>
-    <div class="col-md-12" loadingPlaceholder [loadStatus]="contentLoaded">
+    <div class="col-md-12" loadingPlaceholder [loadStatus]="stores">
         <div class="table-responsive">
             <table class="table table-border table-color" style="margin-top:24px;">
                 <thead>
@@ -29,8 +25,10 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody *ngIf="(stores$ | async) as stores">
-                    <tr *ngIf="stores.length == 0"> <td>No stores have been added</td>  </tr>
+                <tbody>
+                    <tr *ngIf="stores && stores.length == 0">
+                        <td>No stores have been added</td>
+                    </tr>
                     <tr class="text-capitalize" *ngFor="let store of stores">
                         <td class="table-name"> {{store.store_name}} </td>
                         <td>{{store.status}}</td>

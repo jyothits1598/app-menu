@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="float-right" style="margin-bottom:16px;">
             <button class="btn std-button std-button--transparency mr-sm-3" *ngIf="menuId" (click)="modalService.open(deleteComform, { centered: true, size: 'sm' });">Delete</button>
-            <button class="btn std-button-active"  (click)="saveMenu()" appBtnIcon [valid]="readyToSave()" [loading]="submitting"><span #span>Save</span></button>
+            <button class="btn std-button-active"  (click)="saveMenu()" appBtnIcon [valid]="menuName.valid" [loading]="submitting"><span #span>Save</span></button>
         </div>
     </div>
     <div class="col-md-12">

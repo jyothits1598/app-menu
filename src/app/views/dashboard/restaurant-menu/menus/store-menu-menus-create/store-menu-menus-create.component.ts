@@ -81,22 +81,8 @@ export class StoreMenuMenusCreateComponent implements OnInit, OnDestroy {
     this.notifier.next(false);
   }
 
-
-  readyToSave(): boolean {
-    if (this.menuName.invalid) {
-      return false;
-    }
-
-    // if (this.availability.length == 0) {
-    //   return false;
-    // }
-
-    return true;
-  }
-
-
   saveMenu() {
-    if (!this.readyToSave()) {
+    if (this.menuName.invalid) {
       this.menuName.markAllAsTouched();
       this.alertService.showNotification('Please complete the form below');
       return;

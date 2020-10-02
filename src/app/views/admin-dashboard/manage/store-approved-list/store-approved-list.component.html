@@ -1,13 +1,5 @@
-<div class="row">
-    <div class="col-md-3 mb-1">
-        <input type="search" placeholder="Search" class="form-control form-input search" />
-    </div>
-    <div class="col-md-3 mb-1 pd-mq">
-        <select class="custom-select form-control form-input form-input--select-input">
-            <option> All </option>
-        </select>
-    </div>
-</div>
+<h3 class="u-margin-bottom-small std-heading-3"> Approved </h3>
+<search-query-generator termName="name" typeName="status" [types]="['Trading', 'NotTrading']" #queryGen></search-query-generator>
 <div loadingPlaceholder [loadStatus]="approvedStores">
     <div class="row">
         <div class="col-md-12">
@@ -24,14 +16,14 @@
                     <tbody>
                         <tr *ngIf="approvedStores && approvedStores.length == 0"><td>No stores have been approved</td></tr>
                         <tr class="text-capitalize" *ngFor="let store of approvedStores">
-                            <td class="table-name"> {{store.name}}</td>
+                            <td class="table-name" [routerLink]="'../../stores/'+store.id"> {{store.name}}</td>
                             <td> {{store.applicant}}</td>
                             <td> {{store.claimType}} </td>
                             <td style="text-align: right;cursor:pointer;outline: none;">
                                 <div class="dropdown">
                                     <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
                                         data-toggle="dropdown" title="Options">
-                                    <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <!-- <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                         <li class="herf-class" title="Edit">
                                             <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                             Edit
@@ -40,7 +32,7 @@
                                             <img src="../../../../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                             Delete
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </div>
                             </td>
                         </tr>
