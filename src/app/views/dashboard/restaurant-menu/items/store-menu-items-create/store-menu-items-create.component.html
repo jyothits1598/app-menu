@@ -8,7 +8,10 @@
                 <ng-container *ngTemplateOutlet="loading"></ng-container>
             </div>
             <div class="float-right" style="margin-bottom:16px;">
-                <button class="btn std-button std-button--transparency" style="margin-left:10px;" *ngIf="itemId" (click)="duplicateItem()"> Duplicate </button>
+                <ng-container *ngIf="itemId">
+                    <button class="btn std-button std-button--transparency" style="margin-left:10px;" (click)="deleteData()"> Delete </button>
+                    <button class="btn std-button std-button--transparency" style="margin-left:10px;" (click)="duplicateItem()"> Duplicate </button>
+                </ng-container>
                 <button appBtnIcon [valid]="createItemForm.valid" [loading]="saveBtnLoading"
                     class="btn std-button-active" style="margin-left:10px;" (click)="saveData()"><span
                         #span>Save</span></button>
@@ -198,6 +201,6 @@
             <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
         </button>
     </div>
-    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="this.createModalRef.dismiss(); this.modifierRefresh();">       
+    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="this.createModalRef.dismiss(); this.modifierRefresh();" (delete)="this.createModalRef.dismiss(); removeModifer(modiferEditId)">       
     </app-store-menu-modifier-group-create>
 </ng-template>

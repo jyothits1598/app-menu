@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RestApiService } from 'src/app/services/rest-api.service';
-import { finalize, switchMap } from 'rxjs/operators';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { StoreService } from 'src/app/services/store.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
@@ -26,7 +26,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     private route: ActivatedRoute,
     private storeMenuData: StoreMenuModifierDataService,
     private modalService: ModalService,
-    private _modalService: NgbModal,
+    private alertService: AlertService
   ) {
     this.routerSubs = this.route.params.subscribe(params => {
       console.log('this router sub', params['id']);
@@ -48,9 +48,10 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   }
 
   @Output() exit = new EventEmitter<boolean>();
+  @Output() delete = new EventEmitter<boolean>();
   useOutputs: boolean = false;
 
-  numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  numbers = [...Array(100).keys()]
   // ----------------------- search functionalify end ----------------------------
 
   routerSubs: Subscription;
@@ -58,7 +59,6 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   storeId: number;
   submitting: boolean = false;
   loaded: boolean = false;
-  editedItemIndex: number;
 
   formSubmitted = false;
   modifierForm: FormGroup;
@@ -82,8 +82,10 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     this.minValueChangesSubs = this.modifierForm.controls.minimum.valueChanges.subscribe(
       (val) => {
         if (val) this.modifierForm.controls.maximum.setValidators([Validators.required, Validators.min(val)])
-        else this.modifierForm.controls.maximum.setValidators([Validators.required])
+        else this.modifierForm.controls.maximum.setValidators([Validators.required]);
+        this.modifierForm.controls.maximum.updateValueAndValidity({ onlySelf: true })
       }
+
     );
   }
 
@@ -103,10 +105,6 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
         this.router.navigate(['../'], { relativeTo: this.route })
       }, 0);
     }
-  }
-
-  pagebackPopup(back) {
-    this._modalService.open(back, { centered: true, size: 'sm' });
   }
 
   createNewForm(data: StoreMenuModifier = null): FormGroup {
@@ -141,9 +139,14 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
         }, 0);
       }
     });
-
   }
 
+  duplicateModifier() {
+    this.modalService.getConfirmation({ heading: 'Modifier duplication', dialog: "Are you sure?", confirmBtn: 'Continue', declineBtn: 'Cancel' }).pipe(
+      tap(() => this.alertService.showLoader()),
+      switchMap(() => this.storeMenuData.duplicateModifier(this.modifierId))
+    ).pipe(finalize(() => this.alertService.hideLoader())).subscribe(() => { this.alertService.showNotification('A duplicate of this modifier has been created') })
+  }
 
   categoriesToString(items) {
     return ArrayToConsolidatedString(items, 2, (item) => item.name)
@@ -152,7 +155,12 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   deleteModifier() {
     this.modalService.getConfirmation({ heading: `Deleting modifier "${this.modifierForm.controls.name.value}"`, dialog: 'Are you sure?', confirmBtn: 'Delete', declineBtn: 'Cancel' }).pipe(
       switchMap(() => this.storeMenuData.deleteModifier(this.modifierId))
-    ).subscribe((resp: any) => { if (resp && resp.success) this.router.navigate(['../'], { relativeTo: this.route }) });
+    ).subscribe((resp: any) => {
+      if (resp && resp.success) {
+        if (this.useOutputs)  this.delete.emit(true);
+        else this.router.navigate(['../'], { relativeTo: this.route })
+      }
+    });
   }
 
   dismiss() {

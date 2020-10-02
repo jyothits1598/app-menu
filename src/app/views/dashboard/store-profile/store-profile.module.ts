@@ -16,6 +16,7 @@ import { TimeAvailabilityModule } from 'src/app/_modules/time-availability/time-
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { FileUploadComponent } from 'src/app/_modules/fileupload/file-upload/file-upload.component';
 import { FileuploadModule } from 'src/app/_modules/fileupload/fileupload.module';
+import { OwnerRoleGuard } from 'src/app/_guards/user-role.guard';
 
 const routes: Routes = [
   {
@@ -29,9 +30,11 @@ const routes: Routes = [
       {
         path: 'bank',
         component: BankComponent,
+        canActivate: [OwnerRoleGuard],
       },
       {
         path: 'ownership',
+        canActivate: [OwnerRoleGuard],
         component: OwnershipComponent,
       },
       {
