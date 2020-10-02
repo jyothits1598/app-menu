@@ -4,6 +4,7 @@ import { URL_ImportStoreShell, URL_StoreShellAllStores } from 'src/environments/
 import { map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { URL_AdminPendingStores } from 'src/environments/api-endpoint';
+import { URL_AdminApprovedStores } from 'src/environments/api-endpoint';
 
 @Injectable()
 export class AdminStoreDataService {
@@ -36,7 +37,7 @@ export class AdminStoreDataService {
   }
 
   allApprovedStores(queryString: string = null) {
-    return this.restApiService.getDataObs(URL_AdminPendingStores + (queryString ? queryString : '')).pipe(map(
+    return this.restApiService.getDataObs(URL_AdminApprovedStores + (queryString ? queryString : '')).pipe(map(
       (resp) => {
         let approvedStores = [];
         resp.data.forEach(store => {

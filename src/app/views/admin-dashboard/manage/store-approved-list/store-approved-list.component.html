@@ -1,5 +1,9 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Approved </h3>
-<search-query-generator termName="name" typeName="status" [types]="['Claim', 'New']" #queryGen></search-query-generator>
+<div class="row">
+    <div class="col-md-6">
+        <search-query-generator termName="name" typeName="status" [types]="['Claim', 'New']" #queryGen></search-query-generator>
+    </div>
+</div>
 <div loadingPlaceholder [loadStatus]="approvedStores">
     <div class="row">
         <div class="col-md-12">
@@ -14,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngIf="approvedStores && approvedStores.length == 0"><td>No stores have been approved</td></tr>
+                        <tr *ngIf="approvedStores && approvedStores.length == 0"><td colspan="4" class="text-center">No stores have been approved</td></tr>
                         <tr class="text-capitalize" *ngFor="let store of approvedStores">
                             <td class="table-name"> {{store.name}}</td>
                             <td> {{store.applicant}}</td>
