@@ -3,7 +3,7 @@ export function URL_StoreDetail(storeId) {
 }
 
 export function URL_ApproveStore(storeId) {
-    return `api/stores/${storeId}/trading`;
+    return `api/stores/${storeId}/Trading`;
 }
 
 export function URL_RejectStore(storeId) {

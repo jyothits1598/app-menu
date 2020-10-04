@@ -4,7 +4,7 @@ export class StoreBasicDetails{
     id: number;
     name: string;
     address: string;
-    cuisineType : string;
+    cuisine_id : number;
     description : string;
     googleUrl : string;
     facebookUrl : string;

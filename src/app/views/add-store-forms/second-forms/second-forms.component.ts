@@ -207,7 +207,7 @@ export class SecondFormsComponent implements OnInit {
             this.imageUrl = element.store_logo;
             this.storename = element.store_name;
             this.storeAddress = element.store_address;
-            this.cuisine = element.cuisine_name;
+            this.cuisine = element.cuisine_id;
             this.getDescription = element.description;
             this.getgoogleBussiness = element.google_business_url;
             this.getfacebookBussiness = element.facebook_url;

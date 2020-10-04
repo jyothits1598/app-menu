@@ -136,6 +136,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       this.formSubmitted = true;
       if (this.useOutputs) this.exit.emit(true);
       else {
+        this.alertService.showNotification(`Modifier ${this.modifierId ? "Updated" : "Created"}`,'success') 
         setTimeout(() => {
           this.router.navigate(['../'], { relativeTo: this.route })
         }, 0);
@@ -159,6 +160,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
       switchMap(() => this.storeMenuData.deleteModifier(this.modifierId))
     ).subscribe((resp: any) => {
       if (resp && resp.success) {
+        this.alertService.showNotification(`Modifier deleted`,'success'); 
         if (this.useOutputs)  this.delete.emit(true);
         else this.router.navigate(['../'], { relativeTo: this.route })
       }

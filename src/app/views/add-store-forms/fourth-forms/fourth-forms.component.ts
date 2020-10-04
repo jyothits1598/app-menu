@@ -50,7 +50,6 @@ export class FourthFormsComponent implements OnInit {
     // if(localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')){
     //   obj.authenticateService.checkExpiryStatus();
     // }
-
     this.bankForm = this.formBuilder.group({
       bankName: ['', Validators.required],
       accountName: ['', Validators.required],
@@ -123,6 +122,26 @@ export class FourthFormsComponent implements OnInit {
         } 
       });
     }
+
+   
+
+    //   bankAccountform() {
+    //   // this.alertservice.showLoader();
+    //   this.restApiservice.getData(`api/stores/${this.store_id}/ownership`, (response) => {
+    //     if (response && response['success'] && response['data']) {
+    //       response['data'].forEach(element => {
+    //         this.bankForm.get('bankName').setValue(element.bankName);
+    //         this.bankForm.get('accountName').setValue(element.bankName);
+    //         this.bankForm.get('BSBnumber').setValue(element.bankName);
+    //         this.bankForm.get('accountNumber').setValue(element.bankName);
+    //         this.bankForm.get('checkbankdetails').setValue(element.bankName);
+
+    //         // this.ownershipform.get('certificate').setValue(this.legalFile);
+    //         // this.alertservice.hideLoader();
+    //       })
+    //     }
+    //   });
+    // }
   }
 
 

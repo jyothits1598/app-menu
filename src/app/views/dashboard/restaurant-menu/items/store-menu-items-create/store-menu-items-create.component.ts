@@ -266,7 +266,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
         if (resp.success) {
           this.saveBtnLoading = false;
           this.formSubmitted = true;
-          // this.alertService.showNotification(`Item was successfully ${this.itemId ? "updated" : "created"}`);
+          this.alertService.showNotification(`Item ${this.itemId ? "updated" : "created"}`,'success');
           setTimeout(() => {
             this.router.navigate(['../'], { relativeTo: this.route });
           }, 0);
@@ -292,7 +292,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
         return this.restApiService.postData(`store/items/add/${this.storeService.activeStore}`, data);
       })
     ).subscribe(() => {
-      this.alertService.showNotification('Item successfully deleted.');
+      this.alertService.showNotification('Item deleted.');
       this.navigateBack();
     })
 
