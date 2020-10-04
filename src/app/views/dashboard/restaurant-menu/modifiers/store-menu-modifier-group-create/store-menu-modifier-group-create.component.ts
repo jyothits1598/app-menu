@@ -120,7 +120,6 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
   }
 
   saveModifer(formData: any) {
-
     if (this.modifierForm.invalid) {
       this.modifierForm.markAllAsTouched();
       this.modifierForm.controls.options.markAsTouched();
@@ -131,7 +130,9 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     this.storeMenuData.saveModifier(this.modifierForm.value).pipe(
       finalize(() => this.submitting = false)
     ).subscribe(resp => {
-      console.log(resp);
+      if(formData){
+        console.log(formData);
+      }
       this.formSubmitted = true;
       if (this.useOutputs) this.exit.emit(true);
       else {
