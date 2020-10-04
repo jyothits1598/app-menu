@@ -1,7 +1,9 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Shells </h3>
 <div class="row">
-    <search-query-generator termName="name" typeName="status" [types]="['Claimed', 'Unclaimed']" #queryGen>
-    </search-query-generator>
+    <div class="col-md-5">
+        <search-query-generator termName="name" typeName="status" [types]="['Claimed', 'Unclaimed']" #queryGen>
+        </search-query-generator>
+    </div>
     <div class="col-md-1"></div>
     <div class="col-md-3 mb-2">
         <app-file-upload loadingPlaceholder [loadStatus]="importComplete" [validators]="csvFileValidators"
@@ -26,8 +28,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngIf="stores && stores.length == 0">
-                        <td>No stores have been added</td>
+                    <tr  *ngIf="stores && stores.length == 0">
+                        <td colspan="3" class="text-center">No stores have been added</td>
                     </tr>
                     <tr class="text-capitalize" *ngFor="let store of stores">
                         <td class="table-name"> {{store.store_name}} </td>

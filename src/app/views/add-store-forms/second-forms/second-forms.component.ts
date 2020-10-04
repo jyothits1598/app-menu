@@ -24,8 +24,8 @@ declare let $: any;
 })
 export class SecondFormsComponent implements OnInit {
 
-  add_image:string = "../../../assets/images/ico_add_blue.png";
-  edit_image:string = "../../../assets/images/ico_edit_blue.png";
+  add_image: string = "../../../assets/images/ico_add_blue.png";
+  edit_image: string = "../../../assets/images/ico_edit_blue.png";
 
   storeDetailform: FormGroup;
   storeNameSubmit = false;
@@ -87,7 +87,7 @@ export class SecondFormsComponent implements OnInit {
   }
 
 
-  Cuisines = new Array(); 
+  Cuisines = new Array();
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
@@ -135,7 +135,7 @@ export class SecondFormsComponent implements OnInit {
       };
       if (this.imageUrl) data.store_logo = this.stringHelper.ExtractFileName(this.imageUrl);
       data.opening_hours = AvailabilityToBackend(this.storeOpeningHours);
-      
+
       if (this.add_edit_type == 'add') {
         if (this.claimCreation) data.claim_store_id = this.store_id;
         this.alertservice.showLoader();
@@ -158,7 +158,7 @@ export class SecondFormsComponent implements OnInit {
         });
       }
       else if (this.add_edit_type == 'edit') {
-      data.store_id = this.store_id;
+        data.store_id = this.store_id;
         this.alertservice.showLoader();
         this.restApiservice.putAPI(`api/stores/${this.store_id}/storedata`, data, (response) => {
           if (response && response['success'] && response['data']) {
@@ -187,8 +187,8 @@ export class SecondFormsComponent implements OnInit {
   }
 
   getTypeOfCusine() {
-     this.alertservice.showLoader();
-     this.restApiservice.getData(`api/stores/cuisines`, (response) => {
+    this.alertservice.showLoader();
+    this.restApiservice.getData(`api/stores/cuisines`, (response) => {
       this.alertservice.hideLoader();
       if (response && response['success'] && response['data']) {
           this.Cuisines = response['data'];
@@ -197,7 +197,7 @@ export class SecondFormsComponent implements OnInit {
         })      
       }
     });
- }
+  }
   getstoreDetails() {
     // this.alertservice.showLoader();
     if (this.store_id) {
@@ -226,7 +226,7 @@ export class SecondFormsComponent implements OnInit {
     }
   }
 
-  startEdit(editorTemplate: TemplateRef<any>){
+  startEdit(editorTemplate: TemplateRef<any>) {
     this.storeOpeningHoursCache = [...this.storeOpeningHours];
     this.modalRef = this.modalService.openTemplate(editorTemplate);
   }
@@ -260,6 +260,7 @@ export class SecondFormsComponent implements OnInit {
           let form_data = new FormData();
           form_data.append('store_image', this.fileUptoLoad);
           this.alertservice.showLoader();
+          event.target.value = '';
           this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/logo', (response) => {
             if (response && response['success']) {
               this.alertservice.hideLoader();
@@ -284,7 +285,7 @@ export class SecondFormsComponent implements OnInit {
     }
   }
 
-  finalizeOpeningHours(){
+  finalizeOpeningHours() {
     this.storeOpeningHours = [...this.storeOpeningHours];
     this.modalRef.dismiss();
   }

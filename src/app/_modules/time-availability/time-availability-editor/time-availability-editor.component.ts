@@ -24,15 +24,20 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
   }
   
   @ViewChild('headingSlot', { read: ViewContainerRef }) headingSlot: ViewContainerRef;
-
+  
+  //variables to track status
+  touched: boolean = false;
+  dirty: boolean = false;
+  
   _availability: Array<TimeAvailability> = [];
   selectedDays: Array<string> = [];
   
   daysTouched: boolean = false;
-  touched: boolean = false;
-  activeBtn:boolean = false;
-  active_add_image:string = "assets/images/ico_add.png";
-  inactive_add_image:string = "assets/images/ico_add_light.png";
+  
+  // tou = true;
+
+  // active_add_image:string = "assets/images/ico_add.png";
+  // inactive_add_image:string = "assets/images/ico_add_light.png";
 
   time: Array<string> = [
     '12:00AM'
@@ -113,12 +118,10 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
       if ((<FormGroup>control).controls.startTime.value == (<FormGroup>control).controls.endTime.value) return { 'sameSelection': 'Start and end time can not be the same' };
       if ((<FormGroup>control).controls.startTime.value && (<FormGroup>control).controls.endTime.value) {
         $('#active_button').addClass('primary-color');
-        this.activeBtn = true;
       }
       return null;
     };
   }
-
 
   insertIntoAvailability(availability: Array<TimeAvailability>, timeAvai: TimeAvailability) {
     for (let i = 0; i <= availability.length; i++) {
@@ -143,6 +146,8 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
 
   
   addAvailability() {
+    this.dirty= true;
+    
     if (this.timing.invalid || this.selectedDays.length == 0) {
       this.timing.markAllAsTouched();
       this.daysTouched = true;
@@ -156,11 +161,11 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
       this.insertIntoAvailability(this._availability, menuTime);
     });
 
-    console.log('passed check', this._availability);    
     this.onChange.emit(this._availability);
   }
 
   deleteAvailability(index: number){
+    this.dirty= true;
     this.touched = true;
     this._availability.splice(index, 1)[0];
     this.onChange.emit(this._availability);

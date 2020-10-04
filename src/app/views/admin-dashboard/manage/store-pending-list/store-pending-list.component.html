@@ -1,5 +1,9 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Pending approval </h3>
-<search-query-generator termName="name" typeName="status" [types]="['Claim', 'New']" #queryGen></search-query-generator>
+<div class="row">
+    <div class="col-md-6">
+        <search-query-generator termName="name" typeName="type" [types]="['claim', 'new']" #queryGen></search-query-generator>
+    </div>
+</div>
 <div class="row" loadingPlaceholder [loadStatus]="pendingStores">
     <div class="col-md-12">
         <div class="table-responsive">
@@ -14,7 +18,7 @@
                 </thead>
                 <tbody>
                     <tr *ngIf="pendingStores && pendingStores.length == 0">
-                        <td>No stores are pending.</td>
+                        <td colspan="3" class="text-center">No stores are pending.</td>
                     </tr>
                     <tr class="text-capitalize" *ngFor="let store of pendingStores">
                         <td class="table-name" [routerLink]="'../../stores/'+store.id"> {{store.name}} </td>

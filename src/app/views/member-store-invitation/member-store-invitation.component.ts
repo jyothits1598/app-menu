@@ -19,6 +19,7 @@ export class MemberStoreInvitationComponent implements OnInit {
   member_invite_store_token:string = '';
   errors = new Array();
   invitedStoreDetails:any = {};
+  invite_success:boolean=false;
   constructor(
     private _modalService: NgbModal,
     private route: ActivatedRoute,
@@ -71,7 +72,7 @@ export class MemberStoreInvitationComponent implements OnInit {
           (resp : any)=>{
             if(resp && resp.success){
               this.alertService.showNotification('Invite Accepted', 'success');
-              this.router.navigate(['/dashboard'], {relativeTo: this.route});
+              this.invite_success=true;
             }
           }
         )
