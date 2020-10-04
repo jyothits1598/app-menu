@@ -50,7 +50,7 @@
                 </button>
                 <button class="btn std-button std-button--transparency" style="margin-left:10px;" type="button"
                     (click)="canceled.emit(true)"> Cancel </button>
-                <button class="btn" style="margin-left:10px;" [disabled]="selectedModifers.length === 0"
+                <button class="btn std-button" style="margin-left:10px;" [disabled]="selectedModifers.length === 0"
                     [ngClass]="selectedModifers.length > 0 ? 'std-button--primary' : 'std-button-active'"
                     (click)="selection.emit(selectedModifers)">
                     Add <span *ngIf="selectedModifers.length > 0">{{selectedModifers.length}}</span> modifiers

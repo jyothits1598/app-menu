@@ -19,10 +19,10 @@
                     <img (click)="navigateBack()" src="../../../../../assets/images/ico_back.png"
                         class="input-img mt-1">
                     <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="name"
-                        placeholder="Enter a item for this modifier">
+                        placeholder="Enter name">
                     <span class="error-mez"
-                        *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">Item name is
-                        required.</span>
+                        *ngIf="modifierForm.controls.name.touched && modifierForm.controls.name.invalid">
+                        Modifier name is required</span>
                 </div>
             </div>
         </div>

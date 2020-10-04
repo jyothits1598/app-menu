@@ -80,19 +80,12 @@ export class FourthFormsComponent implements OnInit {
           'bank_account_number':this.bankForm.value.accountNumber
         }; 
         this.alertservice.showLoader();
-        this.restApiservice.putAPI(`/api/stores/${this.store_id}/bankaccount`,data,(response)=>{
+        this.restApiservice.putAPI(`api/stores/${this.store_id}/bankaccount`,data,(response)=>{
           if(response && response['success'] && response['data']) {
             this.alertservice.hideLoader();
             localStorage.removeItem("storeCreationId");
            return this.router.navigateByUrl('/store/step4/'+response['data']['store_id']);
           }else if(response && !response['success'] && response['error']['error']){
-            // if(response['error']['error']['bsb_number'][0]) {
-            //   this.bsb_number = response['error']['error']['bsb_number'][0];
-            //   this.alertservice.showNotification(this.bsb_number,'error');
-            // } if(response['error']['error']['bank_account_number'][0]) {
-            //   this.bank_account = response['error']['error']['bank_account_number'][0];
-            //   this.alertservice.showNotification(this.bank_account,'error');
-            // }
             let i = 0;
             for (let key in response['error']['error']) {
               this.fourthformError = true;
@@ -113,7 +106,7 @@ export class FourthFormsComponent implements OnInit {
 
     backOwnership() {
       this.alertservice.showLoader();
-      this.restApiservice.getData('store/details/step2/'+this.store_id+'',(response)=> {
+      this.restApiservice.getData(`api/stores/${this.store_id}/bankaccount`,(response)=> {
         if(response && response['success'] && response['data']) {
           this.alertservice.hideLoader();
           // console.log(this.router.navigateByUrl('/store/step2/'+this.store_id+'/'));

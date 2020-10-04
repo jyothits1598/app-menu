@@ -231,6 +231,9 @@ export class RestApiService {
                 if (error.error.error) {
                     this.alertservice.showNotification(error.error.error, 'error');
                 }
+                if(error.error.error['document']['0']){
+                    this.alertservice.showNotification('The document may not be greater than 5MB', 'error');
+                }
                 if (error.error.error['excel_file']['0']) {
                     var errorMez = error.error.error['excel_file']['0'];
                     if (errorMez == 'The excel file must be a file of type: xlsx, xls.') {
