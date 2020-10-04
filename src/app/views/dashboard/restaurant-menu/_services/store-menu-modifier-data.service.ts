@@ -51,7 +51,7 @@ export class StoreMenuModifierDataService {
       data.options.push(option);
     })
     return this.restApiService.postData(URL_CreateStoreMenuModfier, data).pipe(map(
-      (resp: any) => resp.success
+      (resp: any) =>  resp.success
     ))
   }
 
