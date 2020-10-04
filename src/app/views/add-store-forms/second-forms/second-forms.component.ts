@@ -126,7 +126,7 @@ export class SecondFormsComponent implements OnInit {
       let data: any = {
         'store_name': this.storeDetailform.value.storeName,
         'store_address': this.storeAddress,
-        'type_of_cuisine': this.storeDetailform.value.typeCuisine,
+        'cuisine_id': this.storeDetailform.value.typeCuisine,
         'description': this.storeDetailform.value.descriptionItem,
         'google_business_url': this.storeDetailform.value.google_business_url,
         'facebook_url': this.storeDetailform.value.facebook_url,
@@ -205,7 +205,7 @@ export class SecondFormsComponent implements OnInit {
             this.imageUrl = element.store_logo;
             this.storename = element.store_name;
             this.storeAddress = element.store_address;
-            this.cuisine = element.type_of_cuisine;
+            this.cuisine = element.cuisine_id;
             this.getDescription = element.description;
             this.getgoogleBussiness = element.google_business_url;
             this.getfacebookBussiness = element.facebook_url;

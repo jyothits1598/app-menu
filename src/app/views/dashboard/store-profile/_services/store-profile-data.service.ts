@@ -32,7 +32,7 @@ export class StoreProfileDataService {
           id: data.store_id,
           name: data.store_name,
           address: data.store_address,
-          cuisineType: data.type_of_cuisine,
+          cuisine_id: data.cuisine_id,
           description: data.description,
           facebookUrl: data.facebook_url,
           googleUrl: data.google_business_url,
@@ -48,7 +48,7 @@ export class StoreProfileDataService {
     let data: any = {
       store_name: storeDetails.name,
       store_address: storeDetails.address,
-      type_of_cuisine: storeDetails.cuisineType,
+      cuisine_id: storeDetails.cuisine_id,
       description: storeDetails.description,
       google_business_url: storeDetails.googleUrl,
       facebook_url: storeDetails.facebookUrl,

@@ -1,7 +1,7 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Approved </h3>
 <div class="row">
     <div class="col-md-6">
-        <search-query-generator termName="name" typeName="type" [types]="['trading', 'notTrading']" #queryGen></search-query-generator>
+        <search-query-generator termName="name" typeName="status" [types]="['trading', 'notTrading']" #queryGen></search-query-generator>
     </div>
 </div>
 <div loadingPlaceholder [loadStatus]="approvedStores">

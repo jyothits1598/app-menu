@@ -223,14 +223,19 @@ export class RestApiService {
             (data) => {
                 return callback && callback(data);
             }, error => {
-                if (errorCallback) errorCallback();
+               if (errorCallback) errorCallback();
                 this.alertservice.hideLoader();
                 if (error.error.data) {
-                    this.alertservice.showNotification(error.error.data, 'error');
+                    for (let key in error) {
+                    this.alertservice.showNotification(error.error[key][0], 'error');
+                    }
+                  
                 }
                 if (error.error.error) {
-                    this.alertservice.showNotification(error.error.error, 'error');
-                }
+                    for (let key in error) {
+                        this.alertservice.showNotification(error.error[key][0], 'error');
+                      }
+                 }
                 if (error.error.error['excel_file']['0']) {
                     var errorMez = error.error.error['excel_file']['0'];
                     if (errorMez == 'The excel file must be a file of type: xlsx, xls.') {
