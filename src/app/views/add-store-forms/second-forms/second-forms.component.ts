@@ -52,7 +52,7 @@ export class SecondFormsComponent implements OnInit {
   errors = new Array();
   firstFormError = false;
   claimCreation: boolean = false;
-
+  cusineId: number;
   storeOpeningHours: Array<TimeAvailability> = [];
   storeOpeningHoursCache: Array<TimeAvailability>;
   modalRef: ModalRef;
@@ -126,13 +126,13 @@ export class SecondFormsComponent implements OnInit {
       let data: any = {
         'store_name': this.storeDetailform.value.storeName,
         'store_address': this.storeAddress,
-        'cuisine_id': this.storeDetailform.value.typeCuisine,
+        'cuisine_id': this.cusineId,
+        'cuisine_name': this.storeDetailform.value.typeCuisine,
         'description': this.storeDetailform.value.descriptionItem,
         'google_business_url': this.storeDetailform.value.google_business_url,
         'facebook_url': this.storeDetailform.value.facebook_url,
         'store_logo': this.imageUrl
       };
-      // console.log('extracting logo url', this.imageUrl, this.stringHelper.ExtractFileName)
       if (this.imageUrl) data.store_logo = this.stringHelper.ExtractFileName(this.imageUrl);
       data.opening_hours = AvailabilityToBackend(this.storeOpeningHours);
 
@@ -191,7 +191,10 @@ export class SecondFormsComponent implements OnInit {
     this.restApiservice.getData(`api/stores/cuisines`, (response) => {
       this.alertservice.hideLoader();
       if (response && response['success'] && response['data']) {
-        this.Cuisines = response['data'];
+          this.Cuisines = response['data'];
+          response['data'].forEach(element => {
+          this.cusineId = element.cuisine_id;
+        })      
       }
     });
   }
@@ -199,7 +202,6 @@ export class SecondFormsComponent implements OnInit {
     // this.alertservice.showLoader();
     if (this.store_id) {
       this.restApiservice.getData(`api/stores/${this.store_id}/storedata`, (response) => {
-        console.log(response);
         if (response && response['success'] && response['data']) {
           response['data'].forEach(element => {
             this.imageUrl = element.store_logo;
@@ -218,7 +220,7 @@ export class SecondFormsComponent implements OnInit {
             this.alertservice.hideLoader();
             this.storeOpeningHours = ReadAvailability(element.opening_hours);
           })
-          console.log('just read availability', this.storeOpeningHours);
+          // console.log('just read availability', this.storeOpeningHours);
         }
       });
     }

@@ -32,14 +32,16 @@
                             {{stores.storeName ? stores.storeName : '' }}
                         </h4>
                         <div style="margin-bottom:16px;">
-                            <span class="google-rating google-rating--pad">
-                                <i class="fa fa-facebook"></i>&nbsp;<b>You</b> & 125k others
+                            <span class="google-rating">
+                                <img src="../../../assets/images/menu-icons/ico_social_facebook_small.png">&nbsp;<b>You</b> and 125k others
                             </span>
-                            <span class="google-rating" style="margin-left:5px">
-                                4.5 <i class="fa fa-star"></i> Google (4.5)
+                            <span class="google-rating  google-rating--pad"> 4.5
+                                <span> 
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+                                </span>
                             </span>
                         </div>
-                        <div>
+                        <div style="height:70px;">
                             <span class="google-rating google-rating--pending-color"
                             *ngIf="stores.activeStatus == 'pending'">
                             Pending approval
@@ -51,10 +53,10 @@
                             *ngIf="stores.activeStatus == 'setup' || stores.activeStatus == 'Set up'">
                                 Setup
                             </span>
-                        </div>
-                        <div style="margin-top:26px;text-align: right;">
-                            <img src="../../../assets/images/ico_chevron_right.png">
-                        </div>
+                            <div style="margin-top:26px;text-align: right;" *ngIf="stores.activeStatus == 'approve'">
+                                <img src="../../../assets/images/menu-icons/ico_black_overflow.png">
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </div>

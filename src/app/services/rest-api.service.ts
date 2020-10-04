@@ -229,7 +229,6 @@ export class RestApiService {
                     for (let key in error) {
                     this.alertservice.showNotification(error.error[key][0], 'error');
                     }
-                  
                 }
                 if (error.error.error) {
                     for (let key in error) {

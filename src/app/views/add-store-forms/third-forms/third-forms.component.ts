@@ -130,7 +130,7 @@ export class ThirdFormsComponent implements OnInit {
 
   backTostore() {
     this.alertservice.showLoader();
-    this.restApiservice.getData('/api/stores/' + this.store_id + '/storedata', (response) => {
+    this.restApiservice.getData(`api/stores/${this.store_id}/storedata`, (response) => {
       if (response && response['success'] && response['data']) {
         this.alertservice.hideLoader();
         return this.router.navigateByUrl('/store/step1/' + this.store_id + '?type=edit');
