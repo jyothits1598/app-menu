@@ -281,7 +281,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       heading: `Delete item "${this.createItemForm.value.itemName}"`,
       dialog: 'Do you sure?',
       confirmBtn: 'Delete',
-      declineBtn: 'Delete'
+      declineBtn: 'Cancel'
     }).pipe(
       switchMap(() => {
         let data: any = {};
