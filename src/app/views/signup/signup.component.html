@@ -6,12 +6,15 @@
 </nav>
 <div class="container h-100">
     <div class="row">
-        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
-            <h1 class="form-header m-class">  Become a menuzapp restaurant partner </h1>
+        <div class="col-md-12">
+            <div class="forgot-pwd">
+                <h1 class="form-header m-class">  Become a menuzapp restaurant partner </h1>
+            </div>
         </div>
     </div>
     <div class="row mb-2">
-        <div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+        <div class="col-md-12">
+        <div class="forgot-pwd">
             <form [formGroup]="signupMenuzappform" (ngSubmit)="menuzappSignup()">
                 <div class="row">
                     <div class="col-md-6">
@@ -59,7 +62,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group form-group--margin">
+                        <div class="form-group">
                             <label class="label-inputs"> Password <b class="m-star">*</b> </label>
                             <input type="password" id="password" class="form-control form-input custom-password-eye"  formControlName="password" placeholder="Must be at least 8 characters" [ngClass]="{ 'is-invalid': passwordSubmit && f.password.errors }">
                             <span toggle="#password" class="fa fa-eye-slash field-icon toggle-password"></span>
@@ -115,23 +118,23 @@
                 </div> -->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group mtop mbottom">
+                        <div class="form-group" style="margin-top:10px;">
                             <input type="submit" class="btn std-button std-button--blue" value="Sign up" >
                         </div>
                     </div>
                 </div>
-                <small class="paragraph paragraph--small">
-                    By clicking 'Sign up', you agree to menuzapp's <a [routerLink]="['/page-under-progress']" title="Terms and Conditions"> General Terms and Conditions </a> and acknowledge you have read the <a [routerLink]="['/page-under-progress']" title="Privacy Policy"> Privacy Policy.</a>
-                </small>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" style="margin-top:10px;">
+                            <small class="paragraph paragraph--small">
+                                By clicking 'Sign up', you agree to menuzapp's <a [routerLink]="['/page-under-progress']" title="Terms and Conditions"> General Terms and Conditions </a> and acknowledge you have read the <a [routerLink]="['/page-under-progress']" title="Privacy Policy"> Privacy Policy.</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-5 col-lg-5 col-xs-12 col-sm-12">
-            <!-- <div class="embed-responsive embed-responsive-16by9 mt-4" style="height:220px;width:330px"> -->
-                <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/0l9Agm9qRPs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-                <img src="../../../assets/images/Frame 98.png"  class="img-fluid mt-4"/>
-            <!-- </div> -->
-        </div>
+    </div>
     </div>
 </div>
 <br><br>
