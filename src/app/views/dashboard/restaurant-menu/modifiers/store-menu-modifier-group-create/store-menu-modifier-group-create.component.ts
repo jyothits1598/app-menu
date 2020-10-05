@@ -47,7 +47,7 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     this.useOutputs = true;
   }
 
-  @Output() exit = new EventEmitter<boolean>();
+  @Output() exit = new EventEmitter<boolean | number>();
   @Output() delete = new EventEmitter<boolean>();
   useOutputs: boolean = false;
 
@@ -130,11 +130,11 @@ export class StoreMenuModifierGroupCreateComponent implements OnInit, OnDestroy 
     this.storeMenuData.saveModifier(this.modifierForm.value).pipe(
       finalize(() => this.submitting = false)
     ).subscribe(resp => {
-      if(formData){
-        console.log(formData);
-      }
+      
       this.formSubmitted = true;
-      if (this.useOutputs) this.exit.emit(true);
+      if (this.useOutputs) {
+        if(!this.modifierId) {console.log('modifier saved, using outputs ', resp), this.exit.emit(resp);}
+        }
       else {
         this.alertService.showNotification(`Modifier ${this.modifierId ? "Updated" : "Created"}`,'success') 
         setTimeout(() => {

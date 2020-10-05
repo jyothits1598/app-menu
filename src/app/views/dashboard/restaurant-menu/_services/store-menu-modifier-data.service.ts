@@ -37,7 +37,7 @@ export class StoreMenuModifierDataService {
     ))
   }
 
-  saveModifier(modifier: StoreMenuModifier): Observable<boolean> {
+  saveModifier(modifier: StoreMenuModifier): Observable<number> {
     let data: any = {};
     if (modifier.id) data.modifier_id = modifier.id;
     data.store_id = this.storeService.activeStore$.value.id;
@@ -51,7 +51,7 @@ export class StoreMenuModifierDataService {
       data.options.push(option);
     })
     return this.restApiService.postData(URL_CreateStoreMenuModfier, data).pipe(map(
-      (resp: any) =>  resp.success
+      (resp: any) =>  resp.data.modifier_id
     ))
   }
 

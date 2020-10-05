@@ -201,6 +201,6 @@
             <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
         </button>
     </div>
-    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="this.createModalRef.dismiss(); this.modifierRefresh();" (delete)="this.createModalRef.dismiss(); removeModifer(modiferEditId)">       
+    <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="handleModiferEditorExit($event)" (delete)="this.createModalRef.dismiss(); removeModifer(modiferEditId)">       
     </app-store-menu-modifier-group-create>
 </ng-template>
