@@ -14,8 +14,8 @@ export function ExcludeSpaceValidator(): ValidatorFn {
 
 export function PriceValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-        let value = parseFloat(control.value);
-        if(value === NaN || value < 0) return { 'Invalid' : true };
+        let parsed = parseFloat(control.value);
+        if (parsed !== parsed || parsed < 0) { return { 'Invalid': true }; }
         else return null;
     };
 }

@@ -49,9 +49,12 @@
                 <h5 class="std-heading-5 t40"> ABN or ACN (Australian Business or Company Number) <b class="m-star" *ngIf="!activeMode">*</b></h5>
                 <div class="paragraph" *ngIf="activeMode; else registrationNumber" > {{ownershipDetails.value.registrationNumber}} </div>
                 <ng-template #registrationNumber>
-                    <input [ngClass]="{ 'is-invalid': displayError('registrationNumber') }" class="form-control form-input" type="number" formControlName="registrationNumber">
+                    <input [ngClass]="{ 'is-invalid': displayError('registrationNumber') }" class="form-control form-input" formControlName="registrationNumber">
                     <div *ngIf="displayError('registrationNumber')" class="error-mez">
-                        <div> Please enter ABN or ACN number </div>
+                        <div *ngIf="ownershipDetails.controls.registrationNumber.errors.required"> Please enter ABN
+                            or ACN number </div>
+                        <div *ngIf="ownershipDetails.controls.registrationNumber.errors.pattern"> Please enter a
+                            valid ABN or ACN number </div>
                     </div>
                 </ng-template>
             </div>
