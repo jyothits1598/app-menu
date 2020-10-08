@@ -1,10 +1,10 @@
 <h3 class="u-margin-bottom-small std-heading-3"> Items </h3>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-7">
         <search-query-generator termName="name" typeName="status" #queryGen>
         </search-query-generator>
     </div>   
-    <div class="col-md-12">
+    <div class="col-md-5">
         <div style="text-align: right;">
             <button class="btn std-button std-button--primary" routerLink="./new"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;New item </button>
         </div>
@@ -34,7 +34,7 @@
                     <td> {{stringHelper.ArrayToConsolidatedString(item.modifiers, 2, nameAccessor) ? stringHelper.ArrayToConsolidatedString(item.modifiers, 2, nameAccessor): '-'}} </td>
                     <td style="text-align: right;outline: none;">
                         <div class="dropdown">
-                            <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="options" style="cursor:pointer;">
+                            <img src="../../../../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="options" style="cursor:pointer;padding:2px 6px;">
                             <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                 <li class="herf-class" [routerLink]="'./'+item.id" title="Edit">
                                     <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
