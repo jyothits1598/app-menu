@@ -77,10 +77,12 @@ export class ModifierOptionsComponent implements OnInit, ControlValueAccessor, O
   // }
 
   setFormat(index: number) {
-    let priceControl: AbstractControl = (<FormGroup>(this._options.at(index))).controls.price;
-    if (priceControl.valid) {
-      priceControl.patchValue(this.currFormat.transform(priceControl.value.replace(',', ''), '', ''));
-    }
+    setTimeout(() => {
+      let priceControl: AbstractControl = (<FormGroup>(this._options.at(index))).controls.price;
+      if (priceControl.valid) {
+        priceControl.setValue(this.currFormat.transform(parseFloat(priceControl.value.replace(',', '')), '', ''));
+      }
+    }, 0);
   }
 
   addOption(option: ModifierOption = null) {

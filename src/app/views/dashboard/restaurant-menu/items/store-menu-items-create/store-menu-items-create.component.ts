@@ -266,7 +266,7 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
         if (resp.success) {
           this.saveBtnLoading = false;
           this.formSubmitted = true;
-          this.alertService.showNotification(`Item ${this.itemId ? "updated" : "created"}`,'success');
+          this.alertService.showNotification(`Item ${this.itemId ? "updated" : "created"}`, 'success');
           setTimeout(() => {
             this.router.navigate(['../'], { relativeTo: this.route });
           }, 0);
@@ -366,9 +366,16 @@ export class StoreMenuItemsCreateComponent implements OnInit, OnDestroy {
       this.modifiers.forEach(mod => {
         let index = this.createItemForm.controls.modifiers.value.findIndex(selectedMods => selectedMods.id == mod.id);
         if (index > -1) this.createItemForm.controls.modifiers.value[index] = mod;
-        console.log('inside refresh foreach', mod, this.createItemForm.controls.modifiers.value, index);
       })
     })
+  }
+
+  handleModiferEditorExit(modifierId: number) {
+    if (modifierId) {
+      this.createItemForm.controls.modifiers.value.push(new StoreMenuModifier(modifierId, null));
+      this.createItemForm.controls.modifiers.setValue([...this.createItemForm.controls.modifiers.value]); 
+    }
+    this.createModalRef.dismiss(); this.modifierRefresh();
   }
 
   duplicateItem() {

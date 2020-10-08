@@ -27,34 +27,36 @@
     </div>
 </ng-container>
 <ng-container *ngIf="(activeStore | async) as store">
-<ul class="resnt-menu-top-tabs u-margin-bottom-medium" [ngClass]="{'pending-tab-margin' : store.isActive && displayBanner}">
-    <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./overview"
-            routerLinkActive="resnt-menu-top-tabs__button__active">Overview</button>
-    </li>
-    <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./menus"
-            routerLinkActive="resnt-menu-top-tabs__button__active">Menus</button>
-    </li>
-    <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./categories"
-            routerLinkActive="resnt-menu-top-tabs__button__active">
-            Categories
-        </button>
-    </li>
-    <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./items"
-            routerLinkActive="resnt-menu-top-tabs__button__active">
-            Items
-        </button>
-    </li>
-    <li class="resnt-menu-top-tabs__item">
-        <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./modifier-groups"
-            routerLinkActive="resnt-menu-top-tabs__button__active">
-            Modifiers
-        </button>
-    </li>
-</ul>
+<section class="table-responsive"> 
+    <ul class="resnt-menu-top-tabs u-margin-bottom-medium" [ngClass]="{'pending-tab-margin' : store.isActive && displayBanner}">
+        <li class="resnt-menu-top-tabs__item">
+            <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./overview"
+                routerLinkActive="resnt-menu-top-tabs__button__active">Overview</button>
+        </li>
+        <li class="resnt-menu-top-tabs__item">
+            <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./menus"
+                routerLinkActive="resnt-menu-top-tabs__button__active">Menus</button>
+        </li>
+        <li class="resnt-menu-top-tabs__item">
+            <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./categories"
+                routerLinkActive="resnt-menu-top-tabs__button__active">
+                Categories
+            </button>
+        </li>
+        <li class="resnt-menu-top-tabs__item">
+            <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./items"
+                routerLinkActive="resnt-menu-top-tabs__button__active">
+                Items
+            </button>
+        </li>
+        <li class="resnt-menu-top-tabs__item">
+            <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./modifier-groups"
+                routerLinkActive="resnt-menu-top-tabs__button__active">
+                Modifiers
+            </button>
+        </li>
+    </ul>
+</section>
 <section class="resnt-menu-tabs-content">
     <router-outlet></router-outlet>
 </section>

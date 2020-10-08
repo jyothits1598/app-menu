@@ -20,6 +20,7 @@ export class ModifierSelectorComponent implements OnInit {
   };
 
   @Input('selected') set selected(selectedModifiers: Array<StoreMenuModifier>) {
+    console.log('selected setter called');
     this.selectedModifers = [...selectedModifiers];
   };
 
