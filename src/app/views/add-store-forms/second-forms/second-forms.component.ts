@@ -24,8 +24,8 @@ declare let $: any;
 })
 export class SecondFormsComponent implements OnInit {
 
-  add_image: string = "../../../assets/images/ico_add_blue.png";
-  edit_image: string = "../../../assets/images/ico_edit_blue.png";
+  add_image: string = "assets/images/ico_add_blue.png";
+  edit_image: string = "assets/images/ico_edit_blue.png";
 
   storeDetailform: FormGroup;
   storeNameSubmit = false;

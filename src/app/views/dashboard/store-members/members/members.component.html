@@ -1,4 +1,4 @@
-<h3 class="u-margin-bottom-small std-heading-3"> Members <img src="../../../../../assets/images/ico_help.png"
+<h3 class="u-margin-bottom-small std-heading-3"> Members <img src="../../assets/images/ico_help.png"
     style="cursor:pointer" title="info" (click)="modalService.open(content, { centered: true });"></h3>
 <div class="row">
     <div class="col-md-3 mb-1">
@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-6">
         <div style="text-align: right;">
-            <button class="btn std-button std-button--primary" (click)="showinviteTemplate(invite)"> <img src="../../../../../assets/images/ico_add.png">&nbsp;&nbsp;Invite </button>
+            <button class="btn std-button std-button--primary" (click)="showinviteTemplate(invite)"> <img src="../../assets/images/ico_add.png">&nbsp;&nbsp;Invite </button>
         </div>
     </div>
 </div>
@@ -33,7 +33,7 @@
                         <td class="table-name"> 
                             <div *ngIf="members?.first_name" class="custom-profile-image" (click)="viewMemberProfile(members.store_member_id)">
                                 <span >
-                                    <img src="../../../../../assets/images/Frame 98.png" class="profile-image" />
+                                    <img src="../../assets/images/Frame 98.png" class="profile-image" />
                                     <!-- <label *ngIf="!user.staticDpImg" class="profile-name-navbar uppercase" > {{ userProfilename ? (userProfilename | slice:0:1) : ''}} </label> -->
                                     <span style="line-height: 40px;"  [ngStyle]="{'color':members?.active_flag == 0  ? '#B3B3B3' : '' }"> &nbsp; {{ members?.first_name ? members?.first_name : ''}} {{ members?.last_name ? members?.last_name : ''}}</span>
                                 </span>
@@ -47,15 +47,15 @@
                         <td style="line-height: 40px;" [ngStyle]="{'color':members?.active_flag == 0  ? '#B3B3B3' : '' }"> {{ members?.role_name ? members?.role_name:'-' }}</td>
                         <td style="text-align: right;outline: none;" style="line-height: 40px;">
                             <div class="dropdown">
-                                <img src="../../../../../assets/images/ico_overflow.png" class="dropdown-toggle"
+                                <img src="../../assets/images/ico_overflow.png" class="dropdown-toggle"
                                     data-toggle="dropdown" title="options" style="cursor:pointer;padding:2px 6px;">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                     <li class="herf-class" title="Edit" (click)="showChangeRoleTemplate(members?.store_member_role_id,members?.store_member_id,changeRoleTemplate)">
-                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        <img src="../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                         Edit role
                                     </li>
                                     <li *ngIf="members?.active_flag == 0"  title="Resend Email" class="herf-class" (click)="resendInvite(members?.email,members?.store_member_role_id)">
-                                        <img src="../../../../../assets/images/ico_back.png">&nbsp;&nbsp;
+                                        <img src="../../assets/images/ico_back.png">&nbsp;&nbsp;
                                         Resend Invite
                                     </li>
                                 </ul>
@@ -76,7 +76,7 @@
         <div class="modal-header header-info">
             <div class="std-heading-4 std-heading-5--popheader"> Invite </div>
             <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+                <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
             </button>
         </div>
         <div class="modal-body">
@@ -120,7 +120,7 @@
         <div class="modal-header header-info">
             <div class="std-heading-4 std-heading-5--popheader"> Position/role </div>
             <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+                <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
             </button>
         </div>
         <div class="modal-body">
@@ -154,7 +154,7 @@
     <div class="modal-header header-info">
         <div class="std-heading-4 std-heading-5--popheader"> Members </div>
         <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+            <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
         </button>
     </div>
     <div class="modal-body">

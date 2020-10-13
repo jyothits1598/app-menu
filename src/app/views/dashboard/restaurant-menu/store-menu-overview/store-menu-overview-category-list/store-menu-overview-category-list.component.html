@@ -14,15 +14,15 @@
                         <td style="padding: 16px 0px;" class="std-heading-4" style="text-transform: capitalize;"> {{category.category.name}} </td>
                         <td align="right">         
                             <div class="dropdown" style="cursor: pointer;">
-                            <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png" class="dropdown-toggle"
+                            <img src="../../../assets/images/menu-icons/ico_black_overflow.png" class="dropdown-toggle"
                                 data-toggle="dropdown" title="Options">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                     <li [routerLink]="['./category/', category.category.id]" class="herf-class" title="Edit">
-                                        <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        <img src="../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                         Edit Category
                                     </li>
                                     <li (click)="deleteCatIndex = i; modal.open(deleteComform, { centered: true });" title="Delete" class="herf-class">
-                                        <img src="../../../../../assets/images/ico_cancel.png">&nbsp;&nbsp;
+                                        <img src="../../assets/images/ico_cancel.png">&nbsp;&nbsp;
                                         Remove Category
                                     </li>
                                 </ul>
@@ -42,16 +42,16 @@
                                     <td align="right"><span *ngIf="item.basePrice">$</span>{{ item.basePrice ? item.basePrice : '$0.00' }}</td>
                                     <td align="right" width="20px">
                                         <div class="dropdown" style="cursor: pointer;">
-                                            <img src="../../../../../../assets/images/menu-icons/ico_black_overflow.png"
+                                            <img src="../../../assets/images/menu-icons/ico_black_overflow.png"
                                                 class="dropdown-toggle" data-toggle="dropdown" title="Options">
                                             <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                                 <li [routerLink]="['./item/', item.id]" class="herf-class" title="Edit">
-                                                    <img src="../../../../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                                    <img src="../../assets/images/ico_edit.png">&nbsp;&nbsp;
                                                     Edit item
                                                 </li>
                                                 <li title="Delete" class="herf-class" 
                                                     (click)="deleteCatIndex = i; deleteItemIndex = j; modal.open(itemdeleteComform, { centered: true });">
-                                                    <img src="../../../../../assets/images/ico_cancel.png">&nbsp;&nbsp;
+                                                    <img src="../../assets/images/ico_cancel.png">&nbsp;&nbsp;
                                                     Remove items
                                                 </li>
                                             </ul>

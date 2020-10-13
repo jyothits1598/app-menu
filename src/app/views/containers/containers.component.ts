@@ -17,8 +17,8 @@ export class ContainersComponent implements OnInit {
   private unsubscribe$ = new Subject();
   dashboard_url:string = "/dashboard";
   menu_url:string = "/stores/";
-  menu_image:string = "../../../assets/images/ico_menu.png";
-  close_image:string = "../../../assets/images/alert-close.png";
+  menu_image:string = "assets/images/ico_menu.png";
+  close_image:string = "assets/images/alert-close.png";
 
   dashboard_status:boolean = false;
   menu_status:boolean = false;

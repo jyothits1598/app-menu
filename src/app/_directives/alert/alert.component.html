@@ -4,20 +4,20 @@
 
 <div class="alert-message-popup"  *ngIf="showNotificationStatus">
   <div class="alert-info">
-      <img src="../../../assets/images/ico_check.png" width="24px" height="24px" >
+      <img src="assets/images/ico_check.png" width="24px" height="24px" >
       <span [ngStyle]="{'color': notification_color}" style="padding:0 16px;" [innerHTML]="showNotificationMessage">
       </span>
-      <img src="../../../assets/images/alert-close.png" style="cursor: pointer;" (click)="hideNotification()" width="24px" height="24px">
+      <img src="assets/images/alert-close.png" style="cursor: pointer;" (click)="hideNotification()" width="24px" height="24px">
   </div>
 </div>
 
 <!-- Alert info in bottom left -->
 <div class="alert-message-popup" *ngIf="showAlertBottomNotificationStatus">
   <div class="alert-info">
-      <img src="../../../assets/images/ico_check.png" width="24px" height="24px" >
+      <img src="assets/images/ico_check.png" width="24px" height="24px" >
       <span [ngStyle]="{'color': notification_color}" style="padding:0 16px;" [innerHTML]="showNotificationMessage">
       </span>
-      <img src="../../../assets/images/alert-close.png" style="cursor: pointer;" (click)="hideNotification()" width="24px" height="24px">
+      <img src="assets/images/alert-close.png" style="cursor: pointer;" (click)="hideNotification()" width="24px" height="24px">
   </div>
 </div>
 <!-- <div class="alert-bottom" id="alert_bottom" *ngIf="showAlertBottomNotificationStatus" style="display:block">

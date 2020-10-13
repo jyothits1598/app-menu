@@ -1,6 +1,6 @@
 <nav class="sidebar-shadow">
     <div class="sidebar-heading sm-block" style="outline: none;cursor: pointer;height:56px;" title="Dashboard">
-        <img style="widows: 169px;height:32px;" src="../../../assets/svg/Logo.svg"> 
+        <img style="widows: 169px;height:32px;" src="assets/svg/Logo.svg"> 
     </div>
     <ng-container #navLinks>
         <ng-container *ngFor="let sideBarTemplate of sideBarTemplates" [ngTemplateOutlet]="sideBarTemplate.templateRef"
@@ -11,13 +11,13 @@
     <div class="bottom-logout">
         <ul class="sidenav__list--bottom" style="margin-bottom: 0;">
             <li appSideNavClick class="sidenav__item ">
-                <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img" src="../../../assets/images/users.png">
+                <a class="sidenav__link sidenav--hover"><img class="sidenav__link__img" src="assets/images/users.png">
                     <span class="color-primary">
                         Account</span> </a>
             </li>
             <li class="sidenav__item">
                 <a class="sidenav__link sidenav--hover" (click)="logout()"><img class="sidenav__link__img"
-                        src="../../../assets/images/logout.png"><span class="color-primary">
+                        src="assets/images/logout.png"><span class="color-primary">
                         Logout</span> </a>
             </li>
         </ul>

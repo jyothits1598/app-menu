@@ -8,12 +8,12 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 })
 export class AddStoreFormsComponent implements OnInit {
   url:string;
-  active_image:string = "../../../assets/svg/ico_radio_full.svg";
-  inactive_image:string = "../../../assets/svg/ico_radio_blank.svg";
-  complete_image:string = "../../../assets/svg/complete_ico.svg";
-  active_line_image:string = "../../../assets/svg/dark_line.svg";
-  inactive_line_image:string = "../../../assets/svg/line.svg";
-  complete_circle_image:string = "../../../assets/svg/dark_circle.svg";
+  active_image:string = "assets/svg/ico_radio_full.svg";
+  inactive_image:string = "assets/svg/ico_radio_blank.svg";
+  complete_image:string = "assets/svg/complete_ico.svg";
+  active_line_image:string = "assets/svg/dark_line.svg";
+  inactive_line_image:string = "assets/svg/line.svg";
+  complete_circle_image:string = "assets/svg/dark_circle.svg";
 
   first_step_url:string = "/store/first-form";
   second_step_url:string = "/store/step1/";

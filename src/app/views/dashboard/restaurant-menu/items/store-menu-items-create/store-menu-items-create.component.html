@@ -15,12 +15,12 @@
                 <button appBtnIcon [valid]="createItemForm.valid" [loading]="saveBtnLoading"
                     class="btn std-button-active" style="margin-left:10px;" (click)="saveData()"><span
                         #span>Save</span></button>
-                <!-- <button class="btn std-button--blue" style="margin-left:10px;"  (click)="saveData()"><img src="../../../../../assets/images/tick.png">&nbsp; {{ saveBtnLoading ? "Loading" : "Save" }} </button> -->
+                <!-- <button class="btn std-button--blue" style="margin-left:10px;"  (click)="saveData()"><img src="../../assets/images/tick.png">&nbsp; {{ saveBtnLoading ? "Loading" : "Save" }} </button> -->
             </div>
         </div>
         <div class="col-md-12">
             <div class="input-container" style="margin-bottom:16px;">
-                <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1"
+                <img src="../../assets/images/ico_back.png" class="input-img mt-1"
                     (click)="navigateBack()">
                 <input focusOnLoad type="text" class="input-border input-palceholder" formControlName="itemName"
                     placeholder="Enter a name for this item">
@@ -106,11 +106,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4 class="std-heading-4" style="margin-top:56px;margin-bottom:32px;"> Modifiers and options
-                        &nbsp;<img src="../../../../../assets/images/ico_help.png" style="cursor:pointer;" title="info" 
+                        &nbsp;<img src="../../assets/images/ico_help.png" style="cursor:pointer;" title="info" 
                             (click)="modalService.open(modifier, { centered: true })"> </h4>
                     <button class="btn std-button-active" style="cursor: pointer;padding: 12px 14px;"
                         (click)="modalRef = modalServ.openTemplate(addModifier)">
-                        <img src="../../../../../assets/images/ico_add_blue.png">&nbsp;&nbsp;Add modifier
+                        <img src="../../assets/images/ico_add_blue.png">&nbsp;&nbsp;Add modifier
                     </button>
                 </div>
             </div>
@@ -128,7 +128,7 @@
     <div class="modal-header header-info">
         <div class="std-heading-5 std-heading-5--popheader"> Categories </div>
         <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+            <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
         </button>
     </div>
     <div class="modal-body">
@@ -148,7 +148,7 @@
     <div class="modal-header header-info">
         <div class="std-heading-5 std-heading-5--popheader"> Modifiers and options </div>
         <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+            <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
         </button>
     </div>
     <div class="modal-body">
@@ -198,7 +198,7 @@
     <div class="modal-header" style="background:#353FA8;color:#fff;font-size:20px;font-weight: 600;">
         <div> New modifier </div>
         <button type="button" class="close info-q" aria-label="Close" (click)="createModalRef.dismiss();">
-            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+            <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
         </button>
     </div>
     <app-store-menu-modifier-group-create [id]="modiferEditId" (exit)="handleModiferEditorExit($event)" (delete)="this.createModalRef.dismiss(); removeModifer(modiferEditId)">       

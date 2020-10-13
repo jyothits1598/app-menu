@@ -4,7 +4,7 @@
         <h3 class="std-heading-3 b32" *ngIf="activeMode" > Bank details </h3>
         <h3 class="std-heading-3 b32" *ngIf="!activeMode" >
             <span>
-                <img src="../../../../../../assets/images/ico_back.png" (click)="cancelForm()" style="cursor: pointer;">&nbsp;
+                <img src="../../../assets/images/ico_back.png" (click)="cancelForm()" style="cursor: pointer;">&nbsp;
                  Edit bank details
             </span>
         </h3>
@@ -12,7 +12,7 @@
     <div *ngIf="activeMode; else editOption" class="col-md-12">
         <div class="float-right b32">
             <button (click)="Editbtntoggle()" type="button" class="btn std-button std-button--primary"> <img
-                    src="../../../../../assets/images/ico_edit_white.png">&nbsp; Edit bank details </button>
+                    src="../../assets/images/ico_edit_white.png">&nbsp; Edit bank details </button>
         </div>
     </div>   
     <ng-template #editOption >

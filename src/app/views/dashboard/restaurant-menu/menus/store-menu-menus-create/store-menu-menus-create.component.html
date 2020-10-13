@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-12">
         <div class="input-container" style="margin-bottom:16px;">
-            <img src="../../../../../assets/images/ico_back.png" class="input-img mt-1" (click)="navigateBack()">
+            <img src="../../assets/images/ico_back.png" class="input-img mt-1" (click)="navigateBack()">
             <input focusOnLoad type="text" class="input-border input-palceholder" name="menu-name" [formControl]="menuName"
                 placeholder="Enter a name for this menu">
             <span class="error-mez" *ngIf="menuName.invalid && menuName.touched" >Name of the menu is required</span>
@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-md-12" >
         <h3 class="std-heading-3" style="margin-top:56px;margin-bottom: 32px;"> Availability
-            <img src="../../../../../assets/images/ico_help.png"
+            <img src="../../assets/images/ico_help.png"
             style="cursor:pointer" title="info" (click)="modalService.open(times, { centered: true });">
         </h3>
         <div class="small-header">
@@ -54,7 +54,7 @@
     <div class="modal-header header-info">
         <div class="std-heading-5 std-heading-5--popheader"> Availability </div>
         <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+            <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
         </button>
     </div>
     <div class="modal-body">
@@ -100,7 +100,7 @@
     <div class="modal-header header-info">
         <div class="std-heading-4 std-heading-5--popheader"> Availability </div>
         <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true"><img src="../../../../../assets/images/x.png"></span>
+            <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
         </button>
     </div>
     <div class="modal-body">
