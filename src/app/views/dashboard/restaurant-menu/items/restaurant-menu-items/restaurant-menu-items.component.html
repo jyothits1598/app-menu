@@ -6,7 +6,7 @@
     </div>   
     <div class="col-md-5">
         <div style="text-align: right;">
-            <button class="btn std-button std-button--primary" routerLink="./new"> <img src="../../assets/images/ico_add.png">&nbsp;&nbsp;New item </button>
+            <button class="btn std-button std-button--primary" routerLink="./new"> <img src="assets/images/ico_add.png">&nbsp;&nbsp;New item </button>
         </div>
     </div>
 </div>
@@ -34,14 +34,14 @@
                     <td> {{stringHelper.ArrayToConsolidatedString(item.modifiers, 2, nameAccessor) ? stringHelper.ArrayToConsolidatedString(item.modifiers, 2, nameAccessor): '-'}} </td>
                     <td style="text-align: right;outline: none;">
                         <div class="dropdown">
-                            <img src="../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="options" style="cursor:pointer;padding:2px 6px;">
+                            <img src="assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="options" style="cursor:pointer;padding:2px 6px;">
                             <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                 <li class="herf-class" [routerLink]="'./'+item.id" title="Edit">
-                                    <img src="../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                    <img src="assets/images/ico_edit.png">&nbsp;&nbsp;
                                 Edit
                                 </li>
                                 <li title="Delete" (click)="deleteIndexlist = i; modalService.open(deleteComform, { centered: true, size: 'sm' })" class="herf-class">
-                                    <img src="../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                    <img src="assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                     Delete
                                 </li>
                             </ul>
