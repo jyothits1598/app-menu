@@ -139,7 +139,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       if (storeDetail.nextStep = 'bankaccount') return this.router.navigate([`../store/step3/${storeDetail.id}/bankaccount`])
     } else if (storeDetail.activeStatus == "pending") {
       return this.router.navigate(['./stores', storeDetail.id, 'menu'], { relativeTo: this.route });
-    } else if (storeDetail.activeStatus == "approve") {
+    } else if (storeDetail.activeStatus == "Trading") {
       return this.router.navigate(['./stores', storeDetail.id, 'menu'], { relativeTo: this.route });
     }
     // else(storeDetail.nextStep) {

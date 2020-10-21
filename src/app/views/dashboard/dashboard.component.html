@@ -46,14 +46,14 @@
                             *ngIf="stores.activeStatus == 'pending'">
                             Pending approval
                             </span>
-                            <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'approve'">
+                            <span class="google-rating google-rating--approve-color" *ngIf="stores.activeStatus == 'Trading'">
                                 Trading
                             </span>
                             <span class="google-rating google-rating--incomplete-color"
                             *ngIf="stores.activeStatus == 'setup' || stores.activeStatus == 'Set up'">
                                 Setup
                             </span>
-                            <div style="margin-top:26px;text-align: right;" *ngIf="stores.activeStatus == 'approve'">
+                            <div style="margin-top:26px;text-align: right;" *ngIf="stores.activeStatus == 'Trading'">
                                 <!-- <div class="dropdown">
                                     <img src="../../assets/images/ico_overflow.png"  class="dropdown-toggle" data-toggle="dropdown" title="options" style="cursor:pointer;">
                                     <ul class="dropdown-menu dropdown-edit dropdown-menu-right">

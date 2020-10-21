@@ -4,11 +4,11 @@
             <h3 class="std-heading-3 b32" > 
                 <img *ngIf="editMode" (click)="toggleEdit(); storeBasicDetail.openingHours = availabilityCache" src="../../../assets/images/ico_back.png" style="cursor: pointer;">
                 &nbsp;Opening hours &nbsp;<img
-            src="../../assets/images/ico_help.png" style="cursor:pointer;" title="info"
+            src="assets/images/ico_help.png" style="cursor:pointer;" title="info"
             (click)="modalService.open(content, { centered: true });"></h3>
             <div class="float-right" style="margin-bottom:16px;" *ngIf="!editMode; else editButtons">
                 <button (click)="toggleEdit()" type="button" class="btn std-button std-button--primary"> <img
-                    src="../../assets/images/ico_edit_white.png">&nbsp; Edit opening hours </button>
+                    src="assets/images/ico_edit_white.png">&nbsp; Edit opening hours </button>
             </div>
             <ng-template #editButtons>
                 <div class="float-right" style="margin-bottom:16px;">
@@ -46,7 +46,7 @@
     <div class="modal-header header-info">
         <div class="std-heading-4 std-heading-5--popheader"> Opening hours </div>
         <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
+            <span aria-hidden="true"><img src="assets/images/x.png"></span>
         </button>
     </div>
     <div class="modal-body">
