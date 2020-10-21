@@ -1,10 +1,10 @@
 <h3 class="u-margin-bottom-small std-heading-3">Menus
-    <img src="../../assets/images/ico_help.png" style="cursor:pointer" title="info"
+    <img src="assets/images/ico_help.png" style="cursor:pointer" title="info"
         (click)="modalService.open(content, { centered: true });">
 </h3>
 <div style="text-align: right;">
     <button class="btn std-button std-button--primary" routerLink="./new"><img
-            src="../../assets/images/ico_add.png">&nbsp;&nbsp;New menu</button>
+            src="assets/images/ico_add.png">&nbsp;&nbsp;New menu</button>
 </div>
 <ng-container *ngIf="menus.length <= 0">
     <h4 class="std-heading-4" style="margin-top:24px;margin-bottom: 32px;">Add your first menu</h4>
@@ -34,16 +34,16 @@
                         </td>
                         <td style="text-align: right;outline: none;">
                             <div class="dropdown">
-                                <img src="../../assets/images/ico_overflow.png" class="dropdown-toggle"
+                                <img src="assets/images/ico_overflow.png" class="dropdown-toggle"
                                     data-toggle="dropdown" title="options" style="cursor:pointer;padding:2px 6px;">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                     <li class="herf-class" [routerLink]="'./'+menu.id" title="Edit">
-                                        <img src="../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        <img src="assets/images/ico_edit.png">&nbsp;&nbsp;
                                         Edit
                                     </li>
                                     <li title="Delete" class="herf-class"
                                         (click)="modalService.open(deleteComform, { centered: true, size: 'sm' }); deletemenuIndex = i">
-                                        <img src="../../assets/images/ico_delete_black.png">&nbsp;&nbsp;
+                                        <img src="assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                         Delete
                                     </li>
                                 </ul>
@@ -73,7 +73,7 @@
     <div class="modal-header header-info">
         <div class="std-heading-4 std-heading-5--popheader"> Menus </div>
         <button type="button" class="close info-q" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true"><img src="../../assets/images/x.png"></span>
+            <span aria-hidden="true"><img src="assets/images/x.png"></span>
         </button>
     </div>
     <div class="modal-body">

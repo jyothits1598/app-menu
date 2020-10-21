@@ -22,20 +22,20 @@
                     <tr>
                         <td width="10px" align="left" (click)="modifiers[i].expanded = !modifiers[i].expanded">
                             <img style="transition: all .2s;" [class.rotate-right]="modifier.expanded"
-                                src="/assets/images/ico_right.png" style="cursor: pointer" />
+                                src="assets/images/ico_right.png" style="cursor: pointer" />
                         </td>
                         <td style="padding: 16px 0px; text-transform: capitalize;" class="std-heading-4"> {{modifier.name}} </td>
                         <td align="right">
                             <div class="dropdown" style="cursor: pointer;">
-                                <img src="../../../assets/images/menu-icons/ico_black_overflow.png"
+                                <img src="assets/images/menu-icons/ico_black_overflow.png"
                                     class="dropdown-toggle" data-toggle="dropdown" title="Options">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
                                     <li (click)="edit.emit(modifier)" class="herf-class" title="Edit">
-                                        <img src="../../assets/images/ico_edit.png">&nbsp;&nbsp;
+                                        <img src="assets/images/ico_edit.png">&nbsp;&nbsp;
                                         Edit modifier
                                     </li>
                                     <li (click)="remove.emit(modifier)" title="Delete" class="herf-class">
-                                        <img src="../../assets/images/ico_cancel.png">&nbsp;&nbsp;
+                                        <img src="assets/images/ico_cancel.png">&nbsp;&nbsp;
                                         Remove modifier
                                     </li>
                                 </ul>

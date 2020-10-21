@@ -3,7 +3,7 @@
         <h3 class="std-heading-3 b32" *ngIf="activeMode" > Ownership </h3>
         <h3 class="std-heading-3 b32" style="margin-bottom:32px;" *ngIf="!activeMode" >
             <span>
-                <img src="../../../assets/images/ico_back.png" (click)="cancelForm()" style="cursor: pointer;">&nbsp;
+                <img src="assets/images/ico_back.png" (click)="cancelForm()" style="cursor: pointer;">&nbsp;
                     Edit ownership
             </span>
         </h3>
@@ -11,7 +11,7 @@
     <div *ngIf="activeMode; else editOption" class="col-md-12">
         <div class="float-right b32">
             <button (click)="toggleEdit()" type="button" class="btn std-button std-button--primary"> <img
-                    src="../../assets/images/ico_edit_white.png">&nbsp; Edit Ownership </button>
+                    src="assets/images/ico_edit_white.png">&nbsp; Edit Ownership </button>
         </div>
     </div>   
     <ng-template #editOption >
@@ -71,7 +71,7 @@
                     <div> Please enter account number </div>
                 </div> -->
                 <div *ngIf="!activeMode" class="select-file btn std-button hidden-sm mr-3 ml-4" (click)="fileUpload.emit(true)" title="Upload file"  style="border-color:none !important;background: var(--color-background-secondary);">
-                    <img src="../assets/images/ico_upload.png" style="margin-right:5px;"> Upload file 
+                    <img src="assets/images/ico_upload.png" style="margin-right:5px;"> Upload file 
                 </div>
                 <button  class="btn std-button std-button--redtransparency"  *ngIf="!activeMode && ownershipDetails.value.legalFile" (click)="deleteFile.emit(true)">Delete</button>
             </div>  

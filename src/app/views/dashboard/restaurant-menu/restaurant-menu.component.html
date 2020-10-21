@@ -1,5 +1,5 @@
 <!-- <div class="pending-tab" *ngIf="!isActive" >
-    <img src="../assets/images/ico_alert.png">&nbsp;Pending approval - <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> <span class="norml-text-class">Before you start trading we need to review your application. We will be in touch shortly. 
+    <img src="assets/images/ico_alert.png">&nbsp;Pending approval - <span *ngIf="(storeSer.activeStore$ | async) as store"> {{store.name}} </span> <span class="norml-text-class">Before you start trading we need to review your application. We will be in touch shortly. 
     </span>
     <span style="float:right;color:#353FA8;font-size:16px;">
         Why am I seeing this? <span style="margin-left:20px;cursor: pointer;" (click)="hide()"> Hide </span>
@@ -11,7 +11,7 @@
         <div class="pending-tab" *ngIf="store.isActive && displayBanner">
             <table>
                 <tr>
-                    <td valign="top"> <img src="../assets/images/ico_alert.png"> </td>
+                    <td valign="top"> <img src="assets/images/ico_alert.png"> </td>
                     <td style="padding-left: 18px;">
                         Pending approval -
                         <span> {{store.name}} </span> <span
@@ -19,7 +19,7 @@
                             touch shortly. </span>
                     </td>
                     <td (click)="displayBanner = !displayBanner" valign="top" style="cursor: pointer;padding-left: 30px;" title="hide">
-                        <img src="../assets/images/ico_close.png">
+                        <img src="assets/images/ico_close.png">
                     </td>
                 </tr>
             </table>

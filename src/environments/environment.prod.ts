@@ -20,7 +20,7 @@ export const environment = {
 /* UAT server APIs */
 
 
-export const API_URL_LINK = 'https://uat.api.menuzapp.com/partner/';
+export const API_URL_LINK = 'https://uat.api.menuzapp.com/';
 export const REQUEST_A_ACTIVE = 'https://uat.menuzapp.com.au/partner/login';
 export const REQUEST_RESET_EMAIL = 'https://uat.menuzapp.com.au/partner/reset-password';
 
