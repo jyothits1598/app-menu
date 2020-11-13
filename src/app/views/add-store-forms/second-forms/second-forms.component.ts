@@ -75,7 +75,7 @@ export class SecondFormsComponent implements OnInit {
 
   options = {
     componentRestrictions: {
-      country: ["AU"]
+      country: ["AU","IN"]
     }
   }
   public AddressChange(address: any) {
