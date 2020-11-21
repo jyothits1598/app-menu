@@ -193,7 +193,7 @@ export class SecondFormsComponent implements OnInit {
       if (response && response['success'] && response['data']) {
           this.Cuisines = response['data'];
           response['data'].forEach(element => {
-          this.cusineId = element.cuisine_id;
+          // this.cusineId = element.cuisine_id;
         })      
       }
     });
@@ -231,8 +231,9 @@ export class SecondFormsComponent implements OnInit {
     this.modalRef = this.modalService.openTemplate(editorTemplate);
   }
 
-  changeCuisine() {
-    let typeCuisine = this.storeDetailform.value.typeCuisine;
+  changeCuisine(change: any) {
+    this.cusineId = change;
+    
   }
   onFileChanged(event) {
     /* File upload Required function */
