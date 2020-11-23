@@ -31,7 +31,7 @@
                 <div class="form-group form-group--margin">
                     <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
                     <select class="form-control custom-select form-input form-input--select-input"
-                        formControlName="typeCuisine" (ngModelChange)="changeCuisine()"
+                        formControlName="typeCuisine" (ngModelChange)="changeCuisine($event)"
                         [ngClass]="{ 'is-invalid': typeCuisineSubmit && f.typeCuisine.errors }">
                         <option value=""> Select </option>
                         <option *ngFor="let cuisine of Cuisines" value="{{cuisine.cuisine_id}}">

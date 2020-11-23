@@ -20,37 +20,39 @@ export class TimeAvailabilitySummaryComponent implements OnInit {
   @Input() set availabilities(availabilities: Array<TimeAvailability>) {
     if (availabilities) {
       this.dataRefresh();
-      availabilities.forEach((avai) => {
-        switch (avai.day.toLowerCase()) {
-          case 'monday':
-            this.monday.push(avai)
-            break;
-          case 'tuesday':
-            this.tuesday.push(avai)
-            break;
-          case 'wednesday':
-            this.wednesday.push(avai)
-            break;
-          case 'thursday':
-            this.thursday.push(avai)
-            break;
-          case 'friday':
-            this.friday.push(avai)
-            break;
-          case 'saturday':
-            this.saturday.push(avai)
-            break;
-          case 'sunday':
-            this.sunday.push(avai)
-            break;
-          default:
-            break;
-        }
-      })
+      setTimeout(() => {
+        availabilities.forEach((avai) => {
+          switch (avai.day.toLowerCase()) {
+            case 'monday':
+              this.monday.push(avai)
+              break;
+            case 'tuesday':
+              this.tuesday.push(avai)
+              break;
+            case 'wednesday':
+              this.wednesday.push(avai)
+              break;
+            case 'thursday':
+              this.thursday.push(avai)
+              break;
+            case 'friday':
+              this.friday.push(avai)
+              break;
+            case 'saturday':
+              this.saturday.push(avai)
+              break;
+            case 'sunday':
+              this.sunday.push(avai)
+              break;
+            default:
+              break;
+          }
+        })
+      }, 0);
     }
   }
 
-  dataRefresh(){
+  dataRefresh() {
     this.monday = [];
     this.tuesday = [];
     this.wednesday = [];
@@ -61,7 +63,7 @@ export class TimeAvailabilitySummaryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataRefresh();  
+    this.dataRefresh();
   }
 
 }
