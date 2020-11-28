@@ -29,7 +29,7 @@ export class SecondFormsComponent implements OnInit {
 
   storeDetailform: FormGroup;
   storeNameSubmit = false;
-  storeAddressSubmit = false;
+  // storeAddressSubmit = false;
   typeCuisineSubmit = false;
   descriptionItemSubmit = false;
   facebookBussinessSubmit = false;
@@ -57,6 +57,8 @@ export class SecondFormsComponent implements OnInit {
   storeOpeningHoursCache: Array<TimeAvailability>;
   modalRef: ModalRef;
 
+  cuisineControl: FormControl = new FormControl();
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -75,7 +77,7 @@ export class SecondFormsComponent implements OnInit {
 
   options = {
     componentRestrictions: {
-      country: ["AU","IN"]
+      country: ["AU", "IN"]
     }
   }
   public AddressChange(address: any) {
@@ -98,21 +100,33 @@ export class SecondFormsComponent implements OnInit {
       obj.getstoreDetails();
     }
 
-    this.storeDetailform = this.formBuilder.group({
-      storeName: [null, [Validators.required, removeSpaces]],
-      storeAddress: ['', Validators.required],
-      typeCuisine: ['', Validators.required],
-      descriptionItem: ['', Validators.required],
-      google_business_url: [''],
-      facebook_url: [''],
-    });
+    // this.storeDetailform = this.formBuilder.group({
+    //   storeName: [null,],
+    //   storeAddress: ['', Validators.required],
+    //   typeCuisine: ['', Validators.required],
+    //   descriptionItem: ['', Validators.required],
+    //   cuisines: [''],
+    //   google_business_url: [''],
+    //   facebook_url: [''],
+    // });
+
+    this.storeDetailform = new FormGroup({
+      storeName: new FormControl('', [Validators.required, removeSpaces]),
+      storeAddress: new FormControl('', Validators.required),
+      typeCuisine: new FormControl('', Validators.required),
+      descriptionItem: new FormControl('', Validators.required),
+      cuisines: new FormControl(),
+      google_business_url: new FormControl(''),
+      facebook_url: new FormControl('')
+    })
   }
 
   get f() { return this.storeDetailform.controls; }
 
   storeDetails() {
+    this.storeDetailform.markAllAsTouched();
     this.storeNameSubmit = true;
-    this.storeAddressSubmit = true;
+    // this.storeAddressSubmit = true;
     this.typeCuisineSubmit = true;
     this.descriptionItemSubmit = true;
     this.facebookBussinessSubmit = true;
@@ -191,10 +205,10 @@ export class SecondFormsComponent implements OnInit {
     this.restApiservice.getData(`api/stores/cuisines`, (response) => {
       this.alertservice.hideLoader();
       if (response && response['success'] && response['data']) {
-          this.Cuisines = response['data'];
-          response['data'].forEach(element => {
+        this.Cuisines = response['data'];
+        response['data'].forEach(element => {
           // this.cusineId = element.cuisine_id;
-        })      
+        })
       }
     });
   }
@@ -233,7 +247,7 @@ export class SecondFormsComponent implements OnInit {
 
   changeCuisine(change: any) {
     this.cusineId = change;
-    
+
   }
   onFileChanged(event) {
     /* File upload Required function */
@@ -291,23 +305,10 @@ export class SecondFormsComponent implements OnInit {
     this.modalRef.dismiss();
   }
 
-  // debug() {
-  //   console.log('claim creation', this.claimCreation);
-  // }
-  timingValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-
-      if ((<FormGroup>control).controls.startTime.value == 'Select'
-        || (<FormGroup>control).controls.endTime.value == 'Select') return { 'noSelection': 'Start and end time are required' };
-
-      if ((<FormGroup>control).controls.startTime.value == (<FormGroup>control).controls.endTime.value) return { 'sameSelection': 'Start and end time can not be the same' };
-
-      return null;
-    };
+  debug() {
+    console.log('claim creation', this.storeDetailform.controls.cuisines);
   }
-
 }
-
 
 
 export function removeSpaces(control: AbstractControl) {

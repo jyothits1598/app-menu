@@ -1,0 +1,16 @@
+<p class="label-inputs"> Type of cuisine <b class="m-star">*</b> </p> <button type="button" (click)="showList = !showList">Hide/Show</button>
+<div  class="cuisine-list-container" #container [style.max-height]="getHeight()">
+    <div *ngFor="let cuisine of cuisinesList; let i = index" class="custom-checkbox mr-3">
+        <input type="checkbox" [id]="cuisine.cuisine_id" [formControl]="cuisineformArray.at(i)"
+            [value]="cuisine.cuisine_id" (change)="handleChange(cuisine.cuisine_id, $event.target.checked)">
+        <label class="custom-checkbox__label std-heading-4" [for]="cuisine.cuisine_id">{{cuisine.cuisine_name}}</label>
+    </div>
+</div>
+<!-- <div>{{selectedcuisines | json}}</div> -->
+
+<ng-template>
+    <div class="cuisines-skl mr-3">
+        <div class="cuisines-skl__chk-bx"></div>
+        <div class="cuisines-skl__text"></div>
+    </div>
+</ng-template>

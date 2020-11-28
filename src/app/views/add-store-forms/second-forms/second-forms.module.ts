@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { TimeAvailabilityModule } from 'src/app/_modules/time-availability/time-availability.module';
 import { SharedModule } from '../../shared/shared.module';
+import { CuisinesSelectorModule } from 'src/app/_modules/cuisines-selector/cuisines-selector.module';
 // import { NgxGooglePlacesAutocompleteModule } from '@codious/ngx-google-places-autocomplete';
 
 
@@ -26,7 +27,8 @@ const secondformRouting = RouterModule.forChild(routes);
     FormsModule,
     GooglePlaceModule,
     TimeAvailabilityModule,
-    SharedModule
+    SharedModule,
+    CuisinesSelectorModule
   ]
 })
 export class SecondFormsModule { }
