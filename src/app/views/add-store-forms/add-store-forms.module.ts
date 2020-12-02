@@ -5,6 +5,7 @@ import { AddStoreFormsComponent } from './add-store-forms.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthGuard } from 'src/app/_guards';
 import { FifthFormsComponent } from './fifth-forms/fifth-forms.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routingModule = RouterModule.forChild(routes);
   declarations: [AddStoreFormsComponent],
   imports: [
     CommonModule,
+    SharedModule,
     routingModule,
     ReactiveFormsModule,
     FormsModule

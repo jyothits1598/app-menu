@@ -14,6 +14,7 @@ import { StoreMenuTime } from 'src/app/_models/store-menu';
 import { AvailabilityToBackend, ReadAvailability, TimeAvailability } from 'src/app/_modules/time-availability/_model/time-availability';
 import { ModalService } from '../../shared/services/modal.service';
 import { ModalRef } from '../../shared/_model/modal-ref';
+import { UserRole } from 'src/app/_models/user';
 
 declare let $: any;
 
@@ -23,30 +24,27 @@ declare let $: any;
   styleUrls: ['./second-forms.component.scss']
 })
 export class SecondFormsComponent implements OnInit {
-
+  isAdmin: boolean = false;
   add_image: string = "assets/images/ico_add_blue.png";
   edit_image: string = "assets/images/ico_edit_blue.png";
 
   storeDetailform: FormGroup;
   storeNameSubmit = false;
-  storeAddressSubmit = false;
+  // storeAddressSubmit = false;
   typeCuisineSubmit = false;
   descriptionItemSubmit = false;
   facebookBussinessSubmit = false;
   googleBussinessSubmit = false;
   returnUrl: string;
   store_id: number;
-  storename: string;
   storeAddress: string;
-  cuisine: string;
-  getDescription: string;
+  // cuisine: string;
+  // getDescription: string;
   store_add_or_edit_action_type: string;
   add_edit_type: string = 'add';
-  getgoogleBussiness: string;
-  getfacebookBussiness: string;
-  imageUrl: string = null;
+  // getgoogleBussiness: string;
+  // imageUrl: string = null;
   fileUptoLoad: File;
-  logoUploadSucceeded: boolean = false;
   width: number;
   height: number;
   errors = new Array();
@@ -57,15 +55,16 @@ export class SecondFormsComponent implements OnInit {
   storeOpeningHoursCache: Array<TimeAvailability>;
   modalRef: ModalRef;
 
+  cuisineControl: FormControl = new FormControl();
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
     private restApiservice: RestApiService,
     private alertservice: AlertService,
-    private dataService: DataService,
     private stringHelper: StringHelperService,
-    public modalService: ModalService
+    public modalService: ModalService,
+    private authService: AuthenticationService
   ) {
     this.store_id = +this.route.snapshot.paramMap.get('store-id');
     // if (!this.store_id) if (+localStorage.getItem('storeCreationId')) this.store_id = +localStorage.getItem('storeCreationId');
@@ -75,7 +74,7 @@ export class SecondFormsComponent implements OnInit {
 
   options = {
     componentRestrictions: {
-      country: ["AU","IN"]
+      country: ["AU", "IN"]
     }
   }
   public AddressChange(address: any) {
@@ -86,137 +85,134 @@ export class SecondFormsComponent implements OnInit {
     }
   }
 
-
-  Cuisines = new Array();
+  // Cuisines = new Array();
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.userObjectSubject.value.role == UserRole.Admin;
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
-    var obj = this;
-    if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
-      // obj.authenticateService.checkExpiryStatus();
-      obj.getTypeOfCusine();
-      obj.getstoreDetails();
-    }
+    this.getstoreDetails();
+    // if (localStorage.getItem('Audit_Auth') && localStorage.getItem('loggedUser')) {
+    //   obj.getstoreDetails();
+    // }
 
-    this.storeDetailform = this.formBuilder.group({
-      storeName: [null, [Validators.required, removeSpaces]],
-      storeAddress: ['', Validators.required],
-      typeCuisine: ['', Validators.required],
-      // descriptionItem: ['', Validators.required],
-      google_business_url: [''],
-      facebook_url: [''],
-    });
+    this.storeDetailform = new FormGroup({
+      storeName: new FormControl('', [Validators.required, removeSpaces]),
+      phoneNumber: new FormControl('', [Validators.required]),
+      storeAddress: new FormControl('', Validators.required),
+      // descriptionItem: new FormControl('', Validators.required),
+      cuisines: new FormControl(),
+      google_business_url: new FormControl(''),
+      facebook_url: new FormControl(''),
+      storeLogo: new FormControl(),
+      storeImage: new FormControl()
+    })
   }
 
   get f() { return this.storeDetailform.controls; }
 
-  storeDetails() {
-    this.storeNameSubmit = true;
-    this.storeAddressSubmit = true;
-    this.typeCuisineSubmit = true;
-    // this.descriptionItemSubmit = true;
-    this.facebookBussinessSubmit = true;
-    this.googleBussinessSubmit = true;
+  constructBackendData(): any {
+    let data: any = {
+      store_name: this.storeDetailform.value.storeName,
+      store_address: this.storeAddress,
+      cuisines: this.storeDetailform.controls.cuisines.value.map(cId => { return { cuisine_id: cId } }),
+      cuisine_name: this.storeDetailform.value.typeCuisine,
+      google_business_url: this.storeDetailform.value.google_business_url,
+      facebook_url: this.storeDetailform.value.facebook_url,
+      phone_number: this.storeDetailform.value.phoneNumber
+    };
+    if (this.storeDetailform.value.storeLogo) data.store_logo = this.stringHelper.ExtractFileName(this.storeDetailform.value.storeLogo);
+    if (this.storeDetailform.value.storeImage) data.store_image = this.stringHelper.ExtractFileName(this.storeDetailform.value.storeImage);
+    data.opening_hours = AvailabilityToBackend(this.storeOpeningHours);
 
+    return data;
+  }
+
+  storeDetails() {
     if (this.storeDetailform.invalid) {
+      this.storeDetailform.markAllAsTouched();
       return;
     }
 
     if (this.storeDetailform.valid) {
-      let data: any = {
-        'store_name': this.storeDetailform.value.storeName,
-        'store_address': this.storeAddress,
-        'cuisine_id': this.cusineId,
-        'cuisine_name': this.storeDetailform.value.typeCuisine,
-        // 'description': this.storeDetailform.value.descriptionItem,
-        'google_business_url': this.storeDetailform.value.google_business_url,
-        'facebook_url': this.storeDetailform.value.facebook_url,
-        'store_logo': this.imageUrl
-      };
-      if (this.imageUrl) data.store_logo = this.stringHelper.ExtractFileName(this.imageUrl);
-      data.opening_hours = AvailabilityToBackend(this.storeOpeningHours);
+      let data = this.constructBackendData();
 
       if (this.add_edit_type == 'add') {
         if (this.claimCreation) data.claim_store_id = this.store_id;
         this.alertservice.showLoader();
         this.restApiservice.postAPI('api/stores/storedata', data, (response) => {
-          if (response && response['success'] && response['data']) {
-            this.alertservice.hideLoader();
-            // localStorage.setItem('storeCreationId', response['data']['store_id']);
-            return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
-          } else if (response && !response['success'] && response['error']['error']) {
-            let i = 0;
-            for (let key in response['error']['error']) {
-              this.firstFormError = true;
-              this.errors[key] = response['error']['error'][key][0];
-              this.alertservice.showNotification(this.errors[key], 'error');
-            }
-          } else {
-            this.alertservice.showNotification('Something went wrong', 'error');
-          }
-          this.alertservice.hideLoader();
+          this.handleSaveResponse(response)
         });
       }
       else if (this.add_edit_type == 'edit') {
         data.store_id = this.store_id;
         this.alertservice.showLoader();
         this.restApiservice.putAPI(`api/stores/${this.store_id}/storedata`, data, (response) => {
-          if (response && response['success'] && response['data']) {
-            // console.log(response);
-            this.alertservice.hideLoader();
-            // console.log('/store/step2/'+response['data']['store_id']+'/'+response['data']['next_step'])
-            // console.log('redirecting to ', '/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
-            return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
-          } else if (response && !response['success'] && response['error']['error']) {
-            let i = 0;
-            for (let key in response['error']['error']) {
-              this.firstFormError = true;
-              this.errors[key] = response['error']['error'][key][0];
-              this.alertservice.showNotification(this.errors[key], 'error');
-            }
-          } else {
-            this.alertservice.showNotification('Something went wrong', 'error');
-          }
+          this.handleSaveResponse(response)
         });
+      }
+    }
+  }
+
+  storeAndAddAnother() {
+    if (this.storeDetailform.invalid) {
+      this.storeDetailform.markAllAsTouched();
+      return;
+    }
+
+    if (this.storeDetailform.valid) {
+      let data = this.constructBackendData();
+      this.alertservice.showLoader();
+      this.restApiservice.postAPI('api/stores/storedata', data, (response) => {
+        this.alertservice.hideLoader();
+        if(response.success) {
+          this.alertservice.showNotification('Store Successfully added.');
+          this.storeDetailform.reset();
+          this.storeOpeningHours = [];
+        }
+        else this.alertservice.showNotification('There was an error', 'error')
+      });
+
+    }
+  }
+
+
+
+  handleSaveResponse(response: any) {
+    if (response && response['success'] && response['data']) {
+      this.alertservice.hideLoader();
+      return this.router.navigateByUrl('/store/step2/' + response['data']['store_id'] + '/' + response['data']['next_step']);
+    } else if (response && !response['success'] && response['error']['error']) {
+      let i = 0;
+      for (let key in response['error']['error']) {
+        this.firstFormError = true;
+        this.errors[key] = response['error']['error'][key][0];
+        this.alertservice.showNotification(this.errors[key], 'error');
       }
     } else {
       this.alertservice.showNotification('Something went wrong', 'error');
-      this.alertservice.hideLoader();
     }
-
+    this.alertservice.hideLoader();
   }
 
-  getTypeOfCusine() {
-    this.alertservice.showLoader();
-    this.restApiservice.getData(`api/stores/cuisines`, (response) => {
-      this.alertservice.hideLoader();
-      if (response && response['success'] && response['data']) {
-          this.Cuisines = response['data'];
-          response['data'].forEach(element => {
-          // this.cusineId = element.cuisine_id;
-        })      
-      }
-    });
-  }
   getstoreDetails() {
     // this.alertservice.showLoader();
     if (this.store_id) {
       this.restApiservice.getData(`api/stores/${this.store_id}/storedata`, (response) => {
         if (response && response['success'] && response['data']) {
           response['data'].forEach(element => {
-            this.imageUrl = element.store_logo;
-            this.storename = element.store_name;
+            // this.imageUrl = element.store_logo;
             this.storeAddress = element.store_address;
-            this.cuisine = element.cuisine_id;
-            this.getDescription = element.description;
-            this.getgoogleBussiness = element.google_business_url;
-            this.getfacebookBussiness = element.facebook_url;
-            this.storeDetailform.get('storeName').setValue(this.storename);
+            // this.getDescription = element.description;
+            // this.getgoogleBussiness = element.google_business_url;
+            this.storeDetailform.get('storeName').setValue(element.store_name);
+            this.storeDetailform.get('phoneNumber').setValue(element.phone_number);
             this.storeDetailform.get('storeAddress').setValue(this.storeAddress);
-            this.storeDetailform.get('typeCuisine').setValue(this.cuisine);
-            this.storeDetailform.get('descriptionItem').setValue(this.getDescription);
-            this.storeDetailform.get('google_business_url').setValue(this.getgoogleBussiness);
-            this.storeDetailform.get('facebook_url').setValue(this.getfacebookBussiness);
+            this.storeDetailform.get('cuisines').setValue(element.cuisines.map(c => c.cuisine_id));
+            // this.storeDetailform.get('descriptionItem').setValue(this.getDescription);
+            this.storeDetailform.get('google_business_url').setValue(element.google_business_url);
+            this.storeDetailform.get('facebook_url').setValue(element.facebook_url);
+            this.storeDetailform.get('storeLogo').setValue(element.store_logo);
+            this.storeDetailform.get('storeImage').setValue(element.store_image);
             this.alertservice.hideLoader();
             this.storeOpeningHours = ReadAvailability(element.opening_hours);
           })
@@ -231,83 +227,66 @@ export class SecondFormsComponent implements OnInit {
     this.modalRef = this.modalService.openTemplate(editorTemplate);
   }
 
-  changeCuisine(change: any) {
-    this.cusineId = change;
-    
-  }
-  onFileChanged(event) {
-    /* File upload Required function */
-    this.fileUptoLoad = event.target.files[0];
-    if (this.fileUptoLoad) {
-      if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
-        this.alertservice.showNotification('Selected file format is not supported', 'error')
-        return false;
-      }
-      if (!this.dataService.validateFileSize(this.fileUptoLoad.size)) {
-        this.alertservice.showNotification('File to be uploaded should be less than 5MB', 'error');
-        return false;
-      }
-      let reader = new FileReader();
-      reader.readAsDataURL(this.fileUptoLoad);
+  // onFileChanged(event) {
+  //   /* File upload Required function */
+  //   this.fileUptoLoad = event.target.files[0];
+  //   if (this.fileUptoLoad) {
+  //     if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
+  //       this.alertservice.showNotification('Selected file format is not supported', 'error')
+  //       return false;
+  //     }
+  //     if (!this.dataService.validateFileSize(this.fileUptoLoad.size)) {
+  //       this.alertservice.showNotification('File to be uploaded should be less than 5MB', 'error');
+  //       return false;
+  //     }
+  //     let reader = new FileReader();
+  //     reader.readAsDataURL(this.fileUptoLoad);
 
-      reader.onload = (e: any) => {
-        var img = new Image();
-        img.src = e.target.result;
-        img.onload = () => {
-          if (img.width < 500 || img.height < 500) {
-            this.alertservice.showNotification('Minimum size 500*500 pixel', 'error')
-            return false;
-          }
-          let form_data = new FormData();
-          form_data.append('store_image', this.fileUptoLoad);
-          this.alertservice.showLoader();
-          event.target.value = '';
-          this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/logo', (response) => {
-            if (response && response['success']) {
-              this.alertservice.hideLoader();
-              this.imageUrl = response['data'];
-            } else if (response && !response['success']) {
-              this.imageUrl = null;
-              this.alertservice.hideLoader();
-              this.alertservice.showNotification(response['message'], 'error');
-            } else {
-              this.imageUrl = null;
-              this.alertservice.hideLoader();
-              this.alertservice.showNotification('Something went wrong, Please try again', 'error');
-            }
-          }
-            , err => this.imageUrl = null);
-        };
-      }
+  //     reader.onload = (e: any) => {
+  //       var img = new Image();
+  //       img.src = e.target.result;
+  //       img.onload = () => {
+  //         if (img.width < 500 || img.height < 500) {
+  //           this.alertservice.showNotification('Minimum size 500*500 pixel', 'error')
+  //           return false;
+  //         }
+  //         let form_data = new FormData();
+  //         form_data.append('store_image', this.fileUptoLoad);
+  //         this.alertservice.showLoader();
+  //         event.target.value = '';
+  //         this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/logo', (response) => {
+  //           if (response && response['success']) {
+  //             this.alertservice.hideLoader();
+  //             this.imageUrl = response['data'];
+  //           } else if (response && !response['success']) {
+  //             this.imageUrl = null;
+  //             this.alertservice.hideLoader();
+  //             this.alertservice.showNotification(response['message'], 'error');
+  //           } else {
+  //             this.imageUrl = null;
+  //             this.alertservice.hideLoader();
+  //             this.alertservice.showNotification('Something went wrong, Please try again', 'error');
+  //           }
+  //         }
+  //           , err => this.imageUrl = null);
+  //       };
+  //     }
 
 
-    } else {
-      this.alertservice.showNotification('No file selected', 'error');
-    }
-  }
+  //   } else {
+  //     this.alertservice.showNotification('No file selected', 'error');
+  //   }
+  // }
 
   finalizeOpeningHours() {
     this.storeOpeningHours = [...this.storeOpeningHours];
     this.modalRef.dismiss();
   }
 
-  // debug() {
-  //   console.log('claim creation', this.claimCreation);
-  // }
-  timingValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-
-      if ((<FormGroup>control).controls.startTime.value == 'Select'
-        || (<FormGroup>control).controls.endTime.value == 'Select') return { 'noSelection': 'Start and end time are required' };
-
-      if ((<FormGroup>control).controls.startTime.value == (<FormGroup>control).controls.endTime.value) return { 'sameSelection': 'Start and end time can not be the same' };
-
-      return null;
-    };
+  debug() {
+    console.log('claim creation', this.storeDetailform.controls.cuisines);
   }
-
 }
-
 
 
 export function removeSpaces(control: AbstractControl) {

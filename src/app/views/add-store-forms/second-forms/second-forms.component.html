@@ -6,9 +6,18 @@
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Store name <b class="m-star">*</b> </label>
             <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
-                formControlName="storeName" [ngClass]="{ 'is-invalid': storeNameSubmit && f.storeName.errors }">
-            <div *ngIf="storeNameSubmit && f.storeName.errors" class="error-mez">
-                <div *ngIf="f.storeName.errors.required"> Please enter store name </div>
+                formControlName="storeName" [ngClass]="{ 'is-invalid': f.storeName.touched && f.storeName.errors }">
+            <div *ngIf="f.storeName.errors && f.storeName.touched" class="error-mez">
+                <div> Please enter store name </div>
+            </div>
+        </div>
+        <div class="form-group form-group--margin">
+            <label class="label-inputs"> Phone <b class="m-star">*</b> </label>
+            <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
+                formControlName="phoneNumber"
+                [ngClass]="{ 'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors }">
+            <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
+                <div> Please enter store name </div>
             </div>
         </div>
         <div class="form-group form-group--margin">
@@ -20,14 +29,14 @@
         </div> -->
             <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="AddressChange($event)"
                 class="form-control form-input" formControlName="storeAddress"
-                [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }"
+                [ngClass]="{ 'is-invalid': f.storeAddress.errors && f.storeAddress.touched }"
                 placeholder="e.g. 100 Main street, Sampletown, Qld 4000" />
-            <div *ngIf="storeAddressSubmit && f.storeAddress.errors" class="error-mez">
-                <div *ngIf="f.storeAddress.errors.required"> Please enter store address </div>
+            <div *ngIf="f.storeAddress.errors && f.storeAddress.touched" class="error-mez">
+                <div> Please enter store address </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <div class="form-group form-group--margin">
                     <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
                     <select class="form-control custom-select form-input form-input--select-input"
@@ -41,42 +50,48 @@
                         <div *ngIf="f.typeCuisine.errors.required"> Please select type of cuisine </div>
                     </div>
                 </div>
+            </div> -->
+            <cuisines-selector formControlName="cuisines"></cuisines-selector>
+            <div *ngIf="f.cuisines.invalid && f.cuisines.touched" class="error-mez">
+                Please select one type of cuisine
             </div>
         </div>
         <!-- <div class="form-group form-group--margin">
             <label class="label-inputs"> Description <b class="m-star">*</b> </label>
             <textarea class="form-control form-input" placeholder="Will be displayed in the app"
-                formControlName="descriptionItem"
-                [ngClass]="{ 'is-invalid': descriptionItemSubmit && f.descriptionItem.errors }"
+                formControlName="descriptionItem" name="description"
+                [ngClass]="{ 'is-invalid': f.descriptionItem.touched && f.descriptionItem.errors }"
                 style="height:48px;"></textarea>
-            <div *ngIf="descriptionItemSubmit && f.descriptionItem.errors" class="error-mez">
-                <div *ngIf="f.descriptionItem.errors.required"> Please enter description </div>
+            <div *ngIf="f.descriptionItem.touched && f.descriptionItem.errors" class="error-mez">
+                <div> Please enter description </div>
             </div>
         </div> -->
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Google business URL <b class="m-star"></b> </label>
             <input type="text" class="form-control form-input" placeholder="e.g. goo.gl/map/xxxxxxxx"
                 formControlName="google_business_url"
-                [ngClass]="{ 'is-invalid': googleBussinessSubmit && f.google_business_url.errors }">
-            <div *ngIf="googleBussinessSubmit && f.google_business_url.errors" class="error-mez">
-                <div *ngIf="f.google_business_url.errors.required"> Please enter Google business URL </div>
+                [ngClass]="{ 'is-invalid': f.google_business_url.errors && f.google_business_url.errors }">
+            <div *ngIf="f.google_business_url.touched && f.google_business_url.errors" class="error-mez">
+                <div> Please enter Google business URL </div>
             </div>
         </div>
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Facebook URL <b class="m-star"></b> </label>
             <input type="text" class="form-control form-input" placeholder="e.g. http://www.facebook.com/xxxxxxxx"
                 formControlName="facebook_url"
-                [ngClass]="{ 'is-invalid': facebookBussinessSubmit && f.facebook_url.errors }">
-            <div *ngIf="facebookBussinessSubmit && f.facebook_url.errors" class="error-mez">
-                <div *ngIf="f.facebook_url.errors.required"> Please enter Facebook URL </div>
+                [ngClass]="{ 'is-invalid': f.facebook_url.touched && f.facebook_url.errors }">
+            <div *ngIf="f.facebook_url.touched && f.facebook_url.errors" class="error-mez">
+                <div> Please enter Facebook URL </div>
             </div>
         </div>
         <div class="form-group form-group--margin">
             <div class="row">
                 <div class="col-md-12">
                     <label class="label-inputs"> Opening hours </label>
-                    <div (click)="startEdit(editor)" style="cursor: pointer;" title=" {{storeOpeningHours.length == 0 ? 'Add opening hours' : 'Edit opening hours'}}">
-                        <div class="content-label" style="float:left;"> {{storeOpeningHours.length == 0 ? 'Add' : 'Edit'}} opening hours </div>
+                    <div (click)="startEdit(editor)" style="cursor: pointer;"
+                        title=" {{storeOpeningHours.length == 0 ? 'Add opening hours' : 'Edit opening hours'}}">
+                        <div class="content-label" style="float:left;">
+                            {{storeOpeningHours.length == 0 ? 'Add' : 'Edit'}} opening hours </div>
                         <img style="float:right;" [src]="storeOpeningHours.length == 0 ? add_image : edit_image">
                     </div>
                 </div>
@@ -90,7 +105,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-group form-group--null">
+        <app-store-logo formControlName="storeLogo" type="logo"></app-store-logo>
+        <app-store-logo formControlName="storeImage" type="image"></app-store-logo>
+        <!-- <div class="form-group form-group--null">
             <label class="label-inputs"> Store logo or photo </label>
             <div class="row">
                 <div class="col-md-12">
@@ -120,17 +137,22 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="form-group mtop mbottom">
             <a [routerLink]="['/store/first-form']"> <input type="button"
                     class="btn std-button std-button--transparency" value="Cancel"></a>
             <input type="submit" class="btn std-button std-button--primary"
                 value="{{add_edit_type == 'add' ? 'Save and continue' : 'Edit store'}}" style="margin-left:16px;">
+            <button *ngIf="isAdmin && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button" class="btn std-button std-button--primary">Save and add
+                another</button>
         </div>
     </form>
-    <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput
-        accept=".jpg,.png,.jpeg,.gif">
+    <!-- <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput
+        accept=".jpg,.png,.jpeg,.gif"> -->
+
 </div>
+
+<div>{{storeDetailform.value | json}}</div>
 
 <ng-template #openingHoursHeading>
     <div class="row">
@@ -174,3 +196,5 @@
         </div>
     </div>
 </ng-template>
+
+<button (click)="debug()">debug()</button>

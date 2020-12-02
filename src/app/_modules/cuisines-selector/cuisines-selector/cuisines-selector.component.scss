@@ -1,0 +1,22 @@
+.cuisines-skl {
+    display: flex;
+
+    &__chk-bx {
+        width: 16px;
+        height: 16px;
+        border-radius: 3px;
+        border: 1px solid rgb(201, 201, 201);
+    }
+
+    &__text {
+        width: 48px;
+        height: 16px;
+        background: rgb(201, 201, 201);
+        margin-left: 5px;
+    }
+}
+
+.cuisine-list-container{
+    transition: max-height .5s;
+    overflow: hidden;
+}
