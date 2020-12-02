@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, ElementRef, HostListener, ViewChild, EventEmitter, Output, Input, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, ElementRef, HostListener, ViewChild, EventEmitter, Output, Input, Renderer2, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -51,52 +51,5 @@ export class FileUploadComponent {
       else this.file.emit(fileToUpload);
       this.fileInput.nativeElement.value = '';
     }
-    //   if (fileUptoLoad) {
-    //     if (!this.dataService.validateFileExtension(this.fileUptoLoad.name)) {
-    //     //   this.alertservice.showNotification('Selected file format is not supported', 'error')
-    //     //   return false;
-    //     // }
-    //     // if (!this.dataService.validateFileSize(this.fileUptoLoad.size)) {
-    //     //   this.alertservice.showNotification('File to be uploaded should be less than 5MB', 'error');
-    //     //   return false;
-    //     // }
-    //     let reader = new FileReader();
-    //     reader.readAsDataURL(this.fileUptoLoad);
-
-    //     reader.onload = (e: any) => {
-    //       var img = new Image();
-    //       img.src = e.target.result;
-    //       img.onload = () => {
-    //         if (img.width < 500 || img.height < 500) {
-    //           this.alertservice.showNotification('Minimum size 500*500 pixel', 'error')
-    //           return false;
-    //         }
-    //         let form_data = new FormData();
-    //         form_data.append('store_image', this.fileUptoLoad);
-    //         this.alertservice.showLoader();
-    //         this.restApiservice.pushSaveFileToStorageWithFormdata(form_data, 'store/logo', (response) => {
-    //           if (response && response['success']) {
-    //             this.alertservice.hideLoader();
-    //             this.imageUrl = response['data'];
-    //           } else if (response && !response['success']) {
-    //             this.imageUrl = null;
-    //             this.alertservice.hideLoader();
-    //             this.alertservice.showNotification(response['message'], 'error');
-    //           } else {
-    //             this.imageUrl = null;
-    //             this.alertservice.hideLoader();
-    //             this.alertservice.showNotification('Something went wrong, Please try again', 'error');
-    //           }
-    //         }
-    //           , err => this.imageUrl = null);
-    //       };
-    //     }
-
-
-    //   } else {
-    //     this.alertservice.showNotification('No file selected', 'error');
-    //   }
-    // }
-
   }
 }

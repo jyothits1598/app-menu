@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, Self, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormArray, FormControl, NgControl } from '@angular/forms';
+import { finalize } from 'rxjs/operators';
 import { RestApiService } from 'src/app/services/rest-api.service';
 
 @Component({
@@ -8,24 +9,17 @@ import { RestApiService } from 'src/app/services/rest-api.service';
   styleUrls: ['./cuisines-selector.component.scss']
 })
 export class CuisinesSelectorComponent implements OnInit, ControlValueAccessor {
+  @ViewChild('container', { read: ElementRef }) container: ElementRef;
   cuisineformArray: FormArray;
   cuisinesList: Array<{ cuisine_id: number, cuisine_name: string }>;
   selectedcuisines: Array<number> = [];
-  @ViewChild('container', { read: ElementRef }) container: ElementRef;
+  loading: boolean = true;
+  isDisabled: boolean = false;
   showList: boolean = true;
 
   constructor(@Self() public controlDir: NgControl,
-    private restApiService: RestApiService,
-    private renderer: Renderer2) {
+    private restApiService: RestApiService) {
     this.controlDir.valueAccessor = this;
-  }
-
-  getHeight() {
-    if(this.container){
-      console.log(this.container.nativeElement.scrollHeight+'px')
-      if (this.showList) return this.container.nativeElement.scrollHeight + 'px';
-      else return '0px';
-    }
   }
 
   ngOnInit(): void {
@@ -34,20 +28,35 @@ export class CuisinesSelectorComponent implements OnInit, ControlValueAccessor {
     // this.controlDir.control.markAsTouched = () => this.cuisineformArray.markAsTouched();
     this.controlDir.control.updateValueAndValidity();
 
-    this.restApiService.getData(`api/stores/cuisines`, (response) => {
-      if (response && response['success'] && response['data']) {
-        this.cuisineformArray = new FormArray(response.data.map(cuisine => new FormControl(this.selectedcuisines.includes(cuisine.cuisine_id) ? true : false)));
-        this.cuisinesList = response.data;
-        // this.selectedCuisines = new FormArray(this.)
+    this.restApiService.getDataObs(`api/stores/cuisines`).pipe(finalize(() => this.loading = false)).subscribe(
+      (response) => {
+        if (response && response['success'] && response['data']) {
+          this.cuisineformArray = new FormArray(response.data.map(cuisine => new FormControl(this.selectedcuisines.includes(cuisine.cuisine_id) ? true : false)));
+          this.cuisinesList = response.data;
+        }
+        this.checkDisable();
       }
-    });
+    )
   }
 
   handleChange(id: number, selected: boolean) {
     if (selected) this.selectedcuisines.push(id);
     else this.selectedcuisines = this.selectedcuisines.filter(cuisineId => cuisineId != id);
     this.onChange(this.selectedcuisines);
+    this.checkDisable();
     this.onTouched();
+  }
+
+  checkDisable() {
+    if (this.selectedcuisines.length > 4) {
+      this.cuisineformArray.controls.forEach(c => { if (!c.value) c.disable() });
+      this.isDisabled = true;
+    } else {
+      if (this.isDisabled) {
+        this.cuisineformArray.controls.forEach(c => { if (!c.value) c.enable() });
+        this.isDisabled = false;
+      }
+    }
   }
 
   // ControlValueAccessor
@@ -61,8 +70,10 @@ export class CuisinesSelectorComponent implements OnInit, ControlValueAccessor {
         if (this.selectedcuisines.includes(this.cuisinesList[i].cuisine_id)) this.cuisineformArray.at(i).setValue(true);
         else this.cuisineformArray.at(i).setValue(false);
       }
+      this.checkDisable()
     }
   }
+  // if (this.selectedcuisines.length > 4) this.cuisineformArray.disable();
 
   registerOnChange(fn: any): void {
     this.onChange = fn;

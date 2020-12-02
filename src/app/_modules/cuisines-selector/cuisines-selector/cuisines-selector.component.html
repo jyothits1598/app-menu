@@ -1,5 +1,7 @@
-<p class="label-inputs"> Type of cuisine <b class="m-star">*</b> </p> <button type="button" (click)="showList = !showList">Hide/Show</button>
-<div  class="cuisine-list-container" #container [style.max-height]="getHeight()">
+<p class="label-inputs"> Type of cuisine (select up to 5) <b class="m-star">*</b>
+    <span type="button"><img *ngIf="loading; else expandBtn" src="assets/images/loader.gif" style="width: 24px"></span>
+</p>
+<div class="cuisine-list-container" #container *ngIf="showList">
     <div *ngFor="let cuisine of cuisinesList; let i = index" class="custom-checkbox mr-3">
         <input type="checkbox" [id]="cuisine.cuisine_id" [formControl]="cuisineformArray.at(i)"
             [value]="cuisine.cuisine_id" (change)="handleChange(cuisine.cuisine_id, $event.target.checked)">
@@ -7,10 +9,13 @@
     </div>
 </div>
 <!-- <div>{{selectedcuisines | json}}</div> -->
-
 <ng-template>
     <div class="cuisines-skl mr-3">
         <div class="cuisines-skl__chk-bx"></div>
         <div class="cuisines-skl__text"></div>
     </div>
+</ng-template>
+
+<ng-template #expandBtn>
+    <img [style.transform]="showList? 'rotate(-180deg)':'rotate(0deg)'" src="assets/images/ico_down.png" alt="" (click)="showList = !showList" style="transition: transform .5s">
 </ng-template>

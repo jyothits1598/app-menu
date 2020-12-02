@@ -12,15 +12,16 @@ import { UnautherisedComponent } from './components/unautherised/unautherised.co
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { SearchQueryGeneratorComponent } from './components/search-query-generator/search-query-generator.component';
+import { LazyImageDirective } from './directives/lazy-image.directive';
 
 
 @NgModule({
   entryComponents: [LoadingPlaceholderComponent, ConfirmationDialogComponent],
-  declarations: [NotFoundComponent, BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderComponent, LoadingPlaceholderDirective, UnautherisedComponent, ConfirmationDialogComponent, SearchQueryGeneratorComponent],
+  declarations: [NotFoundComponent, BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderComponent, LoadingPlaceholderDirective, UnautherisedComponent, ConfirmationDialogComponent, SearchQueryGeneratorComponent, LazyImageDirective],
   imports: [
     CommonModule,
     OverlayModule
   ],
-  exports: [BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderDirective, SearchQueryGeneratorComponent]
+  exports: [BtnIconDirective, FilterPipe, IncrementalSearchComponent, FocusOnLoadDirective, ProcessingPlaceholderComponent, LoadingPlaceholderDirective, SearchQueryGeneratorComponent, LazyImageDirective]
 })
 export class SharedModule { }

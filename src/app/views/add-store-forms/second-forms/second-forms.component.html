@@ -12,6 +12,15 @@
             </div>
         </div>
         <div class="form-group form-group--margin">
+            <label class="label-inputs"> Phone <b class="m-star">*</b> </label>
+            <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
+                formControlName="phoneNumber"
+                [ngClass]="{ 'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors }">
+            <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
+                <div> Please enter store name </div>
+            </div>
+        </div>
+        <div class="form-group form-group--margin">
             <label class="label-inputs"> Store address <b class="m-star">*</b> </label>
             <!-- <input type="text" class="form-control form-input" placeholder="e.g. 100 Main street, Sampletown, Qld 4000" formControlName="storeAddress" #storeAddress [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }" >
         <ngx-google-places-autocomplete formControlName="place"></ngx-google-places-autocomplete>
@@ -47,7 +56,7 @@
                 Please select one type of cuisine
             </div>
         </div>
-        <div class="form-group form-group--margin">
+        <!-- <div class="form-group form-group--margin">
             <label class="label-inputs"> Description <b class="m-star">*</b> </label>
             <textarea class="form-control form-input" placeholder="Will be displayed in the app"
                 formControlName="descriptionItem" name="description"
@@ -56,7 +65,7 @@
             <div *ngIf="f.descriptionItem.touched && f.descriptionItem.errors" class="error-mez">
                 <div> Please enter description </div>
             </div>
-        </div>
+        </div> -->
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Google business URL <b class="m-star"></b> </label>
             <input type="text" class="form-control form-input" placeholder="e.g. goo.gl/map/xxxxxxxx"
@@ -96,7 +105,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-group form-group--null">
+        <app-store-logo formControlName="storeLogo" type="logo"></app-store-logo>
+        <app-store-logo formControlName="storeImage" type="image"></app-store-logo>
+        <!-- <div class="form-group form-group--null">
             <label class="label-inputs"> Store logo or photo </label>
             <div class="row">
                 <div class="col-md-12">
@@ -126,17 +137,22 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="form-group mtop mbottom">
             <a [routerLink]="['/store/first-form']"> <input type="button"
                     class="btn std-button std-button--transparency" value="Cancel"></a>
             <input type="submit" class="btn std-button std-button--primary"
                 value="{{add_edit_type == 'add' ? 'Save and continue' : 'Edit store'}}" style="margin-left:16px;">
+            <button *ngIf="isAdmin && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button" class="btn std-button std-button--primary">Save and add
+                another</button>
         </div>
     </form>
-    <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput
-        accept=".jpg,.png,.jpeg,.gif">
+    <!-- <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput
+        accept=".jpg,.png,.jpeg,.gif"> -->
+
 </div>
+
+<div>{{storeDetailform.value | json}}</div>
 
 <ng-template #openingHoursHeading>
     <div class="row">

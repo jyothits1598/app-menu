@@ -1,12 +1,12 @@
-.u-margin-bottom-small{
+.u-margin-bottom-small {
     margin-bottom: 1.5rem;
 }
 
-.u-margin-bottom-medium{
+.u-margin-bottom-medium {
     margin-bottom: 2.5rem;
 }
 
-.u-btn-reset{
+.u-btn-reset {
     border: none;
     background-color: transparent;
 }
@@ -28,11 +28,11 @@
 // }
 
 .upload-image {
-    border: 2px dashed #B3B3B3;  
-    background: #FAFAFA;
-    color: #353FA8;
-    width:200px;
-    height:200px;
+    border: 2px dashed #b3b3b3;
+    background: #fafafa;
+    color: #353fa8;
+    width: 200px;
+    height: 200px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -42,21 +42,21 @@
     text-align: center;
 }
 .upload-image .ud-image {
-  height:100%;
-  width:100%;
-  object-fit: cover;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 .mtop {
-    margin-top:40px;
+    margin-top: 40px;
 }
 .mbottom {
-    margin-bottom:40px;
+    margin-bottom: 40px;
 }
 .form-group--margin {
-    margin-bottom:24px !important;
+    margin-bottom: 24px !important;
 }
 .form-group--null {
-    margin-bottom:0 !important;
+    margin-bottom: 0 !important;
 }
 .image-dashboard {
     text-align: center;
@@ -79,10 +79,10 @@
 }
 // overview dropdown
 .custom-table {
-    border:1px solid #f2f2f2;
+    border: 1px solid #f2f2f2;
     margin-bottom: 0 !important;
     &tr {
-        border:1px solid #f2f2f2;
+        border: 1px solid #f2f2f2;
     }
     &td {
         border-top: none !important;
@@ -94,16 +94,16 @@
 }
 .tdsingle-row {
     background: var(--color-background-secondary);
-    padding:32px !important;
+    padding: 32px !important;
 }
-.rotate-right{
+.rotate-right {
     transform: rotateZ(90deg);
 }
 .dropdown-menu-right li {
     cursor: pointer;
 }
 .t40 {
-    margin-top:40px;
+    margin-top: 40px;
 }
 .b32 {
     margin-bottom: 32px;
@@ -114,4 +114,47 @@
     font-weight: bold;
     font-size: 32px;
     line-height: 40px;
+}
+
+// .lazy-image {
+//     background: linear-gradient(
+//         to right,
+//         rgb(245, 245, 245) 0%,
+//         rgba(245, 245, 245, 1) 30%,
+//         rgba(255, 255, 255, 1) 48%,
+//         rgba(255, 255, 255, 1) 52%,
+//         rgba(245, 245, 245, 1) 70%,
+//         rgba(245, 245, 245, 1) 100%
+//     );
+//     background-size: 200%;
+//     animation: shimer 1s infinite;
+// }
+
+// @keyframes shimer {
+//     0% {
+//         background-position: 200% 0%;
+//     }
+
+//     100% {
+//         background-position: 0% 0%;
+//     }
+// }
+
+.lazy-image {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgb(243, 243, 243) 100%);
+    animation: shimer 1s infinite;
+}
+
+@keyframes shimer {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
