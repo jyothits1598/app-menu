@@ -102,7 +102,7 @@ export class SecondFormsComponent implements OnInit {
       storeName: [null, [Validators.required, removeSpaces]],
       storeAddress: ['', Validators.required],
       typeCuisine: ['', Validators.required],
-      descriptionItem: ['', Validators.required],
+      // descriptionItem: ['', Validators.required],
       google_business_url: [''],
       facebook_url: [''],
     });
@@ -114,7 +114,7 @@ export class SecondFormsComponent implements OnInit {
     this.storeNameSubmit = true;
     this.storeAddressSubmit = true;
     this.typeCuisineSubmit = true;
-    this.descriptionItemSubmit = true;
+    // this.descriptionItemSubmit = true;
     this.facebookBussinessSubmit = true;
     this.googleBussinessSubmit = true;
 
@@ -128,7 +128,7 @@ export class SecondFormsComponent implements OnInit {
         'store_address': this.storeAddress,
         'cuisine_id': this.cusineId,
         'cuisine_name': this.storeDetailform.value.typeCuisine,
-        'description': this.storeDetailform.value.descriptionItem,
+        // 'description': this.storeDetailform.value.descriptionItem,
         'google_business_url': this.storeDetailform.value.google_business_url,
         'facebook_url': this.storeDetailform.value.facebook_url,
         'store_logo': this.imageUrl
