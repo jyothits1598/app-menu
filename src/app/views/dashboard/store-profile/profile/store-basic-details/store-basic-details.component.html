@@ -49,26 +49,24 @@
                     </div>
                 </div>
             </div> -->
-            <div *ngIf="normalMode; else storeLogo">
-                Store Logo
-                <img style="width: 200px;" [src]="basicDetails.value.storeLogo" alt="">
-            </div>
-            <ng-template #storeLogo>
-                <store-image formControlName="storeLogo" type="logo"></store-image>
-            </ng-template>
-            <div *ngIf="normalMode; else storeImage">
-                StoreImage
-                <img style="width: 200px;" *ngIf="normalMode; else storeImage" [src]="basicDetails.value.storeImage"
-                    alt="">
-            </div>
-            <ng-template #storeImage>
-                <store-image formControlName="storeImage" type="image"></store-image>
-            </ng-template>
             <div class="col-md-12">
-                <ng-container>
+                <div *ngIf="normalMode; else storeLogo">
                     <h5 class="std-heading-5 t40"> Store Logo </h5>
-                </ng-container>
-                <ng-template>
+                    <img style="width: 200px;" [src]="basicDetails.value.storeLogo" alt="">
+                </div>
+                <ng-template #storeLogo>
+                    <store-image formControlName="storeLogo" type="logo"></store-image>
+                </ng-template>
+            </div>
+            <div class="col-md-12">
+                <div *ngIf="normalMode; else storeImage">
+                    <h5 class="std-heading-5 t40"> Store Image </h5>
+                    <img style="width: 200px;" *ngIf="normalMode; else storeImage" [src]="basicDetails.value.storeImage" alt="">
+                </div>
+                <ng-template #storeImage>
+                    <div class="t40">
+                        <store-image formControlName="storeImage" type="image"></store-image>
+                    </div>
                 </ng-template>
             </div>
             <div class="col-md-12">
@@ -87,7 +85,7 @@
                 <div *ngIf="normalMode; else phoneNumber" class="paragraph"> {{basicDetails.value.phoneNumber}} </div>
                 <ng-template #phoneNumber>
                     <input [ngClass]="{ 'is-invalid': displayError('phoneNumber') }" class="form-control form-input"
-                        type="text" formControlName="phoneNumber">
+                        type="number" formControlName="phoneNumber" placeholder="Mobile Number">
                     <div *ngIf="displayError('phoneNumber')" class="error-mez">
                         <div> Please enter a phone number </div>
                     </div>
@@ -107,8 +105,11 @@
                     </div>
                 </ng-template>
             </div>
-
-            <cuisines-selector formControlName="cuisines"></cuisines-selector>
+            <div class="col-md-12">
+                <div class="t40">
+                    <cuisines-selector formControlName="cuisines"></cuisines-selector>
+                </div>
+            </div>
             <!-- <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Type of cuisine </h5>
                 <div class="paragraph" *ngIf="normalMode; else cuisine_id"> <span *ngFor="let cuisine of cuisines"><span
