@@ -1,10 +1,18 @@
-<div style="background: #fff;height:300px;">
-    <image-cropper #cropperTool [imageFile]="image" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" format="png"
-    [autoCrop]="false" ></image-cropper>
-    <br>
-    <button (click)="cropImage()" class="btn std-button std-button--blue">
-        Crop
-    </button>
+<div class="modal-content">
+    <div class="image-container">
+        <image-cropper #cropperTool [imageFile]="image" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" format="png"
+        [autoCrop]="false" ></image-cropper>
+    </div>
+    <div class="modal-footer">
+        <div class="float-right">
+            <!-- <button (click)="closeImage()" class="btn std-button std-button--transparency" style="margin-right:15px;">
+                Cancel
+            </button> -->
+            <button (click)="cropImage()" class="btn std-button std-button--primary">
+                Crop
+            </button>
+        </div>
+    </div>
 </div>
     
 

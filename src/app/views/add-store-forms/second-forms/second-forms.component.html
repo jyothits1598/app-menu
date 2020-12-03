@@ -13,7 +13,7 @@
         </div>
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Phone <b class="m-star">*</b> </label>
-            <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
+            <input type="number" class="form-control form-input" placeholder="Mobile Number"
                 formControlName="phoneNumber"
                 [ngClass]="{ 'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors }">
             <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
@@ -105,8 +105,13 @@
                 </div>
             </div>
         </div>
-        <store-image formControlName="storeLogo" type="logo"></store-image>
-        <store-image formControlName="storeImage" type="image"></store-image>
+        <div class="form-group form-group--margin">
+            <store-image formControlName="storeLogo" type="logo"></store-image>
+        </div>
+        <!-- <br> -->
+        <div class="form-group form-group--margin">
+            <store-image formControlName="storeImage" type="image"></store-image>
+        </div>
         <!-- <div class="form-group form-group--null">
             <label class="label-inputs"> Store logo or photo </label>
             <div class="row">
