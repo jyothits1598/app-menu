@@ -2,10 +2,14 @@
     <span type="button"><img *ngIf="loading; else expandBtn" src="assets/images/loader.gif" style="width: 24px"></span>
 </p>
 <div class="cuisine-list-container" #container *ngIf="showList">
-    <div *ngFor="let cuisine of cuisinesList; let i = index" class="custom-checkbox mr-3">
-        <input type="checkbox" [id]="cuisine.cuisine_id" [formControl]="cuisineformArray.at(i)"
-            [value]="cuisine.cuisine_id" (change)="handleChange(cuisine.cuisine_id, $event.target.checked)">
-        <label class="custom-checkbox__label std-heading-4" [for]="cuisine.cuisine_id">{{cuisine.cuisine_name}}</label>
+    <div class="row">
+        <div class="col-md-6" *ngFor="let cuisine of cuisinesList; let i = index">
+            <div class="custom-checkbox mr-3">
+                <input type="checkbox" [id]="cuisine.cuisine_id" [formControl]="cuisineformArray.at(i)"
+                    [value]="cuisine.cuisine_id" (change)="handleChange(cuisine.cuisine_id, $event.target.checked)">
+                <label class="custom-checkbox__label std-heading-4" [for]="cuisine.cuisine_id">{{cuisine.cuisine_name}}</label>
+            </div>
+        </div>
     </div>
 </div>
 <!-- <div>{{selectedcuisines | json}}</div> -->

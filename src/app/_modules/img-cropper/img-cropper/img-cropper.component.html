@@ -1,3 +1,10 @@
-<image-cropper #cropperTool [imageFile]="image" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" format="png"
-    [autoCrop]="false"></image-cropper>
-<button (click)="cropImage()">Crop</button>
+<div style="background: #fff;height:300px;">
+    <image-cropper #cropperTool [imageFile]="image" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" format="png"
+    [autoCrop]="false" ></image-cropper>
+    <br>
+    <button (click)="cropImage()" class="btn std-button std-button--blue">
+        Crop
+    </button>
+</div>
+    
+
