@@ -29,7 +29,7 @@ export class StoreBasicDetailsComponent implements OnInit {
     name: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
     cuisine_id: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    // description: new FormControl('', Validators.required),
     googleUrl: new FormControl(''),
     facebookUrl: new FormControl(''),
   })

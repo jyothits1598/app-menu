@@ -283,9 +283,9 @@ export class SecondFormsComponent implements OnInit {
     this.modalRef.dismiss();
   }
 
-  debug() {
-    console.log('claim creation', this.storeDetailform.controls.cuisines);
-  }
+  // debug() {
+  //   console.log('claim creation', this.storeDetailform.controls.cuisines);
+  // }
 }
 
 
