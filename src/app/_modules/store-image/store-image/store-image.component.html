@@ -1,0 +1,43 @@
+<div class="form-group form-group--null">
+    <label class="label-inputs"> Store {{type === 'logo'? 'avatar/logo' : 'image'}} </label>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-auto mr-auto">
+                    <div style="margin-bottom: 5px;" (click)="fileUpload.initiateFileUpload()">
+                        <div class="upload-image" *ngIf="!logoUrl; else logoImage">
+                            <img src="assets/images/ico_add_blue.png" *ngIf="!logoUrl">
+                            <div *ngIf="!logoUrl" class="std-heading-5" style="color:#353FA8;">Upload an image
+                            </div>
+                        </div>
+                        <ng-template #logoImage>
+                            <img class="ud-image" lazyImage [imageUrl]="logoUrl" *ngIf="logoUrl" style="width: 200px; height: 200px">
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="response-padding">
+                        <span class="paragraph paragraph--small">JPG, PNG or GIF up to 5mb.<br> Minimum size
+                            500&times;500 pixels. </span>
+                        <div style="margin-top:17px;">
+                            <button class="btn std-button std-button--primary" type="button"
+                                (click)="fileUpload.initiateFileUpload()"> <img src="assets/images/loader.gif" *ngIf="uploadingImage" style="width: 24px;"> {{uploadingImage? 'Uploading...': 'Browse'}}
+                            </button>
+                            <button class="btn std-button std-button--transparency" type="button" (click)="logoUrl = null; onChange(null)"
+                                style="margin-left: 16px;" *ngIf="logoUrl"> Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-file-upload #fileUpload [validators]="imageFileValidators" [accept]="validFileFormats" (file)="handleFile($event)"
+    (error)="handleFileError($event)">
+</app-file-upload>
+
+<ng-template #cropperTemp>
+    <img-cropper [image]="imageBeforeCrop" (croppedImage)="this.cropperModal.dismiss(); handleLogoFileUpload($event)"></img-cropper>
+</ng-template>

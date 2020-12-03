@@ -15,7 +15,7 @@ export class StoreBasicDetailsComponent implements OnInit {
   @Output() saved = new EventEmitter<StoreBasicDetails>();
   @Output() imageOpened = new EventEmitter<File>();
   cuisines = new Array();
-  //normalMode is false while editing of details
+  //normalMode is false while editing the details
   normalMode: boolean = true;
   imageUrl: string;
   address: string;

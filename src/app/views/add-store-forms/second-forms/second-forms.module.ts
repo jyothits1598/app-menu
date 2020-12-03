@@ -11,6 +11,7 @@ import { StoreLogoComponent } from './store-logo/store-logo.component';
 import { FileuploadModule } from 'src/app/_modules/fileupload/fileupload.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImgCropperModule } from 'src/app/_modules/img-cropper/img-cropper.module';
+import { StoreImageModule } from 'src/app/_modules/store-image/store-image.module';
 // import { NgxGooglePlacesAutocompleteModule } from '@codious/ngx-google-places-autocomplete';
 
 
@@ -34,7 +35,8 @@ const secondformRouting = RouterModule.forChild(routes);
     SharedModule,
     CuisinesSelectorModule,
     FileuploadModule,
-    ImgCropperModule
+    ImgCropperModule,
+    StoreImageModule,
   ]
 })
 export class SecondFormsModule { }
