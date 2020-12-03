@@ -19,10 +19,7 @@ export class StoreBasicDetailsComponent implements OnInit {
   normalMode: boolean = true;
   address: string;
 
-  constructor(
-    private restApiservice: RestApiService,
-    private alertservice: AlertService,
-  ) { }
+  constructor() { }
 
   basicDetails: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -41,8 +38,6 @@ export class StoreBasicDetailsComponent implements OnInit {
   imageUrlCache: string = null;
 
   ngOnInit(): void {
-    var obj = this;
-    obj.getTypeOfCusine();
   }
 
   options = {
@@ -72,16 +67,6 @@ export class StoreBasicDetailsComponent implements OnInit {
       return null;
     }
     else return this.basicDetails.value;
-  }
-
-  getTypeOfCusine() {
-    // this.alertservice.showLoader();
-    this.restApiservice.getData(`api/stores/cuisines`, (response) => {
-      // this.alertservice.hideLoader();
-      if (response && response['success'] && response['data']) {
-        this.cuisines = response['data'];
-      }
-    });
   }
 
   toggleEdit() {

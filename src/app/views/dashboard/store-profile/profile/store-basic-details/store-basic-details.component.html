@@ -84,8 +84,8 @@
             </div>
             <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Phone Number </h5>
-                <div *ngIf="normalMode; else name" class="paragraph"> {{basicDetails.value.phoneNumber}} </div>
-                <ng-template #name>
+                <div *ngIf="normalMode; else phoneNumber" class="paragraph"> {{basicDetails.value.phoneNumber}} </div>
+                <ng-template #phoneNumber>
                     <input [ngClass]="{ 'is-invalid': displayError('phoneNumber') }" class="form-control form-input"
                         type="text" formControlName="phoneNumber">
                     <div *ngIf="displayError('phoneNumber')" class="error-mez">
