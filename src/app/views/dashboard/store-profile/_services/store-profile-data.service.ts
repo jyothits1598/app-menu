@@ -11,6 +11,7 @@ import { StoreBankDetails } from '../_model/store-bank-details';
 import { StoreOwnershipDetails } from '../_model/store-ownership-details';
 import { TimeAvailability } from 'src/app/_modules/time-availability/_model/time-availability';
 import { TimeAvailabilityModule } from 'src/app/_modules/time-availability/time-availability.module';
+import { StoreApprovedDetailsComponent } from 'src/app/views/admin-dashboard/manage/store-approved-details/store-approved-details.component';
 
 @Injectable()
 export class StoreProfileDataService {
@@ -32,11 +33,15 @@ export class StoreProfileDataService {
           id: data.store_id,
           name: data.store_name,
           address: data.store_address,
-          cuisine_id: data.cuisine_id,
-          description: data.description,
+          phoneNumber: data.phone_number,
+          cuisines: data.cuisines.map(c => c.cuisine_id),
+          // cuisine_id: data.cuisine_id,
+          // 
           facebookUrl: data.facebook_url,
           googleUrl: data.google_business_url,
-          imageUrl: data.store_logo,
+          storeImage: data.store_image,
+          storeLogo: data.store_logo,
+          // imageUrl: data.store_logo,
           openingHours: openingHr
         }
         return store;
@@ -48,21 +53,25 @@ export class StoreProfileDataService {
     let data: any = {
       store_name: storeDetails.name,
       store_address: storeDetails.address,
-      cuisine_id: storeDetails.cuisine_id,
-      description: storeDetails.description,
+      // cuisine_id: storeDetails.cuisine_id,
+      // description: storeDetails.description,
+      phone_number: storeDetails.phoneNumber,
       google_business_url: storeDetails.googleUrl,
       facebook_url: storeDetails.facebookUrl,
-      store_logo: (storeDetails.imageUrl ? this.stringHelper.ExtractFileName(storeDetails.imageUrl) : null),
+      store_logo: (storeDetails.storeLogo ? this.stringHelper.ExtractFileName(storeDetails.storeLogo) : null),
+      store_image: (storeDetails.storeImage ? this.stringHelper.ExtractFileName(storeDetails.storeImage) : null),
+      cuisines: storeDetails.cuisines.map(cId => { return { cuisine_id: cId } }),
       opening_hours: []
+      
     };
-    
+
     storeDetails.openingHours.forEach(oh => {
-      let dataOh:any = {};
-      if(oh.id) dataOh.opening_hours_id = oh.id;
+      let dataOh: any = {};
+      if (oh.id) dataOh.opening_hours_id = oh.id;
       dataOh.days = oh.day;
       dataOh.start_time = oh.startTime;
       dataOh.end_time = oh.endTime;
-      dataOh.marked_as_closed = oh.markedAsClose? 1 : 0;
+      dataOh.marked_as_closed = oh.markedAsClose ? 1 : 0;
 
       data.opening_hours.push(dataOh);
     })
@@ -117,11 +126,11 @@ export class StoreProfileDataService {
     return this.restApiService.putData(URL_StoreOwnershipData(ownershipDetails.id), data);
   }
 
-  SaveOwnershipFile(storeId: number, file: File) : Observable<string>{
+  SaveOwnershipFile(storeId: number, file: File): Observable<string> {
     let data = new FormData();
     data.append('document', file);
     return this.restApiService.postData(URL_StoreOwnerShipFile(storeId), data).pipe(
-      map((resp:any) => resp.data)
+      map((resp: any) => resp.data)
     );
   }
 

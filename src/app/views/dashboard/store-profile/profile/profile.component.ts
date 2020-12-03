@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       finalize(()=>this.alertService.hideLoader())
     ).subscribe(
       url => {
-        this.storeBasicDetials.imageUrl = url;
+        // this.storeBasicDetials.imageUrl = url;
         this.storeDetails.patchData(this.storeBasicDetials);
       },
       

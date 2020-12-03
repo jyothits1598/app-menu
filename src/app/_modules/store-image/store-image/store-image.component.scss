@@ -1,0 +1,31 @@
+.upload-logo {
+    border: 2px dashed #b3b3b3;
+    background: #fafafa;
+    color: #353fa8;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: column;
+    text-align: center;
+    // border-radius: 50%;
+}
+.upload-logo .logo-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.cropper-image {
+    padding: 10px;
+    max-width: 300px;
+    height:100%;
+    margin: auto;
+}
+.cropper-image img {
+    height:100%;
+    width:100%;
+}

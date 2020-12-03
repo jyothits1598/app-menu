@@ -1,31 +1,34 @@
-<form [formGroup]="basicDetails" (ngSubmit)="onSubmit()" class="row">  
-        <div class="col-md-12">
-            <h3 class="std-heading-3 b32" *ngIf="normalMode"> Store profile &nbsp;<img src="assets/images/ico_help.png" style="cursor:pointer;" title="info" ></h3>
-            <h3 class="std-heading-3 b32" *ngIf="!normalMode">
-                <span>
-                    <img src="assets/images/ico_back.png" (click)="toggleEdit()" style="cursor: pointer;">&nbsp;
-                     Edit store profile
-                </span>
-            </h3>
-        </div>
-    
+<form [formGroup]="basicDetails" (ngSubmit)="onSubmit()" class="row">
+    <div class="col-md-12">
+        <h3 class="std-heading-3 b32" *ngIf="normalMode"> Store profile &nbsp;<img src="assets/images/ico_help.png"
+                style="cursor:pointer;" title="info"></h3>
+        <h3 class="std-heading-3 b32" *ngIf="!normalMode">
+            <span>
+                <img src="assets/images/ico_back.png" (click)="toggleEdit()" style="cursor: pointer;">&nbsp;
+                Edit store profile
+            </span>
+        </h3>
+    </div>
+
     <div *ngIf="normalMode; else editOption" class="col-md-12">
         <div class="float-right" style="margin-bottom:52px;">
             <button (click)="toggleEdit()" type="button" class="btn std-button std-button--primary"> <img
                     src="assets/images/ico_edit_white.png">&nbsp; Edit store profile </button>
         </div>
-    </div>   
-    <ng-template #editOption >
+    </div>
+    <ng-template #editOption>
         <div class="col-md-12">
             <div class="float-right" style="margin-bottom:52px;">
-                <button type="button" (click)="cancelEdit()" class="btn std-button std-button--transparency" style="margin-left:10px;"> Cancel </button>
-                <button  type="submit"  class="btn std-button std-button--primary" style="margin-left:10px;" [disabled]="!basicDetails.dirty" ><span >Save</span> </button>
+                <button type="button" (click)="cancelEdit()" class="btn std-button std-button--transparency"
+                    style="margin-left:10px;"> Cancel </button>
+                <button type="submit" class="btn std-button std-button--primary" style="margin-left:10px;"
+                    [disabled]="!basicDetails.dirty"><span>Save</span> </button>
             </div>
         </div>
     </ng-template>
     <div class="col-md-12 col-sm-12 col-lg-6 col-xs-12">
-        <div class="row"> 
-            <div class="col-md-12">
+        <div class="row">
+            <!-- <div class="col-md-12">
                 <h4 class="std-heading-4 b32"> Store details </h4>
                 <h5 class="std-heading-5" style="margin-bottom:16px;"> Photo </h5>
                 <div class="d-flex justify-content-start">
@@ -45,14 +48,48 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+            <div *ngIf="normalMode; else storeLogo">
+                Store Logo
+                <img style="width: 200px;" [src]="basicDetails.value.storeLogo" alt="">
+            </div>
+            <ng-template #storeLogo>
+                <store-image formControlName="storeLogo" type="logo"></store-image>
+            </ng-template>
+            <div *ngIf="normalMode; else storeImage">
+                StoreImage
+                <img style="width: 200px;" *ngIf="normalMode; else storeImage" [src]="basicDetails.value.storeImage"
+                    alt="">
+            </div>
+            <ng-template #storeImage>
+                <store-image formControlName="storeImage" type="image"></store-image>
+            </ng-template>
+            <div class="col-md-12">
+                <ng-container>
+                    <h5 class="std-heading-5 t40"> Store Logo </h5>
+                </ng-container>
+                <ng-template>
+                </ng-template>
             </div>
             <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Store name </h5>
                 <div *ngIf="normalMode; else name" class="paragraph"> {{basicDetails.value.name}} </div>
                 <ng-template #name>
-                    <input [ngClass]="{ 'is-invalid': displayError('name') }" class="form-control form-input" type="text" formControlName="name">
+                    <input [ngClass]="{ 'is-invalid': displayError('name') }" class="form-control form-input"
+                        type="text" formControlName="name">
                     <div *ngIf="displayError('name')" class="error-mez">
                         <div> Please enter store name </div>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="col-md-12">
+                <h5 class="std-heading-5 t40"> Phone Number </h5>
+                <div *ngIf="normalMode; else name" class="paragraph"> {{basicDetails.value.phoneNumber}} </div>
+                <ng-template #name>
+                    <input [ngClass]="{ 'is-invalid': displayError('phoneNumber') }" class="form-control form-input"
+                        type="text" formControlName="phoneNumber">
+                    <div *ngIf="displayError('phoneNumber')" class="error-mez">
+                        <div> Please enter a phone number </div>
                     </div>
                 </ng-template>
             </div>
@@ -62,27 +99,34 @@
                 <ng-template #address>
                     <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="AddressChange($event)"
                         class="form-control form-input" formControlName="address"
-                            [ngClass]="{ 'is-invalid': displayError('address') }"
+                        [ngClass]="{ 'is-invalid': displayError('address') }"
                         placeholder="e.g. 100 Main street, Sampletown, Qld 4000" />
                     <!-- <input [ngClass]="{ 'is-invalid': displayError('address') }" class="form-control form-input" type="text" formControlName="address"> -->
-                    <div  *ngIf="displayError('address')" class="error-mez">
+                    <div *ngIf="displayError('address')" class="error-mez">
                         <div> Please enter store address </div>
                     </div>
                 </ng-template>
             </div>
-            <div class="col-md-12">
+
+            <cuisines-selector formControlName="cuisines"></cuisines-selector>
+            <!-- <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Type of cuisine </h5>
-                <div class="paragraph" *ngIf="normalMode; else cuisine_id"> <span *ngFor="let cuisine of cuisines"><span *ngIf="basicDetails.value.cuisine_id == cuisine.cuisine_id">{{ cuisine.cuisine_name }} </span> </span> </div>
+                <div class="paragraph" *ngIf="normalMode; else cuisine_id"> <span *ngFor="let cuisine of cuisines"><span
+                            *ngIf="basicDetails.value.cuisine_id == cuisine.cuisine_id">{{ cuisine.cuisine_name }}
+                        </span> </span> </div>
                 <ng-template #cuisine_id>
-                    <select [ngClass]="{ 'is-invalid': displayError('cuisine_id') }" class="custom-select form-control form-input form-input--select-input" formControlName="cuisine_id">
+                    <select [ngClass]="{ 'is-invalid': displayError('cuisine_id') }"
+                        class="custom-select form-control form-input form-input--select-input"
+                        formControlName="cuisine_id">
                         <option [ngValue]="null" selected> Select </option>
-                        <option *ngFor="let cuisine of cuisines" value="{{cuisine.cuisine_id}}"> {{ cuisine.cuisine_name }} </option>
+                        <option *ngFor="let cuisine of cuisines" value="{{cuisine.cuisine_id}}">
+                            {{ cuisine.cuisine_name }} </option>
                     </select>
-                    <div  *ngIf="displayError('cuisine_id')" class="error-mez">
-                        <div> Please select type of cuisine  </div>
+                    <div *ngIf="displayError('cuisine_id')" class="error-mez">
+                        <div> Please select type of cuisine </div>
                     </div>
                 </ng-template>
-            </div>
+            </div> -->
             <!-- <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Description </h5>
                 <div *ngIf="normalMode; else description" class="paragraph"> {{basicDetails.value.description}} </div>
@@ -93,22 +137,24 @@
                     </div>
                 </ng-template>
             </div> -->
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Google business URL </h5>
                 <div *ngIf="normalMode; else googleUrl" class="paragraph"> {{basicDetails.value.googleUrl}} </div>
                 <ng-template #googleUrl>
-                    <input [ngClass]="{ 'is-invalid': displayError('description') }" class="form-control form-input" type="text" formControlName="googleUrl">
-                    <div  *ngIf="displayError('googleUrl')" class="error-mez">
+                    <input [ngClass]="{ 'is-invalid': displayError('description') }" class="form-control form-input"
+                        type="text" formControlName="googleUrl">
+                    <div *ngIf="displayError('googleUrl')" class="error-mez">
                         <div> Please enter Google business URL </div>
                     </div>
                 </ng-template>
-            </div>
+            </div> -->
             <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Facebook URL </h5>
                 <div *ngIf="normalMode; else facebookUrl" class="paragraph"> {{basicDetails.value.facebookUrl}} </div>
                 <ng-template #facebookUrl>
-                    <input [ngClass]="{ 'is-invalid': displayError('facebookUrl') }" class="form-control form-input" type="text" formControlName="facebookUrl">
-                    <div  *ngIf="displayError('facebookUrl')" class="error-mez">
+                    <input [ngClass]="{ 'is-invalid': displayError('facebookUrl') }" class="form-control form-input"
+                        type="text" formControlName="facebookUrl">
+                    <div *ngIf="displayError('facebookUrl')" class="error-mez">
                         <div> Please enter facebook URL </div>
                     </div>
                 </ng-template>

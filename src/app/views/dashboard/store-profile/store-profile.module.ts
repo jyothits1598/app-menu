@@ -17,6 +17,8 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { FileUploadComponent } from 'src/app/_modules/fileupload/file-upload/file-upload.component';
 import { FileuploadModule } from 'src/app/_modules/fileupload/fileupload.module';
 import { OwnerRoleGuard } from 'src/app/_guards/user-role.guard';
+import { StoreImageModule } from 'src/app/_modules/store-image/store-image.module';
+import { CuisinesSelectorModule } from 'src/app/_modules/cuisines-selector/cuisines-selector.module';
 
 const routes: Routes = [
   {
@@ -62,7 +64,9 @@ const routingModule = RouterModule.forChild(routes);
     routingModule,
     TimeAvailabilityModule,
     GooglePlaceModule,
-    FileuploadModule
+    FileuploadModule,
+    StoreImageModule,
+    CuisinesSelectorModule
   ],
   providers: [StoreProfileDataService]
 })

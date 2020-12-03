@@ -14,7 +14,7 @@ import { FileExtentionValidator } from 'src/app/_modules/fileupload/file-validat
 })
 export class StoreImageComponent implements OnInit, ControlValueAccessor {
 
-  @Input() type: 'image' | 'logo'
+  @Input() type: 'image' | 'logo';
   validFileFormats = ['.jpeg', '.jpg', '.png'];
   imageFileValidators = [FileExtentionValidator(this.validFileFormats)];
   logoUrl: string;
