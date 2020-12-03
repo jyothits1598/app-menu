@@ -20,7 +20,7 @@
                     <tr *ngIf="pendingStores && pendingStores.length == 0">
                         <td colspan="3" class="text-center">No stores are pending.</td>
                     </tr>
-                    <tr class="text-capitalize" *ngFor="let store of pendingStores">
+                    <tr class="text-capitalize" *ngFor="let store of pendingStores; let i = index;">
                         <td class="table-name" [routerLink]="'../../stores/'+store.id"> {{store.name}} </td>
                         <td>{{store.applicant}}</td>
                         <td> {{store.claimType}} </td>
@@ -28,16 +28,16 @@
                             <div class="dropdown">
                                 <img src="assets/images/ico_overflow.png" class="dropdown-toggle"
                                     data-toggle="dropdown" title="Options" style="cursor:pointer;padding:2px 6px;">
-                                <!-- <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                    <li class="herf-class" title="Edit">
+                                <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
+                                    <li class="herf-class" title="Edit" [routerLink]="'../../stores/'+store.id">
                                         <img src="assets/images/ico_edit.png">&nbsp;&nbsp;
                                         Edit
                                     </li>
-                                    <li title="Delete" class="herf-class">
+                                    <li title="Delete" class="herf-class" (click)="deleteStore(i)">
                                         <img src="assets/images/ico_delete_black.png">&nbsp;&nbsp;
                                         Delete
                                     </li>
-                                </ul> -->
+                                </ul>
                             </div>
                         </td>
                     </tr>

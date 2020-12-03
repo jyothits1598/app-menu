@@ -3,7 +3,7 @@ import { RestApiService } from 'src/app/services/rest-api.service';
 import { URL_ImportStoreShell, URL_StoreShellAllStores } from 'src/environments/api/api-store-administration';
 import { map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { URL_AdminApprovedStores, URL_AdminPendingStores } from 'src/environments/api-endpoint';
+import { URL_AdminApprovedStores, URL_AdminDeleteStore, URL_AdminPendingStores } from 'src/environments/api-endpoint';
 
 @Injectable()
 export class AdminStoreDataService {
@@ -47,6 +47,10 @@ export class AdminStoreDataService {
     ))
   }
 
+
+  deleteStore(storeId: number) {
+    return this.restApiService.patchData(URL_AdminDeleteStore, { store_id: storeId });
+  }
 
 
 }

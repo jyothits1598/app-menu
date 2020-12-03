@@ -1,8 +1,11 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { empty } from 'rxjs/internal/observable/empty';
+import { catchError, finalize, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { AlertService } from 'src/app/services/alert.service';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { SearchQueryGeneratorComponent } from 'src/app/views/shared/components/search-query-generator/search-query-generator.component';
+import { ModalService } from 'src/app/views/shared/services/modal.service';
 import { URL_AdminApprovedStores } from 'src/environments/api-endpoint';
 import { AdminStoreDataService } from '../../_services/admin-store-data.service';
 
@@ -14,7 +17,9 @@ import { AdminStoreDataService } from '../../_services/admin-store-data.service'
 export class StoreApprovedListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   approvedStores: Array<{ id: number, name: string, status: string, applicant: string }>;
-  constructor(private adminStoreData: AdminStoreDataService) { }
+  constructor(private adminStoreData: AdminStoreDataService,
+    private alertService: AlertService,
+    private modalService: ModalService) { }
 
   @ViewChild('queryGen', { read: SearchQueryGeneratorComponent }) queryGen: SearchQueryGeneratorComponent
   querySubs: Subscription;
@@ -31,6 +36,23 @@ export class StoreApprovedListComponent implements OnInit, AfterViewInit, OnDest
 
   ngOnDestroy(): void {
     this.querySubs.unsubscribe();
+  }
+
+  deleteStore(index: number) {
+    this.modalService.getConfirmation({
+      heading: 'Deleting store',
+      dialog: 'Are you sure?',
+      confirmBtn: 'Delete',
+      declineBtn: 'Cancel'
+    }).pipe(
+      catchError(() => empty()),
+      tap(() => { this.alertService.showLoader() }),
+      mergeMap(() => this.adminStoreData.deleteStore(this.approvedStores[index].id)),
+      finalize(() => { this.alertService.hideLoader() })
+    ).subscribe(
+      () => { this.alertService.showNotification('Store successfully deleted'); this.approvedStores.splice(index, 1); },
+      // (errorResp) => { this.alertService.showNotification() }
+    )
   }
 
 }
