@@ -18,7 +18,7 @@ export class StoreBasicDetailsComponent implements OnInit {
   //normalMode is false while editing the details
   normalMode: boolean = true;
   address: string;
-
+  
   constructor() { }
 
   basicDetails: FormGroup = new FormGroup({
