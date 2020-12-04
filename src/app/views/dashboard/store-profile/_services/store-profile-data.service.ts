@@ -35,6 +35,7 @@ export class StoreProfileDataService {
           address: data.store_address,
           phoneNumber: data.phone_number,
           cuisines: data.cuisines.map(c => c.cuisine_id),
+          cuisineName: data.cuisines.map(d => d.cuisine_name),
           // cuisine_id: data.cuisine_id,
           // 
           facebookUrl: data.facebook_url,

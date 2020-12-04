@@ -107,7 +107,13 @@
             </div>
             <div class="col-md-12">
                 <div class="t40">
-                    <cuisines-selector formControlName="cuisines"></cuisines-selector>
+                    <div *ngIf="normalMode; else cuisineList">
+                        <h5 class="std-heading-5 t40"> Types of cuisine </h5>
+                        <div class="paragraph" > {{basicDetails.value.cuisineName}} </div>
+                    </div>
+                    <ng-template #cuisineList>
+                        <cuisines-selector formControlName="cuisines"></cuisines-selector>
+                    </ng-template>
                 </div>
             </div>
             <!-- <div class="col-md-12">
