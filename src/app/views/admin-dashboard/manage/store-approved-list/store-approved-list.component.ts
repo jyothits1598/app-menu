@@ -55,4 +55,5 @@ export class StoreApprovedListComponent implements OnInit, AfterViewInit, OnDest
     )
   }
 
+  
 }

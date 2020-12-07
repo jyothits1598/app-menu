@@ -6,7 +6,7 @@
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Store name <b class="m-star">*</b> </label>
             <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
-                formControlName="storeName" [ngClass]="{ 'is-invalid': f.storeName.touched && f.storeName.errors }">
+                formControlName="storeName" [ngClass]="{ 'is-invalid': f.storeName.errors && f.storeName.touched }">
             <div *ngIf="f.storeName.errors && f.storeName.touched" class="error-mez">
                 <div> Please enter store name </div>
             </div>
@@ -28,8 +28,8 @@
         </div>
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Phone number <b class="m-star">*</b> </label>
-            <input type="number" class="form-control form-input" placeholder="Mobile Number"
-                formControlName="phoneNumber"
+            <input class="form-control form-input" placeholder="e.g. +61 07 3123 4567"
+                formControlName="phoneNumber" minlength="10" maxlength="10" (keypress)="keyPress($event)"
                 [ngClass]="{ 'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors }">
             <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
                 <div> Please enter mobile number </div>
@@ -63,7 +63,7 @@
         </div> -->
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Google business URL <b class="m-star"></b> </label>
-            <input type="text" class="form-control form-input" placeholder="e.g. goo.gl/map/xxxxxxxx"
+            <input type="text" class="form-control form-input" placeholder="e.g. goo.gl/maps/xxxxxx"
                 formControlName="google_business_url"
                 [ngClass]="{ 'is-invalid': f.google_business_url.errors && f.google_business_url.errors }">
             <div *ngIf="f.google_business_url.touched && f.google_business_url.errors" class="error-mez">
@@ -72,7 +72,7 @@
         </div>
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Facebook URL <b class="m-star"></b> </label>
-            <input type="text" class="form-control form-input" placeholder="e.g. http://www.facebook.com/xxxxxxxx"
+            <input type="text" class="form-control form-input" placeholder="e.g. https://www.facebook.com/xxxxxx"
                 formControlName="facebook_url"
                 [ngClass]="{ 'is-invalid': f.facebook_url.touched && f.facebook_url.errors }">
             <div *ngIf="f.facebook_url.touched && f.facebook_url.errors" class="error-mez">
@@ -147,10 +147,14 @@
         <div class="form-group mtop mbottom">
             <a [routerLink]="['/store/first-form']"> <input type="button"
                     class="btn std-button std-button--transparency" value="Cancel"></a>
-            <input type="submit" class="btn std-button std-button--primary"
-                value="{{add_edit_type == 'add' ? 'Save and continue' : 'Edit store'}}" style="margin-left:16px;">
-            <button *ngIf="isAdmin && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button" class="btn std-button std-button--primary">Save and add
-                another</button>
+            <input type="submit" class="btn std-button std-button--primary" 
+                value="{{ add_edit_type == 'add' ? 'Save and continue' : 'Edit store' }}" style="margin-left:16px;">
+                
+                    <button style="margin-top:10px;" *ngIf="isAdmin && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button" class="btn std-button std-button--primary">
+                        Save & add
+                        another
+                    </button>
+                
         </div>
     </form>
     <!-- <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput

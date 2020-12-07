@@ -72,6 +72,17 @@ export class SecondFormsComponent implements OnInit {
     this.claimCreation = this.route.snapshot.queryParams['claim'] == 'true' ? true : false;
   }
 
+  //only number will be add
+  keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+
+  }
+
   options = {
     componentRestrictions: {
       country: ["AU", "IN"]
@@ -168,7 +179,7 @@ export class SecondFormsComponent implements OnInit {
           this.alertservice.showNotification('Store Successfully added.');
           this.storeDetailform.reset();
           this.storeOpeningHours = [];
-        }
+        } else if (response.error) { }
         else this.alertservice.showNotification('There was an error', 'error')
       });
 
