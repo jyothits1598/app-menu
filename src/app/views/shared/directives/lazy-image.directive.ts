@@ -15,7 +15,7 @@ export class LazyImageDirective implements OnInit, OnChanges {
   constructor(
     private host: ElementRef,
     private renderer: Renderer2) {
-      console.log('lazy contructor');
+      
   }
   // ngDoCheck(): void {
 
