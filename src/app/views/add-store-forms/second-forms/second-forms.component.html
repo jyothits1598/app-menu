@@ -12,15 +12,6 @@
             </div>
         </div>
         <div class="form-group form-group--margin">
-            <label class="label-inputs"> Phone <b class="m-star">*</b> </label>
-            <input type="number" class="form-control form-input" placeholder="Mobile Number"
-                formControlName="phoneNumber"
-                [ngClass]="{ 'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors }">
-            <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
-                <div> Please enter store name </div>
-            </div>
-        </div>
-        <div class="form-group form-group--margin">
             <label class="label-inputs"> Store address <b class="m-star">*</b> </label>
             <!-- <input type="text" class="form-control form-input" placeholder="e.g. 100 Main street, Sampletown, Qld 4000" formControlName="storeAddress" #storeAddress [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }" >
         <ngx-google-places-autocomplete formControlName="place"></ngx-google-places-autocomplete>
@@ -36,6 +27,14 @@
             </div>
         </div>
         <div class="form-group form-group--margin">
+            <label class="label-inputs"> Phone number <b class="m-star">*</b> </label>
+            <input type="number" class="form-control form-input" placeholder="Mobile Number"
+                formControlName="phoneNumber"
+                [ngClass]="{ 'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors }">
+            <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
+                <div> Please enter mobile number </div>
+            </div>
+        </div>
             <!-- <div class="col-md-6">
                 <div class="form-group form-group--margin">
                     <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
@@ -51,11 +50,7 @@
                     </div>
                 </div>
             </div> -->
-            <cuisines-selector formControlName="cuisines"></cuisines-selector>
-            <div *ngIf="f.cuisines.invalid && f.cuisines.touched" class="error-mez">
-                Please select one type of cuisine
-            </div>
-        </div>
+        
         <!-- <div class="form-group form-group--margin">
             <label class="label-inputs"> Description <b class="m-star">*</b> </label>
             <textarea class="form-control form-input" placeholder="Will be displayed in the app"
@@ -111,6 +106,12 @@
         <!-- <br> -->
         <div class="form-group form-group--margin">
             <store-image formControlName="storeImage" type="image"></store-image>
+        </div>
+        <div class="form-group form-group--margin">
+            <cuisines-selector formControlName="cuisines"></cuisines-selector>
+            <div *ngIf="f.cuisines.invalid && f.cuisines.touched" class="error-mez">
+                Please select one type of cuisine
+            </div>
         </div>
         <!-- <div class="form-group form-group--null">
             <label class="label-inputs"> Store logo or photo </label>

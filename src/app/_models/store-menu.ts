@@ -36,20 +36,20 @@ export class StoreMenuTime {
 export class Storedetails {
     id: number;
     storeName: string;
-    logoUrl:string;
+    storeImage:string;
     activeStatus: string;
     nextStep: string;
 
     constructor(
         id: number,
         storeName: string,
-        logoUrl: string,
+        storeImage: string,
         activeStatus: string,
         nextStep: string
     ){
         this.id = id;
         this.storeName = storeName;
-        this.logoUrl = logoUrl;
+        this.storeImage = storeImage;
         this.activeStatus = activeStatus;
         this.nextStep = nextStep
     }

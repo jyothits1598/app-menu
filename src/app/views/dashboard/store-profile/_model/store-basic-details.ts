@@ -6,7 +6,7 @@ export class StoreBasicDetails{
     address: string;
     phoneNumber: string;
     cuisines: Array<number>;
-    // cuisine_id : number;
+    cuisineName : string;
     // description : string;
     googleUrl : string;
     facebookUrl : string;

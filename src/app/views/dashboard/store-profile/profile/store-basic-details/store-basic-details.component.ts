@@ -18,7 +18,7 @@ export class StoreBasicDetailsComponent implements OnInit {
   //normalMode is false while editing the details
   normalMode: boolean = true;
   address: string;
-
+  
   constructor() { }
 
   basicDetails: FormGroup = new FormGroup({
@@ -27,6 +27,7 @@ export class StoreBasicDetailsComponent implements OnInit {
     phoneNumber: new FormControl('', Validators.required),
     // cuisine_id: new FormControl('', Validators.required),
     // description: new FormControl('', Validators.required),
+    cuisineName: new FormControl(''),
     cuisines: new FormControl(''),
     googleUrl: new FormControl(''),
     facebookUrl: new FormControl(''),

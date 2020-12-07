@@ -51,8 +51,8 @@
             </div> -->
             <div class="col-md-12">
                 <div *ngIf="normalMode; else storeLogo">
-                    <h5 class="std-heading-5 t40"> Store Logo </h5>
-                    <img style="width: 200px;" [src]="basicDetails.value.storeLogo" alt="">
+                    <h5 class="std-heading-5 t40"> Store logo </h5>
+                    <img style="width: 200px;height:200px;border-radius: 50%;object-fit: cover;" [src]="basicDetails.value.storeLogo || 'assets/images/null_logo.svg' " alt="">
                 </div>
                 <ng-template #storeLogo>
                     <store-image formControlName="storeLogo" type="logo"></store-image>
@@ -60,8 +60,8 @@
             </div>
             <div class="col-md-12">
                 <div *ngIf="normalMode; else storeImage">
-                    <h5 class="std-heading-5 t40"> Store Image </h5>
-                    <img style="width: 200px;" *ngIf="normalMode; else storeImage" [src]="basicDetails.value.storeImage" alt="">
+                    <h5 class="std-heading-5 t40"> Store image </h5>
+                    <img style="width: 200px;height:200px;object-fit: cover;" *ngIf="normalMode; else storeImage" [src]="basicDetails.value.storeImage || 'assets/images/Area.png' " alt="">
                 </div>
                 <ng-template #storeImage>
                     <div class="t40">
@@ -81,7 +81,7 @@
                 </ng-template>
             </div>
             <div class="col-md-12">
-                <h5 class="std-heading-5 t40"> Phone Number </h5>
+                <h5 class="std-heading-5 t40"> Phone number </h5>
                 <div *ngIf="normalMode; else phoneNumber" class="paragraph"> {{basicDetails.value.phoneNumber}} </div>
                 <ng-template #phoneNumber>
                     <input [ngClass]="{ 'is-invalid': displayError('phoneNumber') }" class="form-control form-input"
@@ -107,7 +107,13 @@
             </div>
             <div class="col-md-12">
                 <div class="t40">
-                    <cuisines-selector formControlName="cuisines"></cuisines-selector>
+                    <div *ngIf="normalMode; else cuisineList">
+                        <h5 class="std-heading-5 t40"> Types of cuisine </h5>
+                        <div class="paragraph" > {{basicDetails.value.cuisineName}} </div>
+                    </div>
+                    <ng-template #cuisineList>
+                        <cuisines-selector formControlName="cuisines"></cuisines-selector>
+                    </ng-template>
                 </div>
             </div>
             <!-- <div class="col-md-12">

@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   store_status: boolean = false;
   store_status_approve: boolean = false;
   store_status_setup: boolean = false;
-  logoUrl: string = 'assets/images/Area.png';
+  storeImage: string = 'assets/images/Area.png';
   storeName: string;
 
   @ViewChild('sideBarLinks', { read: TemplateRef }) sideBarLinks: TemplateRef<any>;
@@ -63,11 +63,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         data.forEach(storelist => {
           let newstoreDetails = new Storedetails(storelist.store_id
             , storelist.store_name
-            , storelist.store_logo
+            , storelist.store_image
             , storelist.status
             , storelist.next_step);
-          if (!newstoreDetails.logoUrl) {
-            newstoreDetails.logoUrl = this.logoUrl;
+          if (!newstoreDetails.storeImage) {
+            newstoreDetails.storeImage = this.storeImage;
           }
           if (newstoreDetails.storeName) {
             newstoreDetails.storeName = newstoreDetails.storeName.substring(0, 45) + (newstoreDetails.storeName.length > 45 ? '...' : '');
@@ -101,11 +101,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         data.forEach(storelist => {
           let newstoreDetails = new Storedetails(storelist.store_id
             , storelist.store_name
-            , storelist.store_logo
+            , storelist.store_image
             , storelist.status
             , storelist.next_step);
-          if (!newstoreDetails.logoUrl) {
-            newstoreDetails.logoUrl = this.logoUrl;
+          if (!newstoreDetails.storeImage) {
+            newstoreDetails.storeImage = this.storeImage;
           }
           if (newstoreDetails.storeName) {
             newstoreDetails.storeName = newstoreDetails.storeName.substring(0, 45) + (newstoreDetails.storeName.length > 45 ? '...' : '');
