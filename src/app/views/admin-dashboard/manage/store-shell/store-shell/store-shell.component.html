@@ -32,7 +32,7 @@
                         <td colspan="3" class="text-center">No stores have been added</td>
                     </tr>
                     <tr class="text-capitalize" *ngFor="let store of stores; let i = index">
-                        <td class="table-name" [routerLink]="'../../../../../stores/'+store.store_id"> {{store.store_name}} </td>
+                        <td class="table-name"> {{store.store_name}} </td>
                         <td>{{store.status}}</td>
                         <td style="text-align: right;cursor:pointer;outline: none;">
                             <div class="dropdown">

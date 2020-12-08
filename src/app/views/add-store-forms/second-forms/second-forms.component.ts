@@ -74,7 +74,7 @@ export class SecondFormsComponent implements OnInit {
 
   //only number will be add
   keyPress(event: any) {
-    const pattern = /[0-9\+\-\ ]/;
+    const pattern = /[0-9\+\ ]/;
 
     let inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
@@ -92,7 +92,7 @@ export class SecondFormsComponent implements OnInit {
     //setting address from API to local variable 
     //  this.storeAddress=address.formatted_address;
     if (address) {
-      this.storeAddress = address.name + "," + address.formatted_address;
+      this.storeAddress = address.formatted_address;
     }
   }
 

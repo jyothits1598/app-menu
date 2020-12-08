@@ -29,7 +29,7 @@
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Phone number <b class="m-star">*</b> </label>
             <input class="form-control form-input" placeholder="e.g. +61 07 3123 4567"
-                formControlName="phoneNumber" minlength="10" maxlength="10" (keypress)="keyPress($event)"
+                formControlName="phoneNumber" minlength="0" maxlength="20" (keypress)="keyPress($event)"
                 [ngClass]="{ 'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors }">
             <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
                 <div> Please enter mobile number </div>
@@ -149,12 +149,12 @@
                     class="btn std-button std-button--transparency" value="Cancel"></a>
             <input type="submit" class="btn std-button std-button--primary" 
                 value="{{ add_edit_type == 'add' ? 'Save and continue' : 'Edit store' }}" style="margin-left:16px;">
-                
-                    <button style="margin-top:10px;" *ngIf="isAdmin && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button" class="btn std-button std-button--primary">
-                        Save & add
-                        another
-                    </button>
-                
+            <div class="form-group" style="margin-top:10px;">
+                <button *ngIf="isAdmin && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button" class="btn std-button std-button--primary">
+                    Save & add
+                    another
+                </button>
+            </div>    
         </div>
     </form>
     <!-- <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput
