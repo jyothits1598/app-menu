@@ -49,7 +49,6 @@ export class StorePendingDetailsComponent implements OnInit, OnDestroy {
     this.activeStoreSubs = this.storeService.activeStore$.subscribe(store => this.fetchData());
   }
 
-
   fetchData() {
     this.restApiService.getDataObs(URL_StoreDetail(this.storeService.activeStore$.value.id)).subscribe(
       (resp) => {

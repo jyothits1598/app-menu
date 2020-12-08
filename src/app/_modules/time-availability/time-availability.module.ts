@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TimeAvailabilityEditorComponent } from './time-availability-editor/time-availability-editor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TimeAvailabilitySummaryComponent } from './time-availability-summary/time-availability-summary.component';
+import { TimeAvailabilityService } from './_services/time-availability.service';
 
 
 
@@ -15,6 +16,7 @@ import { TimeAvailabilitySummaryComponent } from './time-availability-summary/ti
   ],
   exports: [
     TimeAvailabilityEditorComponent, TimeAvailabilitySummaryComponent
-  ]
+  ],
+  providers: [TimeAvailabilityService]
 })
 export class TimeAvailabilityModule { }

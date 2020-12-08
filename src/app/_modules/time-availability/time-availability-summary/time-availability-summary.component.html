@@ -1,12 +1,12 @@
 <section>
     <table class="table table-borderless">
         <tr>
-            <td width="150px"> <b>Monday</b>  </td>
+            <td width="150px"> <b>Monday</b> </td>
             <td>
                 <table style="margin: -10px;" *ngIf="monday.length > 0; else closed">
                     <tr *ngFor="let availability of monday">
                         <td *ngIf="!availability.markedAsClose; else closed">
-                            {{availability.startTime}}-{{availability.endTime}}
+                            {{getTimeStr(availability)}}
                         </td>
                     </tr>
                 </table>
@@ -17,8 +17,8 @@
             <td>
                 <table style="margin: -10px;" *ngIf="tuesday.length > 0; else closed">
                     <tr *ngFor="let availability of tuesday">
-                        <td *ngIf="!availability.markedAsClose; else closed" > 
-                            {{availability.startTime}}-{{availability.endTime}}
+                        <td *ngIf="!availability.markedAsClose; else closed">
+                            {{getTimeStr(availability)}}
                         </td>
                     </tr>
                 </table>
@@ -29,8 +29,8 @@
             <td>
                 <table style="margin: -10px;" *ngIf="wednesday.length > 0; else closed">
                     <tr *ngFor="let availability of wednesday">
-                        <td *ngIf="!availability.markedAsClose; else closed"> 
-                            {{availability.startTime}}-{{availability.endTime}}
+                        <td *ngIf="!availability.markedAsClose; else closed">
+                            {{getTimeStr(availability)}}
                         </td>
                     </tr>
                 </table>
@@ -41,8 +41,8 @@
             <td>
                 <table style="margin: -10px;" *ngIf="thursday.length > 0; else closed">
                     <tr *ngFor="let availability of thursday">
-                        <td *ngIf="!availability.markedAsClose; else closed"> 
-                            {{availability.startTime}}-{{availability.endTime}}
+                        <td *ngIf="!availability.markedAsClose; else closed">
+                            {{getTimeStr(availability)}}
                         </td>
                     </tr>
                 </table>
@@ -53,8 +53,8 @@
             <td>
                 <table style="margin: -10px;" *ngIf="friday.length > 0; else closed">
                     <tr *ngFor="let availability of friday">
-                        <td *ngIf="!availability.markedAsClose; else closed"> 
-                            {{availability.startTime}}-{{availability.endTime}}
+                        <td *ngIf="!availability.markedAsClose; else closed">
+                            {{getTimeStr(availability)}}
                         </td>
                     </tr>
                 </table>
@@ -65,8 +65,8 @@
             <td>
                 <table style="margin: -10px;" *ngIf="saturday.length > 0; else closed">
                     <tr *ngFor="let availability of saturday">
-                        <td *ngIf="!availability.markedAsClose; else closed"> 
-                            {{availability.startTime}}-{{availability.endTime}}
+                        <td *ngIf="!availability.markedAsClose; else closed">
+                            {{getTimeStr(availability)}}
                         </td>
                     </tr>
                 </table>
@@ -77,8 +77,8 @@
             <td>
                 <table style="margin: -10px;" *ngIf="sunday.length > 0; else closed">
                     <tr *ngFor="let availability of sunday">
-                        <td *ngIf="!availability.markedAsClose; else closed"> 
-                            {{availability.startTime}}-{{availability.endTime}}
+                        <td *ngIf="!availability.markedAsClose; else closed">
+                            {{getTimeStr(availability)}}
                         </td>
                     </tr>
                 </table>

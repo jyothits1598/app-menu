@@ -27,7 +27,6 @@ export class StoreBasicDetailsComponent implements OnInit {
     phoneNumber: new FormControl('', Validators.required),
     // cuisine_id: new FormControl('', Validators.required),
     // description: new FormControl('', Validators.required),
-    cuisineName: new FormControl(''),
     cuisines: new FormControl(''),
     googleUrl: new FormControl(''),
     facebookUrl: new FormControl(''),
