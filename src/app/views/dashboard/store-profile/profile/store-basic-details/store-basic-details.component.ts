@@ -60,7 +60,7 @@ export class StoreBasicDetailsComponent implements OnInit {
     this.basicDetails.markAsDirty();
     //setting address from API to local variable 
     if (address) {
-      this.address = address.name + "," + address.formatted_address;
+      this.address = address.formatted_address;
     }
 
     this.basicDetails.controls.address.patchValue(this.address);
