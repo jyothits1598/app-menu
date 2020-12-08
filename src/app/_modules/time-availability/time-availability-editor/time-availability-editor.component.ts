@@ -199,6 +199,13 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
     this.onChange.emit(this._availability);
   }
 
+  timingOnChange(event: any) {
+    console.log('value changed');
+    if (this.timing.controls.startTime.value === '24 Hours' || this.timing.controls.endTime.value === '24 Hours') {
+      this.timing.patchValue({ startTime: '12:00AM', endTime: '12:00AM' });
+    }
+  }
+
   deleteAvailability(index: number) {
     this.dirty = true;
     this.touched = true;
