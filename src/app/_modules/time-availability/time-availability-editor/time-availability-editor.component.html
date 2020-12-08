@@ -59,15 +59,15 @@
         </select>
     </div>
     <div class="col-md-3" style="padding-top: 28px;">
-        <button class="btn btn-disable"
-            [ngStyle]="{'cursor': (timing.valid && selectedDays.length > 0 ? 'pointer':'not-allowed')}"
+        <button class="btn btn-disable primary-color"
+            [ngStyle]="{cursor: (timing.valid && selectedDays.length > 0 ? 'pointer':'not-allowed')}"
             id="active_button" (click)="addAvailability()"><img src="assets/images/ico_add.png">&nbsp;&nbsp;Add
             time</button>
     </div>
         <button class="btn form-input" (click)="toggleFormat()">{{format24hr? '12Hr' : '24Hr'}}</button>
     <div class="col-md-12">
         <div class="error-mez"
-            *ngIf="timing.controls.startTime.value !== 'Select' && timing.controls.endTime.value !== 'Select' && timing.controls.startTime.value == timing.controls.endTime.value">
+            *ngIf="timing.controls.startTime.value !== 'Select' && timing.controls.endTime.value !== 'Select' && timing.controls.startTime.value == timing.controls.endTime.value && timing.controls.startTime.value !== '12:00AM'">
             Start time and end time should be different</div>
         <div class="error-mez" *ngIf="timing.errors">
             <div *ngIf="timing.errors.noSelection"> Start and end time are required </div>
@@ -84,9 +84,14 @@
             <tbody>
                 <tr class="text-capitalize" *ngFor="let a of _availability; let i = index">
                     <td><b>{{a.day}}</b></td>
-                    <td class="text-uppercase">
-                        {{ format24hr ? fmt12to24(a.startTime) : a.startTime }}&nbsp;-&nbsp;{{format24hr? fmt12to24(a.endTime) : a.endTime}}
+                    <td class="text-uppercase" *ngIf="a.startTime === '12:00AM' && a.endTime === '12:00AM'; else timeRange">
+                        24 Hours
                     </td>
+                    <ng-template #timeRange>
+                        <td class="text-uppercase">
+                            {{ format24hr ? fmt12to24(a.startTime) : a.startTime }}&nbsp;-&nbsp;{{format24hr? fmt12to24(a.endTime) : a.endTime}}
+                        </td>
+                    </ng-template>
                     <td>
                         <div class="form-check">
                             <input (ngModelChange)="dirty = true; touched = true" [(ngModel)]="a.markedAsClose"

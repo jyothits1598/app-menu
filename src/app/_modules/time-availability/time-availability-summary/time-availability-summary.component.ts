@@ -69,6 +69,7 @@ export class TimeAvailabilitySummaryComponent implements OnInit {
   }
 
   getTimeStr(a: TimeAvailability) {
+    if(a.startTime === '12:00AM' && a.endTime === '12:00AM') return '24 Hours'
     if (this.format24hr) {
       return this.fmt12to24(a.startTime) + '-' + this.fmt12to24(a.endTime);
     } else return a.startTime + '-' + a.endTime;

@@ -24,6 +24,7 @@
     "@codious/ngx-google-places-autocomplete": "^1.1.0",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "@types/googlemaps": "^3.39.9",
+    "@types/intl-tel-input": "^17.0.1",
     "bootstrap": "^4.5.0",
     "font-awesome": "^4.7.0",
     "google-libphonenumber": "^3.2.15",

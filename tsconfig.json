@@ -1,6 +1,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types": [
+     "intlTelInput"
+    ],
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

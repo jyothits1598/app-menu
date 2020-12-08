@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter, Input, TemplateRef, AfterViewI
 import { FormGroup, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { TimeAvailability, TimeAvailabilityComp } from '../_model/time-availability';
 import { TimeAvailabilityService, TimeFormat } from '../_services/time-availability.service';
-declare let $: any;
 
 @Component({
   selector: 'time-availability-editor',
@@ -119,10 +118,7 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
       if ((<FormGroup>control).controls.startTime.value == 'Select'
         || (<FormGroup>control).controls.endTime.value == 'Select') return { 'noSelection': 'Start and end time are required' };
 
-      if ((<FormGroup>control).controls.startTime.value == (<FormGroup>control).controls.endTime.value) return { 'sameSelection': 'Start and end time can not be the same' };
-      if ((<FormGroup>control).controls.startTime.value && (<FormGroup>control).controls.endTime.value) {
-        $('#active_button').addClass('primary-color');
-      }
+      if ((<FormGroup>control).controls.startTime.value == (<FormGroup>control).controls.endTime.value && ((<FormGroup>control).controls.endTime.value !== '12:00AM')) return { 'sameSelection': 'Start and end time can not be the same' };
       return null;
     };
   }

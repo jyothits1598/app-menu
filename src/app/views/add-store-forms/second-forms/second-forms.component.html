@@ -29,7 +29,7 @@
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Phone number <b class="m-star">*</b> </label>
             <input class="form-control form-input" placeholder="e.g. +61 07 3123 4567"
-                formControlName="phoneNumber" minlength="0" maxlength="20" (keypress)="keyPress($event)"
+                formControlName="phoneNumber" minlength="0" maxlength="20" (keyPress)="keyPress($event)"
                 [ngClass]="{ 'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors }">
             <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
                 <div> Please enter mobile number </div>
