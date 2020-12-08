@@ -20,7 +20,7 @@
                     <tbody>
                         <tr *ngIf="approvedStores && approvedStores.length == 0"><td colspan="4" class="text-center">No stores have been approved</td></tr>
                         <tr class="text-capitalize" *ngFor="let store of approvedStores; let i = index">
-                            <td class="table-name"> {{store.name}}</td>
+                            <td class="table-name" [routerLink]="'../../stores/'+store.id"> {{store.name}}</td>
                             <td> {{store.applicant}}</td>
                             <td> {{store.status}} </td>
                             <td style="text-align: right;cursor:pointer;outline: none;">

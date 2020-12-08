@@ -28,7 +28,8 @@ export class StorePendingDetailsComponent implements OnInit, OnDestroy {
     legal_business_name: string,
     business_register_number: string,
     certificate_of_registration: string,
-    fileName: string
+    fileName: string,
+    status: string
   };
 
 
@@ -54,6 +55,7 @@ export class StorePendingDetailsComponent implements OnInit, OnDestroy {
       (resp) => {
         if (resp && resp.data) {
           this.approvalData = resp.data;
+          this.approvalStatus = resp.data.status === 'Trading';
           this.approvalData.fileName = this.stringHelper.ExtractFileName(this.approvalData.certificate_of_registration);
         }
       }
