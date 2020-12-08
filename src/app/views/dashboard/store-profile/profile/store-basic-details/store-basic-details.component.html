@@ -51,7 +51,7 @@
             </div> -->
             <div class="col-md-12">
                 <div *ngIf="normalMode; else storeLogo">
-                    <h5 class="std-heading-5 t40"> Store logo </h5>
+                    <h5 class="std-heading-5"> Logo/avatar </h5>
                     <img style="width: 200px;height:200px;border-radius: 50%;object-fit: cover;" [src]="basicDetails.value.storeLogo || 'assets/images/null_logo.svg' " alt="">
                 </div>
                 <ng-template #storeLogo>
@@ -60,7 +60,7 @@
             </div>
             <div class="col-md-12">
                 <div *ngIf="normalMode; else storeImage">
-                    <h5 class="std-heading-5 t40"> Store image </h5>
+                    <h5 class="std-heading-5 t40"> Photo </h5>
                     <img style="width: 200px;height:200px;object-fit: cover;" *ngIf="normalMode; else storeImage" [src]="basicDetails.value.storeImage || 'assets/images/Area.png' " alt="">
                 </div>
                 <ng-template #storeImage>
@@ -81,17 +81,6 @@
                 </ng-template>
             </div>
             <div class="col-md-12">
-                <h5 class="std-heading-5 t40"> Phone number </h5>
-                <div *ngIf="normalMode; else phoneNumber" class="paragraph"> {{basicDetails.value.phoneNumber}} </div>
-                <ng-template #phoneNumber>
-                    <input [ngClass]="{ 'is-invalid': displayError('phoneNumber') }" class="form-control form-input"
-                        type="number" formControlName="phoneNumber" placeholder="Mobile Number">
-                    <div *ngIf="displayError('phoneNumber')" class="error-mez">
-                        <div> Please enter a phone number </div>
-                    </div>
-                </ng-template>
-            </div>
-            <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Store address </h5>
                 <div *ngIf="normalMode; else address" class="paragraph"> {{basicDetails.value.address}} </div>
                 <ng-template #address>
@@ -102,6 +91,17 @@
                     <!-- <input [ngClass]="{ 'is-invalid': displayError('address') }" class="form-control form-input" type="text" formControlName="address"> -->
                     <div *ngIf="displayError('address')" class="error-mez">
                         <div> Please enter store address </div>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="col-md-12">
+                <h5 class="std-heading-5 t40"> Phone number </h5>
+                <div *ngIf="normalMode; else phoneNumber" class="paragraph"> {{basicDetails.value.phoneNumber}} </div>
+                <ng-template #phoneNumber>
+                    <input [ngClass]="{ 'is-invalid': displayError('phoneNumber') }" class="form-control form-input"
+                         formControlName="phoneNumber" placeholder="e.g. +61 07 3123 4567" minlength="0" maxlength="10" (keypress)="keyPress($event)">
+                    <div *ngIf="displayError('phoneNumber')" class="error-mez">
+                        <div> Please enter a phone number </div>
                     </div>
                 </ng-template>
             </div>
@@ -144,23 +144,23 @@
                     </div>
                 </ng-template>
             </div> -->
-            <!-- <div class="col-md-12">
+            <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Google business URL </h5>
                 <div *ngIf="normalMode; else googleUrl" class="paragraph"> {{basicDetails.value.googleUrl}} </div>
                 <ng-template #googleUrl>
-                    <input [ngClass]="{ 'is-invalid': displayError('description') }" class="form-control form-input"
-                        type="text" formControlName="googleUrl">
+                    <input [ngClass]="{ 'is-invalid': displayError('googleUrl') }" class="form-control form-input"
+                        type="text" formControlName="googleUrl" placeholder="e.g. goo.gl/maps/xxxxxx">
                     <div *ngIf="displayError('googleUrl')" class="error-mez">
                         <div> Please enter Google business URL </div>
                     </div>
                 </ng-template>
-            </div> -->
+            </div>
             <div class="col-md-12">
                 <h5 class="std-heading-5 t40"> Facebook URL </h5>
                 <div *ngIf="normalMode; else facebookUrl" class="paragraph"> {{basicDetails.value.facebookUrl}} </div>
                 <ng-template #facebookUrl>
                     <input [ngClass]="{ 'is-invalid': displayError('facebookUrl') }" class="form-control form-input"
-                        type="text" formControlName="facebookUrl">
+                        type="text" formControlName="facebookUrl" placeholder="e.g. https://www.facebook.com/xxxxxx">
                     <div *ngIf="displayError('facebookUrl')" class="error-mez">
                         <div> Please enter facebook URL </div>
                     </div>
