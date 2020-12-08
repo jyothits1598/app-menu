@@ -27,15 +27,19 @@ export class StoreProfileDataService {
         let data = resp.data[0];
         let openingHr = [];
         data.opening_hours.forEach(o => {
-          openingHr.push(new TimeAvailability(o.opening_hours_id, o.days.toLowerCase(), o.start_time, o.end_time, o.marked_as_closed ? true : false))
+          openingHr.push(new TimeAvailability(
+            o.opening_hours_id, o.days.toLowerCase(),
+            o.start_time.length === 6 ? '0' + o.start_time : o.start_time,
+            o.end_time.length === 6 ? '0' + o.end_time : o.end_time,
+            o.marked_as_closed ? true : false))
         });
         let store: StoreBasicDetails = {
           id: data.store_id,
           name: data.store_name,
           address: data.store_address,
           phoneNumber: data.phone_number,
-          cuisines: data.cuisines.map(c => c.cuisine_id),
-          cuisineName: data.cuisines.map(d => d.cuisine_name),
+          cuisines: data.cuisines.map(c => { return { id: c.cuisine_id, name: c.cuisine_name } }),
+          // cuisineName: data.cuisines.map(d => d.cuisine_name),
           // cuisine_id: data.cuisine_id,
           // 
           facebookUrl: data.facebook_url,
@@ -61,9 +65,9 @@ export class StoreProfileDataService {
       facebook_url: storeDetails.facebookUrl,
       store_logo: (storeDetails.storeLogo ? this.stringHelper.ExtractFileName(storeDetails.storeLogo) : null),
       store_image: (storeDetails.storeImage ? this.stringHelper.ExtractFileName(storeDetails.storeImage) : null),
-      cuisines: storeDetails.cuisines.map(cId => { return { cuisine_id: cId } }),
+      cuisines: storeDetails.cuisines.map(c => { return { cuisine_id: c.id } }),
       opening_hours: []
-      
+
     };
 
     storeDetails.openingHours.forEach(oh => {

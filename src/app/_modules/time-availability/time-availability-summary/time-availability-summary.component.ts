@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TimeAvailability } from 'src/app/_modules/time-availability/_model/time-availability';
+import { TimeAvailabilityService, TimeFormat } from '../_services/time-availability.service';
 
 @Component({
   selector: 'app-time-availability-summary',
@@ -7,7 +8,10 @@ import { TimeAvailability } from 'src/app/_modules/time-availability/_model/time
   styleUrls: ['./time-availability-summary.component.scss']
 })
 export class TimeAvailabilitySummaryComponent implements OnInit {
-
+  get format24hr() {
+    return this.timeAvailabilityServ.getPreference() === TimeFormat.hrs24;
+  }
+  fmt12to24;
   monday: Array<TimeAvailability>;
   tuesday: Array<TimeAvailability>;
   wednesday: Array<TimeAvailability>;
@@ -16,7 +20,9 @@ export class TimeAvailabilitySummaryComponent implements OnInit {
   saturday: Array<TimeAvailability>;
   sunday: Array<TimeAvailability>;
 
-  constructor() { }
+  constructor(private timeAvailabilityServ: TimeAvailabilityService) {
+    this.fmt12to24 = this.timeAvailabilityServ.fmt12to24;
+  }
   @Input() set availabilities(availabilities: Array<TimeAvailability>) {
     if (availabilities) {
       this.dataRefresh();
@@ -60,6 +66,12 @@ export class TimeAvailabilitySummaryComponent implements OnInit {
     this.friday = [];
     this.saturday = [];
     this.sunday = [];
+  }
+
+  getTimeStr(a: TimeAvailability) {
+    if (this.format24hr) {
+      return this.fmt12to24(a.startTime) + '-' + this.fmt12to24(a.endTime);
+    } else return a.startTime + '-' + a.endTime;
   }
 
   ngOnInit(): void {

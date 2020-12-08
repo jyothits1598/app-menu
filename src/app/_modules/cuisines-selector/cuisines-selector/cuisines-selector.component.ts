@@ -12,7 +12,7 @@ export class CuisinesSelectorComponent implements OnInit, ControlValueAccessor {
   @ViewChild('container', { read: ElementRef }) container: ElementRef;
   cuisineformArray: FormArray;
   cuisinesList: Array<{ cuisine_id: number, cuisine_name: string }>;
-  selectedcuisines: Array<number> = [];
+  selectedcuisines: Array<{ id: number, name: string }> = [];
   loading: boolean = true;
   isDisabled: boolean = false;
   showList: boolean = true;
@@ -31,7 +31,10 @@ export class CuisinesSelectorComponent implements OnInit, ControlValueAccessor {
     this.restApiService.getDataObs(`api/stores/cuisines`).pipe(finalize(() => this.loading = false)).subscribe(
       (response) => {
         if (response && response['success'] && response['data']) {
-          this.cuisineformArray = new FormArray(response.data.map(cuisine => new FormControl(this.selectedcuisines.includes(cuisine.cuisine_id) ? true : false)));
+          this.cuisineformArray = new FormArray(response.data.map(cuisine => {
+            let index = this.selectedcuisines.findIndex((c) => c.id === cuisine.cuisine_id);
+            return new FormControl(index !== -1 ? true : false)
+          }));
           this.cuisinesList = response.data;
         }
         this.checkDisable();
@@ -39,9 +42,9 @@ export class CuisinesSelectorComponent implements OnInit, ControlValueAccessor {
     )
   }
 
-  handleChange(id: number, selected: boolean) {
-    if (selected) this.selectedcuisines.push(id);
-    else this.selectedcuisines = this.selectedcuisines.filter(cuisineId => cuisineId != id);
+  handleChange(id: number, name: string, selected: boolean) {
+    if (selected) this.selectedcuisines.push({ id: id, name: name });
+    else this.selectedcuisines = this.selectedcuisines.filter(cuisine => cuisine.id !== id);
     this.onChange(this.selectedcuisines);
     this.checkDisable();
     this.onTouched();
@@ -64,10 +67,15 @@ export class CuisinesSelectorComponent implements OnInit, ControlValueAccessor {
   onTouched: () => {};
 
   writeValue(obj: any): void {
+    console.log('write value called, ', obj);
     this.selectedcuisines = obj || [];
     if (this.cuisinesList) {
+
       for (let i = 0; i < this.cuisinesList.length; i++) {
-        if (this.selectedcuisines.includes(this.cuisinesList[i].cuisine_id)) this.cuisineformArray.at(i).setValue(true);
+        let index = this.selectedcuisines.findIndex(cuisine => cuisine.id === this.cuisinesList[i].cuisine_id);
+        console.log('index, ', index);
+        // if (this.selectedcuisines.includes(this.cuisinesList[i].cuisine_id)) this.cuisineformArray.at(i).setValue(true);
+        if (index !== -1) this.cuisineformArray.at(i).setValue(true);
         else this.cuisineformArray.at(i).setValue(false);
       }
       this.checkDisable()

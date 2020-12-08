@@ -12,6 +12,7 @@ import { FileuploadModule } from 'src/app/_modules/fileupload/fileupload.module'
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImgCropperModule } from 'src/app/_modules/img-cropper/img-cropper.module';
 import { StoreImageModule } from 'src/app/_modules/store-image/store-image.module';
+import { TelephoneInputModule } from 'src/app/_modules/telephone-input/telephone-input.module';
 // import { NgxGooglePlacesAutocompleteModule } from '@codious/ngx-google-places-autocomplete';
 
 
@@ -37,6 +38,7 @@ const secondformRouting = RouterModule.forChild(routes);
     FileuploadModule,
     ImgCropperModule,
     StoreImageModule,
+    TelephoneInputModule
   ]
 })
 export class SecondFormsModule { }

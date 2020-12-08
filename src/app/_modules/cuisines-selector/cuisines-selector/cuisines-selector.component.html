@@ -6,8 +6,10 @@
         <div class="col-md-6" *ngFor="let cuisine of cuisinesList; let i = index">
             <div class="custom-checkbox mr-3">
                 <input type="checkbox" [id]="cuisine.cuisine_id" [formControl]="cuisineformArray.at(i)"
-                    [value]="cuisine.cuisine_id" (change)="handleChange(cuisine.cuisine_id, $event.target.checked)">
-                <label class="custom-checkbox__label std-heading-4" [for]="cuisine.cuisine_id">{{cuisine.cuisine_name}}</label>
+                    [value]="cuisine.cuisine_id"
+                    (change)="handleChange(cuisine.cuisine_id, cuisine.cuisine_name, $event.target.checked)">
+                <label class="custom-checkbox__label std-heading-4"
+                    [for]="cuisine.cuisine_id">{{cuisine.cuisine_name}}</label>
             </div>
         </div>
     </div>
@@ -21,5 +23,6 @@
 </ng-template>
 
 <ng-template #expandBtn>
-    <img [style.transform]="showList? 'rotate(-180deg)':'rotate(0deg)'" src="assets/images/ico_down.png" alt="" (click)="showList = !showList" style="transition: transform .5s">
+    <img [style.transform]="showList? 'rotate(-180deg)':'rotate(0deg)'" src="assets/images/ico_down.png" alt=""
+        (click)="showList = !showList" style="transition: transform .5s">
 </ng-template>

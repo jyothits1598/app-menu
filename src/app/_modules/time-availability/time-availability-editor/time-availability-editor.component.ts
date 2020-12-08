@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, TemplateRef, AfterViewInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormGroup, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { TimeAvailability, TimeAvailabilityComp } from '../_model/time-availability';
+import { TimeAvailabilityService, TimeFormat } from '../_services/time-availability.service';
 declare let $: any;
 
 @Component({
@@ -10,30 +11,37 @@ declare let $: any;
 })
 export class TimeAvailabilityEditorComponent implements AfterViewInit {
   @Output() onChange = new EventEmitter<Array<TimeAvailability>>();
-  constructor() { }
-  
-  ngAfterViewInit(): void {
-    if(this.headingTempalte)
-    this.headingSlot.createEmbeddedView(this.headingTempalte);
+  constructor(private timeAvailabilityServ: TimeAvailabilityService) {
+    let pref = this.timeAvailabilityServ.getPreference();
+    if (pref) {
+      this.format24hr = pref === TimeFormat.hrs24 ? true : false;
+    } else this.format24hr = false;
   }
-  
+
+  ngAfterViewInit(): void {
+    if (this.headingTempalte)
+      this.headingSlot.createEmbeddedView(this.headingTempalte);
+  }
+
+  format24hr: boolean;
+
   @Input() headingTempalte: TemplateRef<any>;
 
-  @Input() set availability(a: Array<TimeAvailability>){
-    if(a) this._availability = a;
+  @Input() set availability(a: Array<TimeAvailability>) {
+    if (a) this._availability = a;
   }
-  
+
   @ViewChild('headingSlot', { read: ViewContainerRef }) headingSlot: ViewContainerRef;
-  
+
   //variables to track status
   touched: boolean = false;
   dirty: boolean = false;
-  
+
   _availability: Array<TimeAvailability> = [];
   selectedDays: Array<string> = [];
-  
+
   daysTouched: boolean = false;
-  
+
   // tou = true;
 
   // active_add_image:string = "assets/images/ico_add.png";
@@ -107,7 +115,7 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
 
   timingValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      
+
       if ((<FormGroup>control).controls.startTime.value == 'Select'
         || (<FormGroup>control).controls.endTime.value == 'Select') return { 'noSelection': 'Start and end time are required' };
 
@@ -140,10 +148,45 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
     }
   }
 
-  
+  fmt24to12(time: string) {
+    let hours = parseInt(time.substr(0, 2));
+    let parsedTime: string;
+    if (hours > 12) {
+      parsedTime = (hours - 12) + time.substr(2, 4) + 'PM';
+    } else {
+      parsedTime = hours + time.substr(2, 4) + 'AM'
+    }
+    return parsedTime.length === 4 ? '0' + parsedTime : parsedTime;
+  }
+
+  fmt12to24(time: string): string {
+    let hours = parseInt(time.substr(0, 2));
+    let parsedHours;
+    if (time.substr(5, 2) === 'PM') {
+      // if (hours === 12) return 12;
+      // else return hours + 12;
+      parsedHours = (hours === 12 ? 12 : hours + 12) + time.substr(2, 3);
+    } else {
+      // if (hours === 12) return 0;
+      // else return hours;
+      parsedHours = (hours === 12 ? 0 : hours) + time.substr(2, 3);
+    }
+    return parsedHours.length === 4 ? '0' + parsedHours : parsedHours;
+  }
+
+  toggleFormat() {
+    if (this.format24hr) {
+      this.format24hr = false;
+      this.timeAvailabilityServ.setPrefence(TimeFormat.hrs12)
+    } else {
+      this.format24hr = true;
+      this.timeAvailabilityServ.setPrefence(TimeFormat.hrs24)
+    }
+  }
+
   addAvailability() {
-    this.dirty= true;
-    
+    this.dirty = true;
+
     if (this.timing.invalid || this.selectedDays.length == 0) {
       this.timing.markAllAsTouched();
       this.daysTouched = true;
@@ -160,8 +203,8 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
     this.onChange.emit(this._availability);
   }
 
-  deleteAvailability(index: number){
-    this.dirty= true;
+  deleteAvailability(index: number) {
+    this.dirty = true;
     this.touched = true;
     this._availability.splice(index, 1)[0];
     this.onChange.emit(this._availability);

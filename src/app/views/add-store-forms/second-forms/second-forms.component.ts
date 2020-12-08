@@ -80,6 +80,7 @@ export class SecondFormsComponent implements OnInit {
   public AddressChange(address: any) {
     //setting address from API to local variable 
     //  this.storeAddress=address.formatted_address;
+    console.log('address changed', address);
     if (address) {
       this.storeAddress = address.name + "," + address.formatted_address;
     }
@@ -114,7 +115,7 @@ export class SecondFormsComponent implements OnInit {
     let data: any = {
       store_name: this.storeDetailform.value.storeName,
       store_address: this.storeAddress,
-      cuisines: this.storeDetailform.controls.cuisines.value.map(cId => { return { cuisine_id: cId } }),
+      cuisines: this.storeDetailform.controls.cuisines.value.map(c => { return { cuisine_id: c.id } }),
       cuisine_name: this.storeDetailform.value.typeCuisine,
       google_business_url: this.storeDetailform.value.google_business_url,
       facebook_url: this.storeDetailform.value.facebook_url,
@@ -164,7 +165,7 @@ export class SecondFormsComponent implements OnInit {
       this.alertservice.showLoader();
       this.restApiservice.postAPI('api/stores/storedata', data, (response) => {
         this.alertservice.hideLoader();
-        if(response.success) {
+        if (response.success) {
           this.alertservice.showNotification('Store Successfully added.');
           this.storeDetailform.reset();
           this.storeOpeningHours = [];
@@ -207,7 +208,7 @@ export class SecondFormsComponent implements OnInit {
             this.storeDetailform.get('storeName').setValue(element.store_name);
             this.storeDetailform.get('phoneNumber').setValue(element.phone_number);
             this.storeDetailform.get('storeAddress').setValue(this.storeAddress);
-            this.storeDetailform.get('cuisines').setValue(element.cuisines.map(c => c.cuisine_id));
+            this.storeDetailform.get('cuisines').setValue(element.cuisines.map(c => { return { id: c.cuisine_id, name: c.cuisine_name } }));
             // this.storeDetailform.get('descriptionItem').setValue(this.getDescription);
             this.storeDetailform.get('google_business_url').setValue(element.google_business_url);
             this.storeDetailform.get('facebook_url').setValue(element.facebook_url);

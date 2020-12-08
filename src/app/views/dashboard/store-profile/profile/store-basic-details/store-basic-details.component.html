@@ -109,7 +109,7 @@
                 <div class="t40">
                     <div *ngIf="normalMode; else cuisineList">
                         <h5 class="std-heading-5 t40"> Types of cuisine </h5>
-                        <div class="paragraph" > {{basicDetails.value.cuisineName}} </div>
+                        <div class="paragraph" > {{basicDetails.value.cuisines | json}} </div>
                     </div>
                     <ng-template #cuisineList>
                         <cuisines-selector formControlName="cuisines"></cuisines-selector>

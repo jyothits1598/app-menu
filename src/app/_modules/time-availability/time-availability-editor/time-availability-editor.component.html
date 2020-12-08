@@ -42,25 +42,33 @@
         <div class="std-heading-5 mb-1">Start time <b class="m-star">*</b></div>
         <select class="custom-select form-input" formControlName="startTime">
             <option> Select </option>
-            <option *ngFor="let t of time" [value]="t">{{ t }}</option>
+            <option *ngFor="let t of time" [value]="t">{{ format24hr ? fmt12to24(t) : t }}</option>
         </select>
+        <!-- <ng-template #startTimeTemp>
+            <select class="custom-select form-input" formControlName="startTime">
+                <option> Select </option>
+                <option *ngFor="let t of time24" [value]="t">{{ t }}</option>
+            </select>
+        </ng-template> -->
     </div>
     <div class="col-md-3">
         <div class="std-heading-5 mb-1">End time <b class="m-star">*</b></div>
         <select class="custom-select form-input" formControlName="endTime">
             <option> Select </option>
-            <option *ngFor="let t of time" [value]="t">{{ t }}</option>
+            <option *ngFor="let t of time" [value]="t">{{ format24hr ? fmt12to24(t) : t }}</option>
         </select>
     </div>
     <div class="col-md-3" style="padding-top: 28px;">
-        <button class="btn btn-disable" [ngStyle]="{'cursor': (timing.valid && selectedDays.length > 0 ? 'pointer':'not-allowed')}" id="active_button"
-            (click)="addAvailability()"><img src="assets/images/ico_add.png">&nbsp;&nbsp;Add
+        <button class="btn btn-disable"
+            [ngStyle]="{'cursor': (timing.valid && selectedDays.length > 0 ? 'pointer':'not-allowed')}"
+            id="active_button" (click)="addAvailability()"><img src="assets/images/ico_add.png">&nbsp;&nbsp;Add
             time</button>
     </div>
+        <button class="btn form-input" (click)="toggleFormat()">{{format24hr? '12Hr' : '24Hr'}}</button>
     <div class="col-md-12">
         <div class="error-mez"
-        *ngIf="timing.controls.startTime.value !== 'Select' && timing.controls.endTime.value !== 'Select' && timing.controls.startTime.value == timing.controls.endTime.value">
-        Start time and end time should be different</div>
+            *ngIf="timing.controls.startTime.value !== 'Select' && timing.controls.endTime.value !== 'Select' && timing.controls.startTime.value == timing.controls.endTime.value">
+            Start time and end time should be different</div>
         <div class="error-mez" *ngIf="timing.errors">
             <div *ngIf="timing.errors.noSelection"> Start and end time are required </div>
         </div>
@@ -77,11 +85,12 @@
                 <tr class="text-capitalize" *ngFor="let a of _availability; let i = index">
                     <td><b>{{a.day}}</b></td>
                     <td class="text-uppercase">
-                        {{a.startTime}}&nbsp;-&nbsp;{{a.endTime}}
+                        {{ format24hr ? fmt12to24(a.startTime) : a.startTime }}&nbsp;-&nbsp;{{format24hr? fmt12to24(a.endTime) : a.endTime}}
                     </td>
                     <td>
                         <div class="form-check">
-                            <input (ngModelChange)="dirty = true; touched = true" [(ngModel)]="a.markedAsClose" type="checkbox" class="form-check-input checkbox-box">
+                            <input (ngModelChange)="dirty = true; touched = true" [(ngModel)]="a.markedAsClose"
+                                type="checkbox" class="form-check-input checkbox-box">
                             <label class="form-check-label check-label-text">&nbsp;Mark as closed </label>
                         </div>
                     </td>
@@ -94,3 +103,5 @@
         </table>
     </div>
 </div>
+
+<!-- <div>{{fmt24to12(timing.controls.startTime.value)}}</div> -->
