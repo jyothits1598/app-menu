@@ -30,12 +30,11 @@ export class TimeAvailabilityService {
       // else return hours;
       parsedHours = (hours === 12 ? 0 : hours) + time.substr(2, 3);
     }
-    return parsedHours.length === 4 ? '0' + parsedHours : parsedHours;
+    return parsedHours.length === 4 ? parsedHours : parsedHours;
   }
   constructor() {
 
     let pref = localStorage.getItem('timePreference');
-    console.log('inside time availabilty constructor', pref);
     if (pref) {
       this.formatPreference = pref === '24HR' ? TimeFormat.hrs24 : TimeFormat.hrs12;
     }

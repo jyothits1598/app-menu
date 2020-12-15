@@ -24,6 +24,7 @@ export class TimeAvailabilitySummaryComponent implements OnInit {
     this.fmt12to24 = this.timeAvailabilityServ.fmt12to24;
   }
   @Input() set availabilities(availabilities: Array<TimeAvailability>) {
+    console.log(availabilities);
     if (availabilities) {
       this.dataRefresh();
       setTimeout(() => {
