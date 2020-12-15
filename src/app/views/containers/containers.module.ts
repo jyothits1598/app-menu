@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContainersComponent } from './containers.component';
 import { AuthGuard } from 'src/app/_guards';
 import { UnautherisedComponent } from '../shared/components/unautherised/unautherised.component';
-import { OwnerRoleGuard, AdminRoleGuard } from 'src/app/_guards/user-role.guard';
+import { OwnerRoleGuard, AdminRoleGuard, StaffRoleGuard } from 'src/app/_guards/user-role.guard';
 import { SideNavBarModule } from '../side-nav-bar/side-nav-bar.module';
 
 const routes: Routes = [
@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'admin',
-        canActivate: [AdminRoleGuard],
+        canActivate: [StaffRoleGuard],
         loadChildren: () => import('../admin-dashboard/manage/admin-dashboard.module').then(m => m.AdminDashboardModule)
       },
       { path: 'unauthorized', component: UnautherisedComponent },

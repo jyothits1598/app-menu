@@ -25,7 +25,6 @@ export class AuthenticationService {
     private alertservice: AlertService,
     private restapiService: RestApiService,
     private dataService: DataService
-
   ) { }
 
   roleArray = new Array({
@@ -42,7 +41,7 @@ export class AuthenticationService {
   /*
   * Login function to authenticate
   */
-  login({ email, password }, returnUrl,member_invite_auth_token,member_invite_email_token,member_invite_store_token) {
+  login({ email, password }, returnUrl, member_invite_auth_token, member_invite_email_token, member_invite_store_token) {
     if (email && password) {
       let login_details = {
         "email": email,
@@ -75,9 +74,9 @@ export class AuthenticationService {
             }
             this.alertservice.hideLoader();
             console.log('navigating to login');
-            if(member_invite_auth_token && member_invite_email_token) {
-              return this.router.navigateByUrl('store-invitation?member_auth_token='+member_invite_auth_token+'&member_email_token='+member_invite_email_token+'&store_token='+member_invite_store_token);
-            }else{
+            if (member_invite_auth_token && member_invite_email_token) {
+              return this.router.navigateByUrl('store-invitation?member_auth_token=' + member_invite_auth_token + '&member_email_token=' + member_invite_email_token + '&store_token=' + member_invite_store_token);
+            } else {
               return this.router.navigateByUrl('/dashboard');
             }
           } else {
@@ -107,7 +106,7 @@ export class AuthenticationService {
     }
   }
 
-  readUser(data: any) {
+  readUser(data: any): User {
     let user = new User();
     user.email = data.email;
     user.firstName = data.first_name;
@@ -194,7 +193,7 @@ export class AuthenticationService {
   /*
    * Function to get logged user details
   */
-  getOfflineLoggedUserDetails() : User {
+  getOfflineLoggedUserDetails(): User {
     if (localStorage.getItem('loggedUser')) {
       var user_details = JSON.parse(localStorage.getItem('loggedUser'));
       return this.readUser(user_details.user_details);

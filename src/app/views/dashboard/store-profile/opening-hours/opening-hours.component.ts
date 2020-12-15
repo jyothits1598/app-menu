@@ -8,9 +8,11 @@ import { StoreService } from 'src/app/services/store.service';
 import { StoreProfileDataService } from '../_services/store-profile-data.service';
 import { StoreBasicDetails } from '../_model/store-basic-details';
 import { TimeAvailability } from 'src/app/_modules/time-availability/_model/time-availability';
-import { mergeMap, switchMap, tap } from 'rxjs/operators';
+import { mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { TimeAvailabilityEditorComponent } from 'src/app/_modules/time-availability/time-availability-editor/time-availability-editor.component';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserRole } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-opening-hours',
@@ -22,24 +24,27 @@ export class OpeningHoursComponent implements OnInit {
   storeBasicDetail: StoreBasicDetails;
   availabilityCache: Array<TimeAvailability>;
   editMode: boolean = false;
+  isStaff: boolean = false;
 
   @ViewChild('editior', { read: TimeAvailabilityEditorComponent }) editior: TimeAvailabilityEditorComponent;
   constructor(
     private _modalService: NgbModal,
     private storeService: StoreService,
     private storeProfData: StoreProfileDataService,
-    private alertservice: AlertService
+    private alertservice: AlertService,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
     this.storeId = this.storeService.activeStore$.value.id;
+    this.authService.getUserObject().pipe(take(1)).subscribe(user => { if (user.role === UserRole.Staff) this.isStaff = true; });
     this.storeProfData.GetStoreBasicData(this.storeId).subscribe(detail => {
       this.storeBasicDetail = detail;
     });
   }
 
   initiateSave() {
-    if (this.storeBasicDetail.openingHours.length == 0) return;
+    if (this.storeBasicDetail.openingHours.length === 0) return;
     this.storeProfData.SaveStoreBasicData(this.storeBasicDetail).pipe(
       tap(() => {
         this.storeBasicDetail = null;

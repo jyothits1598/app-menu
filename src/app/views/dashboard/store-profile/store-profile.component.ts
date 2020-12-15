@@ -8,13 +8,13 @@ import { UserRole } from 'src/app/_models/user';
   styleUrls: ['./store-profile.component.scss']
 })
 export class StoreProfileComponent implements OnInit {
-  isAdmin: boolean = false;
+  isOwner: boolean = false;
 
-  constructor(private authService: AuthenticationService) { 
+  constructor(private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
-    if(this.authService.userObjectSubject.value.role == UserRole.Admin) this.isAdmin = true;
+    if (this.authService.userObjectSubject.value.role == UserRole.Owner) this.isOwner = true;
   }
 
 }

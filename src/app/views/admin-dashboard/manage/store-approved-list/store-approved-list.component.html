@@ -14,7 +14,7 @@
                             <th> Store name </th>
                             <th> Owner </th>
                             <th> Status </th>
-                            <th></th>
+                            <th *ngIf="isAdmin"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,7 +23,7 @@
                             <td class="table-name" [routerLink]="'../../stores/'+store.id"> {{store.name}}</td>
                             <td> {{store.applicant}}</td>
                             <td> {{store.status}} </td>
-                            <td style="text-align: right;cursor:pointer;outline: none;">
+                            <td style="text-align: right;cursor:pointer;outline: none;" *ngIf="isAdmin">
                                 <div class="dropdown">
                                     <img src="assets/images/ico_overflow.png" class="dropdown-toggle"
                                         data-toggle="dropdown" title="Options" style="cursor:pointer;padding:2px 6px;">
