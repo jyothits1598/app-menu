@@ -1,6 +1,6 @@
 <div loadingPlaceholder [loadStatus]="approvalData">
     <h3>{{approvalStatus? 'Approved' : 'Pending approval'}}</h3>
-    <div class="row">
+    <div class="row" *ngIf="!isStaff">
         <div class="col-md-12">
             <div class="float-right" style="margin-bottom:16px;">
                 <button class="btn std-button std-button--redtransparency" (click)="rejectStore()">

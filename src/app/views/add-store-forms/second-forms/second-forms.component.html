@@ -28,14 +28,21 @@
         </div>
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Phone number <b class="m-star">*</b> </label>
-            <input class="form-control form-input" placeholder="e.g. +61 07 3123 4567"
-                formControlName="phoneNumber" minlength="0" maxlength="20" (keyPress)="keyPress($event)"
+            <input class="form-control form-input" placeholder="e.g. +61 07 3123 4567" formControlName="phoneNumber"
+                minlength="0" maxlength="20" (keyPress)="keyPress($event)"
                 [ngClass]="{ 'is-invalid': f.phoneNumber.touched && f.phoneNumber.errors }">
             <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
                 <div> Please enter mobile number </div>
             </div>
         </div>
-            <!-- <div class="col-md-6">
+        <div class="form-group form-group--margin">
+            <label class="label-inputs"> Telephone <b class="m-star">*</b> </label>
+            <!-- <telephone-input></telephone-input> -->
+            <!-- <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
+                <div> Please enter mobile number </div>
+            </div> -->
+        </div>
+        <!-- <div class="col-md-6">
                 <div class="form-group form-group--margin">
                     <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
                     <select class="form-control custom-select form-input form-input--select-input"
@@ -50,7 +57,7 @@
                     </div>
                 </div>
             </div> -->
-        
+
         <!-- <div class="form-group form-group--margin">
             <label class="label-inputs"> Description <b class="m-star">*</b> </label>
             <textarea class="form-control form-input" placeholder="Will be displayed in the app"
@@ -147,14 +154,15 @@
         <div class="form-group mtop mbottom">
             <a [routerLink]="['/store/first-form']"> <input type="button"
                     class="btn std-button std-button--transparency" value="Cancel"></a>
-            <input type="submit" class="btn std-button std-button--primary" 
+            <input type="submit" class="btn std-button std-button--primary"
                 value="{{ add_edit_type == 'add' ? 'Save and continue' : 'Edit store' }}" style="margin-left:16px;">
             <div class="form-group" style="margin-top:10px;">
-                <button *ngIf="isAdmin && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button" class="btn std-button std-button--primary">
+                <button *ngIf="isAdmin && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button"
+                    class="btn std-button std-button--primary">
                     Save & add
                     another
                 </button>
-            </div>    
+            </div>
         </div>
     </form>
     <!-- <input style="display: none" id="file" type="file" (change)="onFileChanged($event)" #fileInput

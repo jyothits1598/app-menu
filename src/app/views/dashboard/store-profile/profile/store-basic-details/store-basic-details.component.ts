@@ -3,6 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { StoreBasicDetails } from '../../_model/store-basic-details';
 import { RestApiService } from 'src/app/services/rest-api.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { take } from 'rxjs/operators';
+import { UserRole } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-store-basic-details',
@@ -18,8 +21,9 @@ export class StoreBasicDetailsComponent implements OnInit {
   //normalMode is false while editing the details
   normalMode: boolean = true;
   address: string;
-  
-  constructor() { }
+  isStaff: boolean = false;
+
+  constructor(private authService: AuthenticationService) { }
 
   basicDetails: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -38,6 +42,7 @@ export class StoreBasicDetailsComponent implements OnInit {
   imageUrlCache: string = null;
 
   ngOnInit(): void {
+    this.authService.getUserObject().pipe(take(1)).subscribe(user => { if (user.role === UserRole.Staff) this.isStaff = true; })
   }
 
   // only number will be add

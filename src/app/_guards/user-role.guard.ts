@@ -10,14 +10,14 @@ import { UserRole } from '../_models/user';
 })
 export class OwnerRoleGuard implements CanActivate {
   constructor(private authService: AuthenticationService
-    , private router: Router){
+    , private router: Router) {
   }
   canActivate(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.authService.getUserObject().pipe(
-      tap(user => {if(user.role !== UserRole.Owner) this.router.navigate(['/dashboard/unauthorized'])}),
-      map((user)=>{
+      tap(user => { if (user.role !== UserRole.Owner) this.router.navigate(['/dashboard/unauthorized']) }),
+      map((user) => {
         return user.role == UserRole.Owner;
-      })  
+      })
     )
   }
 }
@@ -27,14 +27,30 @@ export class OwnerRoleGuard implements CanActivate {
 })
 export class AdminRoleGuard implements CanActivate {
   constructor(private authService: AuthenticationService
-    , private router: Router){
+    , private router: Router) {
   }
   canActivate(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.authService.getUserObject().pipe(
-      tap(user => {if(user.role !== UserRole.Admin) this.router.navigate(['/dashboard/unauthorized'])}),
-      map((user)=>{
-        return user.role == UserRole.Admin;
-      })  
+      tap(user => { if (user.role !== UserRole.Admin) this.router.navigate(['/dashboard/unauthorized']) }),
+      map((user) => {
+        return user.role === UserRole.Admin || user.role === UserRole.Staff;
+      })
+    )
+  }
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class StaffRoleGuard implements CanActivate {
+  constructor(private authService: AuthenticationService
+    , private router: Router) {
+  }
+  canActivate(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    return this.authService.getUserObject().pipe(
+      tap(user => { if ((user.role !== UserRole.Admin) && (user.role !== UserRole.Staff)) this.router.navigate(['/dashboard/unauthorized']) }),
+      map((user) => {
+        return user.role === UserRole.Admin || user.role === UserRole.Staff;
+      })
     )
   }
 }

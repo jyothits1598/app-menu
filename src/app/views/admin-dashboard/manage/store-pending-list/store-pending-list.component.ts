@@ -9,6 +9,8 @@ import { AfterViewInit } from '@angular/core';
 import { empty, Subscription } from 'rxjs';
 import { AdminStoreDataService } from '../../_services/admin-store-data.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserRole } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-store-pending-list',
@@ -21,11 +23,13 @@ export class StorePendingListComponent implements OnInit, AfterViewInit, OnDestr
 
   @ViewChild('queryGen', { read: SearchQueryGeneratorComponent }) queryGen: SearchQueryGeneratorComponent
   querySubs: Subscription;
+  isAdmin: boolean = false;
 
   constructor(private restApiService: RestApiService,
     private adminDataServ: AdminStoreDataService,
     private alertService: AlertService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private authService: AuthenticationService
   ) {
   }
 
@@ -36,6 +40,7 @@ export class StorePendingListComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnInit(): void {
+    this.authService.getUserObject().pipe(take(1)).subscribe(user => { if (user.role === UserRole.Admin) this.isAdmin = true });
     this.adminDataServ.allPendingStores().subscribe(stores => this.pendingStores = stores);
   }
 

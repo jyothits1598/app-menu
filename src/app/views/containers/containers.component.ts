@@ -20,27 +20,27 @@ export class ContainersComponent implements OnInit {
   menu_image:string = "assets/images/ico_menu.png";
   close_image:string = "assets/images/alert-close.png";
 
-  dashboard_status:boolean = false;
-  menu_status:boolean = false;
+  // dashboard_status:boolean = false;
+  // menu_status:boolean = false;
 
   constructor(
     private router:Router,
     public layoutService: LayoutService
   ) {  
-    this.router.events.pipe(takeUntil(this.unsubscribe$)).subscribe(
-      (event: any) => {
-        if (event instanceof NavigationEnd) {
-          this.dashboard_status = false;
-          this.menu_status = false;
+    // this.router.events.pipe(takeUntil(this.unsubscribe$)).subscribe(
+    //   (event: any) => {
+    //     if (event instanceof NavigationEnd) {
+    //       this.dashboard_status = false;
+    //       this.menu_status = false;
 
-          if(this.router.url && this.router.url.indexOf(this.dashboard_url) > -1){
-            this.dashboard_status = true;
-          }else if(this.router.url && this.router.url.indexOf(this.menu_url) > -1){
-            this.menu_status = true;
-          }
-        }
-      }
-    );
+    //       if(this.router.url && this.router.url.indexOf(this.dashboard_url) > -1){
+    //         this.dashboard_status = true;
+    //       }else if(this.router.url && this.router.url.indexOf(this.menu_url) > -1){
+    //         this.menu_status = true;
+    //       }
+    //     }
+    //   }
+    // );
   }
 
   ngOnInit(): void {  

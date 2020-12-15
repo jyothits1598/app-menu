@@ -10,7 +10,7 @@ export class AdminStoreDataService {
 
   constructor(private restApiService: RestApiService) { }
 
-  storeShellAllStores(querystring: string = null): Observable<Array<{ store_id: number, store_name: string, status: string }>> {
+  storeShellAllStores(querystring: string = null): Observable<Array<{ store_id: number, store_name: string, status: string, first_name: string, last_name: string, date: string }>> {
     return this.restApiService.getDataObs(URL_StoreShellAllStores + (querystring ? querystring : '')).pipe(map((resp: any) => resp.data))
   }
 

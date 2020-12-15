@@ -11,13 +11,13 @@
             Opening hours
         </button>
     </li>
-    <li class="resnt-menu-top-tabs__item" *ngIf="!isAdmin">
+    <li class="resnt-menu-top-tabs__item" *ngIf="isOwner">
         <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./bank"
             routerLinkActive="resnt-menu-top-tabs__button__active">
             Bank details
         </button>
     </li>
-    <li class="resnt-menu-top-tabs__item" *ngIf="!isAdmin">
+    <li class="resnt-menu-top-tabs__item" *ngIf="isOwner">
         <button class="resnt-menu-top-tabs__button tabs-menu" routerLink="./ownership"
             routerLinkActive="resnt-menu-top-tabs__button__active">
             Ownership

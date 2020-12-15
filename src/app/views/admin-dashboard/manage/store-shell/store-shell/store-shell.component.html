@@ -9,8 +9,8 @@
         <app-file-upload loadingPlaceholder [loadStatus]="importComplete" [validators]="csvFileValidators"
             [accept]="validFileFormats" validFileFormats (file)="handleFileUpload($event)"
             (error)="handleFileError($event)">
-            <a type="button" class="btn std-button std-button--transparency1"> <img
-                    src="assets/images/ico_upload.png"> &nbsp; Import via CSV </a>
+            <a type="button" class="btn std-button std-button--transparency1"> <img src="assets/images/ico_upload.png">
+                &nbsp; Import via CSV </a>
         </app-file-upload>
     </div>
     <div class="col-md-3 mb-2 pd-mq">
@@ -25,23 +25,32 @@
                         <th> Sl. No </th>
                         <th> Store name </th>
                         <th> Status </th>
+                        <ng-container *ngIf="isAdmin">
+                            <th> Name </th>
+                            <th> Date </th>
+                        </ng-container>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr  *ngIf="stores && stores.length == 0">
+                    <tr *ngIf="stores && stores.length == 0">
                         <td colspan="3" class="text-center">No stores have been added</td>
                     </tr>
                     <tr class="text-capitalize" *ngFor="let store of stores; let i = index">
                         <td> {{i + 1}} </td>
                         <td class="table-name"> {{store.store_name}} </td>
                         <td>{{store.status}}</td>
+                        <ng-container *ngIf="isAdmin">
+                            <td>{{store.first_name + ' ' + store.last_name}}</td>
+                            <td>{{store.date}}</td>
+                        </ng-container>
                         <td style="text-align: right;cursor:pointer;outline: none;">
                             <div class="dropdown">
-                                <img src="assets/images/ico_overflow.png" class="dropdown-toggle"
-                                    data-toggle="dropdown" title="Options" style="cursor:pointer;padding:2px 6px;">
+                                <img src="assets/images/ico_overflow.png" class="dropdown-toggle" data-toggle="dropdown"
+                                    title="Options" style="cursor:pointer;padding:2px 6px;">
                                 <ul class="dropdown-menu dropdown-edit dropdown-menu-right">
-                                    <li class="herf-class" title="Edit" [routerLink]="'../../../../../stores/'+store.store_id+'/profile'">
+                                    <li class="herf-class" title="Edit"
+                                        [routerLink]="'../../../../../stores/'+store.store_id+'/profile'">
                                         <img src="assets/images/ico_edit.png">&nbsp;&nbsp;
                                         Edit
                                     </li>

@@ -4,11 +4,13 @@ import { Store, ReadStore } from 'src/app/_models/store';
 import { URL_StoreDetail, URL_ApproveStore, URL_RejectStore } from 'src/environments/api/api-store-administration';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
 import { StringHelperService } from 'src/app/services/string-helper.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { SideNavbarService } from 'src/app/services/side-navbar.service';
 import { StoreService } from 'src/app/services/store.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserRole } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-admin-store-details',
@@ -37,16 +39,19 @@ export class StorePendingDetailsComponent implements OnInit, OnDestroy {
   activeStoreSubs: Subscription;
   approvalStatus: boolean = false;
   denialStatus: boolean = false;
+  isStaff: boolean = false;
 
   constructor(private restApiService: RestApiService,
     private route: ActivatedRoute,
     private router: Router,
     private stringHelper: StringHelperService,
     private alertService: AlertService,
-    private storeService: StoreService) {
+    private storeService: StoreService,
+    private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
+    this.authService.getUserObject().pipe(take(1)).subscribe(user => { if (user.role === UserRole.Staff) this.isStaff = true; })
     this.activeStoreSubs = this.storeService.activeStore$.subscribe(store => this.fetchData());
   }
 
