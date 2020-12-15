@@ -73,7 +73,8 @@ export class TimeAvailabilitySummaryComponent implements OnInit {
     if(a.startTime === '12:00AM' && a.endTime === '12:00AM') return '24 Hours'
     if (this.format24hr) {
       return this.fmt12to24(a.startTime) + '-' + this.fmt12to24(a.endTime);
-    } else return a.startTime + '-' + a.endTime;
+    } 
+    else return a.startTime.replace(/^0+/, '') + '-' + a.endTime.replace(/^0+/, '');
   }
 
   ngOnInit(): void {

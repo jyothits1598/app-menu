@@ -22,6 +22,7 @@
             <table class="table table-border table-color" style="margin-top:24px;">
                 <thead>
                     <tr>
+                        <th> Sl. No </th>
                         <th> Store name </th>
                         <th> Status </th>
                         <th></th>
@@ -32,6 +33,7 @@
                         <td colspan="3" class="text-center">No stores have been added</td>
                     </tr>
                     <tr class="text-capitalize" *ngFor="let store of stores; let i = index">
+                        <td> {{i + 1}} </td>
                         <td class="table-name"> {{store.store_name}} </td>
                         <td>{{store.status}}</td>
                         <td style="text-align: right;cursor:pointer;outline: none;">

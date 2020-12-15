@@ -47,7 +47,7 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
   // inactive_add_image:string = "assets/images/ico_add_light.png";
 
   time: Array<string> = [
-    '12:00AM'
+      '12:00AM'
     , '12:30AM'
     , '1:00AM'
     , '1:30AM'
@@ -170,15 +170,15 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
     return parsedHours.length === 4 ? '0' + parsedHours : parsedHours;
   }
 
-  toggleFormat() {
-    if (this.format24hr) {
-      this.format24hr = false;
-      this.timeAvailabilityServ.setPrefence(TimeFormat.hrs12)
-    } else {
-      this.format24hr = true;
-      this.timeAvailabilityServ.setPrefence(TimeFormat.hrs24)
-    }
-  }
+  // toggleFormat() {
+  //   if (this.format24hr) {
+  //     this.format24hr = false;
+  //     this.timeAvailabilityServ.setPrefence(TimeFormat.hrs12)
+  //   } else {
+  //     this.format24hr = true;
+  //     this.timeAvailabilityServ.setPrefence(TimeFormat.hrs24)
+  //   }
+  // }
 
   addAvailability() {
     this.dirty = true;
@@ -200,7 +200,6 @@ export class TimeAvailabilityEditorComponent implements AfterViewInit {
   }
 
   timingOnChange(event: any) {
-    console.log('value changed');
     if (this.timing.controls.startTime.value === '24 Hours' || this.timing.controls.endTime.value === '24 Hours') {
       this.timing.patchValue({ startTime: '12:00AM', endTime: '12:00AM' });
     }

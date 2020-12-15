@@ -66,9 +66,9 @@
             (click)="addAvailability()"><img src="assets/images/ico_add.png">&nbsp;&nbsp;Add
             time</button>
     </div>
-    <div class="col-md-3" style="padding-top: 28px;">
+    <!-- <div class="col-md-3" style="padding-top: 28px;">
         <button class="btn std-button std-button--transparency" (click)="toggleFormat()">{{format24hr? '12Hr' : '24Hr'}}</button>
-    </div>
+    </div> -->
     <div class="col-md-12">
         <div class="error-mez"
             *ngIf="timing.controls.startTime.value !== 'Select' && timing.controls.endTime.value !== 'Select' && timing.controls.startTime.value == timing.controls.endTime.value && timing.controls.startTime.value !== '12:00AM'">
@@ -95,7 +95,7 @@
                     </td>
                     <ng-template #timeRange>
                         <td class="text-uppercase">
-                            {{ format24hr ? fmt12to24(a.startTime) : a.startTime }}&nbsp;-&nbsp;{{format24hr? fmt12to24(a.endTime) : a.endTime}}
+                            {{format24hr ? fmt12to24(a.startTime) : a.startTime}}&nbsp;-&nbsp;{{format24hr? fmt12to24(a.endTime) : a.endTime}}
                         </td>
                     </ng-template>
                     <td>

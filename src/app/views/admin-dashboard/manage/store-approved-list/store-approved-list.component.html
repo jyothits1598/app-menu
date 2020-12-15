@@ -11,6 +11,7 @@
                 <table class="table table-border table-color" style="margin-top:24px;">
                     <thead>
                         <tr>
+                            <th> Sl. No </th>
                             <th> Store name </th>
                             <th> Owner </th>
                             <th> Status </th>
@@ -20,6 +21,7 @@
                     <tbody>
                         <tr *ngIf="approvedStores && approvedStores.length == 0"><td colspan="4" class="text-center">No stores have been approved</td></tr>
                         <tr class="text-capitalize" *ngFor="let store of approvedStores; let i = index">
+                            <td> {{i + 1}} </td>
                             <td class="table-name" [routerLink]="'../../stores/'+store.id"> {{store.name}}</td>
                             <td> {{store.applicant}}</td>
                             <td> {{store.status}} </td>

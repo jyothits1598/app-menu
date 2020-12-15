@@ -99,7 +99,7 @@
                 <div *ngIf="normalMode; else phoneNumber" class="paragraph"> {{basicDetails.value.phoneNumber}} </div>
                 <ng-template #phoneNumber>
                     <input [ngClass]="{ 'is-invalid': displayError('phoneNumber') }" class="form-control form-input"
-                         formControlName="phoneNumber" placeholder="e.g. +61 07 3123 4567" minlength="0" maxlength="10" (keypress)="keyPress($event)">
+                         formControlName="phoneNumber" placeholder="e.g. +61 07 3123 4567" minlength="0" maxlength="20" (keypress)="keyPress($event)">
                     <div *ngIf="displayError('phoneNumber')" class="error-mez">
                         <div> Please enter a phone number </div>
                     </div>
@@ -109,7 +109,9 @@
                 <div class="t40">
                     <div *ngIf="normalMode; else cuisineList">
                         <h5 class="std-heading-5 t40"> Types of cuisine </h5>
-                        <div class="paragraph" > {{basicDetails.value.cuisines | json}} </div>
+                        <div class="paragraph" *ngFor="let details of basicDetails.value.cuisines"> 
+                            {{ details.name}}
+                        </div>
                     </div>
                     <ng-template #cuisineList>
                         <cuisines-selector formControlName="cuisines"></cuisines-selector>
