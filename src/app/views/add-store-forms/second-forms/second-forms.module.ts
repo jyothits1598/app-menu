@@ -29,6 +29,7 @@ const secondformRouting = RouterModule.forChild(routes);
   imports: [
     CommonModule,
     secondformRouting,
+    SharedModule,
     ReactiveFormsModule,
     FormsModule,
     GooglePlaceModule,
