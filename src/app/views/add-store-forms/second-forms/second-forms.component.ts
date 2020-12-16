@@ -15,7 +15,8 @@ import { AvailabilityToBackend, ReadAvailability, TimeAvailability } from 'src/a
 import { ModalService } from '../../shared/services/modal.service';
 import { ModalRef } from '../../shared/_model/modal-ref';
 import { UserRole } from 'src/app/_models/user';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
+import { URL_StoreClaimSearch } from 'src/environments/api/api-store-administration';
 
 declare let $: any;
 
@@ -211,7 +212,9 @@ export class SecondFormsComponent implements OnInit {
   getstoreDetails() {
     // this.alertservice.showLoader();
     if (this.store_id) {
+      this.alertservice.showLoader()
       this.restApiservice.getData(`api/stores/${this.store_id}/storedata`, (response) => {
+        this.alertservice.hideLoader();
         if (response && response['success'] && response['data']) {
           response['data'].forEach(element => {
             // this.imageUrl = element.store_logo;
@@ -239,6 +242,23 @@ export class SecondFormsComponent implements OnInit {
   startEdit(editorTemplate: TemplateRef<any>) {
     this.storeOpeningHoursCache = [...this.storeOpeningHours];
     this.modalRef = this.modalService.openTemplate(editorTemplate);
+  }
+
+  apiFunction = (term) => {
+    return this.restApiservice.getDataObs(URL_StoreClaimSearch(term)).pipe(
+      map((resp: any) => resp.data)
+    )
+  }
+
+  accessor = (store) => store.store_name;
+
+  handleSelection(item: any) {
+    if (item) {
+      this.store_id = item.store_id;
+      this.getstoreDetails();
+    } else {
+      console.log('selection item, ', item);
+    }
   }
 
   // onFileChanged(event) {

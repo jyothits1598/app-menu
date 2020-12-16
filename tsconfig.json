@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "types": [
-     "intlTelInput"
+    //  "intlTelInput"
     ],
     "typeRoots": [
       "../node_modules/@types"

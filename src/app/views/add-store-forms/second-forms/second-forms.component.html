@@ -11,15 +11,60 @@
                 <div> Please enter store name </div>
             </div>
         </div>
+        <incremental-search [apiFunction]="apiFunction" [accessorFunction]="accessor"
+            (onSelect)="handleSelection($event)">
+            <!-- <input #itemSearch placeholder="Start typing name, location, keyword or cuisine"
+                class="form-control form-input search" /> -->
+            <div class="form-group form-group--margin" *ngIf="isAdmin || isStaff">
+                <label class="label-inputs"> Store name Admin <b class="m-star">*</b> </label>
+                <input #itemSearch type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
+                    formControlName="storeName" [ngClass]="{ 'is-invalid': f.storeName.errors && f.storeName.touched }">
+                <div *ngIf="f.storeName.errors && f.storeName.touched" class="error-mez">
+                    <div> Please enter store name </div>
+                </div>
+            </div>
+            <ng-template #itemTemplate let-option="option">
+                <li class="auto-fill__list__item">
+                    <table>
+                        <tr>
+                            <td valign="middle" style="padding: 16px;">
+                                <img src="assets/images/ico_search.png">
+                            </td>
+                            <td style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);width:100%;">
+                                <div class="paragraph"> {{option.store_name}} </div>
+                                <div style="color: #808080;font-size: 14px;line-height: 20px;">{{option.store_address}}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            </ng-template>
+            <!-- <ng-template #noItemsTemplate>
+                <li class="auto-fill__list__item">
+                    <table>
+                        <tr>
+                            <td valign="middle" style="padding: 16px;">
+                                <img src="assets/images/ico_add_blue.png">
+                            </td>
+                            <td style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);width:100%">
+                                <div class="paragraph" style="cursor: pointer;color:#353FA8;outline: 0;"> No match? Add
+                                    store
+                                    manually </div>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            </ng-template> -->
+        </incremental-search>
         <!----------- store shell only ------------->
-        <div class="form-group form-group--margin" *ngIf="isAdmin || isStaff">
+        <!-- <div class="form-group form-group--margin" *ngIf="isAdmin || isStaff">
             <label class="label-inputs"> Store name Admin <b class="m-star">*</b> </label>
             <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
                 formControlName="storeName" [ngClass]="{ 'is-invalid': f.storeName.errors && f.storeName.touched }">
             <div *ngIf="f.storeName.errors && f.storeName.touched" class="error-mez">
                 <div> Please enter store name </div>
             </div>
-        </div>
+        </div> -->
         <!----------- store shell only end ------------->
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Store address <b class="m-star">*</b> </label>
@@ -47,8 +92,8 @@
         </div>
         <!-- <div class="form-group form-group--margin">
             <label class="label-inputs"> Telephone <b class="m-star">*</b> </label> -->
-            <!-- <telephone-input></telephone-input> -->
-            <!-- <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
+        <!-- <telephone-input></telephone-input> -->
+        <!-- <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
                 <div> Please enter mobile number </div>
             </div> -->
         <!-- </div> -->
@@ -167,8 +212,8 @@
             <input type="submit" class="btn std-button std-button--primary"
                 value="{{ add_edit_type == 'add' ? 'Save and continue' : 'Edit store' }}" style="margin-left:16px;">
             <div class="form-group" style="margin-top:10px;">
-                <button *ngIf="(isAdmin || isStaff) && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button"
-                    class="btn std-button std-button--primary">
+                <button *ngIf="(isAdmin || isStaff) && this.add_edit_type == 'add'" (click)="storeAndAddAnother()"
+                    type="button" class="btn std-button std-button--primary">
                     Save & add
                     another
                 </button>
@@ -179,6 +224,7 @@
         accept=".jpg,.png,.jpeg,.gif"> -->
 
 </div>
+
 
 <!-- <div>{{storeDetailform.value | json}}</div> -->
 
