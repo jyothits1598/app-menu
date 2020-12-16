@@ -15,6 +15,7 @@ import { AvailabilityToBackend, ReadAvailability, TimeAvailability } from 'src/a
 import { ModalService } from '../../shared/services/modal.service';
 import { ModalRef } from '../../shared/_model/modal-ref';
 import { UserRole } from 'src/app/_models/user';
+import { take } from 'rxjs/operators';
 
 declare let $: any;
 
@@ -54,7 +55,7 @@ export class SecondFormsComponent implements OnInit {
   storeOpeningHours: Array<TimeAvailability> = [];
   storeOpeningHoursCache: Array<TimeAvailability>;
   modalRef: ModalRef;
-
+  isStaff: boolean = false;
   cuisineControl: FormControl = new FormControl();
 
   constructor(
@@ -100,6 +101,7 @@ export class SecondFormsComponent implements OnInit {
   // Cuisines = new Array();
 
   ngOnInit(): void {
+    this.authService.getUserObject().pipe(take(1)).subscribe(user => { if (user.role === UserRole.Staff) this.isStaff = true; })
     this.isAdmin = this.authService.userObjectSubject.value.role == UserRole.Admin;
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
     this.getstoreDetails();

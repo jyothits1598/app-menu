@@ -3,7 +3,7 @@
         <h1 class="form-header" style="margin-bottom:72px;">
             Tell us a little about your store
         </h1>
-        <div class="form-group form-group--margin">
+        <div class="form-group form-group--margin" *ngIf="!(isAdmin || isStaff)">
             <label class="label-inputs"> Store name <b class="m-star">*</b> </label>
             <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
                 formControlName="storeName" [ngClass]="{ 'is-invalid': f.storeName.errors && f.storeName.touched }">
@@ -11,6 +11,16 @@
                 <div> Please enter store name </div>
             </div>
         </div>
+        <!----------- store shell only ------------->
+        <div class="form-group form-group--margin" *ngIf="isAdmin || isStaff">
+            <label class="label-inputs"> Store name Admin <b class="m-star">*</b> </label>
+            <input type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
+                formControlName="storeName" [ngClass]="{ 'is-invalid': f.storeName.errors && f.storeName.touched }">
+            <div *ngIf="f.storeName.errors && f.storeName.touched" class="error-mez">
+                <div> Please enter store name </div>
+            </div>
+        </div>
+        <!----------- store shell only end ------------->
         <div class="form-group form-group--margin">
             <label class="label-inputs"> Store address <b class="m-star">*</b> </label>
             <!-- <input type="text" class="form-control form-input" placeholder="e.g. 100 Main street, Sampletown, Qld 4000" formControlName="storeAddress" #storeAddress [ngClass]="{ 'is-invalid': storeAddressSubmit && f.storeAddress.errors }" >
@@ -35,13 +45,13 @@
                 <div> Please enter mobile number </div>
             </div>
         </div>
-        <div class="form-group form-group--margin">
-            <label class="label-inputs"> Telephone <b class="m-star">*</b> </label>
+        <!-- <div class="form-group form-group--margin">
+            <label class="label-inputs"> Telephone <b class="m-star">*</b> </label> -->
             <!-- <telephone-input></telephone-input> -->
             <!-- <div *ngIf="f.phoneNumber.errors && f.phoneNumber.touched" class="error-mez">
                 <div> Please enter mobile number </div>
             </div> -->
-        </div>
+        <!-- </div> -->
         <!-- <div class="col-md-6">
                 <div class="form-group form-group--margin">
                     <label class="label-inputs"> Type of cuisine <b class="m-star">*</b> </label>
@@ -157,7 +167,7 @@
             <input type="submit" class="btn std-button std-button--primary"
                 value="{{ add_edit_type == 'add' ? 'Save and continue' : 'Edit store' }}" style="margin-left:16px;">
             <div class="form-group" style="margin-top:10px;">
-                <button *ngIf="isAdmin && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button"
+                <button *ngIf="(isAdmin || isStaff) && this.add_edit_type == 'add'" (click)="storeAndAddAnother()" type="button"
                     class="btn std-button std-button--primary">
                     Save & add
                     another

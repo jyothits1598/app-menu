@@ -6,12 +6,12 @@
                 &nbsp;Opening hours &nbsp;<img
             src="assets/images/ico_help.png" style="cursor:pointer;" title="info"
             (click)="modalService.open(content, { centered: true });"></h3>
-            <ng-template *ngIf="!isStaff">
+            <ng-container *ngIf="!isStaff">
                 <div class="float-right" style="margin-bottom:16px;" *ngIf="!editMode; else editButtons">
                     <button (click)="toggleEdit()" type="button" class="btn std-button std-button--primary"> <img
                         src="assets/images/ico_edit_white.png">&nbsp; Edit opening hours </button>
                 </div>
-            </ng-template>
+            </ng-container>
             <ng-template #editButtons>
                 <div class="float-right" style="margin-bottom:16px;">
                     <button type="button" (click)="toggleEdit(); storeBasicDetail.openingHours = availabilityCache" class="btn std-button std-button--transparency" style="margin-left:10px;"> Cancel </button>
