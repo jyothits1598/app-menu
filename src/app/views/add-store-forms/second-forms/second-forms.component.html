@@ -16,7 +16,7 @@
             <!-- <input #itemSearch placeholder="Start typing name, location, keyword or cuisine"
                 class="form-control form-input search" /> -->
             <div class="form-group form-group--margin" *ngIf="isAdmin || isStaff">
-                <label class="label-inputs"> Store name Admin <b class="m-star">*</b> </label>
+                <label class="label-inputs"> Store name <b class="m-star">*</b> </label>
                 <input #itemSearch type="text" class="form-control form-input" placeholder="e.g. Mikes's Burgers"
                     formControlName="storeName" [ngClass]="{ 'is-invalid': f.storeName.errors && f.storeName.touched }">
                 <div *ngIf="f.storeName.errors && f.storeName.touched" class="error-mez">
